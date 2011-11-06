@@ -1,8 +1,9 @@
+
 <?php
 include 'connection.php';
 $table_name = 'songs';
 $ok = true;
-
+$user = "Anonymous";
 //=======================Upload Song to DB==========================//
 if(isset($_POST['title']) && validPost())
 {
@@ -31,8 +32,13 @@ if(isset($_POST['title']) && validPost())
 ?>
 
 <html>
-<body>
-    <a href="index.php"><b>Home</b></a>
+<body style="background-color:black; color:white;">
+    <style type="text/css">
+     a:link {color:#33FF33; text-decoration: underline; }
+     a:visited {color:33ff33; text-decoration: underline; }
+    </style>    
+    
+    <a href="index.php"><b>Home</b></a> <br />
     
     <form action="upload.php" method="post">
     YouTube URL: <input type="text" name="url" /> <br />
@@ -45,7 +51,7 @@ if(isset($_POST['title']) && validPost())
             <option value="House">House</option>
             <option value="Trance">Trance</option>
            </select> <br />
-    Uploaded By: <input type="text" name="user" value="Anonymous" /> <br />
+    Uploaded By: <input type="text" name="user" value="<?php global $user;echo $user;?>" /> <br />
     
     <input type="submit" />
     </form>
@@ -121,4 +127,3 @@ function validPost()
     return true;
 }
 ?>
-
