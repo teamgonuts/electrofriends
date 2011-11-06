@@ -24,6 +24,7 @@ class Rankings
             //hardcoding DB
             $qry = mysql_query("SELECT * FROM  `songs` 
                                 WHERE $where
+                                ORDER BY score DESC
                                 ");
                 if (!$qry)
                     die("FAIL: " . mysql_error());

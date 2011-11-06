@@ -49,16 +49,34 @@ class Song extends RankableItem
     //Code generated to go <table>HERE</table>
     function show()
     {
-        echo "<tr><td>" . 
-        "URL: " . $this->ytcode . "<br />" .
-        "Title: " . $this->title . "<br />" .
-        "Artist: " . $this->artist . "<br />" .
-        "Genre: " . $this->map($this->genre) . "<br />" .
-        "Uploaded By: " . $this->user . "<br />" .
-        "Ups: " . $this->ups . "<br />" .
-        "Downs: " . $this->downs . "<br />" .
-        "Rank: " . $this->score . "<br />" .
-        "</td></tr>";
+        echo '<tr>
+        <td>
+            <iframe title="YouTube video player" class="youtube-player" type="text/html" 
+            width="320" height="195" src="http://www.youtube.com/embed/'. $this->ytcode .'"
+            frameborder="0" allowFullScreen></iframe> <br />
+            Title: ' . $this->title . "<br />" .
+            "Artist: " . $this->artist . "<br />" .
+            "Genre: " . $this->map($this->genre) . "<br />" .
+            "Uploaded By: " . $this->user . "<br />" .
+            "Ups: " . $this->ups . "<br />" .
+            "Downs: " . $this->downs . "<br />" .
+            "Rank: " . $this->score . "<br />" .
+        '</td>
+        <td>
+        <a align="center" class="button" style="margin-top:0px; margin-bottom:0px;"> 
+                    <form action="index.php" method="post" style="text-align:center">
+                        <input type="hidden" name="vote" value=1>
+                        <input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
+                    </form>
+        </a>
+        <a align="center" class="button" style="margin-top:0px; margin-bottom:0px;"> 
+                    <form action="index.php" method="post" style="text-align:center">
+                        <input type="hidden" name="vote" value=-1>
+                        <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
+                    </form>
+        </a>
+        </td>
+        </tr>';
     }
     
 
