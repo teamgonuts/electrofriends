@@ -39,6 +39,7 @@ class Song extends RankableItem
     
     function map($in)
     {
+		$in = ucfirst($in);
         if($in == 'DnB')
             return 'Drum & Bass';
         else
@@ -77,45 +78,54 @@ class Song extends RankableItem
         </tr>';
     }
     
-        //Generates HTML to display all info and embedded youtube vid
-    //Code generated to go <table><tr>HERE</tr></table> 
-    function show()
+	//@param: $i is index in rankings
+    //Generates HTML to display all info and embedded youtube vid
+    //Code generated to go <table>HERE</table> 
+    function show($i)
     {
-        echo '
+        echo '<tr>
+		<td>
+		'	. $i . '
+		</td>
         <td>
             <iframe title="YouTube video player" class="youtube-player" type="text/html" 
             width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
             frameborder="0" allowFullScreen></iframe>
+			<br />
+			Title: ' . $this->title . '<br />
+			Artist: ' . $this->artist . '<br />
+			Genre: ' . $this->map($this->genre) .'<br />
+			Uploaded By: '.$this->user .'<br />
+			Download: <u>Amazon</u> <u>Apple</u>
         </td>
         <td>
-            Title: ' . $this->title . "<br />" .
-            "Artist: " . $this->artist ."<br />" .
-            "Genre: " . $this->map($this->genre) ."<br />" .
-            "Uploaded By: ".$this->user ."<br /><br />" .
-            '<center>'.
-                "Score: " . $this->score . " [". $this->ups ."/". $this->downs ."]<br />" .
-
-                '<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
-                    <input type="hidden" name="vote" value=1>
-                    <input type="hidden" name="ytcode" value='. $this->ytcode .'>
-                    <input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
-                </form>
-                <form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
+		</td>
+		<td><center>
+			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
+						<input type="hidden" name="vote" value=1>
+						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
+						<input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
+			</form> <br />
+			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
+			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
                     <input type="hidden" name="vote" value=-1>
                     <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
                     <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
-                </form>
-            </center>
-            </td>';
+			</form>
+			</center></td>
+		</tr>';
     }
 
+	//@param: $i is index in rankings
     //Generates HTML to display all basic info of song
     //Code generated to go <table><tr>HERE</tr></table> 
-    function showMin()
+    function showMin($i)
     {
         echo "<tr>".
+		"<td><pre>" . $i . "</pre></td>" .
         "<td>" . $this->title . " - " . $this->artist . "</td>" .
-        "<td>Score: " . $this->score . "</td>" .
+		"<td>" . $this->genre . "</td>" .
+        "<td>" . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>" .
         "</tr>";
     }
     

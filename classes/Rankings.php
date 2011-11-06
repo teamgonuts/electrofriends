@@ -13,8 +13,49 @@ class Rankings
     }
     
     //@return: returns the html code for the rankings
-    //Rankings are a table with 1 item per row
+    //Rankings are a table with 1 item per row, 1st item expanded, the rest minimized
     public function display()
+    {
+		echo '<center>';
+        //=================BEST OF TABLE=====================//
+        $i = 1;
+        echo '<table border="1" style="padding-top:0px; margin-top:0px;">';
+
+        $where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
+        //echo $where;
+        
+        //hardcoding DB
+        $qry = mysql_query("SELECT * FROM  `songs` 
+                            WHERE $where
+                            ORDER BY score DESC
+                            LIMIT 0 , 30
+                            ");
+            if (!$qry)
+                die("FAIL: " . mysql_error());
+        echo '<center>
+                    <b>The Best '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
+              </center>
+            <br />';
+        while($row = mysql_fetch_array($qry))
+        {
+            $song = new Song($row);
+			
+			if($i == 1)
+				$song->show($i);
+			else
+				$song->showMin($i);
+			
+			$i ++;
+
+        }
+        echo '</table>';
+        //====================END TABLE===================//
+		echo '</center>';
+
+    }
+	//@return: returns the html code for the rankings
+    //Rankings are a table with 1 item per row
+    public function display2()
     {
         echo'<table border="0" align="center"><tr><td  valign="top">';
         //=================BEST OF TABLE=====================//
