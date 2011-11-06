@@ -16,25 +16,69 @@ class Rankings
     //Rankings are a table with 1 item per row
     public function display()
     {
+        echo'<table border="0" align="center"><tr><td>';
+        //=================BEST OF TABLE=====================//
+        $i = 1;
         echo '<table border="1" align="center">';
 
-            $where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
-            //echo $where;
-            
-            //hardcoding DB
-            $qry = mysql_query("SELECT * FROM  `songs` 
-                                WHERE $where
-                                ORDER BY score DESC
-                                ");
-                if (!$qry)
-                    die("FAIL: " . mysql_error());
-            
-            while($row = mysql_fetch_array($qry))
-            {
-                $song = new Song($row);
-                $song->show();
-            }
-            echo '</table>';
+        $where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
+        //echo $where;
+        
+        //hardcoding DB
+        $qry = mysql_query("SELECT * FROM  `songs` 
+                            WHERE $where
+                            ORDER BY score DESC
+                            LIMIT 0 , 30
+                            ");
+            if (!$qry)
+                die("FAIL: " . mysql_error());
+        echo '<center>
+                    <b>The Best '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
+              </center>
+            <br />';
+        while($row = mysql_fetch_array($qry))
+        {
+            echo '<tr>';
+            $song = new Song($row);
+            echo '<td><pre>  '.$i.'  </pre></td>';
+            $i ++;
+            $song->show();
+            echo '</tr>';
+        }
+        echo '</table>';
+        //====================END TABLE===================//
+        echo '</td><td>';
+        
+        //================NEWEST TABLE=================//
+        $i = 1;
+        echo '<table border="1" align="center">';
+        $where = $this->genrefilter->genSQL();
+        
+        //hardcoding DB
+        $qry = mysql_query("SELECT * FROM  `songs` 
+                            WHERE $where
+                            ORDER BY uploaded_on DESC
+                            LIMIT 0 , 30
+                            ");
+            if (!$qry)
+                die("FAIL: " . mysql_error());
+        echo '<center>
+                    <b>Freshest ' . $this->genrefilter->getGenre() . '</b>
+              </center>
+              <br />';
+        while($row = mysql_fetch_array($qry))
+        {
+            echo '<tr>';
+            $song = new Song($row);
+            echo '<td><pre>  '.$i.'  </pre></td>';
+            $i ++;
+            $song->show();
+            echo '</tr>';
+        }
+        echo '</table>';
+        //====================END TABLE===================//
+
+        echo '</td></tr></table>';
     }
 }
 ?>

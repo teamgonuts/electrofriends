@@ -7,9 +7,11 @@ class DateFilter extends Filter
 	//@param daysOld: how many days can be passed to be included in filter
 	//Ex. If daysOld = 7, everything that is less than a week old is included
 	private $interval;
-
+    private $days;
+    
 	public function DateFilter($daysOld)
 	{
+        $this->days = $daysOld;
 		$this->interval = new DateInterval('P'.$daysOld.'D');
 	}
 
@@ -28,5 +30,31 @@ class DateFilter extends Filter
        
 		return "'" . $limitDate->format('Y-m-d') . "' < uploaded_on";
 	}
+    
+    function getDays()
+    {
+        $temp = $this->days;
+        switch($temp)
+        {
+            case 1:
+                return "Day";
+                break;
+            case 7:
+                return "Week";
+                break;
+            case 30:
+                return "Month";
+                break;
+            case 369:
+                return "Year";
+                break;
+            case 36500:
+                return "Century";
+                break;
+            default:
+                return "DEFAULT";
+                break;
+        }
+    }
 }
 ?>

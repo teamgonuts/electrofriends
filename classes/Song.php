@@ -46,21 +46,17 @@ class Song extends RankableItem
     }
     
     //Generates HTML to display all info and embedded youtube vid
-    //Code generated to go <table>HERE</table>
-    function show()
+    //Code generated to go <table><tr>HERE</tr></table> 
+    function showLong()
     {
         echo '<tr>
-        <td>
+        <td width="320">
             <iframe title="YouTube video player" class="youtube-player" type="text/html" 
             width="320" height="195" src="http://www.youtube.com/embed/'. $this->ytcode .'"
             frameborder="0" allowFullScreen></iframe> <br />
-            Title: ' . $this->title . "<br />" .
-            "Artist: " . $this->artist . "<br />" .
-            "Genre: " . $this->map($this->genre) . "<br />" .
-            "Uploaded By: " . $this->user . "<br />" .
-            "Ups: " . $this->ups . "<br />" .
-            "Downs: " . $this->downs . "<br />" .
-            "Score: " . $this->score . "<br />" .
+            <b>Title:</b> ' . $this->title . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Genre:</b> " . $this->map($this->genre) ."<br />" .
+            "<b>Artist:</b> " . $this->artist ."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Uploaded By: </b>".$this->user ."<br />" .
+            "<b>Score:</b> " . $this->score . " [". $this->ups ."/". $this->downs ."]<br />" .
         '</td>
         <td>
         <a align="center" class="button" style="margin-top:0px; margin-bottom:0px;"> 
@@ -81,9 +77,40 @@ class Song extends RankableItem
         </tr>';
     }
     
+        //Generates HTML to display all info and embedded youtube vid
+    //Code generated to go <table><tr>HERE</tr></table> 
+    function show()
+    {
+        echo '
+        <td>
+            <iframe title="YouTube video player" class="youtube-player" type="text/html" 
+            width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
+            frameborder="0" allowFullScreen></iframe>
+        </td>
+        <td>
+            Title: ' . $this->title . "<br />" .
+            "Artist: " . $this->artist ."<br />" .
+            "Genre: " . $this->map($this->genre) ."<br />" .
+            "Uploaded By: ".$this->user ."<br /><br />" .
+            '<center>'.
+                "Score: " . $this->score . " [". $this->ups ."/". $this->downs ."]<br />" .
+
+                '<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
+                    <input type="hidden" name="vote" value=1>
+                    <input type="hidden" name="ytcode" value='. $this->ytcode .'>
+                    <input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
+                </form>
+                <form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
+                    <input type="hidden" name="vote" value=-1>
+                    <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
+                    <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
+                </form>
+            </center>
+            </td>';
+    }
 
     //Generates HTML to display all basic info of song
-    //Code generated to go <table>HERE</table> 
+    //Code generated to go <table><tr>HERE</tr></table> 
     function showMin()
     {
         echo "<tr>".

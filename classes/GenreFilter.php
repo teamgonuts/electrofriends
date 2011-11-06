@@ -20,5 +20,16 @@ class GenreFilter extends Filter
         else
             return "genre = '" . $this->genre . "'";
 	}
+    
+    function getGenre()
+    {
+        $in = $this->genre;
+        if($in== 'all')
+            $in = 'shit';
+        if($in == 'dnb')
+            $in = 'DnB';
+    
+    return ucfirst($in);
+    }
 }
 ?>
