@@ -16,10 +16,10 @@ class Rankings
     //Rankings are a table with 1 item per row
     public function display()
     {
-        echo'<table border="0" align="center"><tr><td>';
+        echo'<table border="0" align="center"><tr><td  valign="top">';
         //=================BEST OF TABLE=====================//
         $i = 1;
-        echo '<table border="1" align="center">';
+        echo '<table border="1" style="padding-top:0px; margin-top:0px;">';
 
         $where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
         //echo $where;
@@ -47,7 +47,7 @@ class Rankings
         }
         echo '</table>';
         //====================END TABLE===================//
-        echo '</td><td>';
+        echo '</td><td valign="top">';
         
         //================NEWEST TABLE=================//
         $i = 1;
