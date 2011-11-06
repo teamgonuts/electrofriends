@@ -60,18 +60,20 @@ class Song extends RankableItem
             "Uploaded By: " . $this->user . "<br />" .
             "Ups: " . $this->ups . "<br />" .
             "Downs: " . $this->downs . "<br />" .
-            "Rank: " . $this->score . "<br />" .
+            "Score: " . $this->score . "<br />" .
         '</td>
         <td>
         <a align="center" class="button" style="margin-top:0px; margin-bottom:0px;"> 
                     <form action="index.php" method="post" style="text-align:center">
                         <input type="hidden" name="vote" value=1>
+                        <input type="hidden" name="ytcode" value='. $this->ytcode .'>
                         <input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
                     </form>
         </a>
         <a align="center" class="button" style="margin-top:0px; margin-bottom:0px;"> 
                     <form action="index.php" method="post" style="text-align:center">
                         <input type="hidden" name="vote" value=-1>
+                        <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
                         <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
                     </form>
         </a>
@@ -86,7 +88,7 @@ class Song extends RankableItem
     {
         echo "<tr>".
         "<td>" . $this->title . " - " . $this->artist . "</td>" .
-        "<td>Score - " . $this->score . "</td>" .
+        "<td>Score: " . $this->score . "</td>" .
         "</tr>";
     }
     

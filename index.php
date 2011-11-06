@@ -1,17 +1,7 @@
-<?php
+<?php //HEADER
 
-/*===========THE PLAN===========*/
 /*
-1. Grab top 50 pix based off rankNumber
-2. Write <table> html
-3. Iterate through rows:
-	-Create RankableItem classes based off data
-	-Call genHTML() of RankableItems to display in <tr><td>
-4. Write </table>
-
-On UP or DOWN Click
-1. Calculate RankableItem's new rankNumber based off new win
-2. Update DB with new rankNumber
+Calvin Hawkes 2011
 */
 
 include ("connection.php");
@@ -20,6 +10,30 @@ include ("/classes/GenreFilter.php");
 include ("/classes/Rankings.php");
 include ("/classes/Song.php");
 
+if(isset($_POST['vote']))
+{
+    $vote = $_POST['vote'];
+    $ytcode = $_POST['ytcode'];
+    $qry = mysql_query("SELECT * FROM  `songs` WHERE youtubecode='".$ytcode."'");
+    if (!$qry)
+        die("FAIL: " . mysql_error());
+    
+    //======================== UPDATING SONG'S SCORE =================//
+    $song = mysql_fetch_array($qry);
+    
+    $new_score = $song['score'] + $vote;
+    $new_ups = $song['ups'];
+    $new_downs = $song['downs'];
+    if($vote == 1)
+        $new_ups ++;
+    else
+        $new_downs ++;
+    
+    $qry = "UPDATE songs SET score=$new_score , ups=$new_ups, downs=$new_downs WHERE youtubecode='". $ytcode."'";
+			$qry = mysql_query($qry);
+			if (!$qry)
+				die("FAIL: " . mysql_error());
+}
 ?>
 
 <?php
@@ -80,6 +94,8 @@ function spitGenre($in)
 {
     if($in== 'all')
         $in = 'shit';
+    if($in == 'dnb')
+        $in = 'DnB';
     
     return ucfirst($in);
 }
