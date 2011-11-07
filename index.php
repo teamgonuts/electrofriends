@@ -31,8 +31,8 @@ $(".submit").click(function()
 			data: dataString,
 			cache: false,
 			success: function(html){
-			$("ol#update").append(html);
-			$("ol#update li:last").fadeIn("slow");
+			$("ol#update").prepend(html);
+			$("ol#update li:first").fadeIn("slow");
 			$("#flash").hide();
 			}
 		});
