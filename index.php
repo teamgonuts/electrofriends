@@ -1,11 +1,127 @@
 <html>
 <body style="background-color:black; color:white;">
+ <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" >
+$(function() {
+$(".submit").click(function() 
+{
+	var name = $("#name").val();
+	var comment = $("#comment").val();
+	var ytcode = $("#ytcode").val(); 
+	var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode;
+	if(name=='' || comment=='')
+	{
+		alert('Please Give Valid Details');
+	}
+	else
+	{
+		//Disable Button
+		$('.submit').attr("disabled", true);
+		$('.submit').css("color", "gray");
+		$('.submit').css("background-color", "lightgray");
+		$('#name').attr("disabled", true);
+		$('#name').css("color", "gray");
+		$('#name').css("background-color", "lightgray");
+		
+		$("#flash").show();
+		$("#flash").fadeIn(400).html('Loading Comment...');
+		$.ajax({
+			type: "POST",
+			url: "commentajax.php",
+			data: dataString,
+			cache: false,
+			success: function(html){
+			$("ol#update").append(html);
+			$("ol#update li:last").fadeIn("slow");
+			$("#flash").hide();
+			}
+		});
+	}return false;
+}); });
+</script>
 <style type="text/css">
+	 a:link {color:#33FF33; text-decoration: underline; }
+	 a:visited {color:33ff33; text-decoration: underline; }
+	 
+	*{margin:0;padding:0;}
+	
+	.box
+	{
+		margin:0;
+		padding:0;
+	}
+	
+	ol.timeline{list-style:none;font-size:1.2em;}
+	ol.timeline li{display:none;position:relative;}
+	ol.timeline li:first-child{}
+	
+	#flash
+	{
+		margin-left:100px;
+	}
+	
+	.commentTD
+	{
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 5px;
+		padding-right: 5px;
+		vertical-align:text-top;
+	}
+	
+	#name
+	{
+		color:#000000;
+		font-size:14px;
+		border:black solid 1px;
+		height:24px;
+		margin-top:2px;
+		margin-bottom:10px;
+		width:100px;
+		text-align:center;
+	}
+	
+	#submit
+	{
+		color:#000000;
+		margin-top:2px;
+		font-size:14px;
+		border:#black solid 1px;
+		height:24px;
+		margin-bottom:10px;
+		width:300px;
+	}
+	
+	textarea
+	{
+		color:#000000;
+		font-size:14px;
+		border:#666666 solid 2px;
+		height:50px;
+		width:500px;
+	}
 
- a:link {color:#33FF33; text-decoration: underline; }
- a:visited {color:33ff33; text-decoration: underline; }
+	.com_name
+	{
+		font-size: 12px; 
+		color: rgb(102, 51, 153); 
+		font-weight: bold;
+	}
+	
+	.com_date
+	{
+		font-size: 10px;
+		color:white;
+		font-style:italic;
+	}
+	
+	.com_text
+	{
+		font-size: 12px; 
+		color: white; 
+	}
+</style>
 
- </style>
 <?php //HEADER
 
 /*

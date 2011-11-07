@@ -78,11 +78,56 @@ class Song extends RankableItem
         </tr>';
     }
     
+	//generates html to display comments
+	function showComments()
+	{
+		$ytcode = $this->ytcode;
+		
+		$html = '<ol id="update" class="timeline">';
+		
+		//old comments
+        $qry = mysql_query("SELECT * FROM  `comments` 
+                            WHERE '$ytcode' = youtubecode
+							ORDER BY upload_date DESC
+							LIMIT 0,7
+                            ");
+		if (!$qry)
+                die("FAIL: " . mysql_error());
+		while($row = mysql_fetch_array($qry))
+		{
+			
+			$name=$row['com_user'];
+			$comment_dis=$row['com_dis'];
+			$date_t = $row['upload_date'];
+			$date = new DateTime($date_t);
+			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$name.'</span>:
+			<span class="com_text"> ' . $comment_dis . '</span>
+			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
+		}
+		
+		//comment area
+		$html .= '</ol>
+		<div id="flash"></div>
+		<div>
+			<form action="#" method="post">
+			<input type="hidden" id="ytcode" value="'.$ytcode.'"/> 
+			<textarea id="comment"></textarea><br />
+			Username: <input type="text" id="name" value="Anonymous"/>
+			<input type="submit" class="submit" id="submit" value=" Submit Comment " />
+			</form>
+		</div>';
+		
+		return $html;
+	}
+	
 	//@param: $i is index in rankings
     //Generates HTML to display all info and embedded youtube vid
     //Code generated to go <table>HERE</table> 
     function show($i)
     {
+	//TO FIGURE OUT HOW TO VOTE ONLY ONCE: http://stackoverflow.com/questions/7056827/cookie-only-vote-once
+	//http://paperkilledrock.com/2010/05/html5-localstorage-part-one/
+	//Local Storage not supported before html5...so need alternate
         echo '<tr>
 		<td>
 		'	. $i . '
@@ -98,7 +143,8 @@ class Song extends RankableItem
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u>
         </td>
-        <td>
+        <td class="commentTD">
+		'. $this->showComments() . '
 		</td>
 		<td><center>
 			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
@@ -115,7 +161,10 @@ class Song extends RankableItem
 			</center></td>
 		</tr>';
     }
+	
 
+	
+	
 	//@param: $i is index in rankings
     //Generates HTML to display all basic info of song
     //Code generated to go <table><tr>HERE</tr></table> 
