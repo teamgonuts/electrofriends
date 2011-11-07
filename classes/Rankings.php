@@ -41,7 +41,9 @@ class Rankings
             $song = new Song($row, $i);
 			
 			if($i == 1)
+			{
 				$song->show();
+			}
 			else
 				$song->showMin();
 			
