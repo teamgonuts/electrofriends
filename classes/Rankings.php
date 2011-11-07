@@ -38,12 +38,12 @@ class Rankings
             <br />';
         while($row = mysql_fetch_array($qry))
         {
-            $song = new Song($row);
+            $song = new Song($row, $i);
 			
 			if($i == 1)
-				$song->show($i);
+				$song->show();
 			else
-				$song->showMin($i);
+				$song->showMin();
 			
 			$i ++;
 
@@ -80,8 +80,7 @@ class Rankings
         while($row = mysql_fetch_array($qry))
         {
             echo '<tr>';
-            $song = new Song($row);
-            echo '<td><pre>  '.$i.'  </pre></td>';
+            $song = new Song($row, $i);
             $i ++;
             $song->show();
             echo '</tr>';

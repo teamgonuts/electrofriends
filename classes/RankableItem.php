@@ -13,7 +13,7 @@ abstract class RankableItem
     }
     
 	//Get Methods
-	abstract protected function show($i); //returns html to display
+	abstract protected function show(); //returns html to display
 	abstract protected function rankNum(); 
 	abstract protected function uploadDate();
 }

@@ -24,6 +24,11 @@
 		margin-left:100px;
 	}
 	
+	.song_min
+	{
+		
+	}
+	
 	.commentTD
 	{
 		padding-top: 5px;
