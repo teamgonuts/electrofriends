@@ -6,6 +6,7 @@ if($_POST)
 	$name=$_POST['name'];
 	$comment_dis=$_POST['comment'];
 	$ytcode=$_POST['ytcode'];
+	$i=$_POST['i'];
 	$date = new DateTime();
 	
 
@@ -15,7 +16,7 @@ if($_POST)
 }
 else { }
 ?>
-<ol id="update" class="timeline">
+<ol id="update_<?php echo $i; ?>" class="timeline">
 <li class="box">
 <span class="com_name"> <?php echo $name . ': ';?></span> 
 <span class="com_text"> <?php echo $comment_dis;?></span>

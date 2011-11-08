@@ -1,11 +1,17 @@
 $(function() {
-$(".submit").click(function() 
+$(".submit").live("click", function() 
 {
-	var name = $("#name").val();
-	var comment = $("#comment").val();
+	//Hacky Way to Get Index
+	var temp = $(this).attr("id");
+	temp = temp.split('_');
+	var i = temp[1];
+	//alert(i);
+	var name = $("#cuser_"+i).val();
+	//alert('name '+name);
+	var comment = $("#comment_"+i).val();
 
-	var ytcode = $("#ytcode").val(); 
-	var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode;
+	var ytcode = $("#ytcode_"+i).val(); 
+	var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode + '&i=' + i;
 	if(name=='' || comment=='')
 	{
 		alert('Please Give Valid Details');
@@ -13,24 +19,24 @@ $(".submit").click(function()
 	else
 	{
 		//Disable Button
-		$('.submit').attr("disabled", true);
-		$('.submit').css("color", "gray");
-		$('.submit').css("background-color", "lightgray");
-		$('#name').attr("disabled", true);
-		$('#name').css("color", "gray");
-		$('#name').css("background-color", "lightgray");
+		$('#submit_'+i).attr("disabled", true);
+		$('.submit_'+i).css("color", "gray");
+		$('.submit_'+i).css("background-color", "lightgray");
+		$('#name_'+i).attr("disabled", true);
+		$('#name_'+i).css("color", "gray");
+		$('#name_'+i).css("background-color", "lightgray");
 		
-		$("#flash").show();
-		$("#flash").fadeIn(400).html('Loading Comment...');
+
 		$.ajax({
 			type: "POST",
 			url: "commentajax.php",
 			data: dataString,
 			cache: false,
 			success: function(html){
-			$("ol#update").prepend(html);
-			$("ol#update li:first").fadeIn("slow");
-			$("#flash").hide();
+			//alert(html);
+			$("ol#update_"+i).prepend(html);
+			$("ol#update_"+i+" li:first").fadeIn("slow");
+
 			}
 		});
 	}return false;
@@ -39,8 +45,6 @@ $(".submit").click(function()
 
 $("tr").delegate("td", "click", function() //wtf why does this work...seriously
 {
-//
-	//Make only certain parts of songs clickable
 	//Hacky Way to Get Index
 	var temp = $(this).attr("id");
 	temp = temp.split('_');
@@ -59,11 +63,11 @@ $("tr").delegate("td", "click", function() //wtf why does this work...seriously
 	var id = $("#id_"+i).val(); 
 	var upload_date = $("#upload_date_"+i).val(); 
 		
-	alert('Clicked ' + i);
+	//alert('Clicked ' + i);
 	
 	if(status == "max") //if maximized
 	{
-		alert("max");
+		//alert("max");
 
 		dataString = 'user='+ user + '&ytcode=' + ytcode +
 				 '&title=' + title + '&artist=' + artist + 
@@ -84,7 +88,7 @@ $("tr").delegate("td", "click", function() //wtf why does this work...seriously
 	}
 	else
 	{
-		alert("min");
+		//alert("min");
 
 		//Maximizing New Song
 		dataString = 'user='+ user + '&ytcode=' + ytcode +

@@ -77,7 +77,7 @@ class Song extends RankableItem
 	{
 		$ytcode = $this->ytcode;
 		
-		$html = '<ol id="update" class="timeline">';
+		$html = '<ol id="update_'.$this->i.'" class="timeline">';
 		
 		//old comments
         $qry = mysql_query("SELECT * FROM  `comments` 
@@ -104,10 +104,10 @@ class Song extends RankableItem
 		<div id="flash"></div>
 		<div>
 			<form action="#" method="post">
-			<input type="hidden" id="ytcode" value="'.$ytcode.'"/> 
-			<textarea id="comment"></textarea><br />
-			Username: <input type="text" id="name" value="Anonymous"/>
-			<input type="submit" class="submit" id="submit" value=" Submit Comment " />
+			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$ytcode.'"/> 
+			<textarea id="comment_'.$this->i.'"></textarea><br />
+			Username: <input type="text" id="cuser_'.$this->i.'" value="Anonymous"/>
+			<input type="submit" class="submit" id="submit_'.$this->i.'" value=" Submit Comment " />
 			</form>
 		</div>';
 		
