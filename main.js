@@ -3,8 +3,7 @@ $(".submit").click(function()
 {
 	var name = $("#name").val();
 	var comment = $("#comment").val();
-	var max_song = $("#max_song").val();
-	alert(max_song);
+
 	var ytcode = $("#ytcode").val(); 
 	var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode;
 	if(name=='' || comment=='')
@@ -38,17 +37,76 @@ $(".submit").click(function()
 }); 
 
 
-
-$(".song_min").click(function() 
+$("tr").delegate("td", "click", function() //wtf why does this work...seriously
 {
-
-	//REALLY hacky way to get i
-	var html = $(this).html();
-	var temp = html.split('</pre>');
-	var ii = temp[0].split('<pre>');
-	var i = ii[1];
+//
+	//Make only certain parts of songs clickable
+	//Hacky Way to Get Index
+	var temp = $(this).attr("id");
+	temp = temp.split('_');
+	var i = temp[1];
+	var status = $('#status_'+i).val();
 	
-	//Song to be minimized
+	//stats
+	var user = $("#user_"+i).val();
+	var ytcode = $("#ytcode_"+i).val(); 
+	var title = $("#title_"+i).val(); 
+	var artist = $("#artist_"+i).val(); 
+	var genre = $("#genre_"+i).val(); 
+	var score = $("#score_"+i).val(); 
+	var ups = $("#ups_"+i).val(); 
+	var downs = $("#downs_"+i).val();
+	var id = $("#id_"+i).val(); 
+	var upload_date = $("#upload_date_"+i).val(); 
+		
+	alert('Clicked ' + i);
+	
+	if(status == "max") //if maximized
+	{
+		alert("max");
+
+		dataString = 'user='+ user + '&ytcode=' + ytcode +
+				 '&title=' + title + '&artist=' + artist + 
+				 '&genre=' + genre + '&score=' + score + 
+				 '&ups=' + ups + '&downs=' + downs + 
+				 '&id=' + id + '&upload_date=' + upload_date + 
+				 '&i=' + i;
+				 
+		$.ajax({
+			type: "POST",
+			url: "minSongAjax.php",
+			data: dataString,
+			cache: false,
+			success: function(html){
+			$('#'+i).fadeIn(1000).html(html);
+			}
+		});
+	}
+	else
+	{
+		alert("min");
+
+		//Maximizing New Song
+		dataString = 'user='+ user + '&ytcode=' + ytcode +
+						 '&title=' + title + '&artist=' + artist + 
+						 '&genre=' + genre + '&score=' + score + 
+						 '&ups=' + ups + '&downs=' + downs + 
+						 '&id=' + id + '&upload_date=' + upload_date + 
+						 '&i=' + i;
+						 
+		$.ajax({
+			type: "POST",
+			url: "maxSongAjax.php",
+			data: dataString,
+			cache: false,
+			success: function(html){
+			$('#'+i).fadeIn(1000).html(html);
+			}
+		});
+		
+	}
+	/*
+	//Minimizing Old Song
 	var o_ytcode = $("#ytcode_max").val();
 	var o_title = $("#title_max").val();
 	var o_artist = $("#artist_max").val();
@@ -60,20 +118,6 @@ $(".song_min").click(function()
 	var o_i = $("#i_max").val();
 	var o_user = $("#user_max").val();
 	var o_upload_date = $("#upload_date_max").val();
-
-	var user = $("#user_min"+i).val();
-	var ytcode = $("#ytcode_min"+i).val(); 
-	var title = $("#title_min"+i).val(); 
-	var artist = $("#artist_min"+i).val(); 
-	var genre = $("#genre_min"+i).val(); 
-	var score = $("#score_min"+i).val(); 
-	var ups = $("#ups_min"+i).val(); 
-	var downs = $("#downs_min"+i).val();
-	var id = $("#id_min"+i).val(); 
-	var upload_date = $("#upload_date_min+i").val(); 
-	
-	/*
-	//Minimizing Old Song
 	var dataString =   'o_title=' + o_title + '&o_artist=' + o_artist +
 					 '&o_genre=' + o_genre + '&o_score=' + o_score +
 					 '&o_ups=' + o_ups + '&o_downs=' + o_downs +
@@ -98,28 +142,6 @@ $(".song_min").click(function()
 		}
 	});
 	*/
-	//Maximizing New Song
-	dataString = 'user='+ user + '&ytcode=' + ytcode +
-				     '&title=' + title + '&artist=' + artist + 
-				     '&genre=' + genre + '&score=' + score + 
-				     '&ups=' + ups + '&downs=' + downs + 
-				     '&id=' + id + '&upload_date=' + upload_date + 
-					 '&i=' + i;
-					 
-	$("#song_load").show();
-	$("#song_load").fadeIn(400).html('<tr><td>Loading Song...</td></tr>');
-	$(this).attr("class" , "song_max"); //setting new class of tr to max
-	$.ajax({
-		type: "POST",
-		url: "maxSongAjax.php",
-		data: dataString,
-		cache: false,
-		success: function(html){
-		var temp = '#song_min' + i;
-		$(temp).fadeIn(1000).html(html);
-		$("#song_load").hide();
-		}
-	});
 	
 
 	

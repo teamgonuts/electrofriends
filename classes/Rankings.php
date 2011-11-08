@@ -35,6 +35,7 @@ class Rankings
         echo '<center>
                     <b>The Best '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
               </center>
+			<input type="hidden" id="maxid" value="1" />
             <br />';
         while($row = mysql_fetch_array($qry))
         {

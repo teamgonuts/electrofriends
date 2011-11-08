@@ -123,23 +123,23 @@ class Song extends RankableItem
 	//http://paperkilledrock.com/2010/05/html5-localstorage-part-one/
 	//Local Storage not supported before html5...so need alternate
         echo '
-
-		<tr class="song_max">
-		<input type="hidden" id="ytcode_max" value="'.$this->ytcode.'"/> 
-		<input type="hidden" id="title_max" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_max" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_max" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_max" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_max" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_max" value="'.$this->downs.'"/> 
-		<input type="hidden" id="i_max" value="'.$this->downs.'"/> 
-		<input type="hidden" id="id_max" value="'.$this->id.'"/> 
-		<input type="hidden" id="user_max" value="'.$this->user.'"/> 
-		<input type="hidden" id="upload_date_max" value="'.$this->upload_date.'"/> 
-		<td>
+		<tr class="song" id="'.$this->i.'">
+		<td class="clickable" id="td1_'.$this->i.'">
+		<input type="hidden" id="status_'.$this->i.'" value="max">
+		<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
+		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> 
 		'	. $this->i . '
 		</td>
-        <td>
+        <td class="clickable" id="td2_'.$this->i.'">
             <iframe title="YouTube video player" class="youtube-player" type="text/html" 
             width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
             frameborder="0" allowFullScreen></iframe>
@@ -153,7 +153,7 @@ class Song extends RankableItem
         <td class="commentTD">
 		'. $this->showComments() . '
 		</td>
-		<td><center>
+		<td class="score"><center>
 			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
 						<input type="hidden" name="vote" value=1>
 						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
@@ -172,25 +172,22 @@ class Song extends RankableItem
 	//same as show() except without <tr></tr> tags
 	function showGuts()
     {
-        //TO FIGURE OUT HOW TO VOTE ONLY ONCE: http://stackoverflow.com/questions/7056827/cookie-only-vote-once
-	//http://paperkilledrock.com/2010/05/html5-localstorage-part-one/
-	//Local Storage not supported before html5...so need alternate
-        echo '
-		<input type="hidden" id="ytcode_max" value="'.$this->ytcode.'"/> 
-		<input type="hidden" id="title_max" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_max" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_max" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_max" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_max" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_max" value="'.$this->downs.'"/> 
-		<input type="hidden" id="i_max" value="'.$this->downs.'"/> 
-		<input type="hidden" id="id_max" value="'.$this->id.'"/> 
-		<input type="hidden" id="user_max" value="'.$this->user.'"/> 
-		<input type="hidden" id="upload_date_max" value="'.$this->upload_date.'"/> 
-		<td>
+        echo ' <td class="clickable" id="td1_'.$this->i.'">
+		<input type="hidden" id="status_'.$this->i.'" value="max">
+		<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
+		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> 
 		'	. $this->i . '
 		</td>
-        <td>
+        <td class="clickable" id="td2_'.$this->i.'">
             <iframe title="YouTube video player" class="youtube-player" type="text/html" 
             width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
             frameborder="0" allowFullScreen></iframe>
@@ -204,7 +201,7 @@ class Song extends RankableItem
         <td class="commentTD">
 		'. $this->showComments() . '
 		</td>
-		<td><center>
+		<td class="score"><center>
 			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
 						<input type="hidden" name="vote" value=1>
 						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
@@ -216,8 +213,7 @@ class Song extends RankableItem
                     <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
                     <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
 			</form>
-			</center></td>
-		';
+			</center></td>';
     }
 	
 
@@ -230,23 +226,23 @@ class Song extends RankableItem
     {
 	
         echo '
-		<div id="song_load"></div>
-		<tr class="song_min" id="song_min'.$this->i.'">'.
-		'<input type="hidden" id="ytcode_min'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_min'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_min'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_min'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_min'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_min'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_min'.$this->i.'" value="'.$this->downs.'"/> 
-		<input type="hidden" id="user_min'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_min'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_min'.$this->i.'" value="'.$this->id.'"/> 
+		<tr class="song" id="'.$this->i.'">'.
+		'<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
+		'<input type="hidden" id="status_'.$this->i.'" value="min">'.
+		'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
 		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> '.
-		"<td><pre>" . $this->i . "</pre></td>" .
-        "<td>" . $this->title . " - " . $this->artist . "</td>" .
-		"<td>" . $this->genre . "</td>" .
-        "<td>" . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>" .
+        '<td class="clickable" id="td2_'.$this->i.'">' . $this->title . " - " . $this->artist . "</td>" .
+		'<td class="clickable" id="td3_'.$this->i.'">' . $this->genre . "</td>" .
+        '<td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>" .
         "</tr>";
     }
 	
@@ -254,22 +250,22 @@ class Song extends RankableItem
 	function showMinGuts()
     {
 	
-        echo '<td>'.
-		'<input type="hidden" id="ytcode_min'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_min'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_min'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_min'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_min'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_min'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_min'.$this->i.'" value="'.$this->downs.'"/> 
-		<input type="hidden" id="user_min'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_min'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_min'.$this->i.'" value="'.$this->id.'"/> 
+        echo '<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
+		'<input type="hidden" id="status_'.$this->i.'" value="min">'.
+		'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
 		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> '.
-		"<pre>" . $this->i . "</pre></td>" .
-        "<td>" . $this->title . " - " . $this->artist . "</td>" .
-		"<td>" . $this->genre . "</td>" .
-        "<td>" . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>" ;
+        '<td class="clickable" id="td2_'.$this->i.'">' . $this->title . " - " . $this->artist . "</td>" .
+		'<td class="clickable" id="td3_'.$this->i.'">' . $this->genre . "</td>" .
+        '<td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>";
     }
     
     function uploadDate(){
