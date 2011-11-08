@@ -20,11 +20,11 @@ $(".submit").live("click", function()
 	{
 		//Disable Button
 		$('#submit_'+i).attr("disabled", true);
-		$('.submit_'+i).css("color", "gray");
-		$('.submit_'+i).css("background-color", "lightgray");
-		$('#name_'+i).attr("disabled", true);
-		$('#name_'+i).css("color", "gray");
-		$('#name_'+i).css("background-color", "lightgray");
+		$('#submit_'+i).css("color", "gray");
+		$('#submit_'+i).css("background-color", "lightgray");
+		$('#cuser_'+i).attr("disabled", true);
+		$('#cuser_'+i).css("color", "gray");
+		$('#cuser_'+i).css("background-color", "lightgray");
 		
 
 		$.ajax({

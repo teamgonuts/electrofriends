@@ -90,11 +90,14 @@ class Song extends RankableItem
 		while($row = mysql_fetch_array($qry))
 		{
 			
-			$name=$row['com_user'];
+			$com_user=$row['com_user'];
+			$com_user=str_replace('\\','',$com_user);
+			
 			$comment_dis=$row['com_dis'];
+			$comment_dis = str_replace('\\', '', $comment_dis);
 			$date_t = $row['upload_date'];
 			$date = new DateTime($date_t);
-			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$name.'</span>:
+			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$com_user.'</span>:
 			<span class="com_text"> ' . $comment_dis . '</span>
 			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
 		}
