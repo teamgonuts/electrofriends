@@ -192,7 +192,7 @@ $genrefilter = new GenreFilter($genre);
 $rankings = new Rankings($datefilter, $genrefilter);
 $rankings->display();
 
-echo "test2";
+
 
 ?>
 
