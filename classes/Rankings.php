@@ -61,14 +61,16 @@ class Rankings
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);
-			
-			if($i == 1)
+			echo '<tr class="song" id="'.$i.'">';
+			if($i == 1) //show the first song maximized by default
 			{
-				$song->show();
+				$song->show();				
 			}
 			else
+			{
 				$song->showMin();
-			
+			}
+			echo '</tr>';
 			$i ++;
 
         }

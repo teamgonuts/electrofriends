@@ -17,7 +17,7 @@ if($_POST)
 	$upload_date = $_POST['upload_date'];
 	
 	$song_max = Song::Song_Info($title, $artist, $genre, $ytcode, $user, $score, $ups, $downs, $id, $upload_date, $i);
-	$song_max->showMinGuts();
+	$song_max->showMin();
 }
 else { die("FAIL: POST not set in maxSongAjax.php"); }
 ?>

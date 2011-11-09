@@ -126,7 +126,6 @@ class Song extends RankableItem
 	//http://paperkilledrock.com/2010/05/html5-localstorage-part-one/
 	//Local Storage not supported before html5...so need alternate
         echo '
-		<tr class="song" id="'.$this->i.'">
 		<td class="clickable" id="td1_'.$this->i.'">
 		<input type="hidden" id="status_'.$this->i.'" value="max">
 		<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
@@ -172,60 +171,8 @@ class Song extends RankableItem
                     <input type="submit" class="downvote" id="'.$this->ytcode.'" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
 			</form>
 			
-			</center></td>
-		</tr>';
-    }
-	
-	//same as show() except without <tr></tr> tags
-	function showGuts()
-    {
-        echo ' <td class="clickable" id="td1_'.$this->i.'">
-		<input type="hidden" id="status_'.$this->i.'" value="max">
-		<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
-		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
-		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> 
-		'	. $this->i . '
-		</td>
-        <td class="clickable" id="td2_'.$this->i.'">
-            <iframe title="YouTube video player" class="youtube-player" type="text/html" 
-            width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
-            frameborder="0" allowFullScreen></iframe>
-			<br />
-			Title: ' . $this->title . '<br />
-			Artist: ' . $this->artist . '<br />
-			Genre: ' . $this->map($this->genre) .'<br />
-			Uploaded By: '.$this->user .'<br />
-			Download: <u>Amazon</u> <u>Apple</u>'. /*<a href="http://www.filestube.com/search.html?q='.
-												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
-												style="color:red;"  target="_blank">Pirate</a>*/
-        '</td>
-        <td class="commentTD">
-		'. $this->showComments() . '
-		</td>
-		<td class="score"><center>
-			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
-						<input type="hidden" name="vote" value=1>
-						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
-						<input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
-			</form> <br />
-			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
-			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
-                    <input type="hidden" name="vote" value=-1>
-                    <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
-                    <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
-			</form>
 			</center></td>';
     }
-	
-
 	
 	
 	//@param: $i is index in rankings
@@ -233,32 +180,6 @@ class Song extends RankableItem
     //Code generated to go <table><tr>HERE</tr></table> 
     function showMin()
     {
-	
-        echo '
-		<tr class="song" id="'.$this->i.'">'.
-		'<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
-		'<input type="hidden" id="status_'.$this->i.'" value="min">'.
-		'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
-		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
-		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> '.
-        '<td class="clickable" id="td2_'.$this->i.'">' . $this->title . " - " . $this->artist . "</td>" .
-		'<td class="clickable" id="td3_'.$this->i.'">' . $this->genre . "</td>" .
-        '<td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>" .
-        "</tr>";
-    }
-	
-	//same as showMinGuts but inside <tr></tr>
-	function showMinGuts()
-    {
-	
         echo '<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
 		'<input type="hidden" id="status_'.$this->i.'" value="min">'.
 		'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
@@ -276,7 +197,7 @@ class Song extends RankableItem
 		'<td class="clickable" id="td3_'.$this->i.'">' . $this->genre . "</td>" .
         '<td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>";
     }
-    
+	
     function uploadDate(){
         return parent::$uploadDate;
     }
