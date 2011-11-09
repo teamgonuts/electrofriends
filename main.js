@@ -44,6 +44,7 @@ $(".submit").live("click", function()
 
 
 $("tr").delegate("td", "click", function() //wtf why does this work...seriously
+//$('#table').on('click', 'td.clickable', function() 
 {
 	//Hacky Way to Get Index
 	var temp = $(this).attr("id");

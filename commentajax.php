@@ -19,6 +19,8 @@ if($_POST)
                 die("FAIL: " . mysql_error());
 }
 else { }
+
+$comment_dis = str_replace('\\' , '', $comment_dis);
 ?>
 <ol id="update_<?php echo $i; ?>" class="timeline">
 <li class="box">

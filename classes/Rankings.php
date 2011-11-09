@@ -33,10 +33,9 @@ class Rankings
             if (!$qry)
                 die("FAIL: " . mysql_error());
         echo '<center>
-                    <b>The Best '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
+                    <b>The Top '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
               </center>
-			<input type="hidden" id="maxid" value="1" />
-            <br />';
+            ';
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);

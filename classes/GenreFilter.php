@@ -25,7 +25,7 @@ class GenreFilter extends Filter
     {
         $in = $this->genre;
         if($in== 'all')
-            $in = 'shit';
+            $in = 'tracks';
         if($in == 'dnb')
             $in = 'DnB';
     

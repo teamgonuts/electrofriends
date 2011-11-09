@@ -7,11 +7,14 @@ $user = "Anonymous";
 //=======================Upload Song to DB==========================//
 if(isset($_POST['title']) && validPost())
 {
+	
+	
     $title = $_POST['title'];
-    $artist = $_POST['artist'];
-    $genre = $_POST['genre'];
-    $url = GetYouTubeVideoId($_POST['url']);
-    $user = $_POST['user'];
+	$title = safeString($title);
+	$artist = safeString($_POST['artist']);
+    $genre = safeString($_POST['genre']);
+    $url = safeString(GetYouTubeVideoId($_POST['url']));
+    $user = safeString($_POST['user']);
     
     if($ok)
     {
@@ -48,6 +51,7 @@ if(isset($_POST['title']) && validPost())
             <option value="DnB">Drum & Bass</option>
             <option value="Dubstep">Dubstep</option>
             <option value="Electro">Electro</option>
+			<option value="House">Hardstyle</option>
             <option value="House">House</option>
             <option value="Trance">Trance</option>
            </select> <br />
@@ -92,6 +96,14 @@ function parse_url_helper($youtubeURL)
     else
         return $link;
 }
+
+function safeString($in)
+{
+	$in = strip_tags($in);
+	$in = mysql_real_escape_string($in);
+	return $in;
+}
+
 
 //checks if forms are submitted and have a length greater than 0
 function validPost()

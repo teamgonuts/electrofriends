@@ -15,6 +15,24 @@
 		padding:0;
 	}
 	
+	
+	#title
+	{
+		font-family:Impact;
+		font-size:500%;
+		color:#FFFF00;
+		text-decoration:none;
+	}
+	
+	#sub_title
+	{
+		font-family:Lucida Console;
+		font-size:small;
+		color:#00FF00;
+		margin-left:5px;
+		margin-top:-30px;
+		text-decoration:none;
+	}
 	ol.timeline{list-style:none;font-size:1.2em;}
 	ol.timeline li{display:none;position:relative;}
 	ol.timeline li:first-child{}
@@ -141,6 +159,7 @@ if (isset($_GET['genre']))
     $genre = $_GET['genre'];
 
 $html = '<center>
+<b><a href="http://t3kdev.tumblr.com">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>
 <b>Top of the:</b>
     <a href="index.php?topof=day&genre='.$genre.'">'.format("Day").'</a>
     <a href="index.php?topof=week&genre='.$genre.'">'.format("Week").'</a>
@@ -152,11 +171,13 @@ $html = '<center>
     <a href="index.php?topof='.$topof.'&genre=dnb">DnB</a>
     <a href="index.php?topof='.$topof.'&genre=dubstep">Dubstep</a>
     <a href="index.php?topof='.$topof.'&genre=electro">Electro</a>
+	<a href="index.php?topof='.$topof.'&genre=hardstyle">House</a>
     <a href="index.php?topof='.$topof.'&genre=house">House</a>
     <a href="index.php?topof='.$topof.'&genre=trance">Trance</a>
 <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a href="upload.php">Upload</a></b>
 <br />
-<br />
+<a href="index.php" style="text-decoration:none;"><span id="title">t3k.no</span><span id="sub_title">beta</span></a>
+<br /><br />
 </center>';
 
 echo $html;

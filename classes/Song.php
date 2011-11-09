@@ -91,7 +91,7 @@ class Song extends RankableItem
 		{
 			
 			$com_user=$row['com_user'];
-			$com_user=str_replace('\\','',$com_user);
+			$com_user = str_replace('\\','',$com_user);
 			
 			$comment_dis=$row['com_dis'];
 			$comment_dis = str_replace('\\', '', $comment_dis);
