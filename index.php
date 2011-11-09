@@ -116,10 +116,10 @@ Calvin Hawkes 2011
 */
 
 include ("connection.php");
-include ("/classes/DateFilter.php");
-include ("/classes/GenreFilter.php");
-include ("/classes/Rankings.php");
-include ("/classes/Song.php");
+include ("classes/DateFilter.php");
+include ("classes/GenreFilter.php");
+include ("classes/Rankings.php");
+include ("classes/Song.php");
 
 if(isset($_POST['vote']))
 {
@@ -192,7 +192,7 @@ $genrefilter = new GenreFilter($genre);
 $rankings = new Rankings($datefilter, $genrefilter);
 $rankings->display();
 
-
+echo "test2";
 
 ?>
 

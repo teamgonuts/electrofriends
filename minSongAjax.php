@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include ("/classes/Song.php");
+include ("classes/Song.php");
 
 if($_POST)
 {	

@@ -151,23 +151,27 @@ class Song extends RankableItem
 			Artist: ' . $this->artist . '<br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
-			Download: <u>Amazon</u> <u>Apple</u>
-        </td>
+			Download: <u>Amazon</u> <u>Apple</u>'. /* <a href="http://www.filestube.com/search.html?q='.
+												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
+												style="color:red;"  target="_blank">Pirate</a>*/
+        '</td>
         <td class="commentTD">
 		'. $this->showComments() . '
 		</td>
-		<td class="score"><center>
+		<td class="score"><center>'.
+			'
 			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
-						<input type="hidden" name="vote" value=1>
-						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
-						<input type="submit" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
+					<input type="hidden" name="vote" value=1>
+					<input type="hidden" name="ytcode" value='. $this->ytcode .'>
+					<input type="submit" class="upvote" id="'.$this->ytcode.'" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
 			</form> <br />
 			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
 			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
                     <input type="hidden" name="vote" value=-1>
                     <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
-                    <input type="submit" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
+                    <input type="submit" class="downvote" id="'.$this->ytcode.'" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
 			</form>
+			
 			</center></td>
 		</tr>';
     }
@@ -199,8 +203,10 @@ class Song extends RankableItem
 			Artist: ' . $this->artist . '<br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
-			Download: <u>Amazon</u> <u>Apple</u>
-        </td>
+			Download: <u>Amazon</u> <u>Apple</u>'. /*<a href="http://www.filestube.com/search.html?q='.
+												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
+												style="color:red;"  target="_blank">Pirate</a>*/
+        '</td>
         <td class="commentTD">
 		'. $this->showComments() . '
 		</td>
