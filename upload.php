@@ -51,7 +51,7 @@ if(isset($_POST['title']) && validPost())
             <option value="DnB">Drum & Bass</option>
             <option value="Dubstep">Dubstep</option>
             <option value="Electro">Electro</option>
-			<option value="House">Hardstyle</option>
+			<option value="Hardstyle">Hardstyle</option>
             <option value="House">House</option>
             <option value="Trance">Trance</option>
            </select> <br />

@@ -25,17 +25,39 @@ class Rankings
         //echo $where;
         
         //hardcoding DB
-        $qry = mysql_query("SELECT * FROM  `songs` 
+		if($this->datefilter->getDays() == 'New') //newest was selected
+		{
+			$qry = mysql_query("SELECT * FROM  `songs` 
+                            WHERE $where
+                            ORDER BY uploaded_on DESC
+                            LIMIT 0 , 30
+                            ");
+		}
+		else
+		{
+			$qry = mysql_query("SELECT * FROM  `songs` 
                             WHERE $where
                             ORDER BY score DESC
                             LIMIT 0 , 30
                             ");
+		}					
             if (!$qry)
                 die("FAIL: " . mysql_error());
-        echo '<center>
+        
+		if($this->datefilter->getDays() == 'New') 
+		{
+			echo'<center>
+                    <b>The Freshest '. $this->genrefilter->getGenre() . '</b>
+              </center>
+            ';
+		}
+		else
+		{
+		echo '<center>
                     <b>The Top '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
               </center>
             ';
+		}
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);

@@ -51,6 +51,9 @@ class DateFilter extends Filter
             case 36500:
                 return "Century";
                 break;
+			case 100000: //newest
+				return "New";
+				break;
             default:
                 return "DEFAULT";
                 break;

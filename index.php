@@ -160,6 +160,7 @@ if (isset($_GET['genre']))
 
 $html = '<center>
 <b><a href="http://t3kdev.tumblr.com">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>
+<a href="index.php?topof=new&genre='.$genre.'">Freshest</a>&nbsp;&nbsp;
 <b>Top of the:</b>
     <a href="index.php?topof=day&genre='.$genre.'">'.format("Day").'</a>
     <a href="index.php?topof=week&genre='.$genre.'">'.format("Week").'</a>
@@ -171,7 +172,7 @@ $html = '<center>
     <a href="index.php?topof='.$topof.'&genre=dnb">DnB</a>
     <a href="index.php?topof='.$topof.'&genre=dubstep">Dubstep</a>
     <a href="index.php?topof='.$topof.'&genre=electro">Electro</a>
-	<a href="index.php?topof='.$topof.'&genre=hardstyle">House</a>
+	<a href="index.php?topof='.$topof.'&genre=hardstyle">Hardstyle</a>
     <a href="index.php?topof='.$topof.'&genre=house">House</a>
     <a href="index.php?topof='.$topof.'&genre=trance">Trance</a>
 <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a href="upload.php">Upload</a></b>
@@ -252,6 +253,8 @@ function word2num($topof)
         case 'century':
             return 36500;
             break;
+		case 'new':
+			return 100000;
     }
 }
 ?>
