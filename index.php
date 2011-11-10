@@ -1,114 +1,10 @@
 <html>
-<body style="background-color:black; color:white;">
- <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="main.js"></script>
-
-<style type="text/css">
-	 a:link {color:#33FF33; text-decoration: underline; }
-	 a:visited {color:33ff33; text-decoration: underline; }
-	 
-	*{margin:0;padding:0;}
-	
-	.box
-	{
-		margin:0;
-		padding:0;
-	}
-	
-	
-	#title
-	{
-		font-family:Impact;
-		font-size:500%;
-		color:#FFFF00;
-		text-decoration:none;
-	}
-	
-	#sub_title
-	{
-		font-family:Lucida Console;
-		font-size:small;
-		color:#00FF00;
-		margin-left:5px;
-		margin-top:-30px;
-		text-decoration:none;
-	}
-	ol.timeline{list-style:none;font-size:1.2em;}
-	ol.timeline li{display:none;position:relative;}
-	ol.timeline li:first-child{}
-	
-	#flash
-	{
-		margin-left:100px;
-	}
-	
-	.song_min
-	{
-		
-	}
-	
-	.commentTD
-	{
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 5px;
-		padding-right: 5px;
-		vertical-align:text-top;
-	}
-	
-	#name
-	{
-		color:#000000;
-		font-size:14px;
-		border:black solid 1px;
-		height:24px;
-		margin-top:2px;
-		margin-bottom:10px;
-		width:100px;
-		text-align:center;
-	}
-	
-	#submit
-	{
-		color:#000000;
-		margin-top:2px;
-		font-size:14px;
-		border:#black solid 1px;
-		height:24px;
-		margin-bottom:10px;
-		width:300px;
-	}
-	
-	textarea
-	{
-		color:#000000;
-		font-size:14px;
-		border:#666666 solid 2px;
-		height:50px;
-		width:500px;
-	}
-
-	.com_name
-	{
-		font-size: 12px; 
-		color: rgb(102, 51, 153); 
-		font-weight: bold;
-	}
-	
-	.com_date
-	{
-		font-size: 10px;
-		color:white;
-		font-style:italic;
-	}
-	
-	.com_text
-	{
-		font-size: 12px; 
-		color: white; 
-	}
-</style>
-
+<head>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<LINK href="styles/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 <?php //HEADER
 
 /*
@@ -120,6 +16,7 @@ include ("classes/DateFilter.php");
 include ("classes/GenreFilter.php");
 include ("classes/Rankings.php");
 include ("classes/Song.php");
+include ("misc/functions.php");
 
 if(isset($_POST['vote']))
 {
@@ -148,40 +45,8 @@ if(isset($_POST['vote']))
 ?>
 
 <?php
-$topof = "month"; //Default
-$genre = "all"; //Default
 
-
-if (isset($_GET['topof']))
-    $topof = $_GET['topof'];
-
-if (isset($_GET['genre']))
-    $genre = $_GET['genre'];
-
-$html = '<center>
-<b><a href="http://t3kdev.tumblr.com">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>
-<a href="index.php?topof=new&genre='.$genre.'">Freshest</a>&nbsp;&nbsp;
-<b>Top of the:</b>
-    <a href="index.php?topof=day&genre='.$genre.'">'.format("Day").'</a>
-    <a href="index.php?topof=week&genre='.$genre.'">'.format("Week").'</a>
-    <a href="index.php?topof=month&genre='.$genre.'">'.format("Month").'</a>
-    <a href="index.php?topof=year&genre='.$genre.'">'.format("Year").'</a>
-    <a href="index.php?topof=century&genre='.$genre.'">'.format("Century").'</a>
-<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genre:</b>
-    <a href="index.php?topof='.$topof.'&genre=all">All</a>
-    <a href="index.php?topof='.$topof.'&genre=dnb">DnB</a>
-    <a href="index.php?topof='.$topof.'&genre=dubstep">Dubstep</a>
-    <a href="index.php?topof='.$topof.'&genre=electro">Electro</a>
-	<a href="index.php?topof='.$topof.'&genre=hardstyle">Hardstyle</a>
-    <a href="index.php?topof='.$topof.'&genre=house">House</a>
-    <a href="index.php?topof='.$topof.'&genre=trance">Trance</a>
-<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a href="upload.php">Upload</a></b>
-<br />
-<a href="index.php" style="text-decoration:none;"><span id="title">t3k.no</span><span id="sub_title">beta</span></a>
-<br /><br />
-</center>';
-
-echo $html;
+showHeader();
 
 $daysBack = word2num($topof);
 $datefilter = new DateFilter($daysBack);

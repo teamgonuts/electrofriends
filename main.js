@@ -50,7 +50,13 @@ $(function()
 {
 	$('.clickable').live('click', function()
 	{
-
+		//Figuring out where a user clicked
+		var targ;
+		if (!e) var e = window.event;
+		if (e.target) targ = e.target;
+		else if (e.srcElement) targ = e.srcElement;
+		if (targ.nodeType == 3) // defeat Safari bug
+			targ = targ.parentNode;
 
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
@@ -69,55 +75,64 @@ $(function()
 		var downs = $("#downs_"+i).val();
 		var id = $("#id_"+i).val();
 		var upload_date = $("#upload_date_"+i).val();
-
 		//alert('Clicked ' + i);
-
-		if(status == "max") //if maximized
+		if($(targ).attr("class") == "share") //share button
 		{
-			//alert("max");
-
-			dataString = 'user='+ user + '&ytcode=' + ytcode +
-			'&title=' + title + '&artist=' + artist +
-			'&genre=' + genre + '&score=' + score +
-			'&ups=' + ups + '&downs=' + downs +
-			'&id=' + id + '&upload_date=' + upload_date +
-			'&i=' + i;
-
-			$.ajax({
-				type: "POST",
-				url: "minSongAjax.php",
-				data: dataString,
-				cache: false,
-				success: function(html){
-					//alert("success");
-					$('#'+i).fadeIn(1000).html(html);
-				}
-			});
+			$(targ).hide();
+			$('#shareURL_'+i).html('<input type="text" style="width:300px;" value="http://t3kno.dewpixel.net/view.php?s='+ytcode+'"/>');
+		}
+		else if($(targ).attr("type") == "text") //if it is the url
+		{ //do nothing 
 		}
 		else
 		{
-			//alert("min");
-
-			//Maximizing New Song
-			dataString = 'user='+ user + '&ytcode=' + ytcode +
-			'&title=' + title + '&artist=' + artist +
-			'&genre=' + genre + '&score=' + score +
-			'&ups=' + ups + '&downs=' + downs +
-			'&id=' + id + '&upload_date=' + upload_date +
-			'&i=' + i;
-
-			$.ajax(
+			if(status == "max") //if maximized
 			{
-				type: "POST",
-				url: "maxSongAjax.php",
-				data: dataString,
-				cache: false,
-				success: function(html)
-				{
-					$('#'+i).fadeIn(1000).html(html);
-				}
-			});
+				//alert("max");
 
+				dataString = 'user='+ user + '&ytcode=' + ytcode +
+				'&title=' + title + '&artist=' + artist +
+				'&genre=' + genre + '&score=' + score +
+				'&ups=' + ups + '&downs=' + downs +
+				'&id=' + id + '&upload_date=' + upload_date +
+				'&i=' + i;
+
+				$.ajax({
+					type: "POST",
+					url: "minSongAjax.php",
+					data: dataString,
+					cache: false,
+					success: function(html){
+						//alert("success");
+						$('#'+i).fadeIn(1000).html(html);
+					}
+				});
+			}
+			else
+			{
+				//alert("min");
+
+				//Maximizing New Song
+				dataString = 'user='+ user + '&ytcode=' + ytcode +
+				'&title=' + title + '&artist=' + artist +
+				'&genre=' + genre + '&score=' + score +
+				'&ups=' + ups + '&downs=' + downs +
+				'&id=' + id + '&upload_date=' + upload_date +
+				'&i=' + i;
+
+				$.ajax(
+				{
+					type: "POST",
+					url: "maxSongAjax.php",
+					data: dataString,
+					cache: false,
+					success: function(html)
+					{
+						$('#'+i).fadeIn(1000).html(html);
+					}
+				});
+
+			}
 		}
 		return false;
 	});

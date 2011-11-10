@@ -72,6 +72,47 @@ class Song extends RankableItem
             return $in;
     }
     
+	//@param: $i = how many comments to show
+	function showIComments($i)
+	{
+		$ytcode = $this->ytcode;
+		$qry = mysql_query("SELECT * FROM  `comments` 
+                            WHERE '$ytcode' = youtubecode
+							ORDER BY upload_date DESC
+							LIMIT 0,$i
+                            ");
+		if (!$qry)
+                die("FAIL: " . mysql_error());
+		
+		$html = '
+		<center>
+			<div>
+				<form action="#" method="post">
+				<input type="hidden" id="ytcode_'.$this->i.'" value="'.$ytcode.'"/> 
+				<textarea id="comment_'.$this->i.'"></textarea><br />
+				Username: <input type="text" id="cuser_'.$this->i.'" value="Anonymous"/>
+				<input type="submit" class="submit" id="submit_'.$this->i.'" value=" Submit Comment " />
+				</form>
+			</div>
+		</center>';
+		$html .= '<ol id="update_'.$this->i.'" class="timeline">';
+		while($row = mysql_fetch_array($qry))
+		{
+			$com_user=$row['com_user'];
+			$com_user = str_replace('\\','',$com_user);
+			
+			$comment_dis=$row['com_dis'];
+			$comment_dis = str_replace('\\', '', $comment_dis);
+			$date_t = $row['upload_date'];
+			$date = new DateTime($date_t);
+			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$com_user.'</span>:
+			<span class="com_text"> ' . $comment_dis . '</span>
+			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
+		}
+		$html .= '</ol>';
+		echo $html;
+	}
+	
 	//generates html to display comments
 	function showComments()
 	{
@@ -117,6 +158,17 @@ class Song extends RankableItem
 		return $html;
 	}
 	
+	//returns the html to view the song for view.php
+	function showView()
+	{
+		echo
+		    $this->title . ' by ' . $this->artist . '<br />
+			Genre: ' . $this->map($this->genre) .'<br />
+			Uploaded By: '.$this->user .'<br />
+			Download: <u>Amazon</u> <u>Apple</u> <br />
+			';
+
+	}
 	//returns the voting functionality
 	function showVoting()
 	{
@@ -174,18 +226,23 @@ class Song extends RankableItem
 	//TO FIGURE OUT HOW TO VOTE ONLY ONCE: http://stackoverflow.com/questions/7056827/cookie-only-vote-once
 	//http://paperkilledrock.com/2010/05/html5-localstorage-part-one/
 	//Local Storage not supported before html5...so need alternate
-        echo '
+    
+	/* CODE TO SEARCH FILESTUBE
+	<a href="http://www.filestube.com/search.html?q='.
+												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
+												style="color:red;"  target="_blank">Pirate</a>*/
+		echo '
 		<td class="clickable" id="td1_'.$this->i.'">
-		<input type="hidden" id="status_'.$this->i.'" value="max">
-		<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
-		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> 
-		'	. $this->i . '
+			<input type="hidden" id="status_'.$this->i.'" value="max">
+			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+			<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+			<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+			<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+			<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+			<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
+			<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> 
+			'	. $this->i . '
 		</td>
         <td class="clickable" id="td2_'.$this->i.'">
             <iframe title="YouTube video player" class="youtube-player" type="text/html" 
@@ -196,12 +253,14 @@ class Song extends RankableItem
 			Artist: ' . $this->artist . '<br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
-			Download: <u>Amazon</u> <u>Apple</u>'. /* <a href="http://www.filestube.com/search.html?q='.
-												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
-												style="color:red;"  target="_blank">Pirate</a>*/
-        '</td>
+			Download: <u>Amazon</u> <u>Apple</u> <br />
+			<center>
+				<button class="share" style="width:100px;"> Share </button>
+				<span class="shareURL" id="shareURL_' .$this->i .'"></span>
+			</center>
+        </td>
         <td class="commentsTD" id="td3_'.$this->i.'">
-		'. $this->showComments() . '
+			'. $this->showComments() . '
 		</td>
 		<td class="votingTD" id="td4_'.$this->i.'">
 			'. $this->showVoting() . '
