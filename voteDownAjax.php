@@ -15,6 +15,15 @@ if($_POST)
 			$qry = mysql_query($qry);
 			if (!$qry)
 				die("FAIL: " . mysql_error());
+	
+	
+	if (isset($_SERVER['HTTP_X_FORWARD_FOR'])) //adding ip for user
+		$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
+	else 
+		$ip = $_SERVER['REMOTE_ADDR'];
+	$qry = mysql_query("INSERT INTO ipcheck (ytcode, ip) VALUES ('$ytcode', '$ip')");
+			if (!$qry)
+				die("FAIL: " . mysql_error());
 }
 else { die("FAIL: POST not set in voteUpAjax"); }
 ?>
@@ -23,10 +32,10 @@ else { die("FAIL: POST not set in voteUpAjax"); }
 <input type="hidden" id="downs_<?php echo $i; ?>" value="<?php echo $downs; ?>"/> 
 <center>
 	<form action="#" method="post">
-		<input type="submit" class="upvote" id="<?php echo $i; ?>" value=" + " style="width:30px;" />
+		<input type="submit" disabled="true" class="upvote" id="<?php echo $i; ?>" value=" + " style="width:30px;" />
 	</form>
 	<?php echo $score . '[' . $ups . '/' . $downs . '] <br />';?>
 	<form action="#" method="post">
-		<input type="submit" class="downvote" id="<?php echo $i; ?>" value=" - " style="width:30px;" />
+		<input type="submit" disabled="true" class="downvote" id="<?php echo $i; ?>" value=" - " style="width:30px;" />
 	</form>
 </center>

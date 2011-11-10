@@ -120,17 +120,31 @@ class Song extends RankableItem
 	//returns the voting functionality
 	function showVoting()
 	{
+		//check the users ip to see if he's voted
+		$ytcode = $this->ytcode;
+		$disabled = '';
+		if (isset($_SERVER['HTTP_X_FORWARD_FOR'])) 
+			$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
+		else 
+			$ip = $_SERVER['REMOTE_ADDR'];
+			
+		$qry = mysql_query("SELECT * FROM  `ipcheck` 
+                            WHERE '$ytcode' = ytcode AND '$ip' = ip");
+							
+		if(mysql_num_rows($qry) > 0) //he voted already
+			$disabled = 'disabled="true"';
+
 		return '
 		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
 		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
 		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
 		<center>
 			<form action="#" method="post">
-				<input type="submit" class="upvote" id="'.$this->i.'" value=" + " style="width:30px;" />
+				<input type="submit" '.$disabled.' class="upvote" id="'.$this->i.'" value=" + " style="width:30px;" />
 			</form>
 			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
 			<form action="#" method="post">
-				<input type="submit" class="downvote" id="'.$this->i.'" value=" - " style="width:30px;" />
+				<input type="submit" '.$disabled.' class="downvote" id="'.$this->i.'" value=" - " style="width:30px;" />
 			</form>
 		</center>
 		';
