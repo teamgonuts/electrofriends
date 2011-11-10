@@ -5,6 +5,7 @@ include ("classes/Song.php");
 if($_POST)
 {	
 	$title = $_POST['title'];
+	$title = str_replace('\\','',$title);
 	$artist = $_POST['artist'];
 	$genre = $_POST['genre'];
 	$ytcode = $_POST['ytcode'];

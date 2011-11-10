@@ -23,11 +23,11 @@ class Song extends RankableItem
         parent::RankableItem($this->id, $this->upload_date);
         
 		$this->i = $i;
-        $this->title = $row['title'];
-        $this->artist = $row['artist'];
+        $this->title = str_replace('\\','',$row['title']);
+        $this->artist = str_replace('\\','',$row['artist']);
         $this->genre = $row['genre'];
-        $this->ytcode = $row['youtubecode'];
-        $this->user = $row['user'];
+        $this->ytcode = str_replace('\\','',$row['youtubecode']);
+        $this->user = str_replace('\\','',$row['user']);
         $this->ups = $row['ups'];
         $this->downs = $row['downs'];
         $this->score = $row['score'];

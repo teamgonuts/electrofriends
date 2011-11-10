@@ -15,7 +15,7 @@ if(isset($_POST['title']) && validPost())
     $genre = safeString($_POST['genre']);
     $url = safeString(GetYouTubeVideoId($_POST['url']));
     $user = safeString($_POST['user']);
-    
+    //What happens if I insert the same song twice
     if($ok)
     {
         $qry = mysql_query("INSERT INTO $table_name (title, artist, 

@@ -189,7 +189,7 @@ $(function()
 			},
 			error:function(xhr, ajaxOptions, thrownError)
 			{
-				//alert("Ajax fail");
+				alert("Ajax fail: \n" + xhr.statusText);
 			}
 		});
 		return false;
