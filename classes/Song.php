@@ -117,7 +117,42 @@ class Song extends RankableItem
 		return $html;
 	}
 	
-	//@param: $i is index in rankings
+	//returns the voting functionality
+	function showVoting()
+	{
+		return '
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<center>
+			<form action="#" method="post">
+				<input type="submit" class="upvote" id="'.$this->i.'" value=" + " style="width:30px;" />
+			</form>
+			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
+			<form action="#" method="post">
+				<input type="submit" class="downvote" id="'.$this->i.'" value=" - " style="width:30px;" />
+			</form>
+		</center>
+		';
+		/*OLD VOTING
+		return '
+			<center>
+				<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
+						<input type="hidden" name="vote" value=1>
+						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
+						<input type="submit" class="upvote" id="'.$this->ytcode.'" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
+				</form> <br />
+				' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
+				<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
+						<input type="hidden" name="vote" value=-1>
+						<input type="hidden" name="ytcode" value="'. $this->ytcode .'">
+						<input type="submit" class="downvote" id="'.$this->ytcode.'" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
+				</form>
+			</center>
+			';
+		*/
+	}
+	
     //Generates HTML to display all info and embedded youtube vid
     //Code generated to go <table>HERE</table> 
     function show()
@@ -132,9 +167,6 @@ class Song extends RankableItem
 		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
 		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
 		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
 		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
 		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
 		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
@@ -154,24 +186,12 @@ class Song extends RankableItem
 												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
 												style="color:red;"  target="_blank">Pirate</a>*/
         '</td>
-        <td class="commentTD">
+        <td class="commentsTD" id="td3_'.$this->i.'">
 		'. $this->showComments() . '
 		</td>
-		<td class="score"><center>'.
-			'
-			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
-					<input type="hidden" name="vote" value=1>
-					<input type="hidden" name="ytcode" value='. $this->ytcode .'>
-					<input type="submit" class="upvote" id="'.$this->ytcode.'" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
-			</form> <br />
-			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
-			<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
-                    <input type="hidden" name="vote" value=-1>
-                    <input type="hidden" name="ytcode" value="'. $this->ytcode .'">
-                    <input type="submit" class="downvote" id="'.$this->ytcode.'" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
-			</form>
-			
-			</center></td>';
+		<td class="votingTD" id="td4_'.$this->i.'">
+			'. $this->showVoting() . '
+		</td>';
     }
 	
 	

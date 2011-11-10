@@ -12,7 +12,6 @@ if($_POST)
 	$ytcode=$_POST['ytcode'];
 	$i=$_POST['i'];
 	$date = new DateTime();
-	
 
 	$qry = mysql_query("insert into comments(com_user,com_dis,youtubecode, upload_date) values ('$comment_user','$comment_dis','$ytcode', NOW())");
 	if (!$qry)

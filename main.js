@@ -122,3 +122,76 @@ $(function()
 		return false;
 	});
 });
+
+$(function()
+{
+	$('.upvote').live('click', function()
+	{
+		var i = $(this).attr("id");
+		//alert('i = ' + i);
+		
+		var ytcode = $("#ytcode_"+i).val();
+		var score = $("#score_"+i).val();
+		//alert('score = ' + score);
+		var ups = $("#ups_"+i).val();
+		var downs = $("#downs_"+i).val();
+		//alert(ytcode);
+		dataString = 'ytcode='+ytcode + '&score='+score+
+						'&ups='+ups + '&downs='+downs+
+						'&i='+i;
+		//alert('dataString='+dataString);
+		$.ajax({
+			type: "POST",
+			url: "voteUpAjax.php",
+			data: dataString,
+			cache: false,
+			success: function(html)
+			{
+				//alert('success');
+				$('#td4_'+i).html(html).fadeIn(1000);				
+			},
+			error:function(xhr, ajaxOptions, thrownError)
+			{
+				alert("Ajax fail");
+			}
+		});
+		return false;
+	});
+});
+
+
+$(function()
+{
+	$('.downvote').live('click', function()
+	{
+		var i = $(this).attr("id");
+		//alert('i = ' + i);
+		
+		var ytcode = $("#ytcode_"+i).val();
+		var score = $("#score_"+i).val();
+		//alert('score = ' + score);
+		var ups = $("#ups_"+i).val();
+		var downs = $("#downs_"+i).val();
+		//alert(ytcode);
+		dataString = 'ytcode='+ytcode + '&score='+score+
+						'&ups='+ups + '&downs='+downs+
+						'&i='+i;
+		//alert('dataString='+dataString);
+		$.ajax({
+			type: "POST",
+			url: "voteDownAjax.php",
+			data: dataString,
+			cache: false,
+			success: function(html)
+			{
+				//alert('success');
+				$('#td4_'+i).fadeIn(1000).html(html);				
+			},
+			error:function(xhr, ajaxOptions, thrownError)
+			{
+				//alert("Ajax fail");
+			}
+		});
+		return false;
+	});
+});
