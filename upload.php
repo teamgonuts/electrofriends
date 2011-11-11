@@ -57,7 +57,7 @@ if(isset($_POST['title']) && validPost())
            </select> <br />
     Uploaded By: <input type="text" name="user" value="<?php global $user;echo $user;?>" /> <br />
     
-    <input type="submit" />
+    <input type="submit" value="Upload Song" />
     </form>
 
 </body>

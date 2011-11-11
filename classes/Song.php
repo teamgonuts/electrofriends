@@ -274,18 +274,18 @@ class Song extends RankableItem
     function showMin()
     {
         echo '<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
-		'<input type="hidden" id="status_'.$this->i.'" value="min">'.
-		'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
-		<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
-		<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
-		<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
-		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
-		<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
-		<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
-		<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
-		<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> '.
+			'<input type="hidden" id="status_'.$this->i.'" value="min">'.
+			'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+			<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
+			<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
+			<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+			<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+			<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+			<input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/> 
+			<input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/> 
+			<input type="hidden" id="id_'.$this->i.'" value="'.$this->id.'"/> 
+			<input type="hidden" id="upload_date_min'.$this->i.'" value="'.$this->upload_date.'"/> '.
         '<td class="clickable" id="td2_'.$this->i.'">' . $this->title . " - " . $this->artist . "</td>" .
 		'<td class="clickable" id="td3_'.$this->i.'">' . $this->genre . "</td>" .
         '<td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" ."</td>";

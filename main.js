@@ -1,6 +1,7 @@
 $(function() {
 
-	$(".submit").live("click", function()
+	//$(".submit").live("click", function()
+	$(document).on('click', '.submit', function(e)
 	{
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
@@ -43,21 +44,27 @@ $(function() {
 		}
 		return false;
 	});
+	return false;
 });
 
 
 $(function()
 {
-	$('.clickable').live('click', function()
+	$(document).on('click', '.clickable', function(e)
 	{
+		//alert('click');
 		//Figuring out where a user clicked
 		var targ;
-		if (!e) var e = window.event;
-		if (e.target) targ = e.target;
-		else if (e.srcElement) targ = e.srcElement;
+		if (!e) 
+			e = window.event;
+		if (e.target) 
+			targ = e.target;
+		else if (e.srcElement) 
+			targ = e.srcElement;
 		if (targ.nodeType == 3) // defeat Safari bug
 			targ = targ.parentNode;
-
+			
+		//alert('after');
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
 		temp = temp.split('_');
@@ -75,9 +82,9 @@ $(function()
 		var downs = $("#downs_"+i).val();
 		var id = $("#id_"+i).val();
 		var upload_date = $("#upload_date_"+i).val();
-		//alert('Clicked ' + i);
 		if($(targ).attr("class") == "share") //share button
 		{
+			//alert("share");
 			$(targ).hide();
 			$('#shareURL_'+i).html('<input type="text" style="width:300px;" value="http://t3kno.dewpixel.net/view.php?s='+ytcode+'"/>');
 		}
@@ -90,7 +97,7 @@ $(function()
 			{
 				//alert("max");
 
-				dataString = 'user='+ user + '&ytcode=' + ytcode +
+				var dataString = 'user='+ user + '&ytcode=' + ytcode +
 				'&title=' + title + '&artist=' + artist +
 				'&genre=' + genre + '&score=' + score +
 				'&ups=' + ups + '&downs=' + downs +
@@ -113,7 +120,7 @@ $(function()
 				//alert("min");
 
 				//Maximizing New Song
-				dataString = 'user='+ user + '&ytcode=' + ytcode +
+				var dataString = 'user='+ user + '&ytcode=' + ytcode +
 				'&title=' + title + '&artist=' + artist +
 				'&genre=' + genre + '&score=' + score +
 				'&ups=' + ups + '&downs=' + downs +
@@ -140,7 +147,8 @@ $(function()
 
 $(function()
 {
-	$('.upvote').live('click', function()
+	//$('.upvote').live('click', function()
+	$(document).on('click', '.upvote', function(e)
 	{
 		var i = $(this).attr("id");
 		//alert('i = ' + i);
@@ -151,7 +159,7 @@ $(function()
 		var ups = $("#ups_"+i).val();
 		var downs = $("#downs_"+i).val();
 		//alert(ytcode);
-		dataString = 'ytcode='+ytcode + '&score='+score+
+		var dataString = 'ytcode='+ytcode + '&score='+score+
 						'&ups='+ups + '&downs='+downs+
 						'&i='+i;
 		//alert('dataString='+dataString);
@@ -172,12 +180,14 @@ $(function()
 		});
 		return false;
 	});
+	return false;
 });
 
 
 $(function()
 {
-	$('.downvote').live('click', function()
+	//$('.downvote').live('click', function()
+	$(document).on('click', '.downvote', function(e)
 	{
 		var i = $(this).attr("id");
 		//alert('i = ' + i);
@@ -188,7 +198,7 @@ $(function()
 		var ups = $("#ups_"+i).val();
 		var downs = $("#downs_"+i).val();
 		//alert(ytcode);
-		dataString = 'ytcode='+ytcode + '&score='+score+
+		var dataString = 'ytcode='+ytcode + '&score='+score+
 						'&ups='+ups + '&downs='+downs+
 						'&i='+i;
 		//alert('dataString='+dataString);
@@ -209,4 +219,5 @@ $(function()
 		});
 		return false;
 	});
+	return false;
 });
