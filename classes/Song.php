@@ -117,14 +117,20 @@ class Song extends RankableItem
 	function showComments()
 	{
 		$ytcode = $this->ytcode;
+		$where = "'". $ytcode ."' = youtubecode";
 		
-		$html = '<ol id="update_'.$this->i.'" class="timeline">';
+		$commentsShown = 7;
+		$upperLimit = $commentsShown;
+		$html = '<input type="hidden" id="whereCom" value="'.$where .'">
+			  <input type="hidden" id="commentsShown" value="'.$commentsShown .'">
+			  <input type="hidden" id="upperLimitCom" value="'.$upperLimit .'">';
+		$html .= '<ol id="update_'.$this->i.'" class="timeline">';
 		
 		//old comments
         $qry = mysql_query("SELECT * FROM  `comments` 
-                            WHERE '$ytcode' = youtubecode
+                            WHERE $where
 							ORDER BY upload_date DESC
-							LIMIT 0,7
+							LIMIT 0,$upperLimit
                             ");
 		if (!$qry)
                 die("FAIL: " . mysql_error());
@@ -144,9 +150,17 @@ class Song extends RankableItem
 		}
 		
 		//comment area
-		$html .= '</ol>
-		<div id="flash"></div>
-		<div>
+		$html .= '</ol>';
+		if (mysql_num_rows($qry) == $upperLimit) //see if there are more comments to be displayed
+		{
+			$html .= '
+			<center>
+				<span class="showMoreComments" id="showMoreComments_'.$this->i .'" style="text-align:center; font-size:75%; font-weight:bold;"> 
+					Show More 
+				</span>
+			</center>';
+		}
+		$html .= '<div>
 			<form action="#" method="post">
 			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$ytcode.'"/> 
 			<textarea id="comment_'.$this->i.'"></textarea><br />

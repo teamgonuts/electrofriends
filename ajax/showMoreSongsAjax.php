@@ -4,7 +4,7 @@ include ("../classes/Song.php");
 
 if($_POST)
 {	
-	$where = $_POST['where'];
+	$where = str_replace('\\','',$_POST['where']);
 	$songsPerPage = $_POST['songsPerPage'];
 	$upperLimit = $_POST['upperLimit'];
 	

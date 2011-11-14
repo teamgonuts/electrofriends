@@ -265,3 +265,47 @@ function showMoreSongs()
 
 	$('#upperLimit').val(upperLimit + songsPerPage);
 }
+
+$(document).on('click', '.showMoreComments', showMoreComments);
+function showMoreComments()
+{
+	var temp = $(this).attr("id");
+	temp = temp.split('_');
+	var i = temp[1];
+
+	var where = $('#whereCom').val();
+	var upperLimit = parseInt($('#upperLimitCom').val());
+	var commentsShown = parseInt($('#commentsShown').val());
+
+	var dataString = 'where='+ where + '&upperLimit='+upperLimit+
+	'&commentsShown='+commentsShown;
+    
+	$.ajax({
+		type: "POST",
+		url: "ajax/showMoreCommentsAjax.php",
+		data: dataString,
+		cache: false,
+		success: function(html)
+		{
+			if(html.length > 0) //rows are returned
+				$("ol#update_"+i).append(html);
+			else //no rows are returned, disable buttons
+			{
+				$('.showMoreComments').hide();
+			}
+			
+			var commentsAdded = $('ol#update_'+i+' li').size() - upperLimit;
+			if(commentsAdded < commentsShown) //if there are no new comments to qry in the database
+			{
+				$('.showMoreComments').hide();
+			}
+				
+		},
+		error:function(xhr, ajaxOptions, thrownError)
+		{
+			alert("Ajax fail: \n" + xhr.statusText);
+		}
+	});
+	
+	$('#upperLimitCom').val(upperLimit + commentsShown);
+}
