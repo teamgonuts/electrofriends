@@ -10,6 +10,9 @@ showHeader();
 <head>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="main.js"></script>
+	<script src="//platform.twitter.com/widgets.js" type="text/javascript">
+	//how to dynamically load http://www.ovaistariq.net/447/how-to-dynamically-create-twitters-tweet-button-and-facebooks-like-button/
+	</script>
 	<LINK href="styles/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>

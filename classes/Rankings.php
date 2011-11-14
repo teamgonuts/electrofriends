@@ -74,7 +74,8 @@ class Rankings
 			$i ++;
 
         }
-        echo '</table>';
+        echo '</table>
+			Show More...';
         //====================END TABLE===================//
 		echo '</center>';
 

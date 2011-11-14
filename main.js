@@ -135,10 +135,15 @@ $(function()
 					cache: false,
 					success: function(html)
 					{
-						$('#'+i).fadeIn(1000).html(html);
+						$('#'+i).html(html);
 					}
 				});
-
+				$('#'+i).ajaxComplete(function(){
+					$('#' + i).find('a.twitter-share-button').each(function() {
+						//reloads script
+						 $.getScript('http://platform.twitter.com/widgets.js');
+					});
+				});
 			}
 		}
 		return false;
