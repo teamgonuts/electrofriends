@@ -201,23 +201,6 @@ class Song extends RankableItem
 			</form>
 		</center>
 		';
-		/*OLD VOTING
-		return '
-			<center>
-				<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline; ">
-						<input type="hidden" name="vote" value=1>
-						<input type="hidden" name="ytcode" value='. $this->ytcode .'>
-						<input type="submit" class="upvote" id="'.$this->ytcode.'" name="upvote" value="+" style="width:30px; font-size:20px text-align:center;" /> 
-				</form> <br />
-				' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
-				<form action="index.php" method="post" style="text-align:center; margin-top:0px; margin-bottom:0px; display: inline;">
-						<input type="hidden" name="vote" value=-1>
-						<input type="hidden" name="ytcode" value="'. $this->ytcode .'">
-						<input type="submit" class="downvote" id="'.$this->ytcode.'" name="downvote" value="-" style="width:30px; font-size:20px text-align:center;" /> 
-				</form>
-			</center>
-			';
-		*/
 	}
 	
     //Generates HTML to display all info and embedded youtube vid

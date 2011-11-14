@@ -139,10 +139,8 @@ $(function()
 					}
 				});
 				$('#'+i).ajaxComplete(function(){
-					$('#' + i).find('a.twitter-share-button').each(function() {
 						//reloads script
 						 $.getScript('http://platform.twitter.com/widgets.js');
-					});
 				});
 			}
 		}
@@ -226,3 +224,39 @@ $(function()
 	});
 	return false;
 });
+
+//attempt at good coding
+$(document).on('click', '.showMore', addRow);
+
+function addRow()
+{
+	var where = $('#where').val();
+	var upperLimit = $('#upperLimit').val();
+	var songsPerPage = $('#songsPerPage').val();
+
+	var dataString = 'where='+ where + '&upperLimit='+upperLimit+
+						'&songsPerPage='+songsPerPage;
+    $.ajax({
+		type: "POST",
+		url: "ajax/showMoreSongsAjax.php",
+		data: dataString,
+		cache: false,
+		success: function(html)
+		{
+			if(html.length > 0) //rows are returned
+				$('.rankings').append(html);
+			else
+			{
+				$('.showMore').html("No More");
+				$('.showMore').attr("disabled", true);
+			}
+				
+		},
+		error:function(xhr, ajaxOptions, thrownError)
+		{
+			alert("Ajax fail: \n" + xhr.statusText);
+		}
+	});
+	
+	$('#upperLimit').val(upperLimit + songsPerPage);
+}
