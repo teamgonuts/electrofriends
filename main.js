@@ -31,7 +31,7 @@ $(function() {
 
 			$.ajax({
 			type: "POST",
-			url: "commentajax.php",
+			url: "ajax/commentajax.php",
 			data: dataString,
 			cache: false,
 			success: function(html){
@@ -106,7 +106,7 @@ $(function()
 
 				$.ajax({
 					type: "POST",
-					url: "minSongAjax.php",
+					url: "ajax/minSongAjax.php",
 					data: dataString,
 					cache: false,
 					success: function(html){
@@ -130,7 +130,7 @@ $(function()
 				$.ajax(
 				{
 					type: "POST",
-					url: "maxSongAjax.php",
+					url: "ajax/maxSongAjax.php",
 					data: dataString,
 					cache: false,
 					success: function(html)
@@ -168,7 +168,7 @@ $(function()
 		//alert('dataString='+dataString);
 		$.ajax({
 			type: "POST",
-			url: "voteUpAjax.php",
+			url: "ajax/voteUpAjax.php",
 			data: dataString,
 			cache: false,
 			success: function(html)
@@ -207,7 +207,7 @@ $(function()
 		//alert('dataString='+dataString);
 		$.ajax({
 			type: "POST",
-			url: "voteDownAjax.php",
+			url: "ajax/voteDownAjax.php",
 			data: dataString,
 			cache: false,
 			success: function(html)
@@ -226,13 +226,13 @@ $(function()
 });
 
 //attempt at good coding
-$(document).on('click', '.showMore', addRow);
+$(document).on('click', '.showMore', showMoreSongs);
 
-function addRow()
+function showMoreSongs()
 {
 	var where = $('#where').val();
-	var upperLimit = $('#upperLimit').val();
-	var songsPerPage = $('#songsPerPage').val();
+	var upperLimit = parseInt($('#upperLimit').val());
+	var songsPerPage = parseInt($('#songsPerPage').val());
 
 	var dataString = 'where='+ where + '&upperLimit='+upperLimit+
 						'&songsPerPage='+songsPerPage;
@@ -245,10 +245,15 @@ function addRow()
 		{
 			if(html.length > 0) //rows are returned
 				$('.rankings').append(html);
-			else
+			else //no rows are returned, disable buttons
 			{
-				$('.showMore').html("No More");
-				$('.showMore').attr("disabled", true);
+				$('.showMore').hide();
+			}
+			
+			var songsAdded = $('.song').size() - upperLimit;
+			if(songsAdded < songsPerPage) //if we added less than the amount of songs possible to add aka all the songs are shown
+			{
+				$('.showMore').hide();
 			}
 				
 		},
@@ -257,6 +262,6 @@ function addRow()
 			alert("Ajax fail: \n" + xhr.statusText);
 		}
 	});
-	
+
 	$('#upperLimit').val(upperLimit + songsPerPage);
 }

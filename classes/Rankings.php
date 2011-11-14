@@ -19,7 +19,7 @@ class Rankings
 		echo '<center>';
         //=================BEST OF TABLE=====================//
         $i = 1;
-		$songsPerPage = 30; //default
+		$songsPerPage = 25; //default
 		$upperLimit = $songsPerPage;
         echo '<table border="1" style="padding-top:0px; margin-top:0px;" class="rankings">';
 		$where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();

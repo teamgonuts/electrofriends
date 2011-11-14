@@ -13,6 +13,7 @@ if($_POST)
 	$lowerLimit = $upperLimit;
 	$upperLimit = $upperLimit + $songsPerPage;
 	
+	
 	if(strpos($where, 'New') != false) //newest was selected
 	{
 		$qry = mysql_query("SELECT * FROM  `songs` 
@@ -33,11 +34,11 @@ if($_POST)
 		die("FAIL: " . mysql_error());
 
 	
-	while($row = mysql_fetch_array($qry))
+	while($row = mysql_fetch_array($qry) AND $i <= $upperLimit)
 	{
 		$song = new Song($row, $i);
 		echo '<tr class="song" id="'.$i.'">';
-			$song->showMin();
+		$song->showMin();
 		echo '</tr>';
 		$i ++;
 	}
