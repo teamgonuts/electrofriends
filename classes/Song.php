@@ -161,10 +161,9 @@ class Song extends RankableItem
 	//returns the html to view the song for view.php
 	function showView()
 	{
-		echo'
-			<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
-			class="twitter-share-button" style="float:right;">Tweet</a>
-		    '. $this->title . ' by ' . $this->artist . '<br />
+		echo '<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
+			class="twitter-share-button" style="float:right;">Tweet</a> <br />' .
+		    $this->title . ' by ' . $this->artist . '<br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />
