@@ -26,7 +26,12 @@ if(isset($_POST['title']) && validPost())
                                     '$user', NOW())");
         if(!$qry)
         {
-           die('Error: ' . mysql_error() . '<br />');
+			$error = mysql_error();
+
+			if(strpos($error, 'Duplicate entry') == 0) //if it is a dupe entry
+				echo 'Upload Failed: Song Already Submitted <br />';
+			else
+				die('Error: ' . $error . '<br />');
         }
 	}
     else
