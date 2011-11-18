@@ -58,6 +58,7 @@ class Rankings
 		}
 		else
 		{
+
 		echo '<center>
                     <b>The Top '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
               </center>
@@ -69,7 +70,7 @@ class Rankings
 			echo '<tr class="song" id="'.$i.'">';
 			if($i == 1) //show the first song maximized by default
 			{
-				$song->show();				
+				$song->show();
 			}
 			else
 			{
@@ -79,9 +80,10 @@ class Rankings
 			$i ++;
 
         }
-        echo '</table>
-			<button class="showMore" style="margin:10;"> Show More </Button>';
         //====================END TABLE===================//
+        echo '</table>';
+	    if (count($qry) >  $songsPerPage)
+            echo '<button class="showMore" style="margin:10;"> Show More </Button>';
 		echo '</center>';
 
     }
