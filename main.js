@@ -7,6 +7,7 @@ $(function() {
 		var temp = $(this).attr("id");
 		temp = temp.split('_');
 		var i = temp[1];
+
 		//alert(i);
 		var name = $("#cuser_"+i).val();
 		//alert('name '+name);
@@ -231,11 +232,12 @@ $(document).on('click', '.showMore', showMoreSongs);
 function showMoreSongs()
 {
 	var where = $('#where').val();
+    var topOf = $('#topOf').val();
 	var upperLimit = parseInt($('#upperLimit').val());
 	var songsPerPage = parseInt($('#songsPerPage').val());
 
 	var dataString = 'where='+ where + '&upperLimit='+upperLimit+
-						'&songsPerPage='+songsPerPage;
+						'&songsPerPage='+songsPerPage + "&topOf="+topOf;
     $.ajax({
 		type: "POST",
 		url: "ajax/showMoreSongsAjax.php",
@@ -287,13 +289,15 @@ function showMoreComments()
 		cache: false,
 		success: function(html)
 		{
+
+
 			if(html.length > 0) //rows are returned
 				$("ol#update_"+i).append(html);
 			else //no rows are returned, disable buttons
 			{
 				$('.showMoreComments').hide();
 			}
-			
+
 			var commentsAdded = $('ol#update_'+i+' li').size() - upperLimit;
 			if(commentsAdded < commentsShown) //if there are no new comments to qry in the database
 			{
@@ -308,4 +312,55 @@ function showMoreComments()
 	});
 	
 	$('#upperLimitCom').val(upperLimit + commentsShown);
+}
+
+//generates the upload_box to upload song
+$(document).on('click', '.uploadlink', quickUpload);
+function quickUpload()
+{
+
+    $.ajax({
+		url: "upload.php",
+		success: function(html)
+		{
+            $("#upload_box").addClass("upload_box");
+            $("#upload_box").html(html);
+		},
+		error:function(xhr, ajaxOptions, thrownError)
+		{
+			alert("Ajax fail: \n" + xhr.statusText);
+		}
+	});
+}
+
+//clicking the upload song button in upload_box
+$(document).on('click', '#upload_song', uploadSong);
+function uploadSong()
+{
+    var title = $('#upload_title').val();
+    var artist = $('#upload_artist').val();
+    var yturl = $('#upload_yturl').val();
+    var user = $('#upload_user').val();
+    var genre = $('#upload_genre').val();
+
+    var dataString = 'title='+title+'&artist='+artist+
+                     '&yturl='+yturl+'&user='+user+
+                     '&genre='+genre;
+	$.ajax({
+		type: "POST",
+		url: "ajax/uploadajax.php",
+		data: dataString,
+		cache: false,
+		success: function(html)
+		{
+
+			$("#upload_box").html(html);
+            $("#upload_box").removeClass("upload_box");
+            $("#upload_box").addClass("upload_box_success");
+		},
+		error:function(xhr, ajaxOptions, thrownError)
+		{
+			alert("Ajax fail: \n" + xhr.statusText);
+		}
+	});
 }
