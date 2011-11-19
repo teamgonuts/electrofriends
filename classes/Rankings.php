@@ -23,14 +23,16 @@ class Rankings
 		$upperLimit = $songsPerPage;
         echo '<table border="1" style="padding-top:0px; margin-top:0px;" class="rankings">';
 		$where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
+        $topOf = $this->datefilter->getDays();
 		echo '<input type="hidden" id="where" value="'.$where .'">
+			  <input type="hidden" id="topOf" value="'.$topOf .'">
 			  <input type="hidden" id="songsPerPage" value="'.$songsPerPage .'">
 			  <input type="hidden" id="upperLimit" value="'.$upperLimit .'">';
 		
         //echo $where;
-        
+        //                            LIMIT 0 , $upperLimit
         //hardcoding DB
-		if($this->datefilter->getDays() == 'New') //newest was selected
+		if($topOf == 'New') //newest was selected
 		{
 			$qry = mysql_query("SELECT * FROM  `songs` 
                             WHERE $where
@@ -82,7 +84,7 @@ class Rankings
         }
         //====================END TABLE===================//
         echo '</table>';
-	    if (count($qry) >  $songsPerPage)
+	    if ($i >= $songsPerPage)
             echo '<button class="showMore" style="margin:10;"> Show More </Button>';
 		echo '</center>';
 
