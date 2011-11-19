@@ -5,6 +5,7 @@ include ("../classes/Song.php");
 if($_POST)
 {	
 	$where = str_replace('\\','',$_POST['where']);
+	$topOf = str_replace('\\','',$_POST['topOf']);
 	$songsPerPage = $_POST['songsPerPage'];
 	$upperLimit = $_POST['upperLimit'];
 	
@@ -13,8 +14,8 @@ if($_POST)
 	$lowerLimit = $upperLimit;
 	$upperLimit = $upperLimit + $songsPerPage;
 	
-	
-	if(strpos($where, 'New') != false) //newest was selected
+
+	if($topOf == 'New') //newest was selected
 	{
 		$qry = mysql_query("SELECT * FROM  `songs` 
 						WHERE $where
@@ -27,9 +28,9 @@ if($_POST)
 		$qry = mysql_query("SELECT * FROM  `songs` 
 						WHERE $where
 						ORDER BY score DESC
-						LIMIT $lowerLimit , $upperLimit
+                        LIMIT $lowerLimit , $upperLimit
 						");
-	}					
+	}
 	if (!$qry)
 		die("FAIL: " . mysql_error());
 
@@ -39,7 +40,7 @@ if($_POST)
 		$song = new Song($row, $i);
 		echo '<tr class="song" id="'.$i.'">';
 		$song->showMin();
-		echo '</tr>';
+        echo '</tr>';
 		$i ++;
 	}
 }

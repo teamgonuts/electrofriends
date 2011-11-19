@@ -31,11 +31,15 @@ function showHeader()
 		<a href="index.php?topof='.$topof.'&genre=hardstyle">Hardstyle</a>
 		<a href="index.php?topof='.$topof.'&genre=house">House</a>
 		<a href="index.php?topof='.$topof.'&genre=trance">Trance</a>
-	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a href="upload.php">Upload</a></b>
+	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a class="uploadlink" href="#">Upload</a></b>
+	<div id="upload_box"></div>
+	</center>
 	<br />
+	<center>
 	<a href="index.php" style="text-decoration:none;"><span id="title">t3k.no</span><span id="sub_title">beta</span></a>
+	</center>
 	<br /><br />
-	</center>';
+	';
 
 	echo $html;
 }

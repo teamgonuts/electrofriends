@@ -30,6 +30,24 @@
 	text-decoration:none;
 }
 
+.upload_box
+{
+    border: 1px white solid;
+    width: 265px;
+    text-align: right;
+    position: absolute;
+    right:0px;
+}
+
+ .upload_box_success
+ {
+    border: 1px white solid;
+    color:#00FF00;
+    position: absolute;
+    right:0px;
+    padding: 2px;
+ }
+ 
 #sub_title
 {
 	font-family:Lucida Console;

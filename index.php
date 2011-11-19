@@ -25,6 +25,7 @@ include ("misc/functions.php");
 if(isset($_POST['vote']))
 {
     $vote = $_POST['vote'];
+
     $ytcode = $_POST['ytcode'];
     $qry = mysql_query("SELECT * FROM  `songs` WHERE youtubecode='".$ytcode."'");
     if (!$qry)

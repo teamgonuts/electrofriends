@@ -276,7 +276,7 @@ class Song extends RankableItem
         echo '<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
 			'<input type="hidden" id="status_'.$this->i.'" value="min">'.
 			'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
-			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
+			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
 			<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
 			<input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/> 
 			<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
