@@ -258,6 +258,7 @@ class Song extends RankableItem
                 }
                 function playNext(newState)
                 {
+                   //alert("new state: " + newState);
                    if(newState == 0) //song is done
                    {
                        //minimize myself
@@ -269,7 +270,6 @@ class Song extends RankableItem
                        dataString = getDataString(i+1); //i + 1 is next song
                        maximizeSong(dataString, i+1);
                        //next song will start playing on load
-
                    }
                 }
             </script>
