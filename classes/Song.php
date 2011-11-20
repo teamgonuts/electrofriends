@@ -229,7 +229,7 @@ class Song extends RankableItem
 	<a href="http://www.filestube.com/search.html?q='.
 												urlencode($this->title).'+'.urlencode($this->artist).'&select=All" 
 												style="color:red;"  target="_blank">Pirate</a>*/
-		echo '
+        echo '
 		<td class="clickable" id="td1_'.$this->i.'">
 			<input type="hidden" id="status_'.$this->i.'" value="max">
 			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
@@ -243,9 +243,36 @@ class Song extends RankableItem
 			'	. $this->i . '
 		</td>
         <td class="clickable" id="td2_'.$this->i.'">
-            <iframe title="YouTube video player" class="youtube-player" type="text/html" 
-            width="240" height="146" src="http://www.youtube.com/embed/'. $this->ytcode .'"
-            frameborder="0" allowFullScreen></iframe>
+                <div id="ytp'. $this->i . '">
+                    <p>You will need Flash 8 or better to view this content. Download it Here: http://get.adobe.com/flashplayer/</p>
+                </div>
+            <script type="text/javascript">
+                 var params = { allowScriptAccess: "always" };
+                 swfobject.embedSWF("http://www.youtube.com/v/' . $this->ytcode . '&enablejsapi=1&playerapiid=ytp'
+                    . $this->i . '", "ytp' . $this->i . '", "240", "146", "8", null, null, params);
+                function onYouTubePlayerReady(playerId) {
+                  ytplayer = document.getElementById(playerId);
+                  ytplayer.addEventListener("onStateChange", "playNext");
+                  if(playerId != "ytp1") //if its not the first player, load on showing
+                        ytplayer.playVideo();
+                }
+                function playNext(newState)
+                {
+                   if(newState == 0) //song is done
+                   {
+                       //minimize myself
+                       var i = ' . $this->i .';
+                       var dataString = getDataString(i);
+                        minimizeSong(dataString, i);
+                       //maximize next song
+                       //TODO CHECK IF NEXT SONG IS ALREADY MAXED
+                       dataString = getDataString(i+1); //i + 1 is next song
+                       maximizeSong(dataString, i+1);
+                       //next song will start playing on load
+
+                   }
+                }
+            </script>
 			<br /> 
 			<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>			
 			<br />

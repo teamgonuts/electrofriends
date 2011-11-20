@@ -73,16 +73,9 @@ $(function()
 		var status = $('#status_'+i).val();
 
 		//stats
-		var user = $("#user_"+i).val();
-		var ytcode = $("#ytcode_"+i).val();
-		var title = $("#title_"+i).val();
-		var artist = $("#artist_"+i).val();
-		var genre = $("#genre_"+i).val();
-		var score = $("#score_"+i).val();
-		var ups = $("#ups_"+i).val();
-		var downs = $("#downs_"+i).val();
-		var id = $("#id_"+i).val();
-		var upload_date = $("#upload_date_"+i).val();
+
+        var ytcode = $("#ytcode_"+i).val(); //special case, needed for share link
+        var dataString = getDataString(i);
 		if($(targ).attr("class") == "share") //share button
 		{
 			//alert("share");
@@ -96,58 +89,74 @@ $(function()
 		{
 			if(status == "max") //if maximized
 			{
-				//alert("max");
-
-				var dataString = 'user='+ user + '&ytcode=' + ytcode +
-				'&title=' + title + '&artist=' + artist +
-				'&genre=' + genre + '&score=' + score +
-				'&ups=' + ups + '&downs=' + downs +
-				'&id=' + id + '&upload_date=' + upload_date +
-				'&i=' + i;
-
-				$.ajax({
-					type: "POST",
-					url: "ajax/minSongAjax.php",
-					data: dataString,
-					cache: false,
-					success: function(html){
-						//alert("success");
-						$('#'+i).fadeIn(1000).html(html);
-					}
-				});
+	            //minimize song
+                minimizeSong(dataString, i);
 			}
 			else
 			{
-				//alert("min");
-
 				//Maximizing New Song
-				var dataString = 'user='+ user + '&ytcode=' + ytcode +
-				'&title=' + title + '&artist=' + artist +
-				'&genre=' + genre + '&score=' + score +
-				'&ups=' + ups + '&downs=' + downs +
-				'&id=' + id + '&upload_date=' + upload_date +
-				'&i=' + i;
-
-				$.ajax(
-				{
-					type: "POST",
-					url: "ajax/maxSongAjax.php",
-					data: dataString,
-					cache: false,
-					success: function(html)
-					{
-						$('#'+i).html(html);
-					}
-				});
-				$('#'+i).ajaxComplete(function(){
-						//reloads script
-						 $.getScript('http://platform.twitter.com/widgets.js');
-				});
+                maximizeSong(dataString, i);
 			}
 		}
 		return false;
 	});
 });
+
+//returns a ajax formatted datastring given i, the index of the song in the rankings
+function getDataString(i)
+{
+    //stats
+    var user = $("#user_"+i).val();
+    var ytcode = $("#ytcode_"+i).val();
+    var title = $("#title_"+i).val();
+    var artist = $("#artist_"+i).val();
+    var genre = $("#genre_"+i).val();
+    var score = $("#score_"+i).val();
+    var ups = $("#ups_"+i).val();
+    var downs = $("#downs_"+i).val();
+    var id = $("#id_"+i).val();
+    var upload_date = $("#upload_date_"+i).val();
+    return 'user='+ user + '&ytcode=' + ytcode +
+            '&title=' + title + '&artist=' + artist +
+            '&genre=' + genre + '&score=' + score +
+            '&ups=' + ups + '&downs=' + downs +
+            '&id=' + id + '&upload_date=' + upload_date +
+            '&i=' + i;
+}
+//dataString to pass to ajax, i is index of song
+function maximizeSong(dataString, i)
+{
+    $.ajax(
+    {
+        type: "POST",
+        url: "ajax/maxSongAjax.php",
+        data: dataString,
+        cache: false,
+        success: function(html)
+        {
+            $('#'+i).html(html);
+        }
+    });
+    $('#'+i).ajaxComplete(function(){
+            //reloads script
+             $.getScript('http://platform.twitter.com/widgets.js');
+    });
+}
+
+function minimizeSong(dataString, i)
+{
+    $.ajax({
+        type: "POST",
+        url: "ajax/minSongAjax.php",
+        data: dataString,
+        cache: false,
+        success: function(html){
+            //alert("success");
+            $('#'+i).fadeIn(1000).html(html);
+        }
+    });
+}
+
 
 $(function()
 {
@@ -318,7 +327,7 @@ function showMoreComments()
 $(document).on('click', '.uploadlink', quickUpload);
 function quickUpload()
 {
-
+    //alert('test1');
     $.ajax({
 		url: "upload.php",
 		success: function(html)
@@ -331,6 +340,7 @@ function quickUpload()
 			alert("Ajax fail: \n" + xhr.statusText);
 		}
 	});
+    //alert('test2');
 }
 
 //clicking the upload song button in upload_box
