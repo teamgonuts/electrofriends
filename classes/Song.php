@@ -283,7 +283,7 @@ class Song extends RankableItem
                    }
                    else if(newState == 3) //song is buffering, change title
                    {
-                       $("title").text("Loading Some '.$this->artist .' - T3k.no");
+                       $("title").text("Loading '.$this->artist .' - T3k.no");
                    }
                 }
             </script>

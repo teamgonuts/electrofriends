@@ -119,6 +119,11 @@ textarea
 	font-weight: bold;
 }
 
+.highlightRow
+{
+    background-color: green;
+}
+
 .com_date
 {
 	font-size: 10px;
