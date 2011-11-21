@@ -73,6 +73,9 @@ $(function()
 		var status = $('#status_'+i).val();
         var dataString;
         var ytcode = $("#ytcode_"+i).val(); //special case, needed for share link
+
+        var targetSong = $('#targetSong').val();
+        
 		if($(targ).attr("class") == "share") //share button
 		{
 			//alert("share");
@@ -87,12 +90,13 @@ $(function()
 			if(targetSong == i) //if I am the one that is open
 			{
 	            //minimize song
+                //alert("about to min");
                 minimizeSong(getDataString(i), i);
+                //alert("minimized");
 			}
 			else
 			{
                 //minimize old target song
-                var targetSong = $('#targetSong').val();
                 minimizeSong(getDataString(targetSong), targetSong);
                 //change title happens in Song.php on stateChange
                 //max new song
@@ -247,6 +251,20 @@ $(function()
 		return false;
 	});
 	return false;
+});
+
+$(document).on('mouseover', '.song', function()
+{
+    var i = $(this).attr("id");
+    if(i != $('#targetSong').val())
+    {
+        $(this).addClass('highlightRow');
+    }
+});
+
+$(document).on('mouseout', '.song', function()
+{
+    $(this).removeClass('highlightRow');
 });
 
 //attempt at good coding
