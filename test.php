@@ -9,6 +9,7 @@
     <div id="ytplayer2">
         <p>You will need Flash 8 or better to view this content. Download it Here: http://get.adobe.com/flashplayer/</p>
     </div>
+    <p><b>TEST MUTHA FUCKA</b></p>
     <script type="text/javascript">
         var params = { allowScriptAccess: "always" };
          swfobject.embedSWF("http://www.youtube.com/v/NI2b7qXUlnE&enablejsapi=1&playerapiid=ytplayer",

@@ -1,12 +1,13 @@
 <html>
 <head>
-	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="swfobject.js"></script>
-
+    <Title>T3k.no - The Electronic Music Connection</Title>
+	<script type="text/javascript" src="jquery.js">//jquery</script>
+	<script type="text/javascript" src="main.js">//code by calvin</script>
+    <script type="text/javascript" src="swfobject.js">//embedding youtube videos</script>
 	<script src="//platform.twitter.com/widgets.js" type="text/javascript">
 	//how to dynamically load http://www.ovaistariq.net/447/how-to-dynamically-create-twitters-tweet-button-and-facebooks-like-button/
 	</script>
+
 	<LINK href="styles/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -25,11 +26,7 @@ include ("misc/functions.php");
 
 
 ?>
-<html>
-<head>
-<Title>T3kno - Your Electronic Music Connection</Title>
-</head>
-<body>
+
 <?php
 
 showHeader();
@@ -110,5 +107,3 @@ function word2num($topof)
     }
 }
 ?>
-</body>
-</html>

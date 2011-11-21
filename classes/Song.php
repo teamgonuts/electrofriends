@@ -231,7 +231,7 @@ class Song extends RankableItem
 												style="color:red;"  target="_blank">Pirate</a>*/
         echo '
 		<td class="clickable" id="td1_'.$this->i.'">
-			<input type="hidden" id="status_'.$this->i.'" value="max">
+            <input type="hidden" id="targetSong" value="' . $this->i .'" />
 			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
 			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/> 
 			<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 
@@ -250,44 +250,40 @@ class Song extends RankableItem
                  var params = { allowScriptAccess: "always" };
                  swfobject.embedSWF("http://www.youtube.com/v/' . $this->ytcode . '&enablejsapi=1&playerapiid=ytp'
                     . $this->i . '", "ytp' . $this->i . '", "240", "146", "8", null, null, params);
+
                 function onYouTubePlayerReady(playerId) {
                   ytplayer = document.getElementById(playerId);
                   ytplayer.addEventListener("onStateChange", "playNext");
                   if(playerId != "ytp1") //if its not the first player, load on showing
                         ytplayer.playVideo();
                 }
+                
                 function playNext(newState)
                 {
                    //alert("new state: " + newState);
+                   //unstarted (-1), ended (0), playing (1), paused (2), buffering (3), video cued (5)
                    if(newState == 0) //song is done
                    {
                        //**************minimize myself*******************
                        var i = ' . $this->i .';
                        var dataString = getDataString(i);
-                        minimizeSong(dataString, i);
+                       minimizeSong(dataString, i);
                        //**************maximize next song****************
-		               var status = $("#status_"+(i+1)).val();
-		               /*TODO doesnt work. THIS FUNCTION IS OVERWRITTEN by whatever song was last opened.
-                        this function should only be called for the currently playing song
-                        (high)IDEAs:
-                        1. Catch the event when a user clicks play on a song, have that event
-                        set some variable that represents the current song
-                        2. Each maximized song writes its own playNext() function.
-                        */
-
-		               if(status == "min") //if its minimized, open it
-		               {
-                           dataString = getDataString(i+1); //i + 1 is next song
-                           maximizeSong(dataString, i+1);
-                           //I will automatically start playing on load
-                       }
-                       else
-                       {
-                           //next song is already maximized so
-                           //get next song and start playing
-                           ytplayer = document.getElementById("ytp" + (i+1));
-                           ytplayer.playVideo();
-                       }
+                       dataString = getDataString(i+1); //i + 1 is next song
+                       maximizeSong(dataString, i+1);
+                       //I will automatically start playing on load
+                   }
+                   else if(newState == 1) // if its playing, change the title
+                   {
+                       $("title").text("' . $this->title . ' by ' . $this->artist . '    - T3k.no");
+                   }
+                   else if(newState == 2) //song is paused, go back to original title
+                   {
+                       $("title").text("Paused - T3k.no");
+                   }
+                   else if(newState == 3) //song is buffering, change title
+                   {
+                       $("title").text("Loading Some '.$this->artist .' - T3k.no");
                    }
                 }
             </script>
@@ -319,7 +315,6 @@ class Song extends RankableItem
     function showMin()
     {
         echo '<td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . "</pre></td>" .
-			'<input type="hidden" id="status_'.$this->i.'" value="min">'.
 			'<input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
 			<input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
 			<input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/> 

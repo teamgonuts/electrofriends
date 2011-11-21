@@ -71,11 +71,8 @@ $(function()
 		temp = temp.split('_');
 		var i = temp[1];
 		var status = $('#status_'+i).val();
-
-		//stats
-
+        var dataString;
         var ytcode = $("#ytcode_"+i).val(); //special case, needed for share link
-        var dataString = getDataString(i);
 		if($(targ).attr("class") == "share") //share button
 		{
 			//alert("share");
@@ -85,16 +82,21 @@ $(function()
 		else if($(targ).attr("type") == "text") //if it is the url
 		{ //do nothing 
 		}
-		else
+		else //its a song
 		{
-			if(status == "max") //if maximized
+			if(targetSong == i) //if I am the one that is open
 			{
 	            //minimize song
-                minimizeSong(dataString, i);
+                minimizeSong(getDataString(i), i);
 			}
 			else
 			{
-				//Maximizing New Song
+                //minimize old target song
+                var targetSong = $('#targetSong').val();
+                minimizeSong(getDataString(targetSong), targetSong);
+                //change title happens in Song.php on stateChange
+                //max new song
+                dataString = getDataString(i);
                 maximizeSong(dataString, i);
 			}
 		}
@@ -123,6 +125,18 @@ function getDataString(i)
             '&id=' + id + '&upload_date=' + upload_date +
             '&i=' + i;
 }
+
+//parses dataString and returns the entry specified by the parameter
+function parseEntry(entry, dataString)
+{
+    //getting index of entry
+    var idx = dataString.indexOf(entry + "=");
+    //if the entry is title, get the data after title=
+    var temp = dataString.substring(idx + entry.length + 1, dataString.length-1); // from where we want to the end of string
+    //return up until the next &
+    return temp.substring(0, temp.indexOf('&'));
+}
+
 //dataString to pass to ajax, i is index of song
 function maximizeSong(dataString, i)
 {
@@ -374,3 +388,4 @@ function uploadSong()
 		}
 	});
 }
+
