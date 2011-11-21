@@ -32,7 +32,7 @@ function showHeader()
 		<a href="index.php?topof='.$topof.'&genre=house">House</a>
 		<a href="index.php?topof='.$topof.'&genre=trance">Trance</a>
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a class="uploadlink" href="#">Upload</a></b>
-	<div id="upload_box"></div>
+	<span id="upload_box"></span>
 	</center>
 	<br />
 	<center>

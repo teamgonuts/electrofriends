@@ -55,9 +55,6 @@ $(function()
 	{
 		//alert('click');
 
-        //removing any highlighting
-        $(this).removeClass('highlightRow');
-
 		//Figuring out where a user clicked
 		var targ;
 		if (!e) 
@@ -96,6 +93,7 @@ $(function()
 	            //minimize song
                 //alert("about to min");
                 minimizeSong(getDataString(i), i);
+                $('title').text('T3kno - The Electronic Music Connection');
                 //alert("minimized");
 			}
 			else
@@ -259,11 +257,7 @@ $(function()
 
 $(document).on('mouseover', '.song', function()
 {
-    var i = $(this).attr("id");
-    if(i != $('#targetSong').val())
-    {
         $(this).addClass('highlightRow');
-    }
 });
 
 $(document).on('mouseout', '.song', function()

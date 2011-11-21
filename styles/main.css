@@ -33,19 +33,24 @@
 .upload_box
 {
     border: 1px white solid;
-    width: 300px;
     text-align: right;
     position: absolute;
     right:0px;
+    display: inline-block;
+    margin-top:25px;
+    padding: 2px;
 }
 
  .upload_box_success
  {
+    display: inline-block;
     border: 1px white solid;
     color:#00FF00;
     position: absolute;
     right:0px;
     padding: 2px;
+    margin-top:25px;
+    margin-right: 100px;
  }
  
 #sub_title
@@ -121,7 +126,7 @@ textarea
 
 .highlightRow
 {
-    background-color: green;
+    border: 2px solid;
 }
 
 .com_date
