@@ -3,7 +3,7 @@
 function showHeader()
 {
 	global $topof;
-	$topof = "month"; //Default
+	$topof = "new"; //Default
 	global $genre;
 	$genre = "all"; //Default
 

@@ -23,33 +23,13 @@ include ("classes/Rankings.php");
 include ("classes/Song.php");
 include ("misc/functions.php");
 
-if(isset($_POST['vote']))
-{
-    $vote = $_POST['vote'];
 
-    $ytcode = $_POST['ytcode'];
-    $qry = mysql_query("SELECT * FROM  `songs` WHERE youtubecode='".$ytcode."'");
-    if (!$qry)
-        die("FAIL: " . mysql_error());
-    
-    //======================== UPDATING SONG'S SCORE =================//
-    $song = mysql_fetch_array($qry);
-    
-    $new_score = $song['score'] + $vote;
-    $new_ups = $song['ups'];
-    $new_downs = $song['downs'];
-    if($vote == 1)
-        $new_ups ++;
-    else
-        $new_downs ++;
-    
-    $qry = "UPDATE songs SET score=$new_score , ups=$new_ups, downs=$new_downs WHERE youtubecode='". $ytcode."'";
-			$qry = mysql_query($qry);
-			if (!$qry)
-				die("FAIL: " . mysql_error());
-}
 ?>
-
+<html>
+<head>
+<Title>T3kno - Your Electronic Music Connection</Title>
+</head>
+<body>
 <?php
 
 showHeader();
@@ -66,7 +46,8 @@ $rankings->display();
 
 
 ?>
-
+</body>
+</html>
 <?php //============================FUNCTIONS====================//
 
 

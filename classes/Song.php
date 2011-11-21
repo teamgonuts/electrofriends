@@ -261,15 +261,33 @@ class Song extends RankableItem
                    //alert("new state: " + newState);
                    if(newState == 0) //song is done
                    {
-                       //minimize myself
+                       //**************minimize myself*******************
                        var i = ' . $this->i .';
                        var dataString = getDataString(i);
                         minimizeSong(dataString, i);
-                       //maximize next song
-                       //TODO CHECK IF NEXT SONG IS ALREADY MAXED
-                       dataString = getDataString(i+1); //i + 1 is next song
-                       maximizeSong(dataString, i+1);
-                       //next song will start playing on load
+                       //**************maximize next song****************
+		               var status = $("#status_"+(i+1)).val();
+		               /*TODO doesnt work. THIS FUNCTION IS OVERWRITTEN by whatever song was last opened.
+                        this function should only be called for the currently playing song
+                        (high)IDEAs:
+                        1. Catch the event when a user clicks play on a song, have that event
+                        set some variable that represents the current song
+                        2. Each maximized song writes its own playNext() function.
+                        */
+
+		               if(status == "min") //if its minimized, open it
+		               {
+                           dataString = getDataString(i+1); //i + 1 is next song
+                           maximizeSong(dataString, i+1);
+                           //I will automatically start playing on load
+                       }
+                       else
+                       {
+                           //next song is already maximized so
+                           //get next song and start playing
+                           ytplayer = document.getElementById("ytp" + (i+1));
+                           ytplayer.playVideo();
+                       }
                    }
                 }
             </script>
