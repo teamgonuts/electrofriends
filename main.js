@@ -54,6 +54,10 @@ $(function()
 	$(document).on('click', '.clickable', function(e)
 	{
 		//alert('click');
+
+        //removing any highlighting
+        $(this).removeClass('highlightRow');
+
 		//Figuring out where a user clicked
 		var targ;
 		if (!e) 
