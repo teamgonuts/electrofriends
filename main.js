@@ -255,9 +255,9 @@ $(function()
 	return false;
 });
 
-$(document).on('hover', '.song', function()
+$(document).on('hover', 'tr.song', function()
 {
-    $(this).toggleClass('highlightRow');
+    $(this).children().toggleClass('highlightRow');
 });
 
 //attempt at good coding
