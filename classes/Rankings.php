@@ -21,7 +21,7 @@ class Rankings
         $i = 1;
 		$songsPerPage = 25; //default
 		$upperLimit = $songsPerPage;
-        echo '<table border="1" style="padding-top:0px; margin-top:0px;" class="rankings">';
+        echo '<table border="1">';
 		$where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
         $topOf = $this->datefilter->getDays();
 		echo '<input type="hidden" id="where" value="'.$where .'" />

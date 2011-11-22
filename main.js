@@ -81,11 +81,12 @@ $(function()
 		{
 			//alert("share");
 			$(targ).hide();
-			$('#shareURL_'+i).html('<input type="text" style="width:300px;" value="http://t3kno.dewpixel.net/view.php?s='+ytcode+'"/>');
+			$('#shareURL_'+i).html('<input type="text" class="nonclickable" style="width:300px;" value="http://t3kno.dewpixel.net/view.php?s='+ytcode+'"/>');
 		}
-		else if($(targ).attr("type") == "text") //if it is the url
-		{ //do nothing 
-		}
+        else if($(targ).attr("class") == "nonclickable")
+        {
+            //do nothing
+        }
 		else //its a song
 		{
 			if(targetSong == i) //if I am the one that is open
@@ -98,12 +99,11 @@ $(function()
 			}
 			else
 			{
-                //minimize old target song
-                minimizeSong(getDataString(targetSong), targetSong);
-                //change title happens in Song.php on stateChange
-                //max new song
+                //minimize old target song and max new
+                //max other first so only have to resize table once. 
                 dataString = getDataString(i);
                 maximizeSong(dataString, i);
+                minimizeSong(getDataString(targetSong), targetSong);
 			}
 		}
 		return false;
@@ -255,14 +255,9 @@ $(function()
 	return false;
 });
 
-$(document).on('mouseover', '.song', function()
+$(document).on('hover', '.song', function()
 {
-        $(this).addClass('highlightRow');
-});
-
-$(document).on('mouseout', '.song', function()
-{
-    $(this).removeClass('highlightRow');
+    $(this).toggleClass('highlightRow');
 });
 
 //attempt at good coding
@@ -358,6 +353,7 @@ $(document).on('click', '.uploadlink', quickUpload);
 function quickUpload()
 {
     //alert('test1');
+    $("#upload_box").removeClass("upload_box_success");
     $.ajax({
 		url: "upload.php",
 		success: function(html)

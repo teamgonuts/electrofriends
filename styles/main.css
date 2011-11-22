@@ -32,7 +32,7 @@
 
 .upload_box
 {
-    border: 1px white solid;
+    border: 1px solid white;
     text-align: right;
     position: absolute;
     right:0px;
@@ -44,7 +44,7 @@
  .upload_box_success
  {
     display: inline-block;
-    border: 1px white solid;
+    border: 1px solid white;
     color:#00FF00;
     position: absolute;
     right:0px;
@@ -66,15 +66,8 @@ ol.timeline{list-style:none;font-size:1.2em;}
 ol.timeline li{display:none;position:relative;}
 ol.timeline li:first-child{}
 
-#flash
-{
-	margin-left:100px;
-}
 
-.song_min
-{
-	
-}
+
 
 .commentTD
 {
@@ -84,6 +77,7 @@ ol.timeline li:first-child{}
 	padding-right: 5px;
 	vertical-align:text-top;
 }
+
 
 #name
 {
@@ -102,7 +96,7 @@ ol.timeline li:first-child{}
 	color:#000000;
 	margin-top:2px;
 	font-size:14px;
-	border:#black solid 1px;
+	border:1px solid black;
 	height:24px;
 	margin-bottom:10px;
 	width:300px;
@@ -126,7 +120,8 @@ textarea
 
 .highlightRow
 {
-    border: 2px solid;
+   cursor: pointer;
+   border: 2px #8a2be2;
 }
 
 .com_date
@@ -140,4 +135,12 @@ textarea
 {
 	font-size: 12px; 
 	color: white; 
+}
+
+.clickable
+{
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }

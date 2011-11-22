@@ -243,7 +243,7 @@ class Song extends RankableItem
 			'	. $this->i . '
 		</td>
         <td class="clickable" id="td2_'.$this->i.'">
-                <div id="ytp'. $this->i . '">
+                <div class="nonclickable" id="ytp'. $this->i . '">
                     <p>You will need Flash 8 or better to view this content. Download it Here: http://get.adobe.com/flashplayer/</p>
                 </div>
             <script type="text/javascript">
@@ -297,7 +297,7 @@ class Song extends RankableItem
 			Download: <u>Amazon</u> <u>Apple</u> <br />
 			<center>
 				<button class="share" style="width:100px;">Direct Link</button>
-				<span class="shareURL" id="shareURL_' .$this->i .'"></span>
+				<span class="nonclickable" id="shareURL_' .$this->i .'"></span>
 			</center>
         </td>
         <td class="commentsTD" id="td3_'.$this->i.'">
