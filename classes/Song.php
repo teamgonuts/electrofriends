@@ -254,10 +254,11 @@ class Song extends RankableItem
                 function onYouTubePlayerReady(playerId) {
                   ytplayer = document.getElementById(playerId);
                   ytplayer.addEventListener("onStateChange", "playNext");
+                  ytplayer.addEventListener("onError", "onPlayerError");
                   if(playerId != "ytp1") //if its not the first player, load on showing
                         ytplayer.playVideo();
                 }
-                
+                //do I need to put this function for every open song???
                 function playNext(newState)
                 {
                    //alert("new state: " + newState);
@@ -286,6 +287,21 @@ class Song extends RankableItem
                        $("title").text("Loading '.$this->artist .' - T3k.no");
                    }
                 }
+
+                function onPlayerError(errorCode) {
+                    if(errorCode == 100) //the video has been removed or turned to private.
+                    {
+                       //*********minimize myself**************
+                       var i = ' . $this->i .';
+                       var dataString = getDataString(i);
+                       minimizeSong(dataString, i);
+                       //**************maximize next song****************
+                       dataString = getDataString(i+1); //i + 1 is next song
+                       maximizeSong(dataString, i+1);
+                       //I will automatically start playing on load
+                    }
+                }
+                
             </script>
 			<br /> 
 			<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>			
