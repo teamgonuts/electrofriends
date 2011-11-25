@@ -178,7 +178,7 @@ class Song extends RankableItem
 		echo '<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
 			class="twitter-share-button" style="float:right;">Tweet</a> <br />' .
 		    $this->title . ' by <a href="index.php?topof=new&artist=' . $this->artist . '">' . $this->artist . '</a><br />
-			Genre: ' . $this->map($this->genre) .'<br />
+			Genre: <a href="index.php?topof=new&genre=' . strtolower($this->genre) .'">' . $this->genre . '</a><br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />
 			';
@@ -312,7 +312,7 @@ class Song extends RankableItem
 			Title: <a class="link" id="title_link" href="#">'
              . $this->title . '</a><br />
 			Artist: <a class="link" id="artist_link" href="#">' . $this->artist . '</a><br />
-			Genre: ' . $this->map($this->genre) .'<br />
+			Genre: <a class="link" id="genre_link" href="#">' . $this->map($this->genre) .'</a><br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />
         </td>

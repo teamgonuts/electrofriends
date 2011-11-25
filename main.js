@@ -97,6 +97,12 @@ $(function()
                 var artist = encodeURIComponent($("#artist_"+i).val().toLowerCase());
                 window.location.href = ('index.php?topof=' + topOf + '&artist=' + artist);
             }
+            else if($(targ).attr('id') == 'genre_link')
+            {
+                var topOf = $("#topOf").val().toLowerCase();
+                var genre = $("#genre_"+i).val();
+                window.location.href = ('index.php?topof=' + topOf + '&genre=' + genre);
+            }
         }
 		else //its a song
 		{
