@@ -1,6 +1,6 @@
 <html>
 <head>
-    <Title>T3k.no - The Electronic Music Connection</Title>
+    <Title>T3k.no - Your Electronic Music Connection &nbsp;&nbsp;&nbsp;&nbsp;</Title>
 	<script type="text/javascript" src="jquery.js">//jquery</script>
 	<script type="text/javascript" src="main.js">//code by calvin</script>
     <script type="text/javascript" src="swfobject.js">//embedding youtube videos</script>
@@ -18,8 +18,10 @@ Calvin Hawkes 2011
 */
 
 include ("connection.php");
+include ("classes/Filter.php");
 include ("classes/DateFilter.php");
 include ("classes/GenreFilter.php");
+include ("classes/ArtistFilter.php");
 include ("classes/Rankings.php");
 include ("classes/Song.php");
 include ("misc/functions.php");
@@ -28,16 +30,34 @@ include ("misc/functions.php");
 ?>
 
 <?php
+$topof = "new"; //Default
+$genre = "all"; //Default
+$artist = "none"; //Default
 
-showHeader();
+$filters = array(); //empty filters array
+//setting filters
+if (isset($_GET['topof']))
+{
+    $topof = $_GET['topof'];
+
+}
+if (isset($_GET['genre']))
+{
+    $genre = $_GET['genre'];
+
+}
+if (isset($_GET['artist']))
+{
+    $artist = $_GET['artist'];
+    $filters['artist'] = new ArtistFilter($artist);
+}
+
+showHeader(); //show header uses $topOf and $genre
 
 $daysBack = word2num($topof);
-$datefilter = new DateFilter($daysBack);
-
-$genrefilter = new GenreFilter($genre);
-
-
-$rankings = new Rankings($datefilter, $genrefilter);
+$filters['date'] =  new DateFilter($daysBack);
+$filters['genre'] = new GenreFilter($genre);
+$rankings = new Rankings($filters);
 $rankings->display();
 
 
@@ -45,65 +65,3 @@ $rankings->display();
 ?>
 </body>
 </html>
-<?php //============================FUNCTIONS====================//
-
-
-//highlights the correct genre and topof
-//need to implement
-function format($in)
-{
-
-    return $in;
-/*
-    global $genre;
-    global $topof;
-    
-    switch($topof)
-    {
-        case "day":
-            return '<div style="a:link{color:white; text-decoration: underline; }">Day</div>';
-            break;
-        case "week":
-            return '<div style="">Week</div>';
-            break;
-        case "month":
-            return '<div style="">Month</div>';
-            break;
-        case "year":
-            return '<div style="">Year</div>';
-            break;
-        case "century":
-            return '<div style="">Century</div>';
-            break;
-        default:
-            return $in;
-            break;
-    }
-*/
-        
-}
-//coverts dateFilter word into coresponding days
-function word2num($topof)
-{
-    switch($topof)
-    {
-        case 'day':
-            return 1;
-            break;
-        case 'week':
-            return 7;
-            break;
-        case 'month':
-            return 30;
-            break;
-        case 'year':
-            return 369;
-            break;
-        case 'century':
-            return 36500;
-            break;
-		case 'new':
-			return 100000;
-    }
-}
-?>

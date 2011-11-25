@@ -177,7 +177,7 @@ class Song extends RankableItem
 	{
 		echo '<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
 			class="twitter-share-button" style="float:right;">Tweet</a> <br />' .
-		    $this->title . ' by ' . $this->artist . '<br />
+		    $this->title . ' by <a href="index.php?topof=new&artist=' . $this->artist . '">' . $this->artist . '</a><br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />
@@ -309,9 +309,9 @@ class Song extends RankableItem
              urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .
              '&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>
 			<br />
-			Title: <a class="link" href="http://t3kno.dewpixel.net/view.php?s='. $this->ytcode . '" target="_blank">'
+			Title: <a class="link" id="title_link" href="#">'
              . $this->title . '</a><br />
-			Artist: ' . $this->artist . '<br />
+			Artist: <a class="link" id="artist_link" href="#">' . $this->artist . '</a><br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />

@@ -1,7 +1,5 @@
 <?php
 
-include ("Filter.php");
-
 class DateFilter extends Filter
 {
 	//@param daysOld: how many days can be passed to be included in filter
@@ -30,8 +28,13 @@ class DateFilter extends Filter
        
 		return "'" . $limitDate->format('Y-m-d') . "' < uploaded_on";
 	}
-    
+
     function getDays()
+    {
+        return $this->days;
+    }
+    
+    function getDaysWord()
     {
         $temp = $this->days;
         switch($temp)

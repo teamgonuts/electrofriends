@@ -1,5 +1,11 @@
 $(function() {
 
+    /* Scrolling Title
+    (function titleMarquee() {
+        document.title = document.title.substring(1) + document.title.substring(0,1);
+        setTimeout(titleMarquee, 200);
+    })(); */
+
 	//$(".submit").live("click", function()
 	$(document).on('click', '.submit', function(e)
 	{
@@ -71,7 +77,6 @@ $(function()
 		var temp = $(this).attr("id");
 		temp = temp.split('_');
 		var i = temp[1];
-		var status = $('#status_'+i).val();
         var dataString;
         var ytcode = $("#ytcode_"+i).val(); //special case, needed for share link
 
@@ -83,7 +88,15 @@ $(function()
         }
         else if ($(targ).attr("class") == "link")
         {
-            window.open($(targ).attr("href"),'_blank');
+            if($(targ).attr('id') == 'title_link') //open the individual song page
+                window.open('view.php?s=' + ytcode,'_blank');
+            else if($(targ).attr('id') == 'artist_link') //creates new rankings with artist filter
+            {
+                //var topOf = $("#topOf").val();
+                var topOf = $("#topOf").val().toLowerCase();
+                var artist = encodeURIComponent($("#artist_"+i).val().toLowerCase());
+                window.location.href = ('index.php?topof=' + topOf + '&artist=' + artist);
+            }
         }
 		else //its a song
 		{
@@ -287,7 +300,6 @@ function showMoreSongs()
 			var songsAdded = $('.song').size() - upperLimit;
 			if(songsAdded < songsPerPage) //if we added less than the amount of songs possible to add aka all the songs are shown
 			{
-                alert("hiding button!");
 				$('.showMore').hide();
 			}
 				

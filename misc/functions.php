@@ -3,26 +3,36 @@
 function showHeader()
 {
 	global $topof;
-	$topof = "new"; //Default
 	global $genre;
-	$genre = "all"; //Default
-
-
-	if (isset($_GET['topof']))
-		$topof = $_GET['topof'];
-
-	if (isset($_GET['genre']))
-		$genre = $_GET['genre'];
+    global $artist;
 
 	$html = '<center>
-	<b><a href="http://t3kdev.tumblr.com">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>
-	<a href="index.php?topof=new&genre='.$genre.'">Freshest</a>&nbsp;&nbsp;
-	<b>Top of the:</b>
-		<a href="index.php?topof=day&genre='.$genre.'">Day</a>
-		<a href="index.php?topof=week&genre='.$genre.'">Week</a>
-		<a href="index.php?topof=month&genre='.$genre.'">Month</a>
-		<a href="index.php?topof=year&genre='.$genre.'">Year</a>
-		<a href="index.php?topof=century&genre='.$genre.'">Century</a>
+	<b><a href="http://t3kdev.tumblr.com">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>';
+
+    if($artist == "none") //artist has not been specified
+    {
+        $html .= '
+            <a href="index.php?topof=new&genre='.$genre.'">Freshest</a>&nbsp;&nbsp;
+            <b>Top of the:</b>
+                <a href="index.php?topof=day&genre='.$genre.'">Day</a>
+                <a href="index.php?topof=week&genre='.$genre.'">Week</a>
+                <a href="index.php?topof=month&genre='.$genre.'">Month</a>
+                <a href="index.php?topof=year&genre='.$genre.'">Year</a>
+                <a href="index.php?topof=century&genre='.$genre.'">Century</a>';
+    }
+    else //artist has been chosen
+    {
+        $html .= '
+         <a href="index.php?topof=new&artist='.$artist.'">Freshest</a>&nbsp;&nbsp;
+            <b>Top of the:</b>
+                <a href="index.php?topof=day&artist='.$artist.'">Day</a>
+                <a href="index.php?topof=week&artist='.$artist.'">Week</a>
+                <a href="index.php?topof=month&artist='.$artist.'">Month</a>
+                <a href="index.php?topof=year&artist='.$artist.'">Year</a>
+                <a href="index.php?topof=century&artist='.$artist.'">Century</a>';
+    }
+
+	$html .= '
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genre:</b>
 		<a href="index.php?topof='.$topof.'&genre=all">All</a>
 		<a href="index.php?topof='.$topof.'&genre=dnb">DnB</a>
@@ -42,5 +52,30 @@ function showHeader()
 	';
 
 	echo $html;
+}
+
+//coverts dateFilter word into coresponding days
+function word2num($topof)
+{
+    switch($topof)
+    {
+        case 'day':
+            return 1;
+            break;
+        case 'week':
+            return 7;
+            break;
+        case 'month':
+            return 30;
+            break;
+        case 'year':
+            return 369;
+            break;
+        case 'century':
+            return 36500;
+            break;
+		case 'new':
+			return 100000;
+    }
 }
 ?>

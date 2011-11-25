@@ -2,37 +2,42 @@
 
 class Rankings 
 {
-    private $datefilter;
-    private $genrefilter;
+    private $filters;
+    private $artist_set = false; //default
     
     //@params: $filty is the filter given to these rankings
-    public function Rankings($df, $gf)
+    public function Rankings($filters)
     {
-        $this->datefilter = $df;
-        $this->genrefilter = $gf;
+        $this->filters = $filters;
     }
     
     //@return: returns the html code for the rankings
     //Rankings are a table with 1 item per row, 1st item expanded, the rest minimized
     public function display()
     {
-		echo '<center>';
-        //=================BEST OF TABLE=====================//
         $i = 1;
 		$songsPerPage = 25; //default
 		$upperLimit = $songsPerPage;
-        echo '<table border="1" class="rankings">';
-		$where = $this->datefilter->genSQL() . ' AND ' . $this->genrefilter->genSQL();
-        $topOf = $this->datefilter->getDays();
-		echo '<input type="hidden" id="where" value="'.$where .'" />
-			  <input type="hidden" id="topOf" value="'.$topOf .'" />
-			  <input type="hidden" id="songsPerPage" value="'.$songsPerPage .'" />
-			  <input type="hidden" id="upperLimit" value="'.$upperLimit .'" />';
+        
+        if(array_key_exists('artist' , $this->filters)) //if an artist was selected, sort by artist and date
+        {
+            $this->artist_set = true;
+            $where = $this->filters['date']->genSQL() . ' AND ' . $this->filters['artist']->genSQL();
+        }
+        else //sort by genre and date
+		    $where = $this->filters['date']->genSQL() . ' AND ' . $this->filters['genre']->genSQL();
+
+        $topOf = $this->filters['date']->getDaysWord();
+         //=================BEST OF TABLE=====================//
+		echo '<center>
+		<table border="1" class="rankings">
+		<input type="hidden" id="where" value="'.$where .'" />
+        <input type="hidden" id="topOf" value="'.$topOf .'" />
+        <input type="hidden" id="songsPerPage" value="'.$songsPerPage .'" />
+        <input type="hidden" id="upperLimit" value="'.$upperLimit .'" />';
 		
-        //echo $where;
-        //                            LIMIT 0 , $upperLimit
         //hardcoding DB
-		if($topOf == 'New') //newest was selected
+		if($topOf == 'New') //newest was selected, order by upload date
 		{
 			$qry = mysql_query("SELECT * FROM  `songs` 
                             WHERE $where
@@ -40,7 +45,7 @@ class Rankings
                             LIMIT 0 , $upperLimit
                             ");
 		}
-		else
+		else //order by score
 		{
 			$qry = mysql_query("SELECT * FROM  `songs` 
                             WHERE $where
@@ -50,22 +55,9 @@ class Rankings
 		}					
             if (!$qry)
                 die("FAIL: " . mysql_error());
-        
-		if($this->datefilter->getDays() == 'New') 
-		{
-			echo'<center>
-                    <b>The Freshest '. $this->genrefilter->getGenre() . '</b>
-              </center>
-            ';
-		}
-		else
-		{
 
-		echo '<center>
-                    <b>The Top '. $this->genrefilter->getGenre() . ' of the ' . $this->datefilter->getDays() . '</b>
-              </center>
-            ';
-		}
+        echo $this->genTitle();
+
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);
@@ -88,6 +80,28 @@ class Rankings
             echo '<button class="showMore" style="margin:10;"> Show More </Button>';
 		echo '</center>';
 
+    }
+
+    //returns the title for the table given the rankings filters
+    private function genTitle()
+    {
+        $ret = "<b>"; //string to return
+        if($this->filters['date']->getDaysWord() == 'New')
+		{
+              if($this->artist_set) //if an artist is selected
+                  $ret .= 'The Freshest '. ucwords($this->filters['artist']->getName());
+              else
+                  $ret .= 'The Freshest '. $this->filters['genre']->getGenre();
+		}
+		else
+		{
+            if($this->artist_set)
+                $ret .= 'The Top '. ucwords($this->filters['artist']->getName()) . ' of the ' . $this->filters['date']->getDaysWord();
+            else
+                $ret .= 'The Top '. $this->filters['genre']->getGenre() . ' of the ' . $this->filters['date']->getDaysWord();
+		}
+        $ret .= "</b>";
+        return $ret;
     }
 }
 ?>
