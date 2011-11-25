@@ -289,6 +289,7 @@ function showMoreSongs()
 			var songsAdded = $('.song').size() - upperLimit;
 			if(songsAdded < songsPerPage) //if we added less than the amount of songs possible to add aka all the songs are shown
 			{
+                alert("hiding button!");
 				$('.showMore').hide();
 			}
 				
