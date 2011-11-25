@@ -309,15 +309,12 @@ class Song extends RankableItem
              urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .
              '&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>
 			<br />
-			Title: ' . $this->title . '<br />
+			Title: <a class="link" href="http://t3kno.dewpixel.net/view.php?s='. $this->ytcode . '" target="_blank">'
+             . $this->title . '</a><br />
 			Artist: ' . $this->artist . '<br />
 			Genre: ' . $this->map($this->genre) .'<br />
 			Uploaded By: '.$this->user .'<br />
 			Download: <u>Amazon</u> <u>Apple</u> <br />
-			<center>
-				<button class="share" style="width:100px;">Direct Link</button>
-				<span class="nonclickable" id="shareURL_' .$this->i .'"></span>
-			</center>
         </td>
         <td class="commentsTD" id="td3_'.$this->i.'">
 			'. $this->showComments() . '

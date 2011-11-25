@@ -77,15 +77,13 @@ $(function()
 
         var targetSong = $('#targetSong').val();
         
-		if($(targ).attr("class") == "share") //share button
-		{
-			//alert("share");
-			$(targ).hide();
-			$('#shareURL_'+i).html('<input type="text" class="nonclickable" style="width:300px;" value="http://t3kno.dewpixel.net/view.php?s='+ytcode+'"/>');
-		}
-        else if($(targ).attr("class") == "nonclickable")
+		if($(targ).attr("class") == "nonclickable")
         {
             //do nothing
+        }
+        else if ($(targ).attr("class") == "link")
+        {
+            window.open($(targ).attr("href"),'_blank');
         }
 		else //its a song
 		{
