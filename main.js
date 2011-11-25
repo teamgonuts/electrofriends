@@ -9,9 +9,9 @@ $(function() {
 		var i = temp[1];
 
 		//alert(i);
-		var name = $("#cuser_"+i).val();
+		var name = encodeURIComponent($("#cuser_"+i).val());
 		//alert('name '+name);
-		var comment = $("#comment_"+i).val();
+		var comment = encodeURIComponent($("#comment_"+i).val());
 
 		var ytcode = $("#ytcode_"+i).val();
 		var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode + '&i=' + i;
