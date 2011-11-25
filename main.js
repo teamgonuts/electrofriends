@@ -396,7 +396,6 @@ function uploadSong()
     var user = $('#upload_user').val();
     var genre = $('#upload_genre').val();
     var oldie = $('#oldie').attr('checked'); //if the song uploaded is an old song
-
     var dataString = 'title='+title+'&artist='+artist+
                      '&yturl='+yturl+'&user='+user+
                      '&genre='+genre+'&oldie='+oldie;

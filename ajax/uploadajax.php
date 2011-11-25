@@ -12,20 +12,31 @@ if(isset($_POST['title']) && validPost())
     $url = safeString(GetYouTubeVideoId($_POST['yturl']));
     $user = safeString($_POST['user']);
     $oldie = $_POST['oldie'];
-    //getting correct date
-    $date = new DateTime();
-    if($oldie == 'checked') //if the song is old, set the upload date to way far back
-        $date = $date->sub(new DateInterval('P1000D'));
-    $date = $date->format('Y-m-d');
+
     //What happens if I insert the same song twice
     if($ok)
     {
-        $qryStr = "INSERT INTO $table_name (title, artist,
+        if($oldie == 'checked') //its an old song
+        {
+            $date = new DateTime();
+            $date = $date->sub(new DateInterval('P1000D'));
+            $date = $date->format('Y-m-d');
+            $qryStr = "INSERT INTO $table_name (title, artist,
                                                     genre, youtubecode,
                                                     user, uploaded_on)
                             VALUES ('$title', '$artist',
                                     '$genre', '$url',
                                     '$user', '$date')";
+        }
+        else
+        {
+            $qryStr = "INSERT INTO $table_name (title, artist,
+                                                    genre, youtubecode,
+                                                    user, uploaded_on)
+                            VALUES ('$title', '$artist',
+                                    '$genre', '$url',
+                                    '$user', NOW())";
+        }
 
         $qry = mysql_query($qryStr);
         if(!$qry)
