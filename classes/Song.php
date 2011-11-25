@@ -243,13 +243,15 @@ class Song extends RankableItem
 			'	. $this->i . '
 		</td>
         <td class="clickable" id="td2_'.$this->i.'">
+            <center>
                 <div class="nonclickable" id="ytp'. $this->i . '">
                     <p>You will need Flash 8 or better to view this content. Download it Here: http://get.adobe.com/flashplayer/</p>
                 </div>
+            </center>
             <script type="text/javascript">
                  var params = { allowScriptAccess: "always" };
                  swfobject.embedSWF("http://www.youtube.com/v/' . $this->ytcode . '&enablejsapi=1&playerapiid=ytp'
-                    . $this->i . '", "ytp' . $this->i . '", "300", "140", "8", null, null, params);
+                    . $this->i . '", "ytp' . $this->i . '", "350", "140", "8", null, null, params);
 //240 x 146
                 function onYouTubePlayerReady(playerId) {
                   ytplayer = document.getElementById(playerId);
@@ -303,8 +305,9 @@ class Song extends RankableItem
                 }
                 
             </script>
-			<br /> 
-			<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>			
+			<a href="https://twitter.com/share?url='.
+             urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .
+             '&amp;text=This song rocks you gotta hear this!" class="twitter-share-button">Tweet</a>
 			<br />
 			Title: ' . $this->title . '<br />
 			Artist: ' . $this->artist . '<br />

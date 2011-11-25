@@ -116,8 +116,8 @@ function getDataString(i)
     //stats
     var user = $("#user_"+i).val();
     var ytcode = $("#ytcode_"+i).val();
-    var title = $("#title_"+i).val();
-    var artist = $("#artist_"+i).val();
+    var title = encodeURIComponent($("#title_"+i).val());
+    var artist = encodeURIComponent($("#artist_"+i).val());
     var genre = $("#genre_"+i).val();
     var score = $("#score_"+i).val();
     var ups = $("#ups_"+i).val();

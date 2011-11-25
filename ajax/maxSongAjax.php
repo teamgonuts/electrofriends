@@ -3,7 +3,7 @@ include('../connection.php');
 include ("../classes/Song.php");
 
 if($_POST)
-{	
+{
 	$title = $_POST['title'];
 	$artist = $_POST['artist'];
 	$genre = $_POST['genre'];
