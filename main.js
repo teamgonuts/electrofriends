@@ -390,10 +390,10 @@ function quickUpload()
 $(document).on('click', '#upload_song', uploadSong);
 function uploadSong()
 {
-    var title = $('#upload_title').val();
-    var artist = $('#upload_artist').val();
+    var title = encodeURIComponent($('#upload_title').val());
+    var artist = encodeURIComponent($('#upload_artist').val());
     var yturl = $('#upload_yturl').val();
-    var user = $('#upload_user').val();
+    var user = encodeURIComponent($('#upload_user').val());
     var genre = $('#upload_genre').val();
     var oldie = $('#oldie').attr('checked'); //if the song uploaded is an old song
     var dataString = 'title='+title+'&artist='+artist+

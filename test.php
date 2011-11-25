@@ -22,5 +22,20 @@
           height="75" width="150">
           <p>This is a test of a Smooth Marquee using jquery.</p>
      </marquee>
+    <?php
+        $test = "Above & Beyond";
+        echo $test . "<br />";
+        echo safeString($test);
+    ?>
    </body>
  </html>
+
+<?php
+
+function safeString($in)
+{
+	$in = strip_tags($in);
+	$in = mysql_real_escape_string($in);
+	return $in;
+}
+?>
