@@ -15,6 +15,7 @@
             <option value="Trance">Trance</option>
            </select> <br />
     Uploaded By: <input id="upload_user" type="text" name="user" value="" /> <br />
+    Old Song: <input type="checkbox" value="oldie" id="oldie"/> <br />
     <center><button id="upload_song">Upload Song</button>
     </center>
 

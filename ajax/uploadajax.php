@@ -6,33 +6,43 @@ $user = "Anonymous";
 //=======================Upload Song to DB==========================//
 if(isset($_POST['title']) && validPost())
 {
-
-
-    $title = $_POST['title'];
-	$title = safeString($title);
+	$title = safeString($_POST['title']);
 	$artist = safeString($_POST['artist']);
     $genre = safeString($_POST['genre']);
     $url = safeString(GetYouTubeVideoId($_POST['yturl']));
     $user = safeString($_POST['user']);
+    $oldie = $_POST['oldie'];
+    //getting correct date
+    $date = new DateTime();
+    if($oldie == 'checked') //if the song is old, set the upload date to way far back
+        $date = $date->sub(new DateInterval('P1000D'));
+    $date = $date->format('Y-m-d');
     //What happens if I insert the same song twice
     if($ok)
     {
-        $qry = mysql_query("INSERT INTO $table_name (title, artist, 
-                                                    genre, youtubecode, 
+        $qryStr = "INSERT INTO $table_name (title, artist,
+                                                    genre, youtubecode,
                                                     user, uploaded_on)
                             VALUES ('$title', '$artist',
                                     '$genre', '$url',
-                                    '$user', NOW())");
+                                    '$user', '$date')";
+
+        $qry = mysql_query($qryStr);
         if(!$qry)
         {
 			$error = mysql_error();
 
-			if(strpos($error, 'Duplicate entry') == 0) //if it is a dupe entry
+			if(strpos($error, 'Duplicate entry') == 0) //THIS DOESNT WORK
+            {
+                echo $error . '<br />';
+                echo $qryStr . '<br />';
 				echo 'Upload Failed: Song Already Submitted <br />';
+            }
 			else
                 die('Error: ' . $error . '<br />');
         }
-        echo 'Success';
+        else
+            echo 'Success';
 	}
     else
         echo 'Upload Failed =( <br />';

@@ -395,10 +395,11 @@ function uploadSong()
     var yturl = $('#upload_yturl').val();
     var user = $('#upload_user').val();
     var genre = $('#upload_genre').val();
+    var oldie = $('#oldie').attr('checked'); //if the song uploaded is an old song
 
     var dataString = 'title='+title+'&artist='+artist+
                      '&yturl='+yturl+'&user='+user+
-                     '&genre='+genre;
+                     '&genre='+genre+'&oldie='+oldie;
 	$.ajax({
 		type: "POST",
 		url: "ajax/uploadajax.php",
