@@ -251,7 +251,7 @@ class Song extends RankableItem
             <script type="text/javascript">
                  var params = { allowScriptAccess: "always" };
                  swfobject.embedSWF("http://www.youtube.com/v/' . $this->ytcode . '&enablejsapi=1&playerapiid=ytp'
-                    . $this->i . '", "ytp' . $this->i . '", "275", "90", "8", null, null, params);
+                    . $this->i . '", "ytp' . $this->i . '", "350", "90", "8", null, null, params);
 //240 x 146
                 function onYouTubePlayerReady(playerId) {
                   ytplayer = document.getElementById(playerId);
