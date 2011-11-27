@@ -1,22 +1,38 @@
  a:link {color:#33FF33; text-decoration: underline; }
  a:visited {color:33ff33; text-decoration: underline; }
  
-
- 
  body
  {
-	background-color:black; 
+	background-color:#01050C;
 	color:white;
  }
 *{margin:0;padding:0;}
 
+.hidden
+{
+    display:none;
+}
+ 
 .box
 {
 	margin:0;
 	padding:0;
 }
 
+.rankings-table{
+    width:60%;
+    margin-left:auto;
+    margin-right:auto;
+}
 
+.rankings-title{
+    font-weight: bold;
+}
+
+.rankings-container{
+    margin-bottom: 100px;
+    text-align: center;
+}
 .showMoreComments
 {
 	text-align: center;
@@ -24,6 +40,30 @@
 	font-weight:bold;
 }
 
+ #song-info-table
+ {
+     margin-left:auto;
+     margin-right:auto;
+ }
+.song-buttons
+{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.song-button
+{
+    text-align:center;
+    border:  1px white solid;
+    color: #33FF33;
+    font-weight: bold;
+    font-size: 125%;
+    padding: 2px;
+}
+
+.song-button:hover
+{
+    background-color: #041228;
+}
 #title
 {
 	font-family:Impact;
@@ -80,14 +120,6 @@ ol.timeline li:first-child{}
 	vertical-align:text-top;
 }
 
- .header
- {
-    //position: fixed;
-    //top: 0;
-    //z-index:9999;
-    //background-color: black;
- }
-
 #name
 {
 	color:#000000;
@@ -109,15 +141,6 @@ ol.timeline li:first-child{}
 	height:24px;
 	margin-bottom:10px;
 	width:300px;
-}
-
-textarea
-{
-	color:#000000;
-	font-size:14px;
-	border:#666666 solid 2px;
-	height:50px;
-	width:500px;
 }
 
 .com_name

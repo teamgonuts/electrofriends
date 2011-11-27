@@ -7,7 +7,7 @@
 	<script src="//platform.twitter.com/widgets.js" type="text/javascript">
 	//how to dynamically load http://www.ovaistariq.net/447/how-to-dynamically-create-twitters-tweet-button-and-facebooks-like-button/
 	</script>
-
+    
 	<LINK href="styles/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -51,17 +51,18 @@ if (isset($_GET['artist']))
     $artist = $_GET['artist'];
     $filters['artist'] = new ArtistFilter($artist);
 }
-
-showHeader(); //show header uses $topOf and $genre
-
+?>
+<div class="header">
+<?php showHeader(); //show header uses $topOf and $genre ?>
+</div>
+<?php
 $daysBack = word2num($topof);
 $filters['date'] =  new DateFilter($daysBack);
 $filters['genre'] = new GenreFilter($genre);
 $rankings = new Rankings($filters);
-$rankings->display();
-
-
-
 ?>
+    <?php $rankings->display(); ?>
+
+
 </body>
 </html>

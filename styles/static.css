@@ -1,0 +1,122 @@
+
+
+.filters{
+    position: fixed;
+    top: 0px;
+    z-index:9999;
+    width:100%;
+    background-color: #041228;
+    height: 25px;
+    border-bottom: 1px solid white;
+    text-align:center;
+}
+
+.highlight-filter{
+    background-color: #0C3476;
+}
+
+.filter
+{
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#upload_box
+{
+    background-color: #041228;
+    border: 1px solid white;
+    text-align: right;
+    position: fixed;
+    top:25px;
+    right:0px;
+    padding: 2px;
+}
+
+#song-table{
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+    text-align:center;
+}
+.main{
+    margin-top: 25px;
+    maring-bottom:100px;
+}
+
+.bottom-container{
+    background-color: #041228;
+    height: 93px;
+    position: fixed;
+    bottom: 0px;
+    z-index:9999;
+    width: 100%;
+    border-top: 1px solid white;
+}
+
+#song-info{
+    text-align:left;
+    width: 30%;
+    padding-left: 25px;
+}
+
+.song-info-item
+{
+    padding-left:5px;
+}
+#song-swf{
+    width:30%;
+}
+
+.track-button
+{
+    color:#33FF33;
+    font-size:150%;
+}
+.track-button:hover{
+    color: #33FFFF;
+    cursor: pointer;
+}
+
+
+#song-comments{
+    width:35%;
+}
+
+.comments-display{
+    vertical-align: top;
+}
+.comments-input{
+    vertical-align: bottom;
+    margin-left:auto;
+    margin-right:auto;
+ }
+
+
+textarea.comments-text
+{
+	color:#000000;
+	font-size:14px;
+	border:#666666 solid 2px;
+	height:20px;
+	width:85%;
+    float:left;
+}
+
+ .comments-submit{
+     height:20px;
+     width:50px;
+     font-size:75%;
+ }
+
+#song-voting{
+    width:5%;
+    padding-right:25px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+ol#song-queue{
+    text-align: left;
+    list-style-position:inside;
+    margin-left:5px;
+}

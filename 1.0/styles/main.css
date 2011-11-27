@@ -80,14 +80,6 @@ ol.timeline li:first-child{}
 	vertical-align:text-top;
 }
 
- .header
- {
-    //position: fixed;
-    //top: 0;
-    //z-index:9999;
-    //background-color: black;
- }
-
 #name
 {
 	color:#000000;

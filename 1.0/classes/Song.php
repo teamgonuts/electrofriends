@@ -33,8 +33,6 @@ class Song extends RankableItem
         $this->score = $row['score'];
     }
 	
-	
-	
 	//constructor can be passed all the info
 	public static function Song_Info($title, $artist, $genre, $ytcode, $user, $score, $ups, $downs, $id, $upload_date, $i)
 	{		
@@ -62,7 +60,52 @@ class Song extends RankableItem
 		 */
 		 return $instance;
 	}
-    
+
+    //returns the html for the song in 2 divs, open and close
+    //jquery should set to hidden or not
+    function showClasses()
+    {
+        //song info & minimized row
+        $html = '
+                <tr class="min" id="' .$this->i . '">
+                    <td class="clickable" id="td1_'.$this->i.'"><pre>' . $this->i . '</pre></td>
+                        <input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+                        <input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
+                        <input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/>
+                        <input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/>
+                        <input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/>
+                        <input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/>
+                        <input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/>
+                        <input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/>
+                        <input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/>
+                    <td class="clickable" id="td2_'.$this->i.'">' . $this->title . " - " . $this->artist . '</td>
+                    <td class="clickable" id="td3_'.$this->i.'">' . $this->genre . '</td>
+                    <td class="clickable" id="td4_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'</td>
+                </tr>';
+        //max row
+        $html .= '
+                <tr class="max id="'. $this->i .'">
+                    <td class="clickable" id="td1_'.$this->i.'">
+                        '	. $this->i . '
+                    </td>
+                    <td class="clickable" id="td2_'.$this->i.'">
+                        Title: <a class="link" id="title_link" href="#">'
+                         . $this->title . '</a><br />
+                        Artist: <a class="link" id="artist_link" href="#">' . $this->artist . '</a><br />
+                        Genre: <a class="link" id="genre_link" href="#">' . $this->map($this->genre) .'</a><br />
+                        Uploaded By: '.$this->user .'<br />
+                        Download: <u>Amazon</u> <u>Apple</u> <br />
+                    </td>
+                    <td class="commentsTD" id="td3_'.$this->i.'">
+                        '. $this->showComments() . '
+                    </td>
+                    <td class="votingTD" id="td4_'.$this->i.'">
+                        '. $this->showVoting() . '
+                    </td>
+                </tr>';
+        
+        return $html;
+    }
     function map($in)
     {
 		$in = ucfirst($in);

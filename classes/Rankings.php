@@ -15,6 +15,7 @@ class Rankings
     //Rankings are a table with 1 item per row, 1st item expanded, the rest minimized
     public function display()
     {
+        echo '<div class="rankings-container">';
         $i = 1;
 		$songsPerPage = 25; //default
 		$upperLimit = $songsPerPage;
@@ -29,12 +30,12 @@ class Rankings
 
         $topOf = $this->filters['date']->getDaysWord();
          //=================BEST OF TABLE=====================//
-		echo '<center>
+		echo '
         <input type="hidden" id="where" value="'.$where .'" />
         <input type="hidden" id="topOf" value="'.$topOf .'" />
         <input type="hidden" id="songsPerPage" value="'.$songsPerPage .'" />
         <input type="hidden" id="upperLimit" value="'.$upperLimit .'" />
-		<table border="1" class="rankings">
+		<table border="1" class="rankings-table">
 		';
 
         //hardcoding DB
@@ -62,31 +63,22 @@ class Rankings
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);
-			echo '<tr class="song" id="'.$i.'">';
-			if($i != 1) //show every other one minimized
-			{
-				$song->showMin();
-			}
-			else //show the first one maximized
-			{
-				$song->show();
-			}
-			echo '</tr>';
+			echo $song->showClasses();
 			$i ++;
 
         }
         //====================END TABLE===================//
         echo '</table>';
 	    if ($i >= $songsPerPage)
-            echo '<button class="showMore" style="margin:10;"> Show More </Button>';
-		echo '</center>';
+            echo '<button class="showMore"> Show More </Button>';
 
+        echo '</div>';
     }
 
     //returns the title for the table given the rankings filters
     private function genTitle()
     {
-        $ret = "<b>"; //string to return
+        $ret = '<p class="rankings-title">'; //string to return
         if($this->filters['date']->getDaysWord() == 'New')
 		{
               if($this->artist_set) //if an artist is selected
@@ -101,7 +93,7 @@ class Rankings
             else
                 $ret .= 'The Top '. $this->filters['genre']->getGenre() . ' of the ' . $this->filters['date']->getDaysWord();
 		}
-        $ret .= "</b>";
+        $ret .= "</p>";
         return $ret;
     }
 }

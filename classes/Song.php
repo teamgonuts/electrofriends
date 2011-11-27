@@ -62,6 +62,59 @@ class Song extends RankableItem
 		 */
 		 return $instance;
 	}
+
+    //returns the html for the song in 2 divs, open and close
+    //jquery should set to hidden or not
+    function showClasses()
+    {
+        //song info & minimized row
+        $html = '
+                <tr class="song min" id="min' .$this->i . '">
+                    <td class="clickable" id="song-index-min_'.$this->i.'"><pre>' . $this->i . '</pre></td>
+                        <input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
+                        <input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
+                        <input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/>
+                        <input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/>
+                        <input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/>
+                        <input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/>
+                        <input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/>
+                        <input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/>
+                        <input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/>
+                    <td class="clickable" id="song-info-min_'.$this->i.'">' . $this->title . " - " . $this->artist . '</td>
+                    <td class="clickable" id="song-genre-min_'.$this->i.'">' . $this->genre . '</td>
+                    <td class="clickable" id="song-score-min_'.$this->i.'">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'</td>
+                </tr>';
+        //max row
+        $html .= '
+                <tr class="song max" id="max'. $this->i .'">
+                    <td class="clickable" id="song-index-max_'.$this->i.'">
+                        '	. $this->i . '
+                    </td>
+                    <td class="clickable" id="song-info-max_'.$this->i.'">
+                        <div class="song-buttons">
+                            <center>
+                                <span class="song-button play-button">Play</span>
+                                <span class="song-button play-next-button">Play Next</span>
+                                <span class="song-button queue-button">Add to Queue</span>
+                            </center>
+                        </div>
+                        Title: <a class="link" id="title_link" href="#">'
+                         . $this->title . '</a><br />
+                        Artist: <a class="link" id="artist_link" href="#">' . $this->artist . '</a><br />
+                        Genre: <a class="link" id="genre_link" href="#">' . $this->map($this->genre) .'</a><br />
+                        Uploaded By: '.$this->user .'<br />
+                        Download: <u>Amazon</u> <u>Apple</u> <br />
+                    </td>
+                    <td class="commentsTD" id="song-comments_'.$this->i.'">
+                        '. $this->showComments() . '
+                    </td>
+                    <td class="votingTD" id="song-voting_'.$this->i.'">
+                        '. $this->showVoting() . '
+                    </td>
+                </tr>';
+
+        return $html;
+    }
     
     function map($in)
     {
@@ -124,7 +177,8 @@ class Song extends RankableItem
 		$html = '<input type="hidden" id="whereCom" value="'.$where .'">
 			  <input type="hidden" id="commentsShown" value="'.$commentsShown .'">
 			  <input type="hidden" id="upperLimitCom" value="'.$upperLimit .'">';
-		$html .= '<ol id="update_'.$this->i.'" class="timeline">';
+		$html .= '<div class="comments-display">
+		<ol id="update_'.$this->i.'" class="timeline">';
 		
 		//old comments
         $qry = mysql_query("SELECT * FROM  `comments` 
@@ -160,12 +214,14 @@ class Song extends RankableItem
 				</span>
 			</center>';
 		}
-		$html .= '<div>
+		$html .= '
+		</div>
+		<div class="comments-input">
 			<form action="#" method="post">
 			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$ytcode.'"/> 
-			<textarea id="comment_'.$this->i.'"></textarea><br />
+			<textarea class="comments-text" id="comment_'.$this->i.'"></textarea>
 			Username: <input type="text" id="cuser_'.$this->i.'" value="Anonymous"/>
-			<input type="submit" class="submit" id="submit_'.$this->i.'" value=" Submit Comment " />
+			<input type="submit" class="comments-submit" id="submit_'.$this->i.'" value="Submit" />
 			</form>
 		</div>';
 		

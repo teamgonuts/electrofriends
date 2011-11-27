@@ -3,7 +3,6 @@ include ("connection.php");
 include ("classes/Song.php");
 include ("misc/functions.php");
 
-showHeader();
 ?>
 
 <html>
@@ -14,11 +13,22 @@ showHeader();
 	//how to dynamically load http://www.ovaistariq.net/447/how-to-dynamically-create-twitters-tweet-button-and-facebooks-like-button/
 	</script>
 	<LINK href="styles/main.css" rel="stylesheet" type="text/css">
+    <LINK href="styles/static.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <center>
+
+<div class="filters">
+    <?php showFilters(); //show header uses $topOf and $genre ?>
+</div>
+
+<div class="main">
+    <?php showLogo(); ?>
+</div>
+
 <?php
-	if (isset($_GET['s']))
+    if (isset($_GET['s']))
 		$ytcode = $_GET['s'];
 	else
 		die("No Song Specified...how did you get here");
