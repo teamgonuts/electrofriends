@@ -101,7 +101,7 @@ class Song extends RankableItem
                         Title: <a class="link" id="title_link" href="#">'
                          . $this->title . '</a><br />
                         Artist: <a class="link" id="artist_link" href="#">' . $this->artist . '</a><br />
-                        Genre: <a class="link" id="genre_link" href="#">' . $this->map($this->genre) .'</a><br />
+                        Genre: <a class="link genre-link" id="genre_'. $this->i .'" href="#">' . $this->map($this->genre) .'</a><br />
                         Uploaded By: '.$this->user .'<br />
                         Download: <u>Amazon</u> <u>Apple</u> <br />
                     </td>
@@ -261,14 +261,8 @@ class Song extends RankableItem
 		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
 		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
 		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
-		<center>
-			<form action="#" method="post">
-				<input type="submit" '.$disabled.' class="upvote" id="'.$this->i.'" value=" + " style="width:30px;" />
-			</form>
-			' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'<br />
-			<form action="#" method="post">
-				<input type="submit" '.$disabled.' class="downvote" id="'.$this->i.'" value=" - " style="width:30px;" />
-			</form>
+		<center> '
+               . $this->score . "[" . $this->ups . "/" . $this->downs . "]" . '<br />
 		</center>
 		';
 	}

@@ -1,48 +1,51 @@
 <?php
 include('../connection.php');
 include ("../classes/Song.php");
+include ("../classes/Filter.php");
+include ("../classes/DateFilter.php");
+include ("../classes/GenreFilter.php");
+include ("../misc/functions.php");
 
 if($_POST)
-{	
-	$where = str_replace('\\','',$_POST['where']);
-	$topOf = str_replace('\\','',$_POST['topOf']);
-	$songsPerPage = $_POST['songsPerPage'];
-	$upperLimit = $_POST['upperLimit'];
-	
-	//updating limits
-	$i = $upperLimit + 1;
-	$lowerLimit = $upperLimit;
-	$upperLimit = $upperLimit + $songsPerPage;
-	
+{
+    //need to know time filter so I can either sort by upload date or score
+    $topOf = $_POST['timefilter'];
+    $genre = $_POST['genrefilter'];
+    $lowerLimit = $_POST['lowerLimit'];
+    $upperLimit = $_POST['upperLimit'];
+    $daysBack = word2num($topOf);
+    
+    $filters = array();
+    $filters['date'] =  new DateFilter($daysBack);
+    $filters['genre'] = new GenreFilter($genre);
+    $where = $filters['date']->genSQL() . ' AND ' . $filters['genre']->genSQL();
+    if($topOf == 'freshest') //determining to sort by upload date or score
+        $orderBy = 'uploaded_on';
+    else
+        $orderBy = 'score';
 
-	if($topOf == 'New') //newest was selected
-	{
-		$qry = mysql_query("SELECT * FROM  `songs` 
+    $qry = mysql_query("SELECT * FROM  `songs`
 						WHERE $where
-						ORDER BY uploaded_on DESC
+						ORDER BY $orderBy DESC
 						LIMIT $lowerLimit , $upperLimit
 						");
-	}
-	else
-	{
-		$qry = mysql_query("SELECT * FROM  `songs` 
-						WHERE $where
-						ORDER BY score DESC
-                        LIMIT $lowerLimit , $upperLimit
-						");
-	}
 	if (!$qry)
 		die("FAIL: " . mysql_error());
 
-	
-	while($row = mysql_fetch_array($qry) AND $i <= $upperLimit)
-	{
-		$song = new Song($row, $i);
-		echo '<tr class="song" id="'.$i.'">';
-		$song->showMin();
-        echo '</tr>';
-		$i ++;
-	}
+    //creating rows
+    $i = $lowerLimit + 1; //start one above
+    if(mysql_num_rows($qry) > 1) //fixes weird error
+    {
+       	while($row = mysql_fetch_array($qry) AND $i <= $upperLimit)
+        {
+            $song = new Song($row, $i);
+            echo $song->showClasses();
+            $i ++;
+        }
+    }
 }
-else { die("FAIL: POST not set in maxSongAjax.php"); }
+else {
+	die("FAIL: POST not set in ShowMoreSongAjax.php");
+}
+
 ?>

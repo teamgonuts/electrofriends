@@ -1,3 +1,4 @@
+
 $(function() {
     initializeStaticContent();
 
@@ -13,17 +14,57 @@ $(function() {
             $('.time-filter').removeClass('highlight-filter'); //removing old highlighting
             $(this).toggleClass('highlight-filter'); //highlighting new filter
         }
-        else //genre filter
+        else if($(this).hasClass('genre-filter')) //genre filter
         {
             $('#current-genre-filter').val($(this).attr('id')); //setting new time filter
             $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
             $(this).toggleClass('highlight-filter'); //highlighting new filter
         }
 
+        $.post('ajax/rankingsajax.php', { timefilter: $('#current-time-filter').val(), genrefilter: $('#current-genre-filter').val()},
+        function(data) {
+          $('#rankings-container').html(data);
+          //hide all maximized songs except the first
+            $('.min#min1').addClass('hidden');
+            $('.max:not(#max1)').addClass('hidden');
+        });
+
+        //when a filter is changed, don't change the current queue, but the next song
+        //to be added to the queue is the song at the top of the rankings
+        $('#playlist-next-index').val('1');
+
     }); //highlights correct filter and dynamically loads new rankings
 
+    $(document).on('click', '.genre-link', function(){
+        if($(this).attr('id') == 'hub-genre-link')
+            var genre = $('#song-genre').html().toLowerCase();
+        else //figure out which song was clicked, get its genre
+        {
+            //Hacky Way to Get Index
+            var temp = $(this).attr("id");
+            temp = temp.split('_');
+            var i = temp[1];
+            var genre = $('#genre_' + i).val().toLowerCase();
+        }
 
-	$(document).on('click', '.submit', function(e)
+        $.post('ajax/rankingsajax.php', { timefilter: $('#current-time-filter').val(), genrefilter: genre},
+            function(data) {
+              $('#rankings-container').html(data);
+              //hide all maximized songs except the first
+                $('.min#min1').addClass('hidden');
+                $('.max:not(#max1)').addClass('hidden');
+            });
+
+            //when a filter is changed, don't change the current queue, but the next song
+            //to be added to the queue is the song at the top of the rankings
+            $('#playlist-next-index').val('1');
+
+            //highlight correct genre
+            $('.genre-filter').removeClass('highlight-filter');
+            $('#' + genre).addClass('highlight-filter');
+    });
+
+	$(document).on('click', '.submit', function(e) //todo rename, this is for comments
 	{
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
@@ -165,82 +206,93 @@ $(function() {
 		}
 	});
 
-	$(document).on('click', '.upvote', function(e)
+	$(document).on('click', '.vote-button', function(e)
 	{
-		var i = $(this).attr("id");
-		//alert('i = ' + i);
 
-		var ytcode = $("#ytcode_"+i).val();
-		var score = $("#score_"+i).val();
-		//alert('score = ' + score);
-		var ups = $("#ups_"+i).val();
-		var downs = $("#downs_"+i).val();
-		//alert(ytcode);
-		var dataString = 'ytcode='+ytcode + '&score='+score+
-						'&ups='+ups + '&downs='+downs+
-						'&i='+i;
-		//alert('dataString='+dataString);
-		$.ajax({
-			type: "POST",
-			url: "ajax/voteUpAjax.php",
-			data: dataString,
-			cache: false,
-			success: function(html)
-			{
-				//alert('success');
-				$('#td4_'+i).html(html).fadeIn(1000);
-			},
-			error:function(xhr, ajaxOptions, thrownError)
-			{
-				alert("Ajax fail");
-			}
-		});
-		return false;
+        $.post('ajax/voteAjax.php', { ytcode: current_song.ytcode,
+                                               result: $(this).attr('id'),
+                                               score: current_song.score,
+                                               ups: current_song.ups,
+                                               downs: current_song.downs},
+            function(html) {
+                alert(html);
+                $('#song-score').html(html);
+                $('.vote-button').disable();
+            });
 	});
 
-	$(document).on('click', '.downvote', function(e)
-	{
-		var i = $(this).attr("id");
-		//alert('i = ' + i);
+    $(document).on('click', '#showMoreSongs', function()
+    {
+        //Hacky Way to Get Index
+		var temp = $('.song:last').attr("id");
+		temp = temp.split('max');
+		var lowerLimit = temp[1];
+        var upperLimit = parseInt(lowerLimit) + parseInt($('#songs-per-page').val());
+        //alert('lowerLimit: ' + lowerLimit + " upperLimit" + upperLimit);
+        $.post('ajax/showMoreSongsAjax.php', { timefilter: $('#current-time-filter').val(),
+                                               genrefilter: $('#current-genre-filter').val(),
+                                               lowerLimit: lowerLimit,
+                                               upperLimit: upperLimit},
+            function(html) {
+                //alert('showMoreSongsAjax.php: ' + html);
+                if(html.length > 0) //rows were returned
+                {
+                    $('.rankings-table').append(html);
+                    //alert(lowerLimit);
+                    nextSongIndex = (parseInt(lowerLimit) +1).toString();
+                    $('.min').removeClass('hidden');
+                    $('.max').addClass('hidden');
+                    $('.max#max'+ nextSongIndex).removeClass('hidden');
+                    $('.min#min'+ nextSongIndex).addClass('hidden');
+                }
+                else
+                    $('#showMoreSongs').addClass('hidden');
 
-		var ytcode = $("#ytcode_"+i).val();
-		var score = $("#score_"+i).val();
-		//alert('score = ' + score);
-		var ups = $("#ups_"+i).val();
-		var downs = $("#downs_"+i).val();
-		//alert(ytcode);
-		var dataString = 'ytcode='+ytcode + '&score='+score+
-						'&ups='+ups + '&downs='+downs+
-						'&i='+i;
-		//alert('dataString='+dataString);
-		$.ajax({
-			type: "POST",
-			url: "ajax/voteDownAjax.php",
-			data: dataString,
-			cache: false,
-			success: function(html)
-			{
-				//alert('success');
-				$('#td4_'+i).fadeIn(1000).html(html);
-			},
-			error:function(xhr, ajaxOptions, thrownError)
-			{
-				alert("Ajax fail: \n" + xhr.statusText);
-			}
-		});
-		return false;
-	});
-
-    $(document).on('click', '.showMore', showMoreSongs);
+                //if we added less than the amount of songs possible to add aka all the songs are shown
+                var songsCount= $('.song').size() / 2; //divide by 2 because there is min and max
+                if(songCount < upperLimit)
+                {
+                    $('#showMoreSongs').addClass('hidden');
+                }
+            });
+        //alert("done");
+    });
 
     $(document).on('click', '.showMoreComments', showMoreComments);
 
-    $(document).on('click', '.uploadlink', function()
+    $(document).on('click', '.uploadlink', function() //toggles hidden upload box
     {
+        $('#upload-box-result').addClass('hidden');
         $('#upload_box').toggleClass('hidden');
     });
     
-    $(document).on('click', '#upload_song', uploadSong);     //clicking the upload song button in upload_box
+    $(document).on('click', '#upload_song', function() //upload's song to db
+        {
+            var title = encodeURIComponent($('#upload_title').val());
+            var artist = encodeURIComponent($('#upload_artist').val());
+            var yturl = $('#upload_yturl').val();
+            var user = encodeURIComponent($('#upload_user').val());
+            var genre = $('#upload_genre').val();
+            var oldie = $('#oldie').attr('checked'); //if the song uploaded is an old song
+            var dataString = 'title='+title+'&artist='+artist+
+                             '&yturl='+yturl+'&user='+user+
+                             '&genre='+genre+'&oldie='+oldie;
+            $.ajax({
+                type: "POST",
+                url: "ajax/uploadajax.php",
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    $("#upload-box-result").html(html);
+                    $("#upload-box-result").removeClass('hidden');
+                },
+                error:function(xhr, ajaxOptions, thrownError)
+                {
+                    alert("Ajax fail: \n" + xhr.statusText);
+                }
+            });
+        });
     return false;
 });
 
@@ -254,7 +306,7 @@ function resizeText()
     $('#resizer').css("font-size", size);
     var actual_width = $('#resizer').width();
     
-    while(desired_width <= actual_width)
+    while(desired_width <= actual_width+10) //+10 for saftey net
     {
         size--;
         $('#resizer').css("font-size", size);
@@ -281,7 +333,7 @@ function initializeStaticContent()
     var params = { allowScriptAccess: "always" }; //load song-swf
     swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytp",
                         "ytp", "275", "90", "8", null, null, params);
-    $('#song-voting').html($('#song-voting_1').html());
+    $('#song-score').html($('#song-voting_1').html());
 
     //loading queue
     $('#playlist-1').html($('#song-info-min_2').html());
@@ -416,45 +468,6 @@ function minimizeSong(dataString, i)
     });
 }
 
-function showMoreSongs()
-{
-	var where = $('#where').val();
-    var topOf = $('#topOf').val();
-	var upperLimit = parseInt($('#upperLimit').val());
-	var songsPerPage = parseInt($('#songsPerPage').val());
-
-	var dataString = 'where='+ where + '&upperLimit='+upperLimit+
-						'&songsPerPage='+songsPerPage + "&topOf="+topOf;
-    $.ajax({
-		type: "POST",
-		url: "ajax/showMoreSongsAjax.php",
-		data: dataString,
-		cache: false,
-		success: function(html)
-		{
-			if(html.length > 0) //rows are returned
-				$('.rankings').append(html);
-			else //no rows are returned, disable buttons
-			{
-				$('.showMore').hide();
-			}
-			
-			var songsAdded = $('.song').size() - upperLimit;
-			if(songsAdded < songsPerPage) //if we added less than the amount of songs possible to add aka all the songs are shown
-			{
-				$('.showMore').hide();
-			}
-				
-		},
-		error:function(xhr, ajaxOptions, thrownError)
-		{
-			alert("Ajax fail: \n" + xhr.statusText);
-		}
-	});
-
-	$('#upperLimit').val(upperLimit + songsPerPage);
-}
-
 function showMoreComments()
 {
 	var temp = $(this).attr("id");
@@ -500,52 +513,5 @@ function showMoreComments()
 	$('#upperLimitCom').val(upperLimit + commentsShown);
 }
 
-function quickUpload()
-{
-    //alert('test1');
-    $("#upload_box").removeClass("upload_box_success");
-    $.ajax({
-		url: "upload.php",
-		success: function(html)
-		{
-            $("#upload_box").addClass("upload_box");
-            $("#upload_box").html(html);
-		},
-		error:function(xhr, ajaxOptions, thrownError)
-		{
-			alert("Ajax fail: \n" + xhr.statusText);
-		}
-	});
-    //alert('test2');
-}
 
-function uploadSong()
-{
-    var title = encodeURIComponent($('#upload_title').val());
-    var artist = encodeURIComponent($('#upload_artist').val());
-    var yturl = $('#upload_yturl').val();
-    var user = encodeURIComponent($('#upload_user').val());
-    var genre = $('#upload_genre').val();
-    var oldie = $('#oldie').attr('checked'); //if the song uploaded is an old song
-    var dataString = 'title='+title+'&artist='+artist+
-                     '&yturl='+yturl+'&user='+user+
-                     '&genre='+genre+'&oldie='+oldie;
-	$.ajax({
-		type: "POST",
-		url: "ajax/uploadajax.php",
-		data: dataString,
-		cache: false,
-		success: function(html)
-		{
-
-			$("#upload_box").html(html);
-            $("#upload_box").removeClass("upload_box");
-            $("#upload_box").addClass("upload_box_success");
-		},
-		error:function(xhr, ajaxOptions, thrownError)
-		{
-			alert("Ajax fail: \n" + xhr.statusText);
-		}
-	});
-}
 

@@ -44,9 +44,10 @@ function showFilters()
 		<a class="filter genre-filter" id="trance" href="#">Trance</a>
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a class="uploadlink" href="#">Upload</a></b>
 	<div class="hidden" id="upload_box">
+	    <div class="hidden" id="upload-box-result"></div>
         YouTube URL: <input id="upload_yturl" type="text" name="url" /> <br />
-        Title: <input id="upload_title" type="text" name="title" /> <br />
-        Artist: <input id="upload_artist" type="text" name="artist" /> <br />
+        Title: <input id="upload_title" type="text" name="title" /><br />
+        Artist: <input id="upload_artist" type="text" name="artist" /><br />
         Genre: <select id="upload_genre" name="genre">
                 <option value="DnB">Drum & Bass</option>
                 <option value="Dubstep">Dubstep</option>
@@ -56,7 +57,7 @@ function showFilters()
                 <option value="Trance">Trance</option>
                </select> <br />
         Uploaded By: <input id="upload_user" type="text" name="user" value="" /> <br />
-        Old Song: <input type="checkbox" value="oldie" id="oldie"/> <br />
+        Old Song: <input type="checkbox" value="oldie" id="oldie"/><br />
         <center><button id="upload_song">Upload Song</button> </center>
 	</div>
 	<br />
@@ -69,7 +70,10 @@ function showLogo()
 {
     echo '
     <center>
-	    <a href="index.php" style="text-decoration:none;"><span id="title">t3k.no</span><span id="sub_title">beta</span></a>
+	    <span class="filter">
+	        <span id="title">t3k.no</span>
+	        <span id="sub_title">beta 2.0</span>
+        </span>
 	</center>';
 }
 //coverts dateFilter word into coresponding days
@@ -93,6 +97,8 @@ function word2num($topof)
             return 36500;
             break;
 		case 'new':
+			return 100000;
+        case 'freshest':
 			return 100000;
     }
 }

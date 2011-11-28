@@ -20,6 +20,9 @@
     padding-left: 2px;
     padding-right: 2px;
 }
+.filter:hover{
+    cursor: pointer;
+}
 
 #upload_box
 {
@@ -30,6 +33,14 @@
     top:25px;
     right:0px;
     padding: 2px;
+}
+
+#upload-box-result{
+    text-align: center;
+}
+.sub-text{
+    font-size:70%;
+    font-style: italic;
 }
 
 #song-table{
@@ -113,10 +124,29 @@ textarea.comments-text
     padding-right:25px;
     margin-left:auto;
     margin-right:auto;
+    vertical-align: middle;
 }
 
 ol#song-queue{
     text-align: left;
     list-style-position:inside;
     margin-left:5px;
+}
+
+.vote-button{
+     background-color:#33FF33;
+     color: black;
+     font-weight: bold;
+     width: 25px;
+     height: 20px;
+     border: 1px solid black;
+     padding: 0px;
+     margin-left:auto;
+     margin-right:auto;
+     margin-top:3px;
+     margin-bottom:3px;
+}
+.vote-button:hover{
+    cursor: pointer;
+    border: 1px solid red;
 }

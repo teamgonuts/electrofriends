@@ -15,10 +15,10 @@ class Rankings
     //Rankings are a table with 1 item per row, 1st item expanded, the rest minimized
     public function display()
     {
-        echo '<div class="rankings-container">';
         $i = 1;
 		$songsPerPage = 25; //default
 		$upperLimit = $songsPerPage;
+        echo '<input type="hidden" id="songs-per-page" value="' . $songsPerPage . '"\>';
         
         if(array_key_exists('artist' , $this->filters)) //if an artist was selected, sort by artist and date
         {
@@ -30,13 +30,7 @@ class Rankings
 
         $topOf = $this->filters['date']->getDaysWord();
          //=================BEST OF TABLE=====================//
-		echo '
-        <input type="hidden" id="where" value="'.$where .'" />
-        <input type="hidden" id="topOf" value="'.$topOf .'" />
-        <input type="hidden" id="songsPerPage" value="'.$songsPerPage .'" />
-        <input type="hidden" id="upperLimit" value="'.$upperLimit .'" />
-		<table border="1" class="rankings-table">
-		';
+		echo '<table border="1" class="rankings-table">';
 
         //hardcoding DB
 		if($topOf == 'New') //newest was selected, order by upload date
@@ -70,9 +64,7 @@ class Rankings
         //====================END TABLE===================//
         echo '</table>';
 	    if ($i >= $songsPerPage)
-            echo '<button class="showMore"> Show More </Button>';
-
-        echo '</div>';
+            echo '<button id="showMoreSongs"> Show More </Button>';
     }
 
     //returns the title for the table given the rankings filters

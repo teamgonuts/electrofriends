@@ -5,6 +5,7 @@
  {
 	background-color:#01050C;
 	color:white;
+    font-size:16;
  }
 *{margin:0;padding:0;}
 
@@ -29,7 +30,7 @@
     font-weight: bold;
 }
 
-.rankings-container{
+#rankings-container{
     margin-bottom: 100px;
     text-align: center;
 }
@@ -60,6 +61,8 @@
     padding: 2px;
 }
 
+
+
 .song-button:hover
 {
     background-color: #041228;
@@ -71,29 +74,6 @@
 	color:#FFFF00;
 	text-decoration:none;
 }
-
-.upload_box
-{
-    border: 1px solid white;
-    text-align: right;
-    position: absolute;
-    right:0px;
-    display: inline-block;
-    margin-top:25px;
-    padding: 2px;
-}
-
- .upload_box_success
- {
-    display: inline-block;
-    border: 1px solid white;
-    color:#00FF00;
-    position: absolute;
-    right:0px;
-    padding: 2px;
-    margin-top:25px;
-    margin-right: 100px;
- }
  
 #sub_title
 {

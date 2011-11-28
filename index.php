@@ -64,9 +64,11 @@ if (isset($_GET['artist']))
     $daysBack = word2num($topof);
     $filters['date'] =  new DateFilter($daysBack);
     $filters['genre'] = new GenreFilter($genre);
-    $rankings = new Rankings($filters);
-    $rankings->display();
-?>
+    $rankings = new Rankings($filters); ?>
+
+    <div id="rankings-container">
+        <?php $rankings->display(); ?>
+    </div>
 </div>
 
 <div class="bottom-container">
@@ -77,11 +79,11 @@ if (isset($_GET['artist']))
                 <table id="song-info-table">
                     <tr>
                         <td colspan="2" id="song-info-titleartist">
-                            <a href="#"><span id="song-title"></span></a> - <a href="#"><span id="song-artist"></span></a>
+                            <span id="song-title"></span> - <a href="#"><span id="song-artist"></span></a>
                         </td>
                     </tr>
                     <tr>
-                            <td>Genre: <a href="#"><span id="song-genre"></span></a></td>
+                            <td>Genre: <a class="genre-link" id="hub-genre-link" href="#"><span id="song-genre"></span></a></td>
                             <td class="song-info-item">Uploaded By: <a href="#"><span id="song-user"></span></a></td>
                     </tr>
                     <tr>
@@ -98,7 +100,13 @@ if (isset($_GET['artist']))
                 </span>
                 <span class="track-button" id="next-track">>></span>
             </td>
-            <td id="song-voting"></td>
+            <td id="hub-voting-td">
+                <span id="song-voting">
+                    <div class="vote-button" id="up">+</div>
+                    <div id="song-score"></div>
+                    <div class="vote-button" id="down">-</div>
+                </span>
+            </td>
             <td id="song-playlist">
                 
                 <input type="hidden" id="playlist-next-index" value="" />
