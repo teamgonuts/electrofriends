@@ -106,7 +106,7 @@ class Song extends RankableItem
                         Download: <u>Amazon</u> <u>Apple</u> <br />
                     </td>
                     <td class="commentsTD" id="song-comments_'.$this->i.'">
-                        '. $this->showComments() . '
+                        <span id="comments-container">'. $this->showComments() . '</span>
                     </td>
                     <td class="votingTD" id="song-voting_'.$this->i.'">
                         '. $this->showVoting() . '
@@ -172,13 +172,13 @@ class Song extends RankableItem
 		$ytcode = $this->ytcode;
 		$where = "'". $ytcode ."' = youtubecode";
 		
-		$commentsShown = 7;
+		$commentsShown = 4;
 		$upperLimit = $commentsShown;
 		$html = '<input type="hidden" id="whereCom" value="'.$where .'">
 			  <input type="hidden" id="commentsShown" value="'.$commentsShown .'">
 			  <input type="hidden" id="upperLimitCom" value="'.$upperLimit .'">';
 		$html .= '<div class="comments-display">
-		<ol id="update_'.$this->i.'" class="timeline">';
+		<ol id="update_'.$this->i .'" class="timeline">';
 		
 		//old comments
         $qry = mysql_query("SELECT * FROM  `comments` 
@@ -202,14 +202,14 @@ class Song extends RankableItem
 			<span class="com_text"> ' . $comment_dis . '</span>
 			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
 		}
-		
-		//comment area
 		$html .= '</ol>';
-		if (mysql_num_rows($qry) == $upperLimit) //see if there are more comments to be displayed
+
+         //see if there are more comments to be displayed
+		if (mysql_num_rows($qry) == $upperLimit)
 		{
 			$html .= '
 			<center>
-				<span class="showMoreComments" id="showMoreComments_'.$this->i .'" style="text-align:center; font-size:75%; font-weight:bold;"> 
+				<span class="showMoreComments" id="showMoreComments_'.$this->i .'">
 					Show More 
 				</span>
 			</center>';
@@ -217,12 +217,9 @@ class Song extends RankableItem
 		$html .= '
 		</div>
 		<div class="comments-input">
-			<form action="#" method="post">
-			<input type="hidden" id="ytcode_'.$this->i.'" value="'.$ytcode.'"/> 
-			<textarea class="comments-text" id="comment_'.$this->i.'"></textarea>
-			Username: <input type="text" id="cuser_'.$this->i.'" value="Anonymous"/>
-			<input type="submit" class="comments-submit" id="submit_'.$this->i.'" value="Submit" />
-			</form>
+			<textarea class="comments-text" id="comment-text_'.$this->i.'"></textarea><br />
+			Username: <input type="text" id="comment-user_'.$this->i.'" value="Anonymous"/>
+			<button class="submit-comment" id="submit-comment_'.$this->i .'">Submit</button>
 		</div>';
 		
 		return $html;
@@ -243,20 +240,6 @@ class Song extends RankableItem
 	//returns the voting functionality
 	function showVoting()
 	{
-		//check the users ip to see if he's voted
-		$ytcode = $this->ytcode;
-		$disabled = '';
-		if (isset($_SERVER['HTTP_X_FORWARD_FOR'])) 
-			$ip = $_SERVER['HTTP_X_FORWARD_FOR'];
-		else 
-			$ip = $_SERVER['REMOTE_ADDR'];
-			
-		$qry = mysql_query("SELECT * FROM  `ipcheck` 
-                            WHERE '$ytcode' = ytcode AND '$ip' = ip");
-							
-		if(mysql_num_rows($qry) > 0) //he voted already
-			$disabled = 'disabled="true"';
-
 		return '
 		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
 		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 

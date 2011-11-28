@@ -69,6 +69,7 @@ function onPlayerError(errorCode) {
     {
        nextSong();
        //todo: loads next song but doesn't play
+       //todo: IDEA: load entire new player and play song
     }
     else
         alert("error: " + errorCode);
@@ -120,7 +121,6 @@ function nextSong()
 
     //setting new playlist-next/prev-index
     $('#playlist-next-index').val(parseInt(next_index) + 1);
-    //todo: figure out previous song
 }
 
 function printQueues()

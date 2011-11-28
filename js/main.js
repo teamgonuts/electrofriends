@@ -64,49 +64,43 @@ $(function() {
             $('#' + genre).addClass('highlight-filter');
     });
 
-	$(document).on('click', '.submit', function(e) //todo rename, this is for comments
+	$(document).on('click', '.submit-comment', function() //todo rename, this is for comments
 	{
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
 		temp = temp.split('_');
 		var i = temp[1];
+        //alert(i);
 
-		//alert(i);
-		var name = encodeURIComponent($("#cuser_"+i).val());
-		//alert('name '+name);
-		var comment = encodeURIComponent($("#comment_"+i).val());
+		var user = encodeURIComponent($("#comment-user_"+i).val());
+		//alert('user '+ user);
+		var comment = encodeURIComponent($("#comment-text_"+i).val());
+		//alert('comment '+comment);
 
-		var ytcode = $("#ytcode_"+i).val();
-		var dataString = 'name='+ name + '&comment=' + comment+ '&ytcode=' + ytcode + '&i=' + i;
-		if(name=='' || comment=='')
+		if(user=='' || comment=='')
 		{
 			alert('Please Give Valid Details');
 		}
 		else
 		{
 			//Disable Button
-			$('#submit_'+i).attr("disabled", true);
-			$('#submit_'+i).css("color", "gray");
-			$('#submit_'+i).css("background-color", "lightgray");
-			$('#cuser_'+i).attr("disabled", true);
-			$('#cuser_'+i).css("color", "gray");
-			$('#cuser_'+i).css("background-color", "lightgray");
+			$('#submit-comment_'+i).attr("disabled", true);
+			$('#submit-comment_'+i).addClass("disabled");
+            $('#comment-text_'+i).addClass('disabled');
+            $('#comment-text_'+i).attr("disabled", true);
+            $('#comment-user_'+i).addClass('disabled');
+            $('#comment-user_'+i).attr("disabled", true);
 
-
-			$.ajax({
-			type: "POST",
-			url: "ajax/commentajax.php",
-			data: dataString,
-			cache: false,
-			success: function(html){
-			//alert(html);
-			$("ol#update_"+i).prepend(html);
-			$("ol#update_"+i+" li:first").fadeIn("slow");
-
-			}
+			$.post('ajax/commentajax.php', { comment: comment, user: user, ytcode: $("#ytcode_"+i).val(), i:i},
+            function(html) {
+                //alert(html);
+                html = decodeURIComponent(html);
+                $("ol#update_"+i).prepend(html);
+                $("ol#update_"+i+" li:first").fadeIn("slow");
+                //alert('end');
 			});
 		}
-		return false;
+
 	});
 
 	$(document).on('click', '.clickable', function(e) //everything within a song's maxed row
@@ -215,7 +209,7 @@ $(function() {
                                                ups: current_song.ups,
                                                downs: current_song.downs},
             function(html) {
-                alert(html);
+                //alert(html);
                 $('#song-score').html(html);
                 $('.vote-button').disable();
             });
@@ -250,7 +244,8 @@ $(function() {
 
                 //if we added less than the amount of songs possible to add aka all the songs are shown
                 var songsCount= $('.song').size() / 2; //divide by 2 because there is min and max
-                if(songCount < upperLimit)
+                //alert(songsCount);
+                if(songsCount < upperLimit)
                 {
                     $('#showMoreSongs').addClass('hidden');
                 }
@@ -331,7 +326,8 @@ function initializeStaticContent()
     //load up first song
     loadSongInfoIndex(1); //load song-info
     var params = { allowScriptAccess: "always" }; //load song-swf
-    swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytp",
+    swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytp" +
+                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0",
                         "ytp", "275", "90", "8", null, null, params);
     $('#song-score').html($('#song-voting_1').html());
 
@@ -380,14 +376,8 @@ function loadSongInfoIndex(i)
                         $('#downs_' + i).val(),
                         $('#user_' + i).val());
 
-    $('#song-title').html(current_song.title);
-    $('#song-artist').html(current_song.artist);
-    $('#song-genre').html(current_song.genre);
-    $('#song-user').html(current_song.user);
-    $('#song-download').html('Amazon');
-    
-    resizeText();
-}
+    loadSongInfoCurrentSong()
+    }
 
 //loads song info from current_Song
 function loadSongInfoCurrentSong()
@@ -396,6 +386,8 @@ function loadSongInfoCurrentSong()
     $('#song-artist').html(current_song.artist);
     $('#song-genre').html(current_song.genre);
     $('#song-user').html(current_song.user);
+    $('#song-score').html(current_song.score +
+                     '[' + current_song.ups + '/' + current_song.downs + ']')
     $('#song-download').html('Amazon');
 
     resizeText();
