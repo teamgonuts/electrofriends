@@ -59,7 +59,7 @@ function stateChange(newState)
    else if(newState == 3) //song is buffering, change title
    {
        //next song hasn't loaded yet so pull from playlist
-       $("title").text('Loading '+ $('#playlist-1-artist').val() + ' - T3k.no');
+       $("title").text('Loading Song - T3k.no');
    }
 }
 

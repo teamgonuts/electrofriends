@@ -305,6 +305,7 @@ function resizeText(containerID, resizeID )
     $('#resizer').html($('#' + resizeID).html()); //setting resizer to desired text
     $('#resizer').css("font-size", size);
     var actual_width = $('#resizer').width();
+    //alert(desired_width + ' - ' + actual_width);
     
     while(desired_width <= actual_width+10) //+10 for saftey net
     {
