@@ -168,6 +168,8 @@ $(function() {
                         $('#ups_'+i).val(),
                         $('#downs_'+i).val(),
                         $('#user_'+i).val()));
+
+            resizeQueue();
         }
         else if($(targ).hasClass("queue-button")) //the user clicked queue
         {
@@ -181,6 +183,8 @@ $(function() {
                         $('#ups_'+i).val(),
                         $('#downs_'+i).val(),
                         $('#user_'+i).val()));
+
+            resizeQueue();
         }
 		else //user wants to minimize song
 		{
@@ -293,11 +297,12 @@ $(function() {
 
 /*resizes the song's title and artist in the bottom player so it fits on one line
   if contents already fit on one line, keep the same size */
-function resizeText()
+//params id of container to resize, id of thing we want resized
+function resizeText(containerID, resizeID )
 {
     var size = 16;
-    var desired_width = $('#song-info').width();
-    $('#resizer').html($('#song-info-titleartist').html()); //setting resizer to desired text
+    var desired_width = $('#' + containerID).width();
+    $('#resizer').html($('#' + resizeID).html()); //setting resizer to desired text
     $('#resizer').css("font-size", size);
     var actual_width = $('#resizer').width();
     
@@ -308,7 +313,15 @@ function resizeText()
         actual_width = $('#resizer').width();
     }
 
-    $('#song-info-titleartist').css("font-size", size);
+    $('#' + resizeID).css("font-size", size);
+}
+
+//helper method that calls resizeText on all the items in the queue
+function resizeQueue()
+{
+    resizeText("song-playlist" , "playlist-1");
+    resizeText("song-playlist" , "playlist-2");
+    resizeText("song-playlist" , "playlist-3");
 }
 //initializes all the static content on the page (queue, filters...etc)
 function initializeStaticContent()
@@ -335,6 +348,7 @@ function initializeStaticContent()
     $('#playlist-1').html($('#song-info-min_2').html());
     $('#playlist-2').html($('#song-info-min_3').html());
     $('#playlist-3').html($('#song-info-min_4').html());
+    resizeQueue();
 
     //setting up initial queue
     queue.push(new Song($('#ytcode_2').val(),
@@ -390,74 +404,7 @@ function loadSongInfoCurrentSong()
                      '[' + current_song.ups + '/' + current_song.downs + ']')
     $('#song-download').html('Amazon');
 
-    resizeText();
-}
-
-//returns a ajax formatted datastring given i, the index of the song in the rankings
-function getDataString(i)
-{
-    //stats
-    var user = $("#user_"+i).val();
-    var ytcode = $("#ytcode_"+i).val();
-    var title = encodeURIComponent($("#title_"+i).val());
-    var artist = encodeURIComponent($("#artist_"+i).val());
-    var genre = $("#genre_"+i).val();
-    var score = $("#score_"+i).val();
-    var ups = $("#ups_"+i).val();
-    var downs = $("#downs_"+i).val();
-    var id = $("#id_"+i).val();
-    var upload_date = $("#upload_date_"+i).val();
-    return 'user='+ user + '&ytcode=' + ytcode +
-            '&title=' + title + '&artist=' + artist +
-            '&genre=' + genre + '&score=' + score +
-            '&ups=' + ups + '&downs=' + downs +
-            '&id=' + id + '&upload_date=' + upload_date +
-            '&i=' + i;
-}
-
-//parses dataString and returns the entry specified by the parameter
-function parseEntry(entry, dataString)
-{
-    //getting index of entry
-    var idx = dataString.indexOf(entry + "=");
-    //if the entry is title, get the data after title=
-    var temp = dataString.substring(idx + entry.length + 1, dataString.length-1); // from where we want to the end of string
-    //return up until the next &
-    return temp.substring(0, temp.indexOf('&'));
-}
-
-//dataString to pass to ajax, i is index of song
-function maximizeSong(dataString, i)
-{
-    $.ajax(
-    {
-        type: "POST",
-        url: "ajax/maxSongAjax.php",
-        data: dataString,
-        cache: false,
-        success: function(html)
-        {
-            $('#'+i).html(html);
-        }
-    });
-    $('#'+i).ajaxComplete(function(){
-            //reloads script
-             $.getScript('http://platform.twitter.com/widgets.js');
-    });
-}
-
-function minimizeSong(dataString, i)
-{
-    $.ajax({
-        type: "POST",
-        url: "ajax/minSongAjax.php",
-        data: dataString,
-        cache: false,
-        success: function(html){
-            //alert("success");
-            $('#'+i).fadeIn(1000).html(html);
-        }
-    });
+    resizeText("song-info" , "song-info-titleartist");
 }
 
 function showMoreComments()

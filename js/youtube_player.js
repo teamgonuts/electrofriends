@@ -119,6 +119,8 @@ function nextSong()
                         $('#downs_'+next_index).val(),
                         $('#user_'+next_index).val()));
 
+    resizeQueue();
+
     //setting new playlist-next/prev-index
     $('#playlist-next-index').val(parseInt(next_index) + 1);
 }

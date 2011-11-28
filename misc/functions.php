@@ -45,7 +45,7 @@ function showFilters()
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a class="uploadlink" href="#">Upload</a></b>
 	<div class="hidden" id="upload_box">
 	    <div class="hidden" id="upload-box-result"></div>
-        YouTube URL: <input id="upload_yturl" type="text" name="url" /> <br />
+        YouTube URL: <input id="upload_yturl" type="text" name="url" /><br />
         Title: <input id="upload_title" type="text" name="title" /><br />
         Artist: <input id="upload_artist" type="text" name="artist" /><br />
         Genre: <select id="upload_genre" name="genre">
