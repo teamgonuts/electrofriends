@@ -34,7 +34,17 @@ $(function() {
            // alert('p2');
         }
     });
+
+    $(document).on('click', '.pause-button', function(){
+        ytplayer = document.getElementById('ytp');
+        if(ytplayer.getPlayerState() == '1') //playing
+            ytplayer.pauseVideo();
+        else if (ytplayer.getPlayerState() == '2')
+            ytplayer.playVideo();
+    });
 });
+
+
 
 function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById(playerId);

@@ -30,6 +30,10 @@
     font-weight: bold;
 }
 
+.pause-button{
+    cursor: pointer;
+}
+
 #rankings-container{
     margin-bottom: 100px;
     text-align: center;
