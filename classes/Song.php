@@ -100,9 +100,9 @@ class Song
                         </div>
                         Title: <a class="link" id="title_link" href="#">'
                          . $this->title . '</a><br />
-                        Artist: <a class="artist-link filter" id="artist_link" href="#">' . $this->artist . '</a><br />
-                        Genre: <a class="link genre-link" id="genre_'. $this->i .'" href="#">' . $this->map($this->genre) .'</a><br />
-                        Uploaded By: <a href="#" class="filter user-link" >'.$this->user .'</a><br />
+                        Artist: <a class="link artist-link filter" id="artist_link" href="#">' . $this->artist . '</a><br />
+                        Genre: <a class="link genre-link" id="genre_'. $this->i .'" href="#" val="' . $this ->genre .'">' . $this->map($this->genre) .'</a><br />
+                        Uploaded By: <a href="#" class="link filter user-link" >'.$this->user .'</a><br />
                         Download: <u>Amazon</u> <u>Apple</u> <br />
                     </td>
                     <td class="commentsTD" id="song-comments_'.$this->i.'">

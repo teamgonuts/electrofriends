@@ -35,6 +35,7 @@ $(function() {
         }
         else if($(this).hasClass('user-link')) //artist filter
         {
+            alert($(this).html());
             current_user_filter = $(this).html();
             $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
             $('.time-filter').removeClass('highlight-filter'); //removing old highlighting
@@ -70,9 +71,14 @@ $(function() {
             temp = temp.split('_');
             var i = temp[1];
             var genre = $('#genre_' + i).val().toLowerCase();
+            current_genre_filter = genre;
+            current_artist_filter = '';
         }
 
-        $.post('ajax/rankingsajax.php', { timefilter: $('#current-time-filter').val(), genrefilter: genre},
+        $.post('ajax/rankingsajax.php', { timefilter: current_time_filter,
+                                          genrefilter: current_genre_filter,
+                                          artistfilter: current_artist_filter,
+                                          userfilter: current_user_filter},
             function(data) {
               $('#rankings-container').html(data);
               //hide all maximized songs except the first
@@ -146,26 +152,9 @@ $(function() {
 		temp = temp.split('_');
 		var i = temp[1];
 
-		if ($(targ).attr("class") == "link")
+		if ($(targ).hasClass('link'))
         {
-            if($(targ).attr('id') == 'title_link') //open the individual song page
-            {
-                var ytcode = $("#ytcode_"+i).val().toLowerCase();
-                window.open('view.php?s=' + ytcode,'_blank');
-            }
-            else if($(targ).attr('id') == 'artist_link') //creates new rankings with artist filter
-            {
-                //var topOf = $("#topOf").val();
-                var topOf = $("#topOf").val().toLowerCase();
-                var artist = encodeURIComponent($("#artist_"+i).val().toLowerCase());
-                window.location.href = ('index.php?topof=' + topOf + '&artist=' + artist);
-            }
-            else if($(targ).attr('id') == 'genre_link')
-            {
-                var topOf = $("#topOf").val().toLowerCase();
-                var genre = $("#genre_"+i).val();
-                window.location.href = ('index.php?topof=' + topOf + '&genre=' + genre);
-            }
+            //dont minimize
         }
         else if($(targ).hasClass("play-button")) //the user clicked play
         {
@@ -284,9 +273,6 @@ $(function() {
     });
 
     $(document).on('click', '.showMoreComments', showMoreComments);
-    $(document).on('click', '#song-user', function(){
-        alert($('#song-user').html());
-    });
 
     $(document).on('click', '.uploadlink', function() //toggles hidden upload box
     {
