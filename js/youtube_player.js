@@ -75,15 +75,12 @@ function stateChange(newState)
 
 function onPlayerError(errorCode) {
     nextSong();
-	/*if(errorCode == 100) //the video has been removed or turned to private.
-    {
-       nextSong();
-       //todo: loads next song but doesn't play
-       //todo: IDEA: load entire new player and play song
-    }
-    else
-        alert("error: " + errorCode);
-	*/
+    //on error, load a new player
+     var params = { allowScriptAccess: "always" };
+     swfobject.embedSWF("http://www.youtube.com/v/" + current_song.ytcode + "&enablejsapi=1&playerapiid=ytp" +
+                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autoplay=1",
+                        "ytp", "275", "90", "8", null, null, params);
+
 }
 
 function previousSong()
