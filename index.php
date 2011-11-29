@@ -34,7 +34,7 @@ include ("misc/functions.php");
 <?php
 $topof = "new"; //Default
 $genre = "all"; //Default
-$artist = "none"; //Default
+$artist = ""; //Default
 
 $filters = array(); //empty filters array
 //setting filters
@@ -79,12 +79,12 @@ if (isset($_GET['artist']))
                 <table id="song-info-table">
                     <tr>
                         <td colspan="2" id="song-info-titleartist">
-                            <span id="song-title"></span> - <a href="#"><span id="song-artist"></span></a>
+                            <span id="song-title"></span> - <a  href="#" class="filter artist-link" id="song-artist"></a>
                         </td>
                     </tr>
                     <tr>
                             <td>Genre: <a class="genre-link" id="hub-genre-link" href="#"><span id="song-genre"></span></a></td>
-                            <td class="song-info-item">Uploaded By: <a href="#"><span id="song-user"></span></a></td>
+                            <td class="song-info-item">Uploaded By: <a href="#" class="filter user-link" id="song-user"></a></td>
                     </tr>
                     <tr>
                         <td colspan="2">Download: <a href="#"><span id="song-download"></span></a></td>

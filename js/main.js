@@ -1,5 +1,11 @@
+var current_time_filter;
+var current_genre_filter;
+var current_artist_filter;
+var current_user_filter;
 
 $(function() {
+    //alert("song user: " + $('#song-user').html());
+
     initializeStaticContent();
 
     $(document).on('hover', 'tr.song', function() //highlights song rows during hover
@@ -10,18 +16,37 @@ $(function() {
     $(document).on('click', '.filter', function(){
         if($(this).hasClass('time-filter'))
         {
-            $('#current-time-filter').val($(this).attr('id')); //setting new time filter
+            current_time_filter = $(this).attr('id'); //setting new time filter
             $('.time-filter').removeClass('highlight-filter'); //removing old highlighting
             $(this).toggleClass('highlight-filter'); //highlighting new filter
         }
         else if($(this).hasClass('genre-filter')) //genre filter
         {
-            $('#current-genre-filter').val($(this).attr('id')); //setting new time filter
+            current_genre_filter = $(this).attr('id'); //setting the new genre filter
             $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
             $(this).toggleClass('highlight-filter'); //highlighting new filter
+            current_artist_filter = '';
+        }
+        else if($(this).hasClass('artist-link')) //artist filter
+        {
+            current_artist_filter = $(this).html();
+            //alert(current_artist_filter);
+            $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
+        }
+        else if($(this).hasClass('user-link')) //artist filter
+        {
+            current_user_filter = $(this).html();
+            $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
+            $('.time-filter').removeClass('highlight-filter'); //removing old highlighting
+            $('.time-filter#freshest').addClass('highlight-filter'); //highlight freshest
+            current_time_filter = 'freshest';
+            //alert(current_user_filter);
         }
 
-        $.post('ajax/rankingsajax.php', { timefilter: $('#current-time-filter').val(), genrefilter: $('#current-genre-filter').val()},
+        $.post('ajax/rankingsajax.php', { timefilter: current_time_filter,
+                                          genrefilter: current_genre_filter,
+                                          artistfilter: current_artist_filter,
+                                          userfilter: current_user_filter},
         function(data) {
           $('#rankings-container').html(data);
           //hide all maximized songs except the first
@@ -227,8 +252,11 @@ $(function() {
 		var lowerLimit = temp[1];
         var upperLimit = parseInt(lowerLimit) + parseInt($('#songs-per-page').val());
         //alert('lowerLimit: ' + lowerLimit + " upperLimit" + upperLimit);
-        $.post('ajax/showMoreSongsAjax.php', { timefilter: $('#current-time-filter').val(),
-                                               genrefilter: $('#current-genre-filter').val(),
+        //todo: fix for artist and user filters
+        $.post('ajax/showMoreSongsAjax.php', { timefilter: current_time_filter,
+                                               genrefilter: current_genre_filter,
+                                               artistfilter: current_artist_filter,
+                                               userfilter: current_user_filter,
                                                lowerLimit: lowerLimit,
                                                upperLimit: upperLimit},
             function(html) {
@@ -240,8 +268,6 @@ $(function() {
                     nextSongIndex = (parseInt(lowerLimit) +1).toString();
                     $('.min').removeClass('hidden');
                     $('.max').addClass('hidden');
-                    $('.max#max'+ nextSongIndex).removeClass('hidden');
-                    $('.min#min'+ nextSongIndex).addClass('hidden');
                 }
                 else
                     $('#showMoreSongs').addClass('hidden');
@@ -258,6 +284,9 @@ $(function() {
     });
 
     $(document).on('click', '.showMoreComments', showMoreComments);
+    $(document).on('click', '#song-user', function(){
+        alert($('#song-user').html());
+    });
 
     $(document).on('click', '.uploadlink', function() //toggles hidden upload box
     {
@@ -334,8 +363,13 @@ function initializeStaticContent()
     //highlight default filtering
     $('.filter#freshest').toggleClass('highlight-filter');
     $('.filter#all').toggleClass('highlight-filter');
-    $('#current-time-filter').val('freshest');
-    $('#current-genre-filter').val('all');
+    current_time_filter = 'freshest';
+    current_genre_filter = 'all';
+    current_artist_filter = '';
+    current_user_filter = '';
+    //todo
+    //$('#current-time-filter').val('freshest');
+    //$('#current-genre-filter').val('all');
 
     //load up first song
     loadSongInfoIndex(1); //load song-info

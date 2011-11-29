@@ -10,11 +10,15 @@ include ("../misc/functions.php");
 
     $topOf = $_POST['timefilter'];
     $genre = $_POST['genrefilter'];
+    $artist = $_POST['artistfilter'];
     $daysBack = word2num($topOf);
 
     $filters = array();
     $filters['date'] =  new DateFilter($daysBack);
     $filters['genre'] = new GenreFilter($genre);
+    if($artist != '')
+        $filters['artist'] = new ArtistFilter($artist);
+
     $rankings = new Rankings($filters);
     $rankings->display();
 ?>

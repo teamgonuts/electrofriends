@@ -21,7 +21,7 @@
 }
 
 .rankings-table{
-    width:60%;
+    width:65%;
     margin-left:auto;
     margin-right:auto;
 }
@@ -70,7 +70,9 @@
     padding: 2px;
 }
 
-
+.scoreTD{
+    width:60px;
+}
 
 .song-button:hover
 {
@@ -111,6 +113,9 @@ ol.timeline li:first-child{}
 	text-align:center;
 }
 
+ .center{
+     text-align: center;
+ }
 
 #comments-container{ /*DOESNT WORK */
     margin-left: auto;

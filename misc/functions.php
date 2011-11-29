@@ -6,32 +6,18 @@ function showFilters()
 	global $genre;
     global $artist;
 
-	$html = '<input type="hidden" id="current-time-filter" value="" />
-             <input type="hidden" id="current-genre-filter" value="" />
-	<b><a href="http://t3kdev.tumblr.com" target="_blank">Dev Team Blog</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>';
+	$html = '<b><a href="http://t3kdev.tumblr.com" target="_blank">Dev Team Blog</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>';
 
-    if($artist == "none") //artist has not been specified
-    {
-        $html .= '
-            <a class="filter time-filter" id="freshest" href="#">Freshest</a>&nbsp;&nbsp;
-            <b>Top of the:</b>
-                <a class="filter time-filter" id="day" href="#">Day</a>
-                <a class="filter time-filter" id="week" href="#">Week</a>
-                <a class="filter time-filter" id="month" href="#">Month</a>
-                <a class="filter time-filter" id="year" href="#">Year</a>
-                <a class="filter time-filter" id="century" href="#">Century</a>';
-    }
-    else //artist has been chosen todo
-    {
-        $html .= '
-         <a href="index.php?topof=new&artist='.$artist.'">Freshest</a>&nbsp;&nbsp;
-            <b>Top of the:</b>
-                <a href="index.php?topof=day&artist='.$artist.'">Day</a>
-                <a href="index.php?topof=week&artist='.$artist.'">Week</a>
-                <a href="index.php?topof=month&artist='.$artist.'">Month</a>
-                <a href="index.php?topof=year&artist='.$artist.'">Year</a>
-                <a href="index.php?topof=century&artist='.$artist.'">Century</a>';
-    }
+
+    $html .= '
+        <a class="filter time-filter" id="freshest" href="#">Freshest</a>&nbsp;&nbsp;
+        <b>Top of the:</b>
+            <a class="filter time-filter" id="day" href="#">Day</a>
+            <a class="filter time-filter" id="week" href="#">Week</a>
+            <a class="filter time-filter" id="month" href="#">Month</a>
+            <a class="filter time-filter" id="year" href="#">Year</a>
+            <a class="filter time-filter" id="century" href="#">Century</a>';
 
 	$html .= '
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genre:</b>

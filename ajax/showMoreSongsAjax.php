@@ -11,6 +11,7 @@ if($_POST)
     //need to know time filter so I can either sort by upload date or score
     $topOf = $_POST['timefilter'];
     $genre = $_POST['genrefilter'];
+    $artist = $_POST['artistfilter'];
     $lowerLimit = $_POST['lowerLimit'];
     $upperLimit = $_POST['upperLimit'];
     $daysBack = word2num($topOf);
@@ -18,7 +19,11 @@ if($_POST)
     $filters = array();
     $filters['date'] =  new DateFilter($daysBack);
     $filters['genre'] = new GenreFilter($genre);
-    $where = $filters['date']->genSQL() . ' AND ' . $filters['genre']->genSQL();
+    if($artist == '')
+        $where = $filters['date']->genSQL() . ' AND ' . $filters['genre']->genSQL();
+    else
+        $where = $filters['date']->genSQL() . ' AND ' . "'$artist' = artist";
+    
     if($topOf == 'freshest') //determining to sort by upload date or score
         $orderBy = 'uploaded_on';
     else
