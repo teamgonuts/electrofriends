@@ -3,8 +3,8 @@ var current_genre_filter;
 var current_artist_filter;
 var current_user_filter;
 
+
 $(function() {
-    //alert("song user: " + $('#song-user').html());
 
     initializeStaticContent();
 
@@ -12,7 +12,7 @@ $(function() {
     {
         $(this).children().toggleClass('highlightRow');
     });
-
+    
     $(document).on('click', '.filter', function(){
         if($(this).hasClass('time-filter'))
         {
@@ -71,10 +71,9 @@ $(function() {
             temp = temp.split('_');
             var i = temp[1];
             var genre = $('#genre_' + i).val().toLowerCase();
-            current_genre_filter = genre;
-            current_artist_filter = '';
         }
-
+        current_genre_filter = genre;
+        current_artist_filter = '';
         $.post('ajax/rankingsajax.php', { timefilter: current_time_filter,
                                           genrefilter: current_genre_filter,
                                           artistfilter: current_artist_filter,

@@ -21,7 +21,7 @@ function showFilters()
 
 	$html .= '
 	<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genre:</b>
-		<a class="filter genre-filter" id="all" href="#">All</a>
+		<a class="filter genre-filter" id="all" title="all" href="#">All</a>
 		<a class="filter genre-filter" id="dnb" href="#">DnB</a>
 		<a class="filter genre-filter" id="dubstep" href="#">Dubstep</a>
 		<a class="filter genre-filter" id="electro" href="#">Electro</a>
