@@ -296,6 +296,8 @@ $(function() {
     
     $(document).on('click', '#upload_song', function() //upload's song to db
         {
+            $('#upload-box-result').addClass('hidden');
+
             var title = encodeURIComponent($('#upload_title').val());
             var artist = encodeURIComponent($('#upload_artist').val());
             var yturl = $('#upload_yturl').val();
@@ -314,6 +316,16 @@ $(function() {
                 {
                     $("#upload-box-result").html(html);
                     $("#upload-box-result").removeClass('hidden');
+                    //alert($("#upload-box-result").html());
+                    if($("#upload-box-result").html().indexOf("Success") != '-1')
+                    {
+                        //alert("hi");
+                        //clear old entries
+                        $('#upload_yturl').val('');
+                        $('#upload_title').val('');
+                        $('#upload_artist').val('');
+                    }
+
                 },
                 error:function(xhr, ajaxOptions, thrownError)
                 {
