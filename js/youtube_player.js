@@ -37,9 +37,10 @@ $(function() {
 
     $(document).on('click', '.pause-button', function(){
         ytplayer = document.getElementById('ytp');
+
         if(ytplayer.getPlayerState() == '1') //playing
             ytplayer.pauseVideo();
-        else if (ytplayer.getPlayerState() == '2')
+        else if (ytplayer.getPlayerState() == '2' || ytplayer.getPlayerState() == '5')
             ytplayer.playVideo();
     });
 });

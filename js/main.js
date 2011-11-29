@@ -140,7 +140,7 @@ $(function() {
 			targ = e.srcElement;
 		if (targ.nodeType == 3) // defeat Safari bug
 			targ = targ.parentNode;
-			
+
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
 		temp = temp.split('_');
@@ -296,8 +296,6 @@ $(function() {
     
     $(document).on('click', '#upload_song', function() //upload's song to db
         {
-            $('#upload-box-result').addClass('hidden');
-
             var title = encodeURIComponent($('#upload_title').val());
             var artist = encodeURIComponent($('#upload_artist').val());
             var yturl = $('#upload_yturl').val();
@@ -316,7 +314,7 @@ $(function() {
                 {
                     $("#upload-box-result").html(html);
                     $("#upload-box-result").removeClass('hidden');
-                    //alert($("#upload-box-result").html());
+
                     if($("#upload-box-result").html().indexOf("Success") != '-1')
                     {
                         //alert("hi");
@@ -325,7 +323,6 @@ $(function() {
                         $('#upload_title').val('');
                         $('#upload_artist').val('');
                     }
-
                 },
                 error:function(xhr, ajaxOptions, thrownError)
                 {
@@ -488,16 +485,13 @@ function showMoreComments()
 			{
 				$('.showMoreComments').hide();
 			}
-				
+
 		},
 		error:function(xhr, ajaxOptions, thrownError)
 		{
 			alert("Ajax fail: \n" + xhr.statusText);
 		}
 	});
-	
+
 	$('#upperLimitCom').val(upperLimit + commentsShown);
 }
-
-
-
