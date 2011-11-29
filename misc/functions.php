@@ -88,4 +88,13 @@ function word2num($topof)
 			return 100000;
     }
 }
+
+//when using jQueryPost, the data is translated
+//Above & Beyond turns to Above  &amp; Beyond
+//this method replaces them back
+function fixjQueryPost($in)
+{
+    $in = str_replace("&amp;" , "&", $in);
+    return $in;
+}
 ?>

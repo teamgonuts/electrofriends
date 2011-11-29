@@ -49,6 +49,7 @@ $(function() {
                                           artistfilter: current_artist_filter,
                                           userfilter: current_user_filter},
         function(data) {
+          //alert(data);
           $('#rankings-container').html(data);
           //hide all maximized songs except the first
             $('.min#min1').addClass('hidden');
@@ -79,6 +80,7 @@ $(function() {
                                           artistfilter: current_artist_filter,
                                           userfilter: current_user_filter},
             function(data) {
+              alert(data);
               $('#rankings-container').html(data);
               //hide all maximized songs except the first
                 $('.min#min1').addClass('hidden');

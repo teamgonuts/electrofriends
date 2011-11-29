@@ -10,7 +10,7 @@ include ("../misc/functions.php");
 
     $topOf = $_POST['timefilter'];
     $genre = $_POST['genrefilter'];
-    $artist = $_POST['artistfilter'];
+    $artist = fixjQueryPost($_POST['artistfilter']);
     $daysBack = word2num($topOf);
 
     $filters = array();
@@ -20,5 +20,6 @@ include ("../misc/functions.php");
         $filters['artist'] = new ArtistFilter($artist);
 
     $rankings = new Rankings($filters);
+
     $rankings->display();
 ?>
