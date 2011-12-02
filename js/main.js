@@ -6,13 +6,14 @@ var current_user_filter;
 var maxed_song;
 
 $(function() {
-
+    //alert('init Static');
     initializeStaticContent();
 
     $(document).on('hover', 'tr.song', function() //highlights song rows during hover
     {
         $(this).children().toggleClass('highlightRow');
     });
+    //alert('on hover tr.song');
     
     $(document).on('click', '.filter', function(){
         if($(this).hasClass('time-filter'))
@@ -50,12 +51,16 @@ $(function() {
                                           artistfilter: current_artist_filter,
                                           userfilter: current_user_filter},
         function(data) {
-          //alert(data);
-          $('#rankings-container').html(data);
-          //hide all maximized songs except the first
-            $('#min1').addClass('hidden');
-            $('#max' + maxed_song).addClass('hidden');
+
+            //alert(data);
+            $('#rankings-container').html(data);
+            if(!$('#max-queue').hasClass('hidden')) //if max-queue is open
+                $('#rankings-table').css('width', '100%');
+            //hide all maximized songs except the first
+            $('#min_1').addClass('hidden');
+            $('#max_1').removeClass('hidden');
             generateQueue();
+
         });
 
         //when a filter is changed, don't change the current queue, but the next song
@@ -63,6 +68,7 @@ $(function() {
         $('#playlist-next-index').val('1');
 
     }); //highlights correct filter and dynamically loads new rankings
+    //alert('on click .filter');
 
     $(document).on('click', '.genre-link', function(){
         if($(this).attr('id') == 'hub-genre-link')
@@ -97,6 +103,7 @@ $(function() {
             $('.genre-filter').removeClass('highlight-filter');
             $('#' + genre).addClass('highlight-filter');
     });
+    //alert('on click genre-link');
 
 	$(document).on('click', '.submit-comment', function()
 	{
@@ -230,7 +237,7 @@ $(function() {
             });
 	});
 
-    $(document).on('click', '#showMoreSongs', function()
+    $(document).on('click', '#showMoreSongs', function() //todo broken
     {
         //Hacky Way to Get Index
 		var temp = $('.song:last').attr("id");
@@ -313,7 +320,7 @@ $(function() {
                 }
             });
         });
-    return false;
+    //alert('end on Load');
 });
 
 //minimizes song i in rankings
@@ -346,27 +353,30 @@ function max(i)
 //params id of container to resize, id of thing we want resized
 function resizeText(containerID, resizeID, startingsize )
 {
-    var size = startingsize;
+    var size = startingsize.replace('px', '');
     //alert(size);
     
     var desired_width = $('#' + containerID).width();
     $('#resizer').html($('#' + resizeID).html()); //setting resizer to desired text
     $('#resizer').css("font-size", size);
     var actual_width = $('#resizer').width();
-    //alert(desired_width + ' - ' + actual_width);
+    //alert(desired_width + ' - ' + actual_width + ' - ' + size);
     
-    while(desired_width <= actual_width+10) //+10 for saftey net
+    while(desired_width <= actual_width+30) //+10 for saftey net
     {
         size--;
         $('#resizer').css("font-size", size);
         actual_width = $('#resizer').width();
     }
 
-    $('#' + resizeID).css("font-size", size);
+    $('#' + resizeID).css("font-size", (size + "px"));
+    //alert(desired_width + ' - ' + actual_width + ' - ' + size);
+
 }
 //helper method that calls resizeText on all the items in the queue
 function resizeQueue()
 {
+    //alert('font size: ' + $('#min-queue').css('font-size'));
     resizeText("song-playlist" , "playlist-1", $('#min-queue').css('font-size'));
     resizeText("song-playlist" , "playlist-2", $('#min-queue').css('font-size'));
     resizeText("song-playlist" , "playlist-3", $('#min-queue').css('font-size'));
@@ -375,6 +385,7 @@ function resizeQueue()
 //initializes all the static content on the page (queue, filters...etc)
 function initializeStaticContent()
 {
+    //alert('1');
     //hide all maximized songs except the first
     maxed_song = 1;
     $('#min_' + maxed_song).addClass('hidden');
@@ -387,29 +398,30 @@ function initializeStaticContent()
     current_genre_filter = 'all';
     current_artist_filter = '';
     current_user_filter = '';
-
+    //alert('2');
     //load up first song
     loadSongInfoIndex(1); //load song-info
-
+    //alert('3');
     var params = { allowScriptAccess: "always" }; //load song-swf
     swfobject.embedSWF("http://www.youtube.com/v/"+ current_song.ytcode +"?enablejsapi=1&playerapiid=ytp&version=3" +
                         "&hd=1&iv_load_policy=3&rel=0&showinfo=0",
                         "ytp", "275", "90", "8", null, null, params);
 
 
-    /*swfobject.embedSWF("http://www.youtube.com/v/3oc5b5MetPE?enablejsapi=1&playerapiid=ytp&version=3",
-                       "ytp", "275", "90", "8", null, null, params)*/
+    //alert('4');
     $('#song-score').html($('#song-voting_1').html());
 
     //loading queue
     initializeQueue();
+    //alert('5');
     generateQueue();
-
+    //alert('6');
 
     resizeQueue();
-
+    //alert('7');
     $('#playlist-next-index').val('5'); //the next song to pull info from
     //alert("end of initializeStaticContents");
+    //alert('end');
 }
 function initializeQueue(){
     queue.push(new Song($('#ytcode_2').val(),

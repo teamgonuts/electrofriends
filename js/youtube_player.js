@@ -19,7 +19,7 @@ var current_song;
 
 $(function() {
     //initializing variables
-
+   
     $(document).on('click', '.track-button', function(){ //binds next/prev track buttons to functions
         if($(this).attr("id") == 'next-track') {
             //printQueues();
@@ -63,6 +63,7 @@ $(function() {
                  ytplayer.getPlayerState() == '-1' )
             ytplayer.playVideo();
     });
+
 });
 
 
