@@ -53,6 +53,14 @@
     margin-top: 25px;
     maring-bottom:100px;
 }
+.main-right{
+    float:right;
+    width:68%;
+}
+
+.pause-button{
+    cursor: pointer;
+}
 
 .bottom-container{
     background-color: #041228;
@@ -64,22 +72,17 @@
     border-top: 1px solid white;
 }
 
-#max-queue{
-    background-color: #041228;
-    position: fixed;
-    z-index:10000;
-    bottom:0px;
-    left:0px;
-    border-top: 1px solid white;
-    border-right: 1px solid white;
-    height: 95%;
-    width:35%;
-}
+
+
+
 .queue-control{
     float:right;
-    margin-top:-10px;
     font-size: 75%;
     cursor: pointer;
+    padding-top:0px;
+}
+.queue-control-max{
+    margin-top:-10px;
 }
 
 .song-info-item
@@ -87,7 +90,7 @@
     padding-left:5px;
 }
 #song-playlist{
-    width:35%;
+    width:30%;
 }
 #song-swf{
     width:30%;
@@ -101,7 +104,7 @@
 }
 #song-info{
     text-align:left;
-    width: 30%;
+    width: 35%;
     padding-left: 25px;
 }
 .track-button
@@ -143,10 +146,40 @@ textarea.comments-text
 
 
 
-ol#song-queue{
+
+#max-queue{
+    background-color: #041228;
+    position: fixed;
+    z-index:10000;
+    bottom:0px;
+    left:0px;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    width:30%;
+    padding-top:10px;
+}
+.queue-title{
+    text-align: center;
+    font-weight:bold;
+    font-size:100%;
+    padding-top:5px;
+}
+#user-queue{
+    border-bottom:  1px solid white;
+}
+ol.max-queue{
+    padding-left: 5px;
+    padding-bottom: 5px;
+    list-style-type: decimal;
+    list-style-position:inside;
+    font-size:small;
+}
+
+ol#min-queue{
     text-align: left;
     list-style-position:inside;
     margin-left:5px;
+    font-size:small;
 }
 
 .vote-button{

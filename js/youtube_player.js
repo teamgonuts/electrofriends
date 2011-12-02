@@ -36,14 +36,20 @@ $(function() {
     });
 
     $(document).on('click', '.queue-control', function(){
-        alert("test");
-          if($(this).attr('id') == 'queue-control-max')
+          if($(this).hasClass('queue-control-min'))
           {
-              alert('max');
-              $('#max-queue').removeClass('hidden'); //todo doesnt do this
+              //alert('max');
+              $('#max-queue').removeClass('hidden');
+              $('.main').addClass('main-right');
+              //alert($('.main').attr('class'));
+              $('#rankings-table').css('width', '100%');
           }
           else //min
+          {
               $('#max-queue').addClass('hidden');
+              $('.main').removeClass('main-right');
+              $('#rankings-table').css('width', '65%');
+          }
           });
 
     $(document).on('click', '.pause-button', function(){

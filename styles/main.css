@@ -20,35 +20,17 @@
 	padding:0;
 }
 
-.rankings-table{
-    width:65%;
-    margin-left:auto;
-    margin-right:auto;
-}
 
-.rankings-title{
-    font-weight: bold;
-}
 
-.pause-button{
-    cursor: pointer;
-}
 
-#rankings-container{
-    margin-bottom: 100px;
-    text-align: center;
-}
+
+
 
 .disabled{
     color: gray;
     background-color: lightgray;
 }
-.showMoreComments
-{
-	text-align: center;
-	font-size:75%;
-	font-weight:bold;
-}
+
 
  #song-info-table
  {
@@ -70,14 +52,7 @@
     padding: 2px;
 }
 
-.scoreTD{
-    width:60px;
-}
 
-.song-button:hover
-{
-    background-color: #041228;
-}
 #title
 {
 	font-family:Impact;
@@ -95,9 +70,6 @@
 	margin-top:-30px;
 	text-decoration:none;
 }
-ol.timeline{list-style:none;font-size:1.2em;}
-ol.timeline li{display:none;position:relative;}
-ol.timeline li:first-child{}
 
 
 
@@ -116,52 +88,11 @@ ol.timeline li:first-child{}
  .center{
      text-align: center;
  }
+ .center-margins{
+     margin-left:auto;
+     margin-right:auto;
+ }
 
-#comments-container{ /*DOESNT WORK */
-    margin-left: auto;
-    margin-right: auto;
-}
-#submit
-{
-	color:#000000;
-	margin-top:2px;
-	font-size:14px;
-	border:1px solid black;
-	height:24px;
-	margin-bottom:10px;
-	width:300px;
-}
 
-.com_name
-{
-	font-size: 12px; 
-	color: rgb(102, 51, 153); 
-	font-weight: bold;
-}
 
-.highlightRow
-{
-   cursor: pointer;
-   border: 1px solid #8a2be2;
-}
 
-.com_date
-{
-	font-size: 10px;
-	color:white;
-	font-style:italic;
-}
-
-.com_text
-{
-	font-size: 12px; 
-	color: white; 
-}
-
-.clickable
-{
-    padding-left: 3px;
-    padding-right: 3px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-}

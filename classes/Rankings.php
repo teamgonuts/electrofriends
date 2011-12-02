@@ -30,7 +30,7 @@ class Rankings
 
         $topOf = $this->filters['date']->getDaysWord();
          //=================BEST OF TABLE=====================//
-		echo '<table border="1" class="rankings-table">';
+		echo '<table border="1" id="rankings-table">';
 
         //hardcoding DB
 		if($topOf == 'New') //newest was selected, order by upload date
@@ -62,9 +62,14 @@ class Rankings
 
         }
         //====================END TABLE===================//
+        if ($i >= $songsPerPage)
+            echo '
+            <tr><td colspan="4">
+                <center><button id="showMoreSongs"> Show More </Button></center>
+            </td></tr>
+            ';
         echo '</table>';
-	    if ($i >= $songsPerPage)
-            echo '<button id="showMoreSongs"> Show More </Button>';
+
     }
 
     //returns the title for the table given the rankings filters

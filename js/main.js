@@ -3,6 +3,7 @@ var current_genre_filter;
 var current_artist_filter;
 var current_user_filter;
 
+var maxed_song;
 
 $(function() {
 
@@ -33,7 +34,7 @@ $(function() {
             //alert(current_artist_filter);
             $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
         }
-        else if($(this).hasClass('user-link')) //artist filter
+        else if($(this).hasClass('user-link')) //user filter
         {
             alert($(this).html());
             current_user_filter = $(this).html();
@@ -52,8 +53,9 @@ $(function() {
           //alert(data);
           $('#rankings-container').html(data);
           //hide all maximized songs except the first
-            $('.min#min1').addClass('hidden');
-            $('.max:not(#max1)').addClass('hidden');
+            $('#min1').addClass('hidden');
+            $('#max' + maxed_song).addClass('hidden');
+            generateQueue();
         });
 
         //when a filter is changed, don't change the current queue, but the next song
@@ -135,6 +137,7 @@ $(function() {
 
 	});
 
+
 	$(document).on('click', '.clickable', function(e) //everything within a song's maxed row
 	{
 		//Figuring out which element a user clicked
@@ -148,10 +151,11 @@ $(function() {
 		if (targ.nodeType == 3) // defeat Safari bug
 			targ = targ.parentNode;
 
-		//Hacky Way to Get Index
-		var temp = $(this).attr("id");
+		//Getting index;
+		var temp = $(this).closest('tr').attr("id");
 		temp = temp.split('_');
 		var i = temp[1];
+        //alert(i);
 
 		if ($(targ).hasClass('link'))
         {
@@ -201,21 +205,13 @@ $(function() {
 
             resizeQueue();
         }
-		else //user wants to minimize song
+		else //user wants to change songs state
 		{
-            if($('.max#max' + i).hasClass('hidden')) //if I'm hidden
-            {
-                $('.max').addClass('hidden'); //hide all maxed songs
-                $('.min').removeClass('hidden'); //show all min songs
-                $('.max#max' + i).toggleClass('hidden'); //unhide max self
-                $('.min#min' + i).toggleClass('hidden'); //hide my min self
-
-            }
-            else //if im open
-            {
-                $('.max#max' + i).toggleClass('hidden'); //close myself
-                $('.min#min' + i).toggleClass('hidden');
-            }
+            //alert("i=" + i + " - maxed="+maxed_song);
+            if(maxed_song == i)
+                min(i);
+            else
+                max(i);
 		}
 	});
 
@@ -320,12 +316,39 @@ $(function() {
     return false;
 });
 
+//minimizes song i in rankings
+function min(i)
+{
+    //alert('function min called');
+    $('#max_' +i).addClass('hidden');
+    $('#min_' +i).removeClass('hidden');
+
+    if(maxed_song = i)
+        maxed_song = -1; //-1 because no songs are maxed
+
+}
+//maximizes song i in rankings
+function max(i)
+{
+    //alert('function maxed called');
+
+    //min current song
+    $('#max_' + maxed_song).addClass('hidden');
+    $('#min_' + maxed_song).removeClass('hidden');
+    //max i
+    $('#min_' + i).addClass('hidden');
+    $('#max_' + i).removeClass('hidden');
+    maxed_song = i;
+}
+
 /*resizes the song's title and artist in the bottom player so it fits on one line
   if contents already fit on one line, keep the same size */
 //params id of container to resize, id of thing we want resized
-function resizeText(containerID, resizeID )
+function resizeText(containerID, resizeID, startingsize )
 {
-    var size = 16;
+    var size = startingsize;
+    //alert(size);
+    
     var desired_width = $('#' + containerID).width();
     $('#resizer').html($('#' + resizeID).html()); //setting resizer to desired text
     $('#resizer').css("font-size", size);
@@ -341,20 +364,21 @@ function resizeText(containerID, resizeID )
 
     $('#' + resizeID).css("font-size", size);
 }
-
 //helper method that calls resizeText on all the items in the queue
 function resizeQueue()
 {
-    resizeText("song-playlist" , "playlist-1");
-    resizeText("song-playlist" , "playlist-2");
-    resizeText("song-playlist" , "playlist-3");
+    resizeText("song-playlist" , "playlist-1", $('#min-queue').css('font-size'));
+    resizeText("song-playlist" , "playlist-2", $('#min-queue').css('font-size'));
+    resizeText("song-playlist" , "playlist-3", $('#min-queue').css('font-size'));
+    resizeText("song-playlist" , "playlist-4", $('#min-queue').css('font-size'));
 }
 //initializes all the static content on the page (queue, filters...etc)
 function initializeStaticContent()
 {
     //hide all maximized songs except the first
-    $('.min#min1').addClass('hidden');
-    $('.max:not(#max1)').addClass('hidden');
+    maxed_song = 1;
+    $('#min_' + maxed_song).addClass('hidden');
+    $('#max_' + maxed_song).removeClass('hidden');
 
     //highlight default filtering
     $('.filter#freshest').toggleClass('highlight-filter');
@@ -378,12 +402,16 @@ function initializeStaticContent()
     $('#song-score').html($('#song-voting_1').html());
 
     //loading queue
-    $('#playlist-1').html($('#song-info-min_2').html());
-    $('#playlist-2').html($('#song-info-min_3').html());
-    $('#playlist-3').html($('#song-info-min_4').html());
+    initializeQueue();
+    generateQueue();
+
+
     resizeQueue();
 
-    //setting up initial queue
+    $('#playlist-next-index').val('5'); //the next song to pull info from
+    //alert("end of initializeStaticContents");
+}
+function initializeQueue(){
     queue.push(new Song($('#ytcode_2').val(),
                         $('#title_2').val(),
                         $('#artist_2').val(),
@@ -408,8 +436,31 @@ function initializeStaticContent()
                         $('#ups_4').val(),
                         $('#downs_4').val(),
                         $('#user_4').val()));
+    queue.push(new Song($('#ytcode_5').val(),
+                        $('#title_5').val(),
+                        $('#artist_5').val(),
+                        $('#genre_5').val(),
+                        $('#score_5').val(),
+                        $('#ups_5').val(),
+                        $('#downs_5').val(),
+                        $('#user_5').val()));
 
-    $('#playlist-next-index').val('5'); //the next song to pull info from
+    $('#playlist-1').html($('#title_2').val() + " - " +$('#artist_2').val());
+    $('#playlist-2').html($('#title_3').val() + " - " +$('#artist_3').val());
+    $('#playlist-3').html($('#title_4').val() + " - " +$('#artist_4').val());
+    $('#playlist-4').html($('#title_5').val() + " - " +$('#artist_5').val());
+}
+function generateQueue(){
+    //alert(($('#rankings-table').find('tr').length-1) / 2);
+    for(var i=1; i <= $('#gen-queue').children().length; i++)
+    {
+        if(i < $('#rankings-table').find('tr.min').length)
+            $('#gen-queue-' + i).html($('#title_' + (i+1)).val() + " - " +$('#artist_' + (i+1)).val());
+        else
+            $('#gen-queue-' + i).html('');
+
+    }
+
 }
 //loads a song from the rankigns based of index
 function loadSongInfoIndex(i)
@@ -423,8 +474,9 @@ function loadSongInfoIndex(i)
                         $('#downs_' + i).val(),
                         $('#user_' + i).val());
 
-    loadSongInfoCurrentSong()
-    }
+    loadSongInfoCurrentSong();
+    //alert("end of loadSongInfoIndex");
+}
 
 //loads song info from current_Song
 function loadSongInfoCurrentSong()
@@ -437,7 +489,7 @@ function loadSongInfoCurrentSong()
                      '[' + current_song.ups + '/' + current_song.downs + ']')
     $('#song-download').html('Amazon');
 
-    resizeText("song-info" , "song-info-titleartist");
+    resizeText("song-info" , "song-info-titleartist", $('body').css('font-size'));
 }
 
 function showMoreComments()

@@ -66,9 +66,8 @@ class Song
     function showClasses()
     {
         //song info & minimized row
-        $html = '
-                <tr class="song min" id="min' .$this->i . '">
-                    <td class="clickable" id="song-index-min_'.$this->i.'"><pre>' . $this->i . '</pre></td>
+        $html = '<tr class="song min" id="min_' .$this->i . '">
+                    <td class="song-index clickable"><pre>' . $this->i . '</pre></td>
                         <input type="hidden" id="ytcode_'.$this->i.'" value="'.$this->ytcode.'"/>
                         <input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
                         <input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/>
@@ -78,19 +77,19 @@ class Song
                         <input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/>
                         <input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/>
                         <input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/>
-                    <td class="clickable" id="song-info-min_'.$this->i.'">' . $this->title . " - " . $this->artist . '</td>
-                    <td class="clickable" id="song-genre-min_'.$this->i.'">' . $this->genre . '</td>
-                    <td class="clickable" id="song-score-min_'.$this->i.'">
+                    <td class="song-info-min clickable">' . $this->title . " - " . $this->artist . '</td>
+                    <td class="song-genre clickable">' . $this->genre . '</td>
+                    <td class="song-score clickable">
                         <div class="center">' . $this->score . "[" . $this->ups . "/" . $this->downs . "]" .'</div>
                     </td>
                 </tr>';
         //max row
         $html .= '
-                <tr class="song max" id="max'. $this->i .'">
-                    <td class="clickable" id="song-index-max_'.$this->i.'">
+                <tr class="song max hidden" id="max_'. $this->i .'">
+                    <td class="song-index clickable">
                         '	. $this->i . '
                     </td>
-                    <td class="clickable" id="song-info-max_'.$this->i.'">
+                    <td class="song-info-max clickable">
                         <div class="song-buttons">
                             <center>
                                 <span class="song-button play-button">Play</span>
@@ -105,7 +104,7 @@ class Song
                         Uploaded By: <a href="#" class="link filter user-link" >'.$this->user .'</a><br />
                         Download: <u>Amazon</u> <u>Apple</u> <br />
                     </td>
-                    <td class="commentsTD" id="song-comments_'.$this->i.'">
+                    <td class="song-comments">
                         <span id="comments-container">'. $this->showComments() . '</span>
                     </td>
                     <td class="scoreTD" id="song-voting_'.$this->i.'">
