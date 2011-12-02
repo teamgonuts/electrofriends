@@ -43,12 +43,16 @@ $(function() {
               $('.main').addClass('main-right');
               //alert($('.main').attr('class'));
               $('#rankings-table').css('width', '100%');
+              $('.filters').css('text-align', 'right'); //push the filters to the right
+              $('#blog-link').addClass('hidden');
           }
           else //min
           {
               $('#max-queue').addClass('hidden');
               $('.main').removeClass('main-right');
               $('#rankings-table').css('width', '65%');
+              $('.filters').css('text-align', 'center');
+              $('#blog-link').removeClass('hidden');
           }
           });
 
@@ -61,7 +65,9 @@ $(function() {
         else if (ytplayer.getPlayerState() == '2' ||
                  ytplayer.getPlayerState() == '5' ||
                  ytplayer.getPlayerState() == '-1' )
+        {
             ytplayer.playVideo();
+        }
     });
 
 });

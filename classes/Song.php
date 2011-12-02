@@ -107,7 +107,7 @@ class Song
                     <td class="song-comments">
                         <span id="comments-container">'. $this->showComments() . '</span>
                     </td>
-                    <td class="scoreTD" id="song-voting_'.$this->i.'">
+                    <td class="song-score" id="song-voting_'.$this->i.'">
                         <span class="center">'. $this->showScore() . '</span>
                     </td>
                 </tr>';

@@ -16,7 +16,7 @@ class Rankings
     public function display()
     {
         $i = 1;
-		$songsPerPage = 25; //default
+		$songsPerPage = 20; //default
 		$upperLimit = $songsPerPage;
         echo '<input type="hidden" id="songs-per-page" value="' . $songsPerPage . '"\>';
         
@@ -64,7 +64,7 @@ class Rankings
         //====================END TABLE===================//
         if ($i >= $songsPerPage)
             echo '
-            <tr><td colspan="4">
+            <tr class="song"><td colspan="4">
                 <center><button id="showMoreSongs"> Show More </Button></center>
             </td></tr>
             ';

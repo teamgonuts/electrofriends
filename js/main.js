@@ -376,6 +376,7 @@ function resizeText(containerID, resizeID, startingsize )
 //helper method that calls resizeText on all the items in the queue
 function resizeQueue()
 {
+    //todo resize max-queue
     //alert('font size: ' + $('#min-queue').css('font-size'));
     resizeText("song-playlist" , "playlist-1", $('#min-queue').css('font-size'));
     resizeText("song-playlist" , "playlist-2", $('#min-queue').css('font-size'));
@@ -466,8 +467,8 @@ function generateQueue(){
     //alert(($('#rankings-table').find('tr').length-1) / 2);
     for(var i=1; i <= $('#gen-queue').children().length; i++)
     {
-        if(i < $('#rankings-table').find('tr.min').length)
-            $('#gen-queue-' + i).html($('#title_' + (i+1)).val() + " - " +$('#artist_' + (i+1)).val());
+        if(i <= $('#rankings-table').find('tr.min').length)
+            $('#gen-queue-' + i).html($('#title_' + (i)).val() + " - " +$('#artist_' + (i)).val());
         else
             $('#gen-queue-' + i).html('');
 

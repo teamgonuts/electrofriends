@@ -6,7 +6,7 @@ function showFilters()
 	global $genre;
     global $artist;
 
-	$html = '<b><a href="http://t3kdev.tumblr.com" target="_blank">Dev Team Blog</a>
+	$html = '<b><a href="http://t3kdev.tumblr.com" id="blog-link" target="_blank">Dev Team Blog</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</b>';
 
 

@@ -15,6 +15,12 @@
     background-color: #0C3476;
 }
 
+ #song-info-table
+ {
+     margin-left:auto;
+     margin-right:auto;
+ }
+
 .filter
 {
     padding-left: 2px;
@@ -80,9 +86,6 @@
     font-size: 75%;
     cursor: pointer;
     padding-top:0px;
-}
-.queue-control-max{
-    margin-top:-10px;
 }
 
 .song-info-item
@@ -157,6 +160,7 @@ textarea.comments-text
     border-right: 1px solid white;
     width:30%;
     padding-top:10px;
+    height:100%;
 }
 .queue-title{
     text-align: center;

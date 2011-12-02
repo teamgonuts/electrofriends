@@ -3,6 +3,7 @@
     margin-left:auto;
     margin-right:auto;
     margin-bottom: 100px;
+    border-color: #444444;
 }
 
 .rankings-title{
@@ -22,11 +23,27 @@
 .highlightRow
 {
    cursor: pointer;
-   border: 1px solid #8a2be2;
+   border: 1px solid white;
 }
 
 
-
+tr.song{
+    background-color: #041228;    
+}
+.song-buttons
+{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.song-button
+{
+    text-align:center;
+    border:  1px white solid;
+    color: #33FF33;
+    font-weight: bold;
+    font-size: 125%;
+    padding: 2px;
+}
 
 ol.timeline{list-style:none;font-size:1.2em;}
 ol.timeline li{display:none;position:relative;}
@@ -54,6 +71,9 @@ ol.timeline li:first-child{}
 .song-genre{
     text-align: right;
     padding-right: 20px;
+}
+.song-score{
+    width:70px;
 }
 
 

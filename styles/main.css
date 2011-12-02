@@ -32,25 +32,7 @@
 }
 
 
- #song-info-table
- {
-     margin-left:auto;
-     margin-right:auto;
- }
-.song-buttons
-{
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-.song-button
-{
-    text-align:center;
-    border:  1px white solid;
-    color: #33FF33;
-    font-weight: bold;
-    font-size: 125%;
-    padding: 2px;
-}
+
 
 
 #title
