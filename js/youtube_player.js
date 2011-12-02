@@ -35,12 +35,26 @@ $(function() {
         }
     });
 
-    $(document).on('click', '.pause-button', function(){
-        ytplayer = document.getElementById('ytp');
+    $(document).on('click', '.queue-control', function(){
+        alert("test");
+          if($(this).attr('id') == 'queue-control-max')
+          {
+              alert('max');
+              $('#max-queue').removeClass('hidden'); //todo doesnt do this
+          }
+          else //min
+              $('#max-queue').addClass('hidden');
+          });
 
+    $(document).on('click', '.pause-button', function(){
+
+        ytplayer = document.getElementById('ytp');
+        //alert(ytplayer.getPlayerState());
         if(ytplayer.getPlayerState() == '1') //playing
             ytplayer.pauseVideo();
-        else if (ytplayer.getPlayerState() == '2' || ytplayer.getPlayerState() == '5')
+        else if (ytplayer.getPlayerState() == '2' ||
+                 ytplayer.getPlayerState() == '5' ||
+                 ytplayer.getPlayerState() == '-1' )
             ytplayer.playVideo();
     });
 });

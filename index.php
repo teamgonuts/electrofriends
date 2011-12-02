@@ -71,25 +71,21 @@ if (isset($_GET['artist']))
     </div>
 </div>
 
+<div id="max-queue hidden"></div>
+
 <div class="bottom-container">
     <table id="song-table" border="1">
         <tr>
-            <td id="song-info">
-                <p style="text-align: center; font-weight: bold;">Current Song</p>
-                <table id="song-info-table">
-                    <tr>
-                        <td colspan="2" id="song-info-titleartist">
-                            <span id="song-title"></span> - <a  href="#" class="filter artist-link" id="song-artist"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                            <td>Genre: <a class="genre-link" id="hub-genre-link" href="#"><span id="song-genre"></span></a></td>
-                            <td class="song-info-item">Uploaded By: <a href="#" class="filter user-link" id="song-user"></a></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Download: <a href="#"><span id="song-download"></span></a></td>
-                    </tr>
-                </table>
+            <td id="song-playlist">
+                <span class="queue-control" id="queue-control-min">[min]</span>
+                <span class="queue-control" id="queue-control-max">[max]</span>
+                <input type="hidden" id="playlist-next-index" value="" />
+                <p style="text-align: center; font-weight: bold;">Queue</p>
+                <ol id="song-queue">
+                    <li id="playlist-1"></li>
+                    <li id="playlist-2"></li>
+                    <li id="playlist-3"></li>
+                </ol>
             </td>
             <td id="song-swf">
                 <span class="track-button" id="prev-track"><<</span>
@@ -107,16 +103,24 @@ if (isset($_GET['artist']))
                     <div class="vote-button" id="down">-</div>
                 </span>
             </td>
-            <td id="song-playlist">
-                
-                <input type="hidden" id="playlist-next-index" value="" />
-                <p style="text-align: center; font-weight: bold;">Queue</p>
-                <ol id="song-queue">
-                    <li id="playlist-1"></li>
-                    <li id="playlist-2"></li>
-                    <li id="playlist-3"></li>
-                </ol>
+            <td id="song-info">
+                <p style="text-align: center; font-weight: bold;">Current Song</p>
+                <table id="song-info-table">
+                    <tr>
+                        <td colspan="2" id="song-info-titleartist">
+                            <span id="song-title"></span> - <a  href="#" class="filter artist-link" id="song-artist"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td>Genre: <a class="genre-link" id="hub-genre-link" href="#"><span id="song-genre"></span></a></td>
+                            <td class="song-info-item">Uploaded By: <a href="#" class="filter user-link" id="song-user"></a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Download: <a href="#"><span id="song-download"></span></a></td>
+                    </tr>
+                </table>
             </td>
+
         </tr>
     </table>
 </div>

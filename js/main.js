@@ -96,7 +96,7 @@ $(function() {
             $('#' + genre).addClass('highlight-filter');
     });
 
-	$(document).on('click', '.submit-comment', function() //todo rename, this is for comments
+	$(document).on('click', '.submit-comment', function()
 	{
 		//Hacky Way to Get Index
 		var temp = $(this).attr("id");
@@ -363,16 +363,18 @@ function initializeStaticContent()
     current_genre_filter = 'all';
     current_artist_filter = '';
     current_user_filter = '';
-    //todo
-    //$('#current-time-filter').val('freshest');
-    //$('#current-genre-filter').val('all');
 
     //load up first song
     loadSongInfoIndex(1); //load song-info
+
     var params = { allowScriptAccess: "always" }; //load song-swf
-    swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytp" +
-                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0",
+    swfobject.embedSWF("http://www.youtube.com/v/"+ current_song.ytcode +"?enablejsapi=1&playerapiid=ytp&version=3" +
+                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0",
                         "ytp", "275", "90", "8", null, null, params);
+
+
+    /*swfobject.embedSWF("http://www.youtube.com/v/3oc5b5MetPE?enablejsapi=1&playerapiid=ytp&version=3",
+                       "ytp", "275", "90", "8", null, null, params)*/
     $('#song-score').html($('#song-voting_1').html());
 
     //loading queue

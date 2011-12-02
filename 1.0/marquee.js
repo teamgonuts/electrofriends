@@ -42,7 +42,6 @@
                 marqueeState = $marqueeRedux.data('marqueeState');
                 
                 if ($marqueeRedux.data('paused') !== true) {
-                    // TODO read scrollamount, dir, behavior, loops and last from data
                     marqueeRedux[marqueeState.axis] += (marqueeState.scrollamount * marqueeState.dir);
 
                     // only true if it's hit the end
@@ -92,7 +91,6 @@
             }            
         }
         
-        // TODO consider whether using .html() in the wrapping process could lead to loosing predefined events...
         this.each(function (i) {
             var $marquee = $(this),
                 width = $marquee.attr('width') || $marquee.width(),
@@ -137,7 +135,6 @@
                 $marqueeRedux.data('paused', false);
             }).data('marqueeState', marqueeState); // finally: store the state
             
-            // todo - rerender event allowing us to do an ajax hit and redraw the marquee
 
             newMarquee.push(marqueeRedux);
 

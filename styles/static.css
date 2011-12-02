@@ -64,20 +64,46 @@
     border-top: 1px solid white;
 }
 
-#song-info{
-    text-align:left;
-    width: 30%;
-    padding-left: 25px;
+#max-queue{
+    background-color: #041228;
+    position: fixed;
+    z-index:10000;
+    bottom:0px;
+    left:0px;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    height: 95%;
+    width:35%;
+}
+.queue-control{
+    float:right;
+    margin-top:-10px;
+    font-size: 75%;
+    cursor: pointer;
 }
 
 .song-info-item
 {
     padding-left:5px;
 }
+#song-playlist{
+    width:35%;
+}
 #song-swf{
     width:30%;
 }
-
+#song-voting{
+    width:5%;
+    padding-right:25px;
+    margin-left:auto;
+    margin-right:auto;
+    vertical-align: middle;
+}
+#song-info{
+    text-align:left;
+    width: 30%;
+    padding-left: 25px;
+}
 .track-button
 {
     color:#33FF33;
@@ -86,11 +112,6 @@
 .track-button:hover{
     color: #33FFFF;
     cursor: pointer;
-}
-
-
-#song-comments{
-    width:35%;
 }
 
 .comments-display{
@@ -120,13 +141,7 @@ textarea.comments-text
      font-size:75%;
  }
 
-#song-voting{
-    width:5%;
-    padding-right:25px;
-    margin-left:auto;
-    margin-right:auto;
-    vertical-align: middle;
-}
+
 
 ol#song-queue{
     text-align: left;
