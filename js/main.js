@@ -241,8 +241,8 @@ $(function() {
     {
         //Hacky Way to Get Index
 		var temp = $('.song:last').attr("id");
-		temp = temp.split('max');
-		var lowerLimit = temp[1];
+        temp = temp.split('_');
+        var lowerLimit = temp[1];
         var upperLimit = parseInt(lowerLimit) + parseInt($('#songs-per-page').val());
         //alert('lowerLimit: ' + lowerLimit + " upperLimit" + upperLimit);
         //todo: fix for artist and user filters
@@ -253,14 +253,12 @@ $(function() {
                                                lowerLimit: lowerLimit,
                                                upperLimit: upperLimit},
             function(html) {
-                //alert('showMoreSongsAjax.php: ' + html);
                 if(html.length > 0) //rows were returned
                 {
-                    $('.rankings-table').append(html);
+                    //alert(html);
+                    $('#rankings-table').append(html);
                     //alert(lowerLimit);
                     nextSongIndex = (parseInt(lowerLimit) +1).toString();
-                    $('.min').removeClass('hidden');
-                    $('.max').addClass('hidden');
                 }
                 else
                     $('#showMoreSongs').addClass('hidden');
