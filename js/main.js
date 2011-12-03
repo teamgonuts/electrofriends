@@ -37,7 +37,7 @@ $(function() {
         }
         else if($(this).hasClass('user-link')) //user filter
         {
-            alert($(this).html());
+            //alert($(this).html());
             current_user_filter = $(this).html();
             $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
             $('.time-filter').removeClass('highlight-filter'); //removing old highlighting
@@ -88,7 +88,7 @@ $(function() {
                                           artistfilter: current_artist_filter,
                                           userfilter: current_user_filter},
             function(data) {
-              alert(data);
+              //alert(data);
               $('#rankings-container').html(data);
               //hide all maximized songs except the first
                 $('.min#min1').addClass('hidden');

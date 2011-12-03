@@ -63,8 +63,10 @@ class Rankings
         }
         echo '</table>';
         //====================END TABLE===================//
+        echo '<div id="showMoreDiv">';
         if ($i >= $songsPerPage)
-            echo '<div id="showMoreDiv"><button id="showMoreSongs"> Show More </Button></div>';
+            echo '<button id="showMoreSongs"> Show More </Button>';
+        echo '</div>';
 
     }
 
