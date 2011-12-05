@@ -168,6 +168,9 @@ textarea.comments-text
     font-size:100%;
     padding-top:5px;
 }
+.queue-item { //minimized queue
+    border:1px solid red;
+}
 #user-queue{
     border-bottom:  1px solid white;
 }

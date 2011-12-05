@@ -31,35 +31,6 @@ class Song
         $this->score = $row['score'];
     }
 	
-	
-	
-	//constructor can be passed all the info
-	public static function Song_Info($title, $artist, $genre, $ytcode, $user, $score, $ups, $downs, $id, $upload_date, $i)
-	{		
-		 $info = array("title" => $title,
-					   "artist" => $artist,
-					   "genre" => $genre,
-					   "youtubecode" => $ytcode,
-					   "user" => $user,
-					   "score" => $score,
-					   "ups" => $ups,
-					   "downs" => $downs,
-					   "id" => $id,
-					   "uploaded_on" => $upload_date,
-					   );
-		 $instance = new self($info, $i);
-		 /*
-		 $instance->title = $title;
-		 $instance->artist = $artist;
-		 $instance->genre = $genre;
-		 $instance->ytcode = $ytcode;
-		 $instance->user = $user;
-		 $instance->score = $score;
-		 $instance->ups = $ups;
-		 $instance->downs = $downs;
-		 */
-		 return $instance;
-	}
 
     //returns the html for the song in 2 divs, open and close
     //jquery should set to hidden or not
@@ -102,7 +73,6 @@ class Song
                         Artist: <a class="link artist-link filter" id="artist_link" href="#">' . $this->artist . '</a><br />
                         Genre: <a class="link genre-link" id="genre_'. $this->i .'" href="#" val="' . $this ->genre .'">' . $this->map($this->genre) .'</a><br />
                         Uploaded By: <a href="#" class="link filter user-link" >'.$this->user .'</a><br />
-                        Download: <u>Amazon</u> <u>Apple</u> <br />
                     </td>
                     <td class="song-comments">
                         <span id="comments-container">'. $this->showComments() . '</span>

@@ -12,6 +12,8 @@ function Song(ytcode, title, artist, genre, score, ups, downs, user)
     this.user = user;
 }
 
+var userQueue = new Array();
+var genQueue = new Array();
 var queue = new Array();  //push() to bottom of stack, shift() to get first element
 var recently_played = new Array(); //push() to bottom of array, pop() to element off bottom
 var current_song;
@@ -106,7 +108,7 @@ function onPlayerError(errorCode) {
     //on error, load a new player
      var params = { allowScriptAccess: "always" };
      swfobject.embedSWF("http://www.youtube.com/v/" + current_song.ytcode + "&enablejsapi=1&playerapiid=ytp" +
-                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autoplay=1",
+                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autoplay=1&autohide=1",
                         "ytp", "275", "90", "8", null, null, params);
 
 }
@@ -144,7 +146,6 @@ function nextSong()
 
     //loading new 3
     var next_index = $('#playlist-next-index').val();
-    $('#playlist-3').html($('#song-info-min_'+next_index).html());
     queue.push(new Song($('#ytcode_'+next_index).val(),
                         $('#title_'+next_index).val(),
                         $('#artist_'+next_index).val(),
@@ -153,12 +154,32 @@ function nextSong()
                         $('#ups_'+next_index).val(),
                         $('#downs_'+next_index).val(),
                         $('#user_'+next_index).val()));
+    $('#playlist-3').html($('#title_'+next_index).val() + ' - ' + $('#artist_'+next_index).val());
+
 
     resizeQueue();
 
     //setting new playlist-next/prev-index
     $('#playlist-next-index').val(parseInt(next_index) + 1);
 }
+
+function uq_addtoQueue(song)
+{
+    
+}
+//loads the next song in the user-queue, if none then loads from gen-queue
+/*function updateQueue(){
+    if (userQueue.length < queue.length) //pull all from userQueue, then the rest from gen-queue
+    {
+        for(var i=0; i< userQueue.length)
+            addToQueue(userQueue.shift());
+
+        while(userQueue.length < queue.length){
+            addToQueue()
+        }
+    }
+    
+}*/
 
 function printQueues()
 {

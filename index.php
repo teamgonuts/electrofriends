@@ -137,7 +137,6 @@ if (isset($_GET['artist']))
                     <li class="queue-item" id="playlist-1"></li>
                     <li class="queue-item" id="playlist-2"></li>
                     <li class="queue-item" id="playlist-3"></li>
-                    <li class="queue-item" id="playlist-4"></li>
                 </ol>
             </td>
             <td id="song-swf">

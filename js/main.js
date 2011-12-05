@@ -183,7 +183,7 @@ $(function() {
             //move everything in the queue down and add new song to first item
             $('#playlist-3').html($('#playlist-2').html());
             $('#playlist-2').html($('#playlist-1').html());
-            $('#playlist-1').html($('#song-info-min_'+i).html());
+            $('#playlist-1').html($('#title_'+i).val() + ' - ' + $('#artist_' + i).val());
 
             queue.pop(); //delete last song
             queue.unshift(new Song($('#ytcode_'+i).val(), //add new song to beginning of array
@@ -199,7 +199,7 @@ $(function() {
         }
         else if($(targ).hasClass("queue-button")) //the user clicked queue
         {
-            $('#playlist-3').html($('#song-info-min_'+i).html()); //setting last song to this html
+            $('#playlist-3').html($('#title_'+i).val() + ' - ' + $('#artist_' + i).val()); //setting last song to this html
             queue.pop(); //delete last song
             queue.push(new Song($('#ytcode_'+i).val(), //add clicked song to end of array
                         $('#title_'+i).val(),
@@ -358,7 +358,7 @@ function resizeText(containerID, resizeID, startingsize )
     $('#resizer').html($('#' + resizeID).html()); //setting resizer to desired text
     $('#resizer').css("font-size", size);
     var actual_width = $('#resizer').width();
-    //alert(desired_width + ' - ' + actual_width + ' - ' + size);
+    //alert("desired: " + desired_width + ' - actual: ' + actual_width + ' - font-size: ' + size);
     
     while(desired_width <= actual_width+30) //+10 for saftey net
     {
@@ -459,7 +459,6 @@ function initializeQueue(){
     $('#playlist-1').html($('#title_2').val() + " - " +$('#artist_2').val());
     $('#playlist-2').html($('#title_3').val() + " - " +$('#artist_3').val());
     $('#playlist-3').html($('#title_4').val() + " - " +$('#artist_4').val());
-    $('#playlist-4').html($('#title_5').val() + " - " +$('#artist_5').val());
 }
 function generateQueue(){
     //alert(($('#rankings-table').find('tr').length-1) / 2);
