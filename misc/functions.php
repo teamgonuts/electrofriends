@@ -59,7 +59,6 @@ function showLogo()
 	    <span class="pause-button">
 	        <div>
 	            <img src="img/monster-logo_90.png" />
-	            <span id="sub_title">beta 2.3</span>
 	        </div>
         </span>
 	</center>';
