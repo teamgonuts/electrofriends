@@ -3,7 +3,8 @@
  
  body
  {
-	background-color:#01050C;
+    background-color:black;
+	/*background-color:#01050C;*/
 	color:white;
     font-size:16;
  }
@@ -48,9 +49,8 @@
 	font-family:Lucida Console;
 	font-size:small;
 	color:#00FF00;
-	margin-left:5px;
-	margin-top:-30px;
 	text-decoration:none;
+    padding-bottom: 90px;
 }
 
 

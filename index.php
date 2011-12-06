@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link rel="shortcut icon" href="img/favicon.ico" />
     <Title>T3k.no - Your Electronic Music Connection &nbsp;&nbsp;&nbsp;&nbsp;</Title>
 	<script type="text/javascript" src="js/jquery.js">//jquery</script>
 	<script type="text/javascript" src="js/main.js">//code by calvin</script>

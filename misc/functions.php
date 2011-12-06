@@ -57,8 +57,10 @@ function showLogo()
     echo '
     <center>
 	    <span class="pause-button">
-	        <span id="title">t3k.no</span>
-	        <span id="sub_title">beta 2.0</span>
+	        <div>
+	            <img src="img/monster-logo_90.png" />
+	            <span id="sub_title">beta 2.3</span>
+	        </div>
         </span>
 	</center>';
 }
