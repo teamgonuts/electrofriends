@@ -25,7 +25,7 @@ $(function() {
         else if($(this).hasClass('genre-filter')) //genre filter
         {
             current_genre_filter = $(this).attr('id'); //setting the new genre filter
-            $('.genre-filter').removeClass('highlight-filter'); //removing old highlighting
+            $('.genre-fiter').removeClass('highlight-filter'); //removing old highlighting
             $(this).toggleClass('highlight-filter'); //highlighting new filter
             current_artist_filter = '';
         }

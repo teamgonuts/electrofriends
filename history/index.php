@@ -2,8 +2,8 @@
 <head>
     <link rel="shortcut icon" href="img/favicon.ico" />
     <Title>T3k.no - Your Electronic Music Connection &nbsp;&nbsp;&nbsp;&nbsp;</Title>
-	<script type="text/javascript" src="js/jquery.js">//jquery</script>
-	<script type="text/javascript" src="js/main.js">//code by calvin</script>
+	<script type="text/javascript" src="js/jquery.js">//jquery</script> 
+	<?php //<script type="text/javascript" src="js/main.js">//code by calvin</script>?>
 	<script type="text/javascript" src="js/youtube_player.js">//code by calvin</script>
     <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
     <script type="text/javascript"> //Google Analytics
@@ -23,7 +23,8 @@
 	<LINK href="styles/rankings.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<?php //HEADER
+<?php //HEADER 
+
 
 /*
 Calvin Hawkes 2011
@@ -41,7 +42,7 @@ include ("misc/functions.php");
 
 ?>
 
-<?php
+<?php /*
 $topof = "new"; //Default
 $genre = "all"; //Default
 $artist = ""; //Default
@@ -63,6 +64,7 @@ if (isset($_GET['artist']))
     $artist = $_GET['artist'];
     $filters['artist'] = new ArtistFilter($artist);
 }
+*/
 ?>
 <div class="filters">
     <?php showFilters(); //show header uses $topOf and $genre ?>

@@ -1,0 +1,708 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<!-- mainstyles -->
+<link href="styles/main.css" rel="stylesheet" type="text/css">
+
+<!-- fancybox -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script>
+		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+	</script>
+	<script type="text/javascript" src="js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$("#upload").fancybox({
+				'titlePosition'		: 'inside',
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none'
+			});
+
+		});
+	</script>
+
+
+<!-- typekit -->
+<script type="text/javascript" src="http://use.typekit.com/wlh5psa.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+
+<body>
+
+<div id="headerTopLine">
+</div><!-- end of headerTopLine -->
+
+<header id="header">
+
+	<div class="content">
+		<div class="twoColumnLeft">
+		
+			<img src="images/header/headerLogo.png" alt="T3k.no Logo" />
+		
+		</div><!-- end of twoColumnLeft -->
+		
+		<div class="twoColumnRight">
+
+			<div class="headerTop">
+				<p class="signIn">
+					<a href="#">Sign Up</a> // 
+					<a href="#">Login</a> 
+					<span class="divider">|</span> 
+					<span class="socialSignIn">Sign in with:</span> 
+				</p>
+				
+				<p class="upload">
+					<a href="#lightbox" id="upload"> 
+						<img src="images/header/upload.png"> Upload </a>
+				</p>
+					<div style="display: none;">
+						<div id="lightbox" style="width:600px;height:400px; background-color:#000; color #fff; overflow:auto;">
+							<div class="" id="upload_box">
+							    
+							    <div id="lightBoxLeft">
+							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
+							    </div><!-- end of left -->
+							    
+							    <div id="lightBoxRight">
+							    <div class="hidden" id="upload-box-result"></div>
+						        	<form method="post"	action="">
+								       	<label for="url">YouTube URL: </label> 
+								       	<input id="upload_yturl" type="text" name="url"><br>
+								        
+								        <label for="title">Title: </label>
+										<input id="upload_title" type="text" name="title"><br>
+								        
+								        <label for="artist">Artist: </label>
+								        <input id="upload_artist" type="text" name="artist"><br>
+
+								        <label for="genre">Genre: </label>
+								        
+								        <select id="upload_genre" name="genre">
+								                <option value="DnB">Drum &amp; Bass</option>
+								                <option value="Dubstep">Dubstep</option>
+								                <option value="Electro">Electro</option>
+								                <option value="Hardstyle">Hardstyle</option>
+								                <option value="House">House</option>
+								                <option value="Trance">Trance</option>
+								               </select> <br>
+								        
+								        <label for="user">Uploaded By: </label>
+								        <input id="upload_user" type="text" name="user" value=""> <br>
+								        
+								        <label for="oldie">Old Song: </label>
+								        <input type="checkbox" value="oldie" name="oldie" id="oldie"><br>
+
+								        <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
+
+						        	</form>
+						        </div><!-- end of right -->
+						        
+							</div>
+						</div>
+					</div>
+			</div><!-- headerTop -->
+			<br/>
+			<br/>			
+			<nav id="headerNav">
+				<ul>
+					<li><a href="#">Contact</a></li>					
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</nav><!-- end of headerNav -->			
+		</div><!-- end of twoColumnRight -->
+	</div><!-- end of content -->	
+
+</header>
+
+<section id="body">
+
+	<div class="content">
+
+		<div id="songTable">
+		
+				<h2>The Fresh List</h2>
+				
+				<table id="rankings-table" cellspacing="0"><tbody>
+				<tr class="song-min hidden" id="min_1">
+                    <td class="song-index-clickable"><p>1</p></td>
+                        <input type="hidden" id="ytcode_1" value="SrrMAbvQc9A">
+                        <input type="hidden" id="title_1" value="The Immortals (RÃ¶yksopp Remix) Radio Edit">
+                        <input type="hidden" id="artist_1" value="Kings of Leon">
+                        <input type="hidden" id="genre_1" value="House">
+                        <input type="hidden" id="score_1" value="1">
+                        <input type="hidden" id="ups_1" value="1">
+                        <input type="hidden" id="downs_1" value="0">
+                        <input type="hidden" id="user_1" value="Cal">
+                        <input type="hidden" id="i_1" value="1">
+                    <td class="song-info-min-clickable"><span class="title">The Immortals (R0yksopp Remix) Radio Edit</span> <span class="divider">//</span> Kings of Leon</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">1[1/0]</div>
+                    </td>
+                </tr>
+                    
+                </tr>
+                
+                <tr class="song-min" id="min_2">
+                    <td class="song-index-clickable"><p>2</p></td>
+                        <input type="hidden" id="ytcode_2" value="uTRoM4WMhss">
+                        <input type="hidden" id="title_2" value="Dark Side Of The Tomahawk (Myon &amp; Shane 54 Mashup)">
+                        <input type="hidden" id="artist_2" value="BT &amp; Adam K vs. Ernesto vs. Bastian">
+                        <input type="hidden" id="genre_2" value="Dubstep">
+                        <input type="hidden" id="score_2" value="0">
+                        <input type="hidden" id="ups_2" value="0">
+                        <input type="hidden" id="downs_2" value="0">
+                        <input type="hidden" id="user_2" value="Paul">
+                        <input type="hidden" id="i_2" value="2">
+                    <td class="song-info-min-clickable"><span class="title">Dark Side Of The Tomahawk (Myon &amp; Shane 54 Mashup)</span> <span class="divider">//</span> <br/>BT &amp; Adam K vs. Ernesto vs. Bastian</td>
+                    <td class="song-genre clickable">Dubstep</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_3">
+                    <td class="song-index-clickable"><p>3</p></td>
+                        <input type="hidden" id="ytcode_3" value="UO86l97ssi0">
+                        <input type="hidden" id="title_3" value="Ladi Dadi (Original Mix)">
+                        <input type="hidden" id="artist_3" value="Steve Aoki feat. Wynter Gordon">
+                        <input type="hidden" id="genre_3" value="Dubstep">
+                        <input type="hidden" id="score_3" value="0">
+                        <input type="hidden" id="ups_3" value="0">
+                        <input type="hidden" id="downs_3" value="0">
+                        <input type="hidden" id="user_3" value="Mark">
+                        <input type="hidden" id="i_3" value="3">
+                    <td class="song-info-min-clickable"><span class="title">Ladi Dadi (Original Mix)</span> <span class="divider">//</span> <br/>Steve Aoki feat. Wynter Gordon</td>
+                    <td class="song-genre clickable">Dubstep</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_4">
+                    <td class="song-index-clickable"><p>4</p></td>
+                        <input type="hidden" id="ytcode_4" value="U80l-YzcGsQ">
+                        <input type="hidden" id="title_4" value="Rebound">
+                        <input type="hidden" id="artist_4" value="Arty &amp; Mat Zo">
+                        <input type="hidden" id="genre_4" value="Trance">
+                        <input type="hidden" id="score_4" value="0">
+                        <input type="hidden" id="ups_4" value="0">
+                        <input type="hidden" id="downs_4" value="0">
+                        <input type="hidden" id="user_4" value="ALott">
+                        <input type="hidden" id="i_4" value="4">
+                    <td class="song-info-min-clickable"><span class="title">Rebound</span> <span class="divider">//</span> <br/>Arty &amp; Mat Zo</td>
+                    <td class="song-genre clickable">Trance</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_5">
+                    <td class="song-index-clickable"><p>5</p></td>
+                        <input type="hidden" id="ytcode_5" value="u2Uif9N5dac">
+                        <input type="hidden" id="title_5" value="Promises (Calvin Harris Remix)">
+                        <input type="hidden" id="artist_5" value="Nero">
+                        <input type="hidden" id="genre_5" value="House">
+                        <input type="hidden" id="score_5" value="1">
+                        <input type="hidden" id="ups_5" value="1">
+                        <input type="hidden" id="downs_5" value="0">
+                        <input type="hidden" id="user_5" value="TorrThizz">
+                        <input type="hidden" id="i_5" value="5">
+                    <td class="song-info-min-clickable"><span class="title">Promises (Calvin Harris Remix)</span> <span class="divider">//</span> <br/>Nero</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">1[1/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_6">
+                    <td class="song-index-clickable"><p>6</p></td>
+                        <input type="hidden" id="ytcode_6" value="d5oPCC0Xcyo">
+                        <input type="hidden" id="title_6" value="Lost (Chill Mix)">
+                        <input type="hidden" id="artist_6" value="Sunlounger ft. Zara">
+                        <input type="hidden" id="genre_6" value="Trance">
+                        <input type="hidden" id="score_6" value="0">
+                        <input type="hidden" id="ups_6" value="0">
+                        <input type="hidden" id="downs_6" value="0">
+                        <input type="hidden" id="user_6" value="Mark">
+                        <input type="hidden" id="i_6" value="6">
+                    <td class="song-info-min-clickable"><span class="title">Lost (Chill Mix)</span> <span class="divider">//</span> <br/>Sunlounger ft. Zara</td>
+                    <td class="song-genre clickable">Trance</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_7">
+                    <td class="song-index-clickable"><p>7</p></td>
+                        <input type="hidden" id="ytcode_7" value="C8466KXzWFg">
+                        <input type="hidden" id="title_7" value="Perfect Moments">
+                        <input type="hidden" id="artist_7" value="Lang &amp; Yep">
+                        <input type="hidden" id="genre_7" value="Trance">
+                        <input type="hidden" id="score_7" value="3">
+                        <input type="hidden" id="ups_7" value="3">
+                        <input type="hidden" id="downs_7" value="0">
+                        <input type="hidden" id="user_7" value="Cal">
+                        <input type="hidden" id="i_7" value="7">
+                    <td class="song-info-min-clickable"><span class="title">Perfect Moments</span> <span class="divider">//</span> <br/>Lang &amp; Yep</td>
+                    <td class="song-genre clickable">Trance</td>
+                    <td class="song-score clickable">
+                        <div class="center">3[3/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_8">
+                    <td class="song-index-clickable"><p>8</p></td>
+                        <input type="hidden" id="ytcode_8" value="kG5ND29OTwU">
+                        <input type="hidden" id="title_8" value="Bass Embrace">
+                        <input type="hidden" id="artist_8" value="DJ i6">
+                        <input type="hidden" id="genre_8" value="House">
+                        <input type="hidden" id="score_8" value="1">
+                        <input type="hidden" id="ups_8" value="2">
+                        <input type="hidden" id="downs_8" value="1">
+                        <input type="hidden" id="user_8" value="Cal">
+                        <input type="hidden" id="i_8" value="8">
+                    <td class="song-info-min-clickable"><span class="title">Bass Embrace</span> <span class="divider">//</span> <br/>DJ i6</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">1[2/1]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_9">
+                    <td class="song-index-clickable"><p>9</p></td>
+                        <input type="hidden" id="ytcode_9" value="5X-t0H-HOUE">
+                        <input type="hidden" id="title_9" value="Future Sound (Nero vs Knife Party vs Gorillaz)">
+                        <input type="hidden" id="artist_9" value="Loo &amp; Placido">
+                        <input type="hidden" id="genre_9" value="Dubstep">
+                        <input type="hidden" id="score_9" value="2">
+                        <input type="hidden" id="ups_9" value="2">
+                        <input type="hidden" id="downs_9" value="0">
+                        <input type="hidden" id="user_9" value="Cal">
+                        <input type="hidden" id="i_9" value="9">
+                    <td class="song-info-min-clickable"><span class="title">Future Sound (Nero vs Knife Party vs Gorillaz)</span> <span class="divider">//</span> <br/>Loo &amp; Placido</td>
+                    <td class="song-genre clickable">Dubstep</td>
+                    <td class="song-score clickable">
+                        <div class="center">2[2/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_10">
+                    <td class="song-index-clickable"><p>10</p></td>
+                        <input type="hidden" id="ytcode_10" value="6s4n76ti3Xs">
+                        <input type="hidden" id="title_10" value="Levels (Skrillex Remix)">
+                        <input type="hidden" id="artist_10" value="Avicii">
+                        <input type="hidden" id="genre_10" value="Dubstep">
+                        <input type="hidden" id="score_10" value="0">
+                        <input type="hidden" id="ups_10" value="0">
+                        <input type="hidden" id="downs_10" value="0">
+                        <input type="hidden" id="user_10" value="Carl">
+                        <input type="hidden" id="i_10" value="10">
+                    <td class="song-info-min-clickable"><span class="title">Levels (Skrillex Remix)</span> <span class="divider">//</span> <br/>Avicii</td>
+                    <td class="song-genre clickable">Dubstep</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_11">
+                    <td class="song-index-clickable"><p>11</p></td>
+                        <input type="hidden" id="ytcode_11" value="6j3mDO3GVHM">
+                        <input type="hidden" id="title_11" value="Stars Come Out (Ryan Enzed Remix)">
+                        <input type="hidden" id="artist_11" value="Zedd">
+                        <input type="hidden" id="genre_11" value="Electro">
+                        <input type="hidden" id="score_11" value="1">
+                        <input type="hidden" id="ups_11" value="1">
+                        <input type="hidden" id="downs_11" value="0">
+                        <input type="hidden" id="user_11" value="Cal">
+                        <input type="hidden" id="i_11" value="11">
+                    <td class="song-info-min-clickable"><span class="title">Stars Come Out (Ryan Enzed Remix)</span> <span class="divider">//</span> <br/>Zedd</td>
+                    <td class="song-genre clickable">Electro</td>
+                    <td class="song-score clickable">
+                        <div class="center">1[1/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_12">
+                    <td class="song-index-clickable"><p>12</p></td>
+                        <input type="hidden" id="ytcode_12" value="Y35n_1XLPy4">
+                        <input type="hidden" id="title_12" value="Tourniquet">
+                        <input type="hidden" id="artist_12" value="Knife Party">
+                        <input type="hidden" id="genre_12" value="Electro">
+                        <input type="hidden" id="score_12" value="0">
+                        <input type="hidden" id="ups_12" value="0">
+                        <input type="hidden" id="downs_12" value="0">
+                        <input type="hidden" id="user_12" value="Cal">
+                        <input type="hidden" id="i_12" value="12">
+                    <td class="song-info-min-clickable"><span class="title">Tourniquet</span> <span class="divider">//</span> <br/>Knife Party</td>
+                    <td class="song-genre clickable">Electro</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_13">
+                    <td class="song-index-clickable"><p>13</p></td>
+                        <input type="hidden" id="ytcode_13" value="XVM0cWu13go">
+                        <input type="hidden" id="title_13" value="Destroy Them With Lazers">
+                        <input type="hidden" id="artist_13" value="Knife Party">
+                        <input type="hidden" id="genre_13" value="Electro">
+                        <input type="hidden" id="score_13" value="0">
+                        <input type="hidden" id="ups_13" value="0">
+                        <input type="hidden" id="downs_13" value="0">
+                        <input type="hidden" id="user_13" value="Cal">
+                        <input type="hidden" id="i_13" value="13">
+                    <td class="song-info-min-clickable"><span class="title">Destroy Them With Lazers</span> <span class="divider">//</span> <br/>Knife Party</td>
+                    <td class="song-genre clickable">Electro</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_14">
+                    <td class="song-index-clickable"><p>14</p></td>
+                        <input type="hidden" id="ytcode_14" value="4RtT_L1ps94">
+                        <input type="hidden" id="title_14" value="Marry The Night (Dimitri Vegas &amp; Like Mike Remix)">
+                        <input type="hidden" id="artist_14" value="Lady Gaga">
+                        <input type="hidden" id="genre_14" value="House">
+                        <input type="hidden" id="score_14" value="0">
+                        <input type="hidden" id="ups_14" value="0">
+                        <input type="hidden" id="downs_14" value="0">
+                        <input type="hidden" id="user_14" value="Vince">
+                        <input type="hidden" id="i_14" value="14">
+                    <td class="song-info-min-clickable"><span class="title">Marry The Night (Dimitri Vegas &amp; Like Mike Remix)</span> <span class="divider">//</span> <br/>Lady Gaga</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-max-hidden" id="max_15">
+                    <td class="song-index-clickable">
+                        15
+                    </td>
+                    <td class="song-info-max-clickable">
+                        
+						<div class="left"> 
+	                        <div class="song-buttons">
+	                            <center>
+	                                <span class="song-button play-button">Play</span>
+	                                <span class="song-button play-next-button">Play Next</span>
+	                                <span class="song-button queue-button">Add to Queue</span>
+	                            </center>
+	                        </div>
+	                        
+	                        <p><span class="more-info-heading">Title</span>: <a class="link" id="title_link" href="#">Eyes on Fire (Zeds Dead Remix)</a></p>
+	                        <p><span class="more-info-heading">Artist</span>: <a class="link artist-link filter" id="artist_link" href="#">Blue Foundation</a></p>
+	                        <p><span class="more-info-heading">Genre</span>: <a class="link genre-link" id="genre_15" href="#" val="Dubstep">Dubstep</a></p>
+	                        <p><span class="more-info-heading">Uploaded By</span>: <a href="#" class="link filter user-link">Cal</a></p>
+	                        <p><span class="more-info-heading">Views</span>: 2,393</p>
+	                        <p><span class="more-info-heading">Share</span>: </p>
+	                        <p><span class="more-info-heading">Buy Now</span>: Buy Now</p>
+                    	
+                    	</div><!-- end of left -->
+                    	<div class="right">
+                    	
+	                    	<div class="comments">
+								
+								<h3 class="comments">Comments</h3>
+									<div class="comment-display">
+										<p>
+											<span class="userName">UserName</span> 
+											<span class="divider">//</span> 
+											<time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
+											Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
+											eleifend lobortis.
+										</p>
+										
+										<p>
+											<span class="userName">UserName</span> 
+											<span class="divider">//</span> 
+											<time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
+											Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
+											eleifend lobortis.
+										</p>
+										
+										<p>
+											<span class="userName">UserName</span> 
+											<span class="divider">//</span> 
+											<time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
+											Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
+											eleifend lobortis.
+										</p>
+									</div><!-- comment-display -->					
+								
+								<h4 class="comments">See All Comments</h4>
+							
+							</div><!-- end of comments -->	
+
+                    	</div><!-- end of right -->
+                    
+                    </td>
+                    
+                    <td class="song-comments" colspan="2">
+                        <span id="comments-container"><input type="hidden" id="whereCom" value="'IUGzY-ihqWc' = youtubecode">
+			  <input type="hidden" id="commentsShown" value="4">
+			  <input type="hidden" id="upperLimitCom" value="4"><div class="comments-display">
+		<ol id="update_15" class="timeline"></ol>
+		</div>
+		<div class="comments-input">
+			
+			<textarea class="comments-text" id="comment-text_15" placeholder="Comments"></textarea><br>
+			
+			<label for="comment-user_15" class="label">Username:</label>
+			<input type="text" id="comment-user_15" value="Anonymous">
+			
+			<input type="submit" value="submit" class="submit-comment" id="submit-comment_15">
+		</div></span>
+		                        <span class="center">
+		<input type="hidden" id="score_15" value="0"> 
+		<input type="hidden" id="ups_15" value="0"> 
+		<input type="hidden" id="downs_15" value="0"> 
+		<center> 0[0/0]<br>
+		</center>
+		</span>
+                    </td>
+                </tr><tr class="song-min" id="min_16">
+                    <td class="song-index-clickable"><p>16</p></td>
+                        <input type="hidden" id="ytcode_16" value="hhzSIOE0Eeg">
+                        <input type="hidden" id="title_16" value="Kiss My Lips (It's The DJ Kue Remix!)">
+                        <input type="hidden" id="artist_16" value="Dev ft. Fabolous">
+                        <input type="hidden" id="genre_16" value="House">
+                        <input type="hidden" id="score_16" value="0">
+                        <input type="hidden" id="ups_16" value="0">
+                        <input type="hidden" id="downs_16" value="0">
+                        <input type="hidden" id="user_16" value="Cal">
+                        <input type="hidden" id="i_16" value="16">
+                    <td class="song-info-min-clickable"><span class="title">Kiss My Lips (It's The DJ Kue Remix!)</span> <span class="divider">//</span> <br/>Dev ft. Fabolous</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_17">
+                    <td class="song-index-clickable"><p>17</p></td>
+                        <input type="hidden" id="ytcode_17" value="uyh3y1hZEGI">
+                        <input type="hidden" id="title_17" value="Body Work (Club Mix)">
+                        <input type="hidden" id="artist_17" value="Morgan Page ft. Tegan and Sara">
+                        <input type="hidden" id="genre_17" value="House">
+                        <input type="hidden" id="score_17" value="0">
+                        <input type="hidden" id="ups_17" value="0">
+                        <input type="hidden" id="downs_17" value="0">
+                        <input type="hidden" id="user_17" value="Cal">
+                        <input type="hidden" id="i_17" value="17">
+                    <td class="song-info-min-clickable"><span class="title">Body Work (Club Mix)</span> <span class="divider">//</span> <br/>Morgan Page ft. Tegan and Sara</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_18">
+                    <td class="song-index-clickable"><p>18</p></td>
+                        <input type="hidden" id="ytcode_18" value="29iQVI956GM">
+                        <input type="hidden" id="title_18" value="Strength in Numbers (Coldplay x Daft Punk x Porter Robinson)">
+                        <input type="hidden" id="artist_18" value="Basic Physics">
+                        <input type="hidden" id="genre_18" value="House">
+                        <input type="hidden" id="score_18" value="0">
+                        <input type="hidden" id="ups_18" value="0">
+                        <input type="hidden" id="downs_18" value="0">
+                        <input type="hidden" id="user_18" value="Cal">
+                        <input type="hidden" id="i_18" value="18">
+                    <td class="song-info-min-clickable"><span class="title">Strength in Numbers (Coldplay x Daft Punk x Porter Robinson)</span> <span class="divider">//</span> <br/>Basic Physics</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_19">
+                    <td class="song-index-clickable"><p>19</p></td>
+                        <input type="hidden" id="ytcode_19" value="uTRoM4WMhss">
+                        <input type="hidden" id="title_19" value="Dark Side Of The Tomahawk (Myon &amp; Shane 54 Mashup)">
+                        <input type="hidden" id="artist_19" value="BT &amp; Adam K vs. Ernesto vs. Bastian">
+                        <input type="hidden" id="genre_19" value="Dubstep">
+                        <input type="hidden" id="score_19" value="0">
+                        <input type="hidden" id="ups_19" value="0">
+                        <input type="hidden" id="downs_19" value="0">
+                        <input type="hidden" id="user_19" value="Paul">
+                        <input type="hidden" id="i_19" value="19">
+                    <td class="song-info-min-clickable"><span class="title">Dark Side Of The Tomahawk (Myon &amp; Shane 54 Mashup)</span> <span class="divider">//</span> <br/>BT &amp; Adam K vs. Ernesto vs. Bastian</td>
+                    <td class="song-genre clickable">Dubstep</td>
+                    <td class="song-score clickable">
+                        <div class="center">0[0/0]</div>
+                    </td>
+                </tr>
+                
+                <tr class="song-min" id="min_20">
+                    <td class="song-index-clickable"><p>20</p></td>
+                        <input type="hidden" id="ytcode_20" value="lziHJxIXJ2w">
+                        <input type="hidden" id="title_20" value="Till Sunshine (Pixel Cheese Bootleg)">
+                        <input type="hidden" id="artist_20" value="David Guetta &amp; Avicii vs. Laidback Luke">
+                        <input type="hidden" id="genre_20" value="House">
+                        <input type="hidden" id="score_20" value="1">
+                        <input type="hidden" id="ups_20" value="1">
+                        <input type="hidden" id="downs_20" value="0">
+                        <input type="hidden" id="user_20" value="Ross">
+                        <input type="hidden" id="i_20" value="20">
+                    <td class="song-info-min-clickable"><span class="title">Till Sunshine (Pixel Cheese Bootleg)</span> <span class="divider">//</span> <br/>David Guetta &amp; Avicii vs. Laidback Luke</td>
+                    <td class="song-genre clickable">House</td>
+                    <td class="song-score clickable">
+                        <div class="center">1[1/0]</div>
+                    </td>
+                </tr>
+                </tbody></table>
+                
+                <div id="showMoreSongs"><h3>Show More</h3></div>
+	
+		</div><!-- end of songTable -->
+		
+		<div id="sidebar">
+			
+			<div id="search">
+			
+				<h2>Search</h2>
+				
+				<form method="post" action="#">                    
+                        <input  type="text" name="search" id="search" placeholder="Seach">
+                    		
+				        <input type="submit" value="Go">  
+                        
+				</form>
+				
+				<div class="clear"></div>
+			</div>
+			
+			<div id="topList">
+				
+				<h2>Top of The</h2>
+				
+				<ul>
+					<li><a class="filter time-filter" id="day" href="#">Day</a></li>
+					<li><a class="filter time-filter" id="week" href="#">Week</a></li>
+					<li><a class="filter time-filter" id="month" href="#">Month</a></li>
+					<li><a class="filter time-filter" id="year" href="#">Year</a></li>
+					<li><a class="filter time-filter" id="century" href="#">Century</a></li>
+				</ul>
+
+			</div><!-- end of topList -->
+			
+			<div id="genre">
+			
+				<h2>Genre</h2>
+				
+					<ul>
+						<li><a class="filter genre-filter highlight-filter" id="all" title="all" href="#">All</a></li>
+						<li><a class="filter genre-filter" id="dnb" href="#">DnB</a></li>
+						<li><a class="filter genre-filter" id="dubstep" href="#">Dubstep</a></li>
+						<li><a class="filter genre-filter" id="electro" href="#">Electro</a></li>
+						<li><a class="filter genre-filter" id="hardstyle" href="#">Hardstyle</a></li>
+						<li><a class="filter genre-filter" id="house" href="#">House</a></li>
+						<li><a class="filter genre-filter" id="trance" href="#">Trance</a></li>
+					</ul>
+			
+			</div><!-- end of genre -->
+			
+		</div><!-- end of sidebar -->
+	
+	</div><!-- end of content -->
+
+<div class="clear"></div><!-- end of clear -->
+
+</section><!-- end of body -->
+
+<section id="adBlock">
+	<div class="content">
+		
+		<div class="adBlockLeft">
+			<img src="images/ad/adBlock.png" />
+		</div><!-- end of adBlockLeft -->
+		
+		<div class="adBlockCenter">
+			<img src="images/ad/adBlock.png" />
+		</div><!-- end of adBlockCenter -->
+		
+		<div class="adBlockRight">
+			<img src="images/ad/adBlock.png" />		
+		</div><!-- end of adBlockRight -->
+		
+	</div><!-- end of content -->
+</section><!-- end of addBlock -->
+
+<footer id="footer">
+	
+	<div class="content">
+		
+		<img src="images/footer/footerLogo.png" alt="T3K.no Logo" />
+		<p>&copy; 2011 T3K.no | All Rights Reserved.</p>
+		<img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/>
+		<img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/>
+		
+	</div><!-- end of content -->
+
+</footer><!-- end of footer -->
+
+<section id="bottomControls">
+	
+	<div class="content">
+		
+		<div class="threeColumnLeft">
+			
+			<h3>Current Song</h3>
+			
+			<p><span class="currentSongSubTitle">Title:</span> Svenska (Original Mix)</p>
+			<p><span class="currentSongSubTitle">Artist:</span> Matisse & Sadko</p>
+			<p><span class="currentSongSubTitle">Genre:</span> House </p>
+			<p><span class="currentSongSubTitle">Uploaded By:</span> AF </p>
+
+			
+		</div>	<!-- end of threeColumnLeft -->
+		
+		<div class="threeColumnCenter">
+			
+			<div class="twoColumnLeft">
+				<img src="images/ad/musicPlayer.png" />
+			</div><!-- end of twoColumnLeft -->
+			
+			<div class="twoColumnRight">
+                    <div class="vote-button" id="up">
+                    	<img src="images/bottomContainer/voteUp.png" alt="Give this song a vote up" />
+                    </div>
+
+                    <div class="vote-button" id="down">
+                    	<img src="images/bottomContainer/voteDown.png" alt="Give this song a down vote" />
+                    </div>
+                                        
+                    <div id="song-score">
+                    	1[1/0] 
+                    </div>                    
+
+				
+			</div><!-- end of twoColumnRight -->
+			
+		</div><!-- end of threeColumnCenter -->
+		
+		<div class="threeColumnRight">
+			<h3>Queue (Expand)</h3>
+				<ol>
+					<li><span class="text">Anticipate</span> // <span class="text">Skream ft. Sam Frank</span></li>
+					<li><span class="text">Work Hard, Play Hard</span> // <span class="text">Tiesto ft. Kay</span></li>
+					<li><span class="text">Pacifica (Chasing Shadows Remix)</span> // <span class="text">Spor</span></li>
+				</ol>
+		</div><!-- end of threeColumnRight -->
+				
+	</div><!-- end of content -->
+
+</section><!-- end of bottomControls -->
+
+</body>
+</html>
