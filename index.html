@@ -9,6 +9,9 @@
 
 <!-- fancybox -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="coffee/test.js"></script>
+        <script type="text/javascript" src="coffee/rankings.js"></script>
+        
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
 	</script>
@@ -587,11 +590,12 @@
 				<h2>Top of The</h2>
 				
 				<ul>
-					<li><a class="filter time-filter" id="day" href="#">Day</a></li>
-					<li><a class="filter time-filter" id="week" href="#">Week</a></li>
-					<li><a class="filter time-filter" id="month" href="#">Month</a></li>
-					<li><a class="filter time-filter" id="year" href="#">Year</a></li>
-					<li><a class="filter time-filter" id="century" href="#">Century</a></li>
+					<li><a class="filter time-filter" id="filter-day" href="#">Day</a></li>
+					<li><a class="filter time-filter" id="filter-week" href="#">Week</a></li>
+					<li><a class="filter time-filter" id="filter-month" href="#">Month</a></li>
+					<li><a class="filter time-filter" id="filter-year" href="#">Year</a></li>
+                                
+					<li><a class="filter time-filter" id="filter-century" href="#">Century</a></li>
 				</ul>
 
 			</div><!-- end of topList -->
@@ -601,13 +605,13 @@
 				<h2>Genre</h2>
 				
 					<ul>
-						<li><a class="filter genre-filter highlight-filter" id="all" title="all" href="#">All</a></li>
-						<li><a class="filter genre-filter" id="dnb" href="#">DnB</a></li>
-						<li><a class="filter genre-filter" id="dubstep" href="#">Dubstep</a></li>
-						<li><a class="filter genre-filter" id="electro" href="#">Electro</a></li>
-						<li><a class="filter genre-filter" id="hardstyle" href="#">Hardstyle</a></li>
-						<li><a class="filter genre-filter" id="house" href="#">House</a></li>
-						<li><a class="filter genre-filter" id="trance" href="#">Trance</a></li>
+						<li><a class="filter genre-filter" id="filter-all" title="all" href="#">All</a></li>
+						<li><a class="filter genre-filter" id="filter-dnb" href="#">DnB</a></li>
+						<li><a class="filter genre-filter" id="filter-dubstep" href="#">Dubstep</a></li>
+						<li><a class="filter genre-filter" id="filter-electro" href="#">Electro</a></li>
+						<li><a class="filter genre-filter" id="filter-hardstyle" href="#">Hardstyle</a></li>
+						<li><a class="filter genre-filter" id="filter-house" href="#">House</a></li>
+						<li><a class="filter genre-filter" id="filter-trance" href="#">Trance</a></li>
 					</ul>
 			
 			</div><!-- end of genre -->
