@@ -42,22 +42,14 @@
 
 include ("connection.php");
 include ("classes/Song.php");
-$qry = mysql_query("SELECT * FROM  `songs` 
-                    ORDER BY uploaded_on DESC
-                    LIMIT 0 , 30
-                   ");
-if (!$qry)
-    die("FAIL: " . mysql_error());
+include ("classes/Rankings.php");
+include ("classes/Filter.php");
+include ("classes/DateFilter.php");
+include ("classes/GenreFilter.php");
 
-$i = 1;
-while($row = mysql_fetch_array($qry))
-{
-    $song = new Song($row, $i);
-    echo $song->showClasses();
-    $i ++;
-    
-
-}
+$filters = array("date" => new DateFilter('new'), "genre" => new GenreFilter('all'));
+$rankings = new Rankings($filters);
+$rankings->display();
 
 ?>
 </tbody></table>

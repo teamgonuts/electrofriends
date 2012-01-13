@@ -105,13 +105,11 @@
       } else {
         rankings.filters.set('time', $(this).html().toLowerCase());
       }
-      return $.post('ajax/rankingsajax.php', {
+      return $.post('ajax/rankingsAjax.php', {
         genrefilter: rankings.filt('genre'),
-        timefilter: rankings.filt('time'),
-        artistfilter: rankings.filt('artist'),
-        userfilter: rankings.filt('user')
+        timefilter: rankings.filt('time')
       }, function(data) {
-        return console.log(data);
+        return $('#rankings-table').html(data);
       });
     });
     return $('.song').click(function() {

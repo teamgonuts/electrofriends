@@ -7,11 +7,40 @@ class DateFilter extends Filter
 	private $interval;
     private $days;
     
-	public function DateFilter($daysOld)
+	public function DateFilter($topOf)
 	{
-        $this->days = $daysOld;
+                //$days old comes in as a word like day, all, century
+                $daysOld = $this->word2num($topOf);//convert to number
+                $this->days = $daysOld;
 		$this->interval = new DateInterval('P'.$daysOld.'D');
 	}
+
+        //coverts dateFilter word into coresponding days
+        function word2num($topof)
+        {
+            switch($topof)
+            {
+                case 'day':
+                    return 1;
+                    break;
+                case 'week':
+                    return 7;
+                    break;
+                case 'month':
+                    return 30;
+                    break;
+                case 'year':
+                    return 369;
+                    break;
+                case 'century':
+                    return 36500;
+                    break;
+                        case 'new':
+                                return 100000;
+                case 'freshest':
+                                return 100000;
+            }
+        }
 
 	//@Return: Returns a DateTime that is the earliest possible date to be included in the filter
 	function createLimitDate()
@@ -54,9 +83,9 @@ class DateFilter extends Filter
             case 36500:
                 return "Century";
                 break;
-			case 100000: //newest
-				return "New";
-				break;
+	    case 100000: //newest
+                return "New";
+                break;
             default:
                 return "DEFAULT";
                 break;

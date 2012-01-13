@@ -86,14 +86,11 @@ $ ->
             rankings.filters.set('time', $(this).html().toLowerCase())
         #todo: add loading screen to rankings here
         #ajax post
-        $.post 'ajax/rankingsajax.php',
+        $.post 'ajax/rankingsAjax.php',
                 genrefilter: rankings.filt('genre')
                 timefilter: rankings.filt('time')
-                artistfilter: rankings.filt('artist')
-                userfilter: rankings.filt('user')
                 (data) ->
-                    console.log(data)
-
+                    $('#rankings-table').html(data) 
     $('.song').click ->
         #getting index and song state
         temp = $(this).attr('id').split('_')

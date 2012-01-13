@@ -10,16 +10,15 @@ class GenreFilter extends Filter
     }
 	
 	
-	//generates SQL code for checking date
-	//Ex. WHERE limitDate > created... if > means before
-	function genSQL()
-	{   
-        global $genre;
-        if($genre == 'all')
+    //generates SQL code for checking date
+    //Ex. WHERE limitDate > created... if > means before
+    function genSQL()
+    {   
+        if($this->genre == 'all')
             return "genre=genre";
         else
             return "genre = '" . $this->genre . "'";
-	}
+    }
     
     function getGenre()
     {

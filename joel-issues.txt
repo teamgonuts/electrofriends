@@ -2,3 +2,5 @@
 2. Adding class 'highlight-filter' doesn't add background color
 3. Add Rankings link next to About, Blog...etc
 4. Change Submit button for comment (can't see text)
+5. Width of minimized songs...don't know what I messed up in the CSS
+6. Shouldn't be allowed to resize comments area

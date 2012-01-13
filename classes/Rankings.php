@@ -11,63 +11,54 @@ class Rankings
         $this->filters = $filters;
     }
     
+    public function test()
+    {
+        echo 'bitch!!!';
+    }
     //@return: returns the html code for the rankings
     //Rankings are a table with 1 item per row, 1st item expanded, the rest minimized
     public function display()
     {
-        $i = 1;
-		$songsPerPage = 20; //default
-		$upperLimit = $songsPerPage;
+	$songsPerPage = 20; //default
+	$upperLimit = $songsPerPage;
         echo '<input type="hidden" id="songs-per-page" value="' . $songsPerPage . '"\>';
         
-        if(array_key_exists('artist' , $this->filters)) //if an artist was selected, sort by artist and date
-        {
-            $this->artist_set = true;
-            $where = $this->filters['date']->genSQL() . ' AND ' . $this->filters['artist']->genSQL();
-        }
-        else //sort by genre and date
-		    $where = $this->filters['date']->genSQL() . ' AND ' . $this->filters['genre']->genSQL();
+	$where = $this->filters['date']->genSQL() . ' AND ' . $this->filters['genre']->genSQL();
 
         $topOf = $this->filters['date']->getDaysWord();
-         //=================BEST OF TABLE=====================//
-		echo '<table border="1" id="rankings-table">';
-
+         //=================Rankings Table====================//
         //hardcoding DB
-		if($topOf == 'New') //newest was selected, order by upload date
-		{
-			$qry = mysql_query("SELECT * FROM  `songs` 
-                            WHERE $where
-                            ORDER BY uploaded_on DESC
-                            LIMIT 0 , $upperLimit
-                            ");
-		}
-		else //order by score
-		{
-			$qry = mysql_query("SELECT * FROM  `songs` 
-                            WHERE $where
-                            ORDER BY score DESC
-                            LIMIT 0 , $upperLimit
-                            ");
-		}					
-            if (!$qry)
-                die("FAIL: " . mysql_error());
+        if($topOf == 'New') //newest was selected, order by upload date
+        {
+                $qry = mysql_query("SELECT * FROM  `songs` 
+                    WHERE $where
+                    ORDER BY uploaded_on DESC
+                    LIMIT 0 , $upperLimit
+                    ");
+        }
+        else //order by score
+        {
+                $qry = mysql_query("SELECT * FROM  `songs` 
+                    WHERE $where
+                    ORDER BY score DESC
+                    LIMIT 0 , $upperLimit
+                    ");
+        }					
+        if (!$qry)
+            die("FAIL: " . mysql_error());
+        //todo: generate new titles
+        //echo $this->genTitle();
 
-        echo $this->genTitle();
-
+        $i = 1;
         while($row = mysql_fetch_array($qry))
         {
             $song = new Song($row, $i);
-			echo $song->showClasses();
-			$i ++;
+            echo $song->showClasses(); 
+            $i ++;
 
         }
-        echo '</table>';
         //====================END TABLE===================//
-        echo '<div id="showMoreDiv">';
-        if ($i >= $songsPerPage)
-            echo '<button id="showMoreSongs"> Show More </Button>';
-        echo '</div>';
-
+        //todo: showMoreSongs buttons and logic
     }
 
     //returns the title for the table given the rankings filters
