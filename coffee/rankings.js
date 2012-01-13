@@ -8,6 +8,7 @@
       this.time = time != null ? time : "new";
       this.artist = artist != null ? artist : "";
       this.user = user != null ? user : "";
+      this.highlight();
     }
 
     Filters.prototype.isSet = function(filter) {
@@ -48,31 +49,31 @@
     };
 
     Filters.prototype.highlight = function() {
-      if (this.filters.genre === 'all') {
+      if (this.genre === 'all') {
         $('#filter-all').addClass('highlight-filter');
-      } else if (this.filters.genre === 'dnb') {
+      } else if (this.genre === 'dnb') {
         $('#filter-dnb').addClass('highlight-filter');
-      } else if (this.filters.genre === 'dubstep') {
-        $('#filter-dubstep').addClass('highlight-filter');
-      } else if (this.filters.genre === 'electro') {
-        $('#filter-electro').addClass('highlight-filter');
-      } else if (this.filters.genre === 'hardstyle') {
-        $('#filter-hardstyle').addClass('highlight-filter');
-      } else if (this.filters.genre === 'house') {
-        $('#filter-house').addClass('highlight-filter');
-      } else if (this.filters.genre === 'trance') {
-        $('#filter-trance').addClass('highlight-filter');
+      } else if (this.genre === 'dubstep') {
+        $('#filter-dubstep').addclass('highlight-filter');
+      } else if (this.genre === 'electro') {
+        $('#filter-electro').addclass('highlight-filter');
+      } else if (this.genre === 'hardstyle') {
+        $('#filter-hardstyle').addclass('highlight-filter');
+      } else if (this.genre === 'house') {
+        $('#filter-house').addclass('highlight-filter');
+      } else if (this.genre === 'trance') {
+        $('#filter-trance').addclass('highlight-filter');
       }
-      if (this.filters.time === 'day') {
-        return $('#filter-day').addClass('highlight-filter');
-      } else if (this.filters.time === 'week') {
-        return $('#filter-week').addClass('highlight-filter');
-      } else if (this.filters.time === 'month') {
-        return $('#filter-month').addClass('highlight-filter');
-      } else if (this.filters.time === 'year') {
-        return $('#filter-year').addClass('highlight-filter');
-      } else if (this.filters.time === 'century') {
-        return $('#filter-century').addClass('highlight-filter');
+      if (this.time === 'day') {
+        return $('#filter-day').addclass('highlight-filter');
+      } else if (this.time === 'week') {
+        return $('#filter-week').addclass('highlight-filter');
+      } else if (this.time === 'month') {
+        return $('#filter-month').addclass('highlight-filter');
+      } else if (this.time === 'year') {
+        return $('#filter-year').addclass('highlight-filter');
+      } else if (this.time === 'century') {
+        return $('#filter-century').addclass('highlight-filter');
       }
     };
 
@@ -84,6 +85,7 @@
 
     function Rankings() {
       this.filters = new Filters;
+      this.maxed_song = -1;
     }
 
     Rankings.prototype.filt = function(filter) {
@@ -97,12 +99,40 @@
   $(function() {
     var rankings;
     rankings = new Rankings;
-    rankings.filters.set('genre', 'dubstep');
-    return $('.filter').click(function() {
+    $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {
-        return rankings.filters.set('genre', $(this).html().toLowerCase());
+        rankings.filters.set('genre', $(this).html().toLowerCase());
       } else {
-        return rankings.filters.set('time', $(this).html().toLowerCase());
+        rankings.filters.set('time', $(this).html().toLowerCase());
+      }
+      return $.post('ajax/rankingsajax.php', {
+        genrefilter: rankings.filt('genre'),
+        timefilter: rankings.filt('time'),
+        artistfilter: rankings.filt('artist'),
+        userfilter: rankings.filt('user')
+      }, function(data) {
+        return console.log(data);
+      });
+    });
+    return $('.song').click(function() {
+      var i, state, temp;
+      temp = $(this).attr('id').split('_');
+      i = temp[1];
+      state = temp[0];
+      if (state === 'min') {
+        if (rankings.maxed_song !== -1) {
+          $('#max_' + rankings.maxed_song).addClass('hidden');
+          $('#min_' + rankings.maxed_song).removeClass('hidden');
+        } else {
+
+        }
+        $('#min_' + i).addClass('hidden');
+        $('#max_' + i).removeClass('hidden');
+        return rankings.maxed_song = i;
+      } else {
+        $('#min_' + i).removeClass('hidden');
+        $('#max_' + i).addClass('hidden');
+        return rankings.maxed_song = -1;
       }
     });
   });

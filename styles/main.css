@@ -29,6 +29,9 @@ h1, h2, h3, h4, h5 {
 	clear: both
 }
 
+.hidden{
+    display:none;
+}
 
 
 
@@ -187,7 +190,7 @@ h1, h2, h3, h4, h5 {
 			/*------------------ Expanded Song -----------------*/
 			/*--------------------------------------------------*/
 			
-				#rankings-table tr.song-max-hidden {
+				#rankings-table tr.song-max{
 					height: 185px;
 					background-color: #ccc;
 					vertical-align: top;
