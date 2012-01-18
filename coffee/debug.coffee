@@ -24,3 +24,7 @@ jQuery ->
     rankings.maxed_song = 4 #simulating new max song
     if rankings.maxed_song != -1 then result ='Success' else result='Fail'
     $("#rankings").append('<li>Rankings.maxed_song = 4: <b> ' + result + '</b></li>')
+
+    #testing enableMoreSongsButton, counts number of rows in the rankings table.
+    if rankings.enableMoreSongsButton() is true then result='Success' else result='Fail'
+    $("#rankings").append('<li>Rankings.enableMoreSongsButton =  true: <b> ' + result + '</b></li>')

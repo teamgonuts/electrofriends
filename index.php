@@ -17,12 +17,12 @@ include ("classes/GenreFilter.php");
 <link href="styles/main.css" rel="stylesheet" type="text/css">
 
 <!-- fancybox -->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="coffee/test.js"></script>
         <script type="text/javascript" src="coffee/rankings.js"></script>
         
 	<script>
-		!window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
+		!window.jQuery && document.write('<script src="jquery-1.7.1min.js"><\/script>');
 	</script>
 	<script type="text/javascript" src="js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
@@ -56,7 +56,7 @@ include ("classes/GenreFilter.php");
 	<div class="content">
 		<div class="twoColumnLeft">
 		
-			<img src="images/header/headerLogo.png" alt="T3k.no Logo" />
+			<a href="index.php"><img src="images/header/headerLogo.png" alt="T3k.no Logo" /></a>
 		
 		</div><!-- end of twoColumnLeft -->
 		
@@ -137,7 +137,7 @@ include ("classes/GenreFilter.php");
 <section id="body">
 	<div class="content">
 		<div id="songTable">
-                    <h2>The Fresh List</h2>
+                    <h2 id="rankings-title">The Fresh List</h2>
                                     
                     <table id="rankings-table" cellspacing="0"><tbody>
                         <?php 
@@ -156,16 +156,9 @@ include ("classes/GenreFilter.php");
 		<div id="sidebar">
 			
 			<div id="search">
-			
 				<h2>Search</h2>
-				
-				<form method="post" action="#">                    
-                        <input  type="text" name="search" id="search" placeholder="Seach">
-                    		
-				        <input type="submit" value="Go">  
-                        
-				</form>
-				
+                                <input type="text" name="search" id="search-input" placeholder="Seach">
+				<input id="search-button" type="submit" value="Go">  
 				<div class="clear"></div>
 			</div>
 			

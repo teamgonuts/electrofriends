@@ -86,10 +86,46 @@
     function Rankings() {
       this.filters = new Filters;
       this.maxed_song = -1;
+      this.songsPerPage = $('tr.song-min').length;
+      this.enableMoreSongsButton();
     }
 
     Rankings.prototype.filt = function(filter) {
       return this.filters.filt(filter);
+    };
+
+    /*checks to see if there should be a showMoreSongs button at the bottom of the rankings
+    if there is, show the button and return true, else don't show buton and return false
+    */
+
+    Rankings.prototype.enableMoreSongsButton = function() {
+      if ($('tr.song-min').length > 0 && $('tr.song-min').length % this.songsPerPage === 0) {
+        $('#showMoreSongs').removeClass('hidden');
+        return true;
+      } else {
+        $('#showMoreSongs').addClass('hidden');
+        return false;
+      }
+    };
+
+    Rankings.prototype.changeTitle = function(title) {
+      console.log('Rankings.changeTitle(' + title + ')');
+      return $('#rankings-title').text(title);
+    };
+
+    Rankings.prototype.refreshTitle = function() {
+      var genre, title;
+      if (this.filt('genre') === 'all') {
+        genre = 'Tracks';
+      } else {
+        genre = this.filt('genre');
+      }
+      if (genre === 'all' && this.filt('time') === 'new') {
+        return $('#rankings-title').text("The Fresh List");
+      } else {
+        title = "Top " + genre + " of the " + this.filt('time');
+        return $('#rankings-title').text(title);
+      }
     };
 
     return Rankings;
@@ -109,10 +145,12 @@
         genrefilter: rankings.filt('genre'),
         timefilter: rankings.filt('time')
       }, function(data) {
-        return $('#rankings-table').html(data);
+        $('#rankings-table').html(data);
+        rankings.enableMoreSongsButton();
+        return rankings.refreshTitle();
       });
     });
-    return $('.song').click(function() {
+    $(document).on('click', '.song', function() {
       var i, state, temp;
       temp = $(this).attr('id').split('_');
       i = temp[1];
@@ -131,6 +169,31 @@
         $('#min_' + i).removeClass('hidden');
         $('#max_' + i).addClass('hidden');
         return rankings.maxed_song = -1;
+      }
+    });
+    $(document).on('click', '#showMoreSongs', function() {
+      return $.post('ajax/showMoreSongsAjax.php', {
+        genrefilter: rankings.filt('genre'),
+        timefilter: rankings.filt('time'),
+        lowerLimit: $('tr.song-min').length,
+        upperLimit: $('tr.song-min').length + rankings.songsPerPage
+      }, function(data) {
+        $('#rankings-table').append(data);
+        return rankings.enableMoreSongsButton();
+      });
+    });
+    return $('#search-button').click(function() {
+      if ($('#search-input').val().length === 0) {
+        return alert('Please Enter a Search Term');
+      } else {
+        console.log('Search: ' + $('#search-input').val());
+        rankings.changeTitle('Searching For: ' + $('#search-input').val());
+        return $.post('ajax/searchAjax.php', {
+          searchTerm: $('#search-input').val()
+        }, function(data) {
+          $('#rankings-table').html(data);
+          return $('#showMoreSongs').addClass('hidden');
+        });
       }
     });
   });

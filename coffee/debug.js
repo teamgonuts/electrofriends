@@ -53,7 +53,13 @@
     } else {
       result = 'Fail';
     }
-    return $("#rankings").append('<li>Rankings.maxed_song = 4: <b> ' + result + '</b></li>');
+    $("#rankings").append('<li>Rankings.maxed_song = 4: <b> ' + result + '</b></li>');
+    if (rankings.enableMoreSongsButton() === true) {
+      result = 'Success';
+    } else {
+      result = 'Fail';
+    }
+    return $("#rankings").append('<li>Rankings.enableMoreSongsButton =  true: <b> ' + result + '</b></li>');
   });
 
 }).call(this);

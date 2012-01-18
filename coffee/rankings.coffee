@@ -5,7 +5,7 @@ window.Filters = class Filters
     isSet: (filter) ->
         @filt(filter)?.length > 0
 
-    #returns the appropriate filter value
+    #=============returns the appropriate filter value=============
     filt: (filter) ->
         if filter is "genre" 
             @genre
@@ -18,7 +18,7 @@ window.Filters = class Filters
         else
             false
 
-    #highlights the appropriate filter and sets the correct filter
+    #=============highlights the appropriate filter and sets the correct filter=============
     set: (filter, value) ->
         if filter is "genre" 
             @genre = value
@@ -35,7 +35,7 @@ window.Filters = class Filters
         else
             false
 
-    #highlights whatever filters are set
+    #=============highlights whatever filters are set=============
     highlight:  ->
         #Highlighting genre
         if @genre is 'all'
@@ -68,16 +68,43 @@ window.Rankings = class Rankings
     constructor: ->
         @filters = new Filters
         @maxed_song = -1 #song currently maximized in rankings, -1 for no maxed songs
-        
+        @songsPerPage = $('tr.song-min').length #default songsPerPage, set this in Rankings.php
+        this.enableMoreSongsButton()
 
-    #filt("genre") = "all" == @genre = all
+    #filt("genre") = "all" is the same as @genre = all
     filt: (filter) ->
         @filters.filt(filter)
 
-    
+    ###checks to see if there should be a showMoreSongs button at the bottom of the rankings
+    if there is, show the button and return true, else don't show buton and return false###
+    enableMoreSongsButton: ->
+        #console.log ('tr.song-min.length: ' + $('tr.song-min').length)
+        if $('tr.song-min').length > 0 and $('tr.song-min').length % @songsPerPage is 0 #more songs to show
+            $('#showMoreSongs').removeClass('hidden')
+            return true
+        else
+            $('#showMoreSongs').addClass('hidden')
+            return false
             
+    #changes the title for the rankings
+    changeTitle: (title) ->
+        console.log('Rankings.changeTitle(' + title + ')')
+        $('#rankings-title').text(title)
+
+    #refreshes the title for the rankings based off the filters applied
+    refreshTitle: ->
+        if this.filt('genre') is 'all' then genre = 'Tracks' else genre=this.filt('genre')
+        if genre is 'all' and this.filt('time') is 'new' #the fresh list
+            $('#rankings-title').text("The Fresh List")
+        else
+            title = "Top " + genre + " of the " + this.filt('time')
+            $('#rankings-title').text(title)
+
+        
 $ ->
     rankings = new Rankings
+
+    #=============changing the rankings via filter=============
     $('.filter').click ->
         #highlighting filter on click
         if $(this).hasClass('genre-filter')
@@ -91,7 +118,11 @@ $ ->
                 timefilter: rankings.filt('time')
                 (data) ->
                     $('#rankings-table').html(data) 
-    $('.song').click ->
+                    rankings.enableMoreSongsButton()
+                    rankings.refreshTitle()
+
+    #=============to maximize and minimize songs in the rankings=============
+    $(document).on 'click', '.song', ->
         #getting index and song state
         temp = $(this).attr('id').split('_')
         i = temp[1] #index of song in rankings
@@ -111,3 +142,27 @@ $ ->
             $('#min_' + i).removeClass('hidden')
             $('#max_' + i).addClass('hidden')
             rankings.maxed_song = -1 #there are no more songs maxed
+
+    #===========showMoreSongs=====================#
+    $(document).on 'click', '#showMoreSongs', ->
+        $.post 'ajax/showMoreSongsAjax.php',
+                genrefilter: rankings.filt('genre')
+                timefilter: rankings.filt('time')
+                lowerLimit: $('tr.song-min').length
+                upperLimit: $('tr.song-min').length + rankings.songsPerPage
+                (data) ->
+                    $('#rankings-table').append(data) 
+                    rankings.enableMoreSongsButton()
+
+    #===========Search=====================#
+    $('#search-button').click ->
+        if $('#search-input').val().length is 0
+            alert 'Please Enter a Search Term'
+        else
+            console.log 'Search: ' + $('#search-input').val() 
+            rankings.changeTitle ('Searching For: ' + $('#search-input').val())
+            $.post 'ajax/searchAjax.php',
+                    searchTerm: $('#search-input').val() 
+                    (data) ->
+                        $('#rankings-table').html(data) 
+                        $('#showMoreSongs').addClass('hidden')                                    

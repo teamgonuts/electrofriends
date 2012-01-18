@@ -4,3 +4,4 @@
 4. Change Submit button for comment (can't see text)
 5. Width of minimized songs...don't know what I messed up in the CSS
 6. Shouldn't be allowed to resize comments area
+7. When Show More Songs button is disabled, the bottom border of the rankings is gone
