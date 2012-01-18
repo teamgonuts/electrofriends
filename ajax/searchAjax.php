@@ -6,43 +6,35 @@ include ("../classes/Rankings.php");
 if($_POST)
 {
     $searchTerm = $_POST['searchTerm'];
+    $upperLimit = $_POST['upperLimit'];
+    //$searchTerm = 'zedd';
 
-    $qry = mysql_query("SELECT * FROM  `songs` ");
+    $qry = mysql_query("SELECT * FROM  `songs`
+                        ORDER BY `uploaded_on` DESC ");
     if (!$qry)
                 die("FAIL: " . mysql_error());
 
-    $i =0;
-    $qryArr = array(); //array of song results
     $levArr = array(); //array of levenshtein numbers
 
     //determining closest matches
-    while($row = mysql_fetch_array($qry)) 
-    {
+    while($row = mysql_fetch_array($qry)) {
         //if the search term is contained in the title or artist
-        if (stristr($row['artist'], $searchTerm) != false)
+        if (stristr($row['artist'], $searchTerm) != false ||
+            stristr($row['title'], $searchTerm) != false ) 
         {
-            $levArr[$i] = levenshtein($searchTerm, $row['artist']);
-            $qryArr[$i] = $row; 
+            $levArr[] = $row;
+            if (count($levArr) >= $upperLimit)
+                break;
         }
-        else if (stristr($row['title'], $searchTerm) != false)
-        {
-            $levArr[$i] = levenshtein($searchTerm, $row['title']);
-            $qryArr[$i] = $row; 
-        }
-
-        $i++;
     }
+
     //checking is no results were returned
     if ($levArr == null)
         echo '<tr><td><h3>Sorry, there are no results matching your criteria. Bummer dude.</h3></td></tr>';
-    else
-    {
-        asort($levArr);
-
+    else {
         $i = 1;
-        foreach (array_keys($levArr) as $key)
-        {
-            $song = new Song($qryArr[$key], $i);
+        foreach ($levArr as $row) {
+            $song = new Song($row, $i);
             echo $song->showClasses();
             $i ++;
         }

@@ -93,6 +93,14 @@
       this.filters = new Filters;
       this.maxed_song = -1;
       this.songsPerPage = $('tr.song-min').length;
+      /*=================================
+      #special flag to tell ajax what is currently displayed in rankings
+      Possible values:
+        'search' - if rankings currently display search results
+        'user' - if rankings currently display a specific user's songs
+        'normal' - if rankings display a typical genre/time rankings
+      */
+      this.flag = 'normal';
       this.enableMoreSongsButton();
     }
 
@@ -105,6 +113,8 @@
     */
 
     Rankings.prototype.enableMoreSongsButton = function() {
+      console.log('Calling Rankings.enableMoreSongsButton()');
+      console.log('tr.song-min.length: ' + $('tr.song-min').length);
       if ($('tr.song-min').length > 0 && $('tr.song-min').length % this.songsPerPage === 0) {
         $('#showMoreSongs').removeClass('hidden');
         return true;
@@ -127,11 +137,13 @@
         genre = this.filt('genre');
       }
       if (genre === 'all' && this.filt('time') === 'new') {
-        return $('#rankings-title').text("The Fresh List");
+        title = 'The Fresh List';
+      } else if (this.filt('time') === 'new') {
+        title = 'The Freshest ' + genre;
       } else {
         title = "Top " + genre + " of the " + this.filt('time');
-        return $('#rankings-title').text(title);
       }
+      return $('#rankings-title').text(title);
     };
 
     /*searches database for songs with 'searchTerm' in either the title or artist 
@@ -139,16 +151,24 @@
     */
 
     Rankings.prototype.search = function(searchTerm) {
+      var upperLimit;
+      upperLimit = this.songsPerPage;
       if (searchTerm.length === 0) {
         return alert('Please Enter a Search Term');
       } else {
         console.log('Search: ' + searchTerm);
-        this.changeTitle('Searching For: ' + searchTerm);
+        this.changeTitle('Searching: ' + searchTerm);
+        this.flag = 'search';
         return $.post('ajax/searchAjax.php', {
-          searchTerm: searchTerm
+          searchTerm: searchTerm,
+          upperLimit: upperLimit
         }, function(data) {
           $('#rankings-table').html(data);
-          return $('#showMoreSongs').addClass('hidden');
+          if ($('tr.song-min').length > 0 && $('tr.song-min').length % upperLimit === 0) {
+            return $('#showMoreSongs').removeClass('hidden');
+          } else {
+            return $('#showMoreSongs').addClass('hidden');
+          }
         });
       }
     };
@@ -172,7 +192,8 @@
       }, function(data) {
         $('#rankings-table').html(data);
         rankings.enableMoreSongsButton();
-        return rankings.refreshTitle();
+        rankings.refreshTitle();
+        return rankings.flag = 'normal';
       });
     });
     $(document).on('click', '.song', function() {
@@ -200,6 +221,8 @@
       return $.post('ajax/showMoreSongsAjax.php', {
         genrefilter: rankings.filt('genre'),
         timefilter: rankings.filt('time'),
+        searchTerm: $('#search-input').val(),
+        flag: rankings.flag,
         lowerLimit: $('tr.song-min').length,
         upperLimit: $('tr.song-min').length + rankings.songsPerPage
       }, function(data) {

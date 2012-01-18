@@ -6,3 +6,7 @@
 6. Shouldn't be allowed to resize comments area
 7. When Show More Songs button is disabled, the bottom border of the rankings is gone
 8. When the title for the rankings is too big, it goes onto the next line and looks terrible. Ex. If someone seaches for some long search term
+9. Center 'Sorry there are no results' message 
+10. Fade open/close for songs on click
+11. Have score on maxed song line up with the other scores (far right of row), and have up/down vote buttons above and below it.
+12. Somehow need to show that you can click certains pieces of text (ex. Genre in the song's info)

@@ -12,7 +12,7 @@ class Song
     public $user;
     public $score;
     public $i; //index of song on rankings
-    public $views; //how many plays the song has
+    public $plays; //how many plays the song has
     
     public function Song($row, $i)
     {
@@ -25,7 +25,7 @@ class Song
         $this->ytcode = str_replace('\\','',$row['youtubecode']);
         $this->user = str_replace('\\','',$row['user']);
         $this->score = $row['score'];
-        $this->views = $row['views'];
+        $this->plays = $row['plays'];
     }
 	
 
@@ -47,7 +47,7 @@ class Song
                     <span class="divider">//</span> <br />
                     '. $this->artist .'
                     </td>
-                    <td class="song-genre clickable">' . $this->genre . '</td>
+                    <td class="song-genre">' . $this->genre . '</td>
                     <td class="song-score clickable">
                         <div class="center">' . $this->score . '</div>
                     </td>
@@ -69,9 +69,9 @@ class Song
 	                        
 	                        <p><span class="more-info-heading">Title</span>: '. $this->title .'</p>
 	                        <p><span class="more-info-heading">Artist</span>: '. $this->artist .'</p>
-	                        <p><span class="more-info-heading">Genre</span>: '. $this->genre .'</p>
+	                        <p><span class="more-info-heading">Genre</span>: <span class="filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .'</p>
-	                        <p><span class="more-info-heading">Views</span>: '. $this->views .'</p>
+	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
 	                        <p><span class="more-info-heading">Share</span>: </p>
 	                        <p><span class="more-info-heading">Buy Now</span>: Buy Now</p>
                     	
