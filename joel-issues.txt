@@ -5,3 +5,4 @@
 5. Width of minimized songs...don't know what I messed up in the CSS
 6. Shouldn't be allowed to resize comments area
 7. When Show More Songs button is disabled, the bottom border of the rankings is gone
+8. When the title for the rankings is too big, it goes onto the next line and looks terrible. Ex. If someone seaches for some long search term

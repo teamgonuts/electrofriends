@@ -64,6 +64,9 @@ window.Filters = class Filters
         else if @time is 'century'
             $('#filter-century').addclass('highlight-filter')
 
+zeUbertest: ->
+    alert 'bitch'
+
 window.Rankings = class Rankings
     constructor: ->
         @filters = new Filters
@@ -100,6 +103,19 @@ window.Rankings = class Rankings
             title = "Top " + genre + " of the " + this.filt('time')
             $('#rankings-title').text(title)
 
+    ###searches database for songs with 'searchTerm' in either the title or artist 
+    and displays results in rankings###
+    search: (searchTerm) ->
+        if searchTerm.length is 0
+            alert 'Please Enter a Search Term'
+        else
+            console.log 'Search: ' + searchTerm
+            this.changeTitle ('Searching For: ' + searchTerm)
+            $.post 'ajax/searchAjax.php',
+                    searchTerm: searchTerm
+                    (data) ->
+                        $('#rankings-table').html(data) 
+                        $('#showMoreSongs').addClass('hidden')                                    
         
 $ ->
     rankings = new Rankings
@@ -155,14 +171,5 @@ $ ->
                     rankings.enableMoreSongsButton()
 
     #===========Search=====================#
-    $('#search-button').click ->
-        if $('#search-input').val().length is 0
-            alert 'Please Enter a Search Term'
-        else
-            console.log 'Search: ' + $('#search-input').val() 
-            rankings.changeTitle ('Searching For: ' + $('#search-input').val())
-            $.post 'ajax/searchAjax.php',
-                    searchTerm: $('#search-input').val() 
-                    (data) ->
-                        $('#rankings-table').html(data) 
-                        $('#showMoreSongs').addClass('hidden')                                    
+    $('#search-button').click -> rankings.search($('#search-input').val())
+

@@ -81,6 +81,12 @@
 
   })();
 
+  ({
+    zeUbertest: function() {
+      return alert('bitch');
+    }
+  });
+
   window.Rankings = Rankings = (function() {
 
     function Rankings() {
@@ -125,6 +131,25 @@
       } else {
         title = "Top " + genre + " of the " + this.filt('time');
         return $('#rankings-title').text(title);
+      }
+    };
+
+    /*searches database for songs with 'searchTerm' in either the title or artist 
+    and displays results in rankings
+    */
+
+    Rankings.prototype.search = function(searchTerm) {
+      if (searchTerm.length === 0) {
+        return alert('Please Enter a Search Term');
+      } else {
+        console.log('Search: ' + searchTerm);
+        this.changeTitle('Searching For: ' + searchTerm);
+        return $.post('ajax/searchAjax.php', {
+          searchTerm: searchTerm
+        }, function(data) {
+          $('#rankings-table').html(data);
+          return $('#showMoreSongs').addClass('hidden');
+        });
       }
     };
 
@@ -183,18 +208,7 @@
       });
     });
     return $('#search-button').click(function() {
-      if ($('#search-input').val().length === 0) {
-        return alert('Please Enter a Search Term');
-      } else {
-        console.log('Search: ' + $('#search-input').val());
-        rankings.changeTitle('Searching For: ' + $('#search-input').val());
-        return $.post('ajax/searchAjax.php', {
-          searchTerm: $('#search-input').val()
-        }, function(data) {
-          $('#rankings-table').html(data);
-          return $('#showMoreSongs').addClass('hidden');
-        });
-      }
+      return rankings.search($('#search-input').val());
     });
   });
 
