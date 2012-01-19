@@ -80,40 +80,35 @@ include ("classes/GenreFilter.php");
 							    
 							    <div id="lightBoxLeft">
 							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
+							        <div class="hidden" id="upload-box-result"></div>
 							    </div><!-- end of left -->
-							    
 							    <div id="lightBoxRight">
-							    <div class="hidden" id="upload-box-result"></div>
-						        	<form method="post"	action="">
-								       	<label for="url">YouTube URL: </label> 
-								       	<input id="upload_yturl" type="text" name="url"><br>
-								        
-								        <label for="title">Title: </label>
-										<input id="upload_title" type="text" name="title"><br>
-								        
-								        <label for="artist">Artist: </label>
-								        <input id="upload_artist" type="text" name="artist"><br>
+                                                                <label for="url">YouTube URL: </label> 
+                                                                <input id="upload_yturl" type="text" name="url"><br>
+                                                                
+                                                                <label for="title">Title: </label>
+                                                                <input id="upload_title" type="text" name="title"><br>
+                                                                
+                                                                <label for="artist">Artist: </label>
+                                                                <input id="upload_artist" type="text" name="artist"><br>
 
-								        <label for="genre">Genre: </label>
-								        
-								        <select id="upload_genre" name="genre">
-								                <option value="DnB">Drum &amp; Bass</option>
-								                <option value="Dubstep">Dubstep</option>
-								                <option value="Electro">Electro</option>
-								                <option value="Hardstyle">Hardstyle</option>
-								                <option value="House">House</option>
-								                <option value="Trance">Trance</option>
-								               </select> <br>
-								        
-								        <label for="user">Uploaded By: </label>
-								        <input id="upload_user" type="text" name="user" value=""> <br>
-								        
-								        <label for="oldie">Old Song: </label>
-								        <input type="checkbox" value="oldie" name="oldie" id="oldie"><br>
+                                                                <label for="genre">Genre: </label>
+                                                                <select id="upload_genre" name="genre">
+                                                                    <option value="DnB">Drum &amp; Bass</option>
+                                                                    <option value="Dubstep">Dubstep</option>
+                                                                    <option value="Electro">Electro</option>
+                                                                    <option value="Hardstyle">Hardstyle</option>
+                                                                    <option value="House">House</option>
+                                                                    <option value="Trance">Trance</option>
+                                                               </select> <br>
+                                                                
+                                                                <label for="user">Uploaded By: </label>
+                                                                <input id="upload_user" type="text" name="user" value=""> <br>
+                                                                
+                                                                <label for="oldie">Old Song: </label>
+                                                                <input type="checkbox" value="oldie" name="oldie" id="upload_oldie"><br>
 
-								        <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
-
-						        	</form>
+                                                                <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
 						        </div><!-- end of right -->
 						        
 							</div>

@@ -89,8 +89,7 @@ window.Rankings = class Rankings
     ###checks to see if there should be a showMoreSongs button at the bottom of the rankings
     if there is, show the button and return true, else don't show buton and return false###
     enableMoreSongsButton: ->
-        console.log ('Calling Rankings.enableMoreSongsButton()')
-        console.log ('tr.song-min.length: ' + $('tr.song-min').length)
+        #console.log ('Calling Rankings.enableMoreSongsButton()')
         if $('tr.song-min').length > 0 and $('tr.song-min').length % @songsPerPage is 0 #more songs to show
             $('#showMoreSongs').removeClass('hidden')
             return true
@@ -198,4 +197,27 @@ $ ->
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())
+
+    #===========Upload Song=====================#
+    $('#upload_song').click -> 
+        console.log('Upload_Song Clicked')
+        console.log ('upload_yturl: ' +  $('#upload_yturl').val())
+        console.log ('oldie: ' +  $('#upload_oldie').attr('checked'))
+        $.post 'ajax/uploadAjax.php',
+                ytcode: $('#upload_yturl').val()
+                title: $('#upload_title').val()
+                oldie: $('#upload_oldie').attr('checked')
+                artist: $('#upload_artist').val()
+                genre: $('#upload_genre').val()
+                user: $('#upload_user').val()
+                (data) ->
+                    console.log('Upload Result: ' + data)
+                    $("#upload-box-result").html(data);
+                    $("#upload-box-result").removeClass('hidden');
+                    if($("#upload-box-result").html().indexOf("Upload Failed") is -1)#upload success
+                        $('#upload-box-result').css('color', '#33FF33')
+                    else #upload failed
+                        $('#upload-box-result').css('color', 'red')
+                    
+
 

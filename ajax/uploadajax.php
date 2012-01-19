@@ -6,14 +6,18 @@ $user = "Anonymous";
 //=======================Upload Song to DB==========================//
 if(isset($_POST['title']) && validPost())
 {
-	$title = safeString($_POST['title']);
-	$artist = safeString($_POST['artist']);
+    if(isset($_POST['oldie']))
+        $oldie = $_POST['oldie'];
+    else
+        $oldie = 'unchecked';
+                
+    $title = safeString($_POST['title']);
+    $artist = safeString($_POST['artist']);
     $genre = safeString($_POST['genre']);
-    $url = safeString(GetYouTubeVideoId($_POST['yturl']));
+    $url = safeString(GetYouTubeVideoId($_POST['ytcode']));
     $user = safeString($_POST['user']);
-    $oldie = $_POST['oldie'];
+    
 
-    //What happens if I insert the same song twice
     if($ok)
     {
         if($oldie == 'checked') //its an old song
@@ -53,7 +57,7 @@ if(isset($_POST['title']) && validPost())
                 die('Error: ' . $error . '<br />');
         }
         else
-            echo 'Success';
+            echo 'Upload Successful';
 	}
     else
         echo 'Upload Failed =( <br />';
@@ -111,7 +115,7 @@ function validPost()
        'title' => '  Please enter a title',
        'artist' => '  Please enter an artist',
        'genre' => '  Please enter a genre' ,
-       'yturl' => '  Please enter a URL',
+       'ytcode' => '  Please enter a URL',
        'user' => '  Please enter a user to credit this song to'
     );
 
@@ -125,26 +129,14 @@ function validPost()
 
     if (count($errors) > 0) 
     {
+        //=====WHAT TO DISPLAY IF THERE ARE ERRORS===//
+        echo 'Upload Failed:<br />';
          foreach($errors as $err)
          {
-            echo $err . ',';
-
+            echo $err . '<br />';
          }
-         echo '<br />'; //For good measure
-         echo 'YouTube URL: <input id="upload_yturl" type="text" name="url" /> <br />
-            Title: <input id="upload_title" type="text" name="title" /> <br />
-            Artist: <input id="upload_artist" type="text" name="artist" /> <br />
-            Genre: <select id="upload_genre" name="genre">
-                    <option value="DnB">Drum & Bass</option>
-                    <option value="Dubstep">Dubstep</option>
-                    <option value="Electro">Electro</option>
-                    <option value="Hardstyle">Hardstyle</option>
-                    <option value="House">House</option>
-                    <option value="Trance">Trance</option>
-                   </select> <br />
-            Uploaded By: <input id="upload_user" type="text" name="user" value="" /> <br />
-            <center><button id="upload_song">Upload Song</button>
-            </center>';
+         //correcting last comma
+
          return false;
     }
     

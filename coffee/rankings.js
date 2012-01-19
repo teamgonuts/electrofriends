@@ -113,8 +113,6 @@
     */
 
     Rankings.prototype.enableMoreSongsButton = function() {
-      console.log('Calling Rankings.enableMoreSongsButton()');
-      console.log('tr.song-min.length: ' + $('tr.song-min').length);
       if ($('tr.song-min').length > 0 && $('tr.song-min').length % this.songsPerPage === 0) {
         $('#showMoreSongs').removeClass('hidden');
         return true;
@@ -230,8 +228,30 @@
         return rankings.enableMoreSongsButton();
       });
     });
-    return $('#search-button').click(function() {
+    $('#search-button').click(function() {
       return rankings.search($('#search-input').val());
+    });
+    return $('#upload_song').click(function() {
+      console.log('Upload_Song Clicked');
+      console.log('upload_yturl: ' + $('#upload_yturl').val());
+      console.log('oldie: ' + $('#upload_oldie').attr('checked'));
+      return $.post('ajax/uploadAjax.php', {
+        ytcode: $('#upload_yturl').val(),
+        title: $('#upload_title').val(),
+        oldie: $('#upload_oldie').attr('checked'),
+        artist: $('#upload_artist').val(),
+        genre: $('#upload_genre').val(),
+        user: $('#upload_user').val()
+      }, function(data) {
+        console.log('Upload Result: ' + data);
+        $("#upload-box-result").html(data);
+        $("#upload-box-result").removeClass('hidden');
+        if ($("#upload-box-result").html().indexOf("Upload Failed") === -1) {
+          return $('#upload-box-result').css('color', '#33FF33');
+        } else {
+          return $('#upload-box-result').css('color', 'red');
+        }
+      });
     });
   });
 
