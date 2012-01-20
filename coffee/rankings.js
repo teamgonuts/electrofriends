@@ -151,10 +151,11 @@
     Rankings.prototype.search = function(searchTerm) {
       var upperLimit;
       upperLimit = this.songsPerPage;
+      searchTerm = searchTerm.trim();
       if (searchTerm.length === 0) {
         return alert('Please Enter a Search Term');
       } else {
-        console.log('Search: ' + searchTerm);
+        console.log('Search:' + searchTerm);
         this.changeTitle('Searching: ' + searchTerm);
         this.flag = 'search';
         return $.post('ajax/searchAjax.php', {
@@ -231,10 +232,10 @@
     $('#search-button').click(function() {
       return rankings.search($('#search-input').val());
     });
+    $(document).on('click', '.search-filter', function() {
+      return rankings.search($(this).html());
+    });
     return $('#upload_song').click(function() {
-      console.log('Upload_Song Clicked');
-      console.log('upload_yturl: ' + $('#upload_yturl').val());
-      console.log('oldie: ' + $('#upload_oldie').attr('checked'));
       return $.post('ajax/uploadAjax.php', {
         ytcode: $('#upload_yturl').val(),
         title: $('#upload_title').val(),

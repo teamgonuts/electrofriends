@@ -118,10 +118,11 @@ window.Rankings = class Rankings
     and displays results in rankings###
     search: (searchTerm) ->
         upperLimit = @songsPerPage #creating a local variable for songsPerPage so it can be accessed within the Ajax
+        searchTerm = searchTerm.trim()
         if searchTerm.length is 0
             alert 'Please Enter a Search Term'
         else
-            console.log 'Search: ' + searchTerm
+            console.log 'Search:' + searchTerm
             this.changeTitle ('Searching: ' + searchTerm)
             @flag = 'search' 
 
@@ -197,12 +198,10 @@ $ ->
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())
+    $(document).on 'click', '.search-filter', -> rankings.search($(this).html())
 
     #===========Upload Song=====================#
     $('#upload_song').click -> 
-        console.log('Upload_Song Clicked')
-        console.log ('upload_yturl: ' +  $('#upload_yturl').val())
-        console.log ('oldie: ' +  $('#upload_oldie').attr('checked'))
         $.post 'ajax/uploadAjax.php',
                 ytcode: $('#upload_yturl').val()
                 title: $('#upload_title').val()

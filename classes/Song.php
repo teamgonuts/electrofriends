@@ -68,12 +68,14 @@ class Song
 	                        </div>
 	                        
 	                        <p><span class="more-info-heading">Title</span>: '. $this->title .'</p>
-	                        <p><span class="more-info-heading">Artist</span>: '. $this->artist .'</p>
-	                        <p><span class="more-info-heading">Genre</span>: <span class="filter genre-filter">'. $this->genre .'</span></p>
+	                        <p><span class="more-info-heading">Artist</span>:<span class="highlight search-filter"> '. $this->artist .'</span></p>
+	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .'</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
 	                        <p><span class="more-info-heading">Share</span>: </p>
-	                        <p><span class="more-info-heading">Buy Now</span>: Buy Now</p>
+	                        <p><span class="more-info-heading">Download</span>: 
+                                    <a type="amzn" category="music" search="' . $this->title . ' ' . $this->artist . '">Amazon</a> 
+                                </p>
                     	
                     	</div><!-- end of left -->
                     	<div class="right">
@@ -81,21 +83,21 @@ class Song
 				    <h3 class="comments">Comments</h3>
     				    <div class="comment-display">
                                         <p>
-                                            <span class="userName">UserName</span> 
+                                            <span class="userName">Anonymous</span> 
                                             <span class="divider">//</span> 
                                             <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
                                             Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
                                             eleifend lobortis.
                                         </p>
                                         <p>
-                                            <span class="userName">UserName</span> 
+                                            <span class="userName">Anonymous</span> 
                                             <span class="divider">//</span> 
                                             <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
                                             Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
                                             eleifend lobortis.
                                         </p>
                                         <p>
-                                            <span class="userName">UserName</span> 
+                                            <span class="userName">Anonymous</span> 
                                             <span class="divider">//</span> 
                                             <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
                                             Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
@@ -175,6 +177,7 @@ class Song
 	//generates html to display comments
 	function showComments()
 	{
+            //======OLD CODE===//
 		$ytcode = $this->ytcode;
 		$where = "'". $ytcode ."' = youtubecode";
 		

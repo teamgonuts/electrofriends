@@ -38,6 +38,8 @@ include ("classes/GenreFilter.php");
 
 		});
 	</script>
+        <!--Amazon Affiliate -->
+        <SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822/US/t075c-20/8005/79bdde03-08b0-45a0-986c-0440e49253bf"> </SCRIPT> <NOSCRIPT><A HREF="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Ft075c-20%2F8005%2F79bdde03-08b0-45a0-986c-0440e49253bf&Operation=NoScript">Amazon.com Widgets</A></NOSCRIPT>
 
 
 <!-- typekit -->
@@ -68,6 +70,7 @@ include ("classes/GenreFilter.php");
 					<a href="#">Login</a> 
 					<span class="divider">|</span> 
 					<span class="socialSignIn">Sign in with:</span> 
+                                        <span>Coming Soon</span>
 				</p>
 				
 				<p class="upload">
@@ -105,7 +108,7 @@ include ("classes/GenreFilter.php");
                                                                 <label for="user">Uploaded By: </label>
                                                                 <input id="upload_user" type="text" name="user" value=""> <br>
                                                                 
-                                                                <label for="oldie">Old Song: </label>
+                                                                <label for="oldie">Archive: </label>
                                                                 <input type="checkbox" value="oldie" name="oldie" id="upload_oldie"><br>
 
                                                                 <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
@@ -156,6 +159,22 @@ include ("classes/GenreFilter.php");
 				<input id="search-button" type="submit" value="Go">  
 				<div class="clear"></div>
 			</div>
+
+			<div id="genre">
+			
+				<h2>Genre</h2>
+				
+					<ul>
+						<li><a class="filter genre-filter" id="filter-all" title="all" href="#">All</a></li>
+						<li><a class="filter genre-filter" id="filter-dnb" href="#">DnB</a></li>
+						<li><a class="filter genre-filter" id="filter-dubstep" href="#">Dubstep</a></li>
+						<li><a class="filter genre-filter" id="filter-electro" href="#">Electro</a></li>
+						<li><a class="filter genre-filter" id="filter-hardstyle" href="#">Hardstyle</a></li>
+						<li><a class="filter genre-filter" id="filter-house" href="#">House</a></li>
+						<li><a class="filter genre-filter" id="filter-trance" href="#">Trance</a></li>
+					</ul>
+			
+			</div><!-- end of genre -->
 			
 			<div id="topList">
 				
@@ -172,21 +191,7 @@ include ("classes/GenreFilter.php");
 
 			</div><!-- end of topList -->
 			
-			<div id="genre">
-			
-				<h2>Genre</h2>
-				
-					<ul>
-						<li><a class="filter genre-filter" id="filter-all" title="all" href="#">All</a></li>
-						<li><a class="filter genre-filter" id="filter-dnb" href="#">DnB</a></li>
-						<li><a class="filter genre-filter" id="filter-dubstep" href="#">Dubstep</a></li>
-						<li><a class="filter genre-filter" id="filter-electro" href="#">Electro</a></li>
-						<li><a class="filter genre-filter" id="filter-hardstyle" href="#">Hardstyle</a></li>
-						<li><a class="filter genre-filter" id="filter-house" href="#">House</a></li>
-						<li><a class="filter genre-filter" id="filter-trance" href="#">Trance</a></li>
-					</ul>
-			
-			</div><!-- end of genre -->
+                        
 			
 		</div><!-- end of sidebar -->
 	
