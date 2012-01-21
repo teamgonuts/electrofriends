@@ -119,6 +119,7 @@ window.Rankings = class Rankings
     #Preps the comments for each song from startIndex to endIndex in the rankings, checks if it needs a show More Comments button
     #If there are no comments for song, adds Message
     initializeSongs:(startIndex, endIndex) ->
+#=================NOTE: When you change this method you also have to change the ajax in Rankings.search()
         this.enableMoreSongsButton()
         console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
         for i in [startIndex..endIndex]

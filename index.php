@@ -222,7 +222,7 @@ include ("classes/GenreFilter.php");
             <ol class="max-queue" id="gen-queue">
                 <li class="queue-item" id="gen-queue-1"><span class="title">Mission</span> <span class="purple">//</span> Beats Antique</li>
                 <li class="queue-item" id="gen-queue-2"><span class="title">Crave You (Adventure Club Dubstep Remix)</span> <span class="purple">//</span> Flight Facilities</li>
-                <li class="queue-item" id="gen-queue-3"><span class="title">The Immortals (RÃ¶yksopp Remix) Radio Edit </span> <span class="purple">//</span> Kings of Leon</li>
+                <li class="queue-item" id="gen-queue-3"><span class="title">The Immortals (Röyksopp Remix) Radio Edit </span> <span class="purple">//</span> Kings of Leon</li>
                 <li class="queue-item" id="gen-queue-4"><span class="title">Collect Call (Adventure Club Remix) </span> <span class="purple">//</span> Metric</li>
                 <li class="queue-item" id="gen-queue-5"><span class="title">Ladi Dadi (Original Mix) </span> <span class="purple">//</span> Steve Aoki feat. Wynter Gordon</li>
                 <li class="queue-item" id="gen-queue-6"><span class="title">Rebound </span> <span class="purple">//</span> Arty &amp; Mat Zo</li>

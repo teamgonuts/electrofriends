@@ -762,7 +762,6 @@ box-shadow: 0 0 10px #333;
 			#genre li a {
 				color: #000;
 				text-decoration: none;
-				background-color: #ccc;
 				display: block;
 				padding: 10px 0;
 				border-bottom: 2px dotted #000;
@@ -782,6 +781,9 @@ box-shadow: 0 0 10px #333;
 				background-position:center left;
 			}
                         
+                        .filter{
+                            background-color: #ccc;
+                        }
                         .highlight-filter {
 				background-color: #3fa9f5;
 				background-image: url('../images/sideBarHover.png');

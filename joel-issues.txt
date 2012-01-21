@@ -13,3 +13,4 @@
 13. Drop down menu on upload page is too small, increase the size a little
 14. Upload box: line up old song checkbox next to text instead of below
 15. Report button
+16. Fade comments in/out
