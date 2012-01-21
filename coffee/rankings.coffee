@@ -150,9 +150,9 @@ window.Rankings = class Rankings
                         $('#rankings-table').html(data) 
                         #pseudo enablemoresongsbutton because i can't call a function from here?
                         if $('tr.song-min').length > 0 and $('tr.song-min').length % upperlimit is 0 #more songs to show
-                            $('#showmoresongs').removeClass('hidden')
+                            $('#showMoreSongs').removeClass('hidden')
                         else
-                            $('#showmoresongs').addClass('hidden')
+                            $('#showMoreSongs').addClass('hidden')
 
 
 

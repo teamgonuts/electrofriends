@@ -183,9 +183,9 @@
         }, function(data) {
           $('#rankings-table').html(data);
           if ($('tr.song-min').length > 0 && $('tr.song-min').length % upperlimit === 0) {
-            return $('#showmoresongs').removeClass('hidden');
+            return $('#showMoreSongs').removeClass('hidden');
           } else {
-            return $('#showmoresongs').addClass('hidden');
+            return $('#showMoreSongs').addClass('hidden');
           }
         });
       }
