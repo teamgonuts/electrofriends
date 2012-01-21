@@ -121,7 +121,6 @@ window.Rankings = class Rankings
     initializeSongs:(startIndex, endIndex) ->
         this.enableMoreSongsButton()
         console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
-        console.log ($('#max_16').find('.comment-p').length)
         for i in [startIndex..endIndex]
             console.log $('#max_' + i).find('.comment-p').length
             #========Comments=====#
@@ -135,6 +134,7 @@ window.Rankings = class Rankings
     and displays results in rankings###
     search: (searchterm) ->
         upperlimit = @songsPerPage #creating a local variable for songsperpage so it can be accessed within the ajax
+        commentsPerSong = @commentsPerSong
         searchterm = searchterm.trim()
         if searchterm.length is 0
             alert 'please enter a search term'
@@ -153,6 +153,14 @@ window.Rankings = class Rankings
                             $('#showMoreSongs').removeClass('hidden')
                         else
                             $('#showMoreSongs').addClass('hidden')
+                        #pseudo initializing See More Comments
+                        if $('tr.song-min').length > 0 
+                            for i in [1..$('tr.song-min').length]
+                                if $('#max_' + i).find('.comment-p').length is 0 #no comment
+                                    $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
+
+                                if $('#max_' + i).find('.comment-p').length < commentsPerSong #no show-more-comments button
+                                    $('#max_' + i).find('.see-more-comments').addClass('hidden')
 
 
 

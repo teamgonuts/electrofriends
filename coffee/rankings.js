@@ -147,7 +147,6 @@
       var i, _results;
       this.enableMoreSongsButton();
       console.log('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called');
-      console.log(($('#max_16').find('.comment-p').length));
       _results = [];
       for (i = startIndex; startIndex <= endIndex ? i <= endIndex : i >= endIndex; startIndex <= endIndex ? i++ : i--) {
         console.log($('#max_' + i).find('.comment-p').length);
@@ -168,8 +167,9 @@
     */
 
     Rankings.prototype.search = function(searchterm) {
-      var upperlimit;
+      var commentsPerSong, upperlimit;
       upperlimit = this.songsPerPage;
+      commentsPerSong = this.commentsPerSong;
       searchterm = searchterm.trim();
       if (searchterm.length === 0) {
         return alert('please enter a search term');
@@ -181,11 +181,26 @@
           searchTerm: searchterm,
           upperLimit: upperlimit
         }, function(data) {
+          var i, _ref, _results;
           $('#rankings-table').html(data);
           if ($('tr.song-min').length > 0 && $('tr.song-min').length % upperlimit === 0) {
-            return $('#showMoreSongs').removeClass('hidden');
+            $('#showMoreSongs').removeClass('hidden');
           } else {
-            return $('#showMoreSongs').addClass('hidden');
+            $('#showMoreSongs').addClass('hidden');
+          }
+          if ($('tr.song-min').length > 0) {
+            _results = [];
+            for (i = 1, _ref = $('tr.song-min').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
+              if ($('#max_' + i).find('.comment-p').length === 0) {
+                $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>');
+              }
+              if ($('#max_' + i).find('.comment-p').length < commentsPerSong) {
+                _results.push($('#max_' + i).find('.see-more-comments').addClass('hidden'));
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
           }
         });
       }
