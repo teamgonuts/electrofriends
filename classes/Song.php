@@ -11,9 +11,11 @@ class Song
     public $id;
     public $user;
     public $score;
+    public $ups;
+    public $downs;
     public $i; //index of song on rankings
     public $plays; //how many plays the song has
-    
+   
     public function Song($row, $i)
     {
         $this->id = $row['id'];
@@ -25,6 +27,8 @@ class Song
         $this->ytcode = str_replace('\\','',$row['youtubecode']);
         $this->user = str_replace('\\','',$row['user']);
         $this->score = $row['score'];
+        $this->ups = $row['ups'];
+        $this->downs = $row['downs'];
         $this->plays = $row['plays'];
     }
 	
@@ -49,7 +53,7 @@ class Song
                     </td>
                     <td class="song-genre">' . $this->genre . '</td>
                     <td class="song-score clickable">
-                        <div class="center">' . $this->score . '</div>
+                        <div class="center"><span class="score">' . $this->score . '</span> [' . $this->ups . '/' . $this->downs .']</div>
                     </td>
                 </tr>';
         //max row
@@ -76,62 +80,101 @@ class Song
 	                        <p><span class="more-info-heading">Download</span>: 
                                     <a type="amzn" category="music" search="' . $this->title . ' ' . $this->artist . '">Amazon</a> 
                                 </p>
+                                <p>
+                                    <br />
+                                    <center>
+                                        <span class="score">2</span> [3/1] </br>
+                                        <span class="vote-button"> + </span>
+                                        <span class="vote-button"> - </span>
+                                    </center>
+                                </p>
                     	
                     	</div><!-- end of left -->
                     	<div class="right">
 	                    	<div class="comments"><!-- todo: showComments function? -->
 				    <h3 class="comments">Comments</h3>
     				    <div class="comment-display">
-                                        <p>
-                                            <span class="userName">Anonymous</span> 
-                                            <span class="divider">//</span> 
-                                            <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
-                                            Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
-                                            eleifend lobortis.
-                                        </p>
-                                        <p>
-                                            <span class="userName">Anonymous</span> 
-                                            <span class="divider">//</span> 
-                                            <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
-                                            Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
-                                            eleifend lobortis.
-                                        </p>
-                                        <p>
-                                            <span class="userName">Anonymous</span> 
-                                            <span class="divider">//</span> 
-                                            <time datetime="2011-5-11">12/5/11 12:27 pm</time> : 
-                                            Sample coment. Sed vel leo mi. Praesent suscipit turpis et sem 
-                                            eleifend lobortis.
-                                        </p>
+                                    '. $this->showComments() .'
 				    </div><!-- comment-display -->					
-				    <h4 class="comments">See All Comments</h4>
+				    <h4 class="comments see-more-comments">See More Comments</h4>
 				</div><!-- end of comments -->	
                     	</div><!-- end of right -->
                     </td>
                     <td class="song-comments" colspan="2">
                         <span id="comments-container">
                             <div class="comments-input">
-                                <textarea class="comments-text" id="comment-text_15" placeholder="Comments"></textarea><br>
-                                <label for="comment-user_15" class="label">Username:</label>
-                                <input type="text" id="comment-user_15" value="Anonymous">
-                                <input type="submit" value="submit" class="submit-comment" id="submit-comment_15">
+                                <textarea class="comments-text" id="comment-text_'. $this->i .'" placeholder="Comments"></textarea><br>
+                                <label for="comment-user_'. $this->i .'" class="label">Username:</label>
+                                <input type="text" id="comment-user_'. $this->i .'" value="Anonymous">
+                                <div class="comments">
+                                    <h4 class="comments">Submit Comment</h4>
+                                </div>
                             </div>
                         </span>
-                        <center> <br />0<br /> </center>
                     </td>
                 </tr>';
 
         return $html;
     }
     
-    function map($in)
-    {
-		$in = ucfirst($in);
-        if($in == 'DnB')
-            return 'Drum & Bass';
-        else
-            return $in;
-    }
+	
+	//generates html to display comments
+	function showComments()
+	{
+            $qry = mysql_query("SELECT * FROM  `comments` 
+                                WHERE '" . $this->ytcode ."' = `youtubecode`
+                                ORDER BY upload_date DESC
+                                LIMIT 0,3 ");//DEFAULT: Comments shown=3
+            if (!$qry)
+                die("FAIL: " . mysql_error());
+
+            $html = '';
+            while($row = mysql_fetch_array($qry))
+            {
+                    
+                $com_user=$row['com_user'];
+                $com_user = str_replace('\\','',$com_user);
+                $comment_dis=$row['com_dis'];
+                $comment_dis = str_replace('\\', '', $comment_dis);
+                $date = new DateTime($row['upload_date']);
+
+                $html .= '<p class="comment-p">
+                            <span class="userName">' . $com_user . '</span>
+                            <span class="divider">//</span>
+                            <time datetime="' . $date->format('Y-m-d') .'">'.
+                             $date->format('d/m/y g:i a')
+                            .'</time> : '.  $comment_dis .'
+                          </p>'; 
+            }
+    
+            return $html;
+	}
+	
+	//returns the html to view the song for view.php
+	function showView()
+	{
+		echo '<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
+			class="twitter-share-button" style="float:right;">Tweet</a> <br />' .
+		    $this->title . ' by <a href="index.php?topof=new&artist=' . $this->artist . '">' . $this->artist . '</a><br />
+			Genre: <a href="index.php?topof=new&genre=' . strtolower($this->genre) .'">' . $this->genre . '</a><br />
+			Uploaded By: '.$this->user .'<br />
+			Download: <u>Amazon</u> <u>Apple</u> <br />
+			';
+
+	}
+	//returns the voting functionality
+	function showScore()
+	{
+		return '
+		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
+		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
+		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
+		<center> '
+               . $this->score . "[" . $this->ups . "/" . $this->downs . "]" . '<br />
+		</center>
+		';
+	}
+
     
 	//@param: $i = how many comments to show
 	function showIComments($i)
@@ -164,8 +207,8 @@ class Song
 			
 			$comment_dis=$row['com_dis'];
 			$comment_dis = str_replace('\\', '', $comment_dis);
-			$date_t = $row['upload_date'];
-			$date = new DateTime($date_t);
+			$date = new DateTime($row['upload_date']);
+
 			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$com_user.'</span>:
 			<span class="com_text"> ' . $comment_dis . '</span>
 			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
@@ -173,93 +216,6 @@ class Song
 		$html .= '</ol>';
 		echo $html;
 	}
-	
-	//generates html to display comments
-	function showComments()
-	{
-            //======OLD CODE===//
-		$ytcode = $this->ytcode;
-		$where = "'". $ytcode ."' = youtubecode";
-		
-		$commentsShown = 4;
-		$upperLimit = $commentsShown;
-		$html = '<input type="hidden" id="whereCom" value="'.$where .'">
-			  <input type="hidden" id="commentsShown" value="'.$commentsShown .'">
-			  <input type="hidden" id="upperLimitCom" value="'.$upperLimit .'">';
-		$html .= '<div class="comments-display">
-		<ol id="update_'.$this->i .'" class="timeline">';
-		
-		//old comments
-        $qry = mysql_query("SELECT * FROM  `comments` 
-                            WHERE $where
-							ORDER BY upload_date DESC
-							LIMIT 0,$upperLimit
-                            ");
-		if (!$qry)
-                die("FAIL: " . mysql_error());
-		while($row = mysql_fetch_array($qry))
-		{
-			
-			$com_user=$row['com_user'];
-			$com_user = str_replace('\\','',$com_user);
-			
-			$comment_dis=$row['com_dis'];
-			$comment_dis = str_replace('\\', '', $comment_dis);
-			$date_t = $row['upload_date'];
-			$date = new DateTime($date_t);
-			$html .= '<li style="display: list-item;" class="box"><span class="com_name"> '.$com_user.'</span>:
-			<span class="com_text"> ' . $comment_dis . '</span>
-			<span class="com_date"> ' . $date->format('M. j, Y G:i:s') . '</span></li>';
-		}
-		$html .= '</ol>';
-
-         //see if there are more comments to be displayed
-		if (mysql_num_rows($qry) == $upperLimit)
-		{
-			$html .= '
-			<center>
-				<span class="showMoreComments" id="showMoreComments_'.$this->i .'">
-					Show More 
-				</span>
-			</center>';
-		}
-		$html .= '
-		</div>
-		<div class="comments-input">
-			<textarea class="comments-text" id="comment-text_'.$this->i.'"></textarea><br />
-			Username: <input type="text" id="comment-user_'.$this->i.'" value="Anonymous"/>
-			<button class="submit-comment" id="submit-comment_'.$this->i .'">Submit</button>
-		</div>';
-		
-		return $html;
-	}
-	
-	//returns the html to view the song for view.php
-	function showView()
-	{
-		echo '<a href="https://twitter.com/share?url='. urlencode("http://t3kno.dewpixel.net/view.php?s=".$this->ytcode) .'&amp;text=This song rocks you gotta hear this!" 
-			class="twitter-share-button" style="float:right;">Tweet</a> <br />' .
-		    $this->title . ' by <a href="index.php?topof=new&artist=' . $this->artist . '">' . $this->artist . '</a><br />
-			Genre: <a href="index.php?topof=new&genre=' . strtolower($this->genre) .'">' . $this->genre . '</a><br />
-			Uploaded By: '.$this->user .'<br />
-			Download: <u>Amazon</u> <u>Apple</u> <br />
-			';
-
-	}
-	//returns the voting functionality
-	function showScore()
-	{
-		return '
-		<input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/> 
-		<input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups.'"/> 
-		<input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs.'"/> 
-		<center> '
-               . $this->score . "[" . $this->ups . "/" . $this->downs . "]" . '<br />
-		</center>
-		';
-	}
-
-    
     //======================GETTER METHODS=======================/
 
 }

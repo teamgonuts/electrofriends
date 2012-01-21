@@ -64,14 +64,12 @@ window.Filters = class Filters
         else if @time is 'century'
             $('#filter-century').addclass('highlight-filter')
 
-zeUbertest: ->
-    alert 'bitch'
-
 window.Rankings = class Rankings
     constructor: ->
         @filters = new Filters
         @maxed_song = -1 #song currently maximized in rankings, -1 for no maxed songs
         @songsPerPage = $('tr.song-min').length #default songsPerPage, set this in Rankings.php
+        @commentsPerSong = 4 #how many comments can be shown per song
         ###=================================
         #special flag to tell ajax what is currently displayed in rankings
         Possible values:
@@ -80,7 +78,11 @@ window.Rankings = class Rankings
           'normal' - if rankings display a typical genre/time rankings
         ###
         @flag = 'normal' 
-        this.enableMoreSongsButton()
+        this.initialize()
+
+#initializes the styles and buttons in the rankings
+    initialize: ->
+        this.initializeSongs(1, @songsPerPage)
 
     #filt("genre") = "all" is the same as @genre = all
     filt: (filter) ->
@@ -114,28 +116,43 @@ window.Rankings = class Rankings
 
         $('#rankings-title').text(title)
 
-    ###searches database for songs with 'searchTerm' in either the title or artist 
+    #Preps the comments for each song from startIndex to endIndex in the rankings, checks if it needs a show More Comments button
+    #If there are no comments for song, adds Message
+    initializeSongs:(startIndex, endIndex) ->
+        this.enableMoreSongsButton()
+        console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
+        console.log ($('#max_16').find('.comment-p').length)
+        for i in [startIndex..endIndex]
+            console.log $('#max_' + i).find('.comment-p').length
+            #========Comments=====#
+            if $('#max_' + i).find('.comment-p').length is 0 #no comment
+                $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
+
+            if $('#max_' + i).find('.comment-p').length < @commentsPerSong #no show-more-comments button
+                $('#max_' + i).find('.see-more-comments').addClass('hidden')
+
+    ###searches database for songs with 'searchterm' in either the title or artist 
     and displays results in rankings###
-    search: (searchTerm) ->
-        upperLimit = @songsPerPage #creating a local variable for songsPerPage so it can be accessed within the Ajax
-        searchTerm = searchTerm.trim()
-        if searchTerm.length is 0
-            alert 'Please Enter a Search Term'
+    search: (searchterm) ->
+        upperlimit = @songsPerPage #creating a local variable for songsperpage so it can be accessed within the ajax
+        searchterm = searchterm.trim()
+        if searchterm.length is 0
+            alert 'please enter a search term'
         else
-            console.log 'Search:' + searchTerm
-            this.changeTitle ('Searching: ' + searchTerm)
+            console.log 'search:' + searchterm
+            this.changeTitle ('searching: ' + searchterm)
             @flag = 'search' 
 
             $.post 'ajax/searchAjax.php',
-                    searchTerm: searchTerm
-                    upperLimit: upperLimit
+                    searchTerm: searchterm
+                    upperLimit: upperlimit
                     (data) ->
                         $('#rankings-table').html(data) 
-                        #Pseudo enableMoreSongsButton because I can't call a function from here?
-                        if $('tr.song-min').length > 0 and $('tr.song-min').length % upperLimit is 0 #more songs to show
-                            $('#showMoreSongs').removeClass('hidden')
+                        #pseudo enablemoresongsbutton because i can't call a function from here?
+                        if $('tr.song-min').length > 0 and $('tr.song-min').length % upperlimit is 0 #more songs to show
+                            $('#showmoresongs').removeClass('hidden')
                         else
-                            $('#showMoreSongs').addClass('hidden')
+                            $('#showmoresongs').addClass('hidden')
 
 
 
@@ -157,7 +174,7 @@ $ ->
                 timefilter: rankings.filt('time')
                 (data) ->
                     $('#rankings-table').html(data) 
-                    rankings.enableMoreSongsButton()
+                    rankings.initialize()
                     rankings.refreshTitle()
                     rankings.flag = 'normal' #resetting flag
 
@@ -178,23 +195,26 @@ $ ->
             $('#min_' + i).addClass('hidden')
             $('#max_' + i).removeClass('hidden')
             rankings.maxed_song = i #set clicked song to new maxed song
-        else #state is 'max'
-            $('#min_' + i).removeClass('hidden')
-            $('#max_' + i).addClass('hidden')
-            rankings.maxed_song = -1 #there are no more songs maxed
+
+    #=====queue-controls===
+    $(document).on 'click', '.queue-min', ->
+        $('#max-queue').addClass 'hidden'
+    $(document).on 'click', '#queue-max', ->
+        $('#max-queue').removeClass 'hidden'
 
     #===========showMoreSongs=====================#
     $(document).on 'click', '#showMoreSongs', ->
+        lowerLimit = $('tr.song-min').length
         $.post 'ajax/showMoreSongsAjax.php',
                 genrefilter: rankings.filt('genre')
                 timefilter: rankings.filt('time')
                 searchTerm: $('#search-input').val() 
                 flag: rankings.flag
-                lowerLimit: $('tr.song-min').length
+                lowerLimit: lowerLimit
                 upperLimit: $('tr.song-min').length + rankings.songsPerPage
                 (data) ->
                     $('#rankings-table').append(data) 
-                    rankings.enableMoreSongsButton()
+                    rankings.initializeSongs(lowerLimit, (lowerLimit + rankings.songsPerPage ))
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())

@@ -194,6 +194,46 @@ include ("classes/GenreFilter.php");
                         
 			
 		</div><!-- end of sidebar -->
+<div class="hidden" id="max-queue">
+
+<img src="queue.jpg" alt="T3K.no Logo"/>
+
+    <span class="queue-min">[min]</span>
+
+    <div class="clear"></div><!-- end of clear -->
+       
+        <div id="user-queue">
+            <div class="queue-title">
+                <h3>User Queue</h3>
+            </div><!-- end of queue-title -->
+
+            <ol class="max-queue">
+                <li class="queue-item" id="user-queue-1"></li>
+                <li class="queue-item" id="user-queue-2"></li>
+                <li class="queue-item" id="user-queue-3"></li>
+                <li class="queue-item" id="user-queue-4"></li>
+                <li class="queue-item" id="user-queue-5"></li>
+            </ol>
+        </div>
+        <div id="generated-queue">
+            <div class="queue-title">
+                <h3>Generated Queue</h3>
+            </div>
+            <ol class="max-queue" id="gen-queue">
+                <li class="queue-item" id="gen-queue-1"><span class="title">Mission</span> <span class="purple">//</span> Beats Antique</li>
+                <li class="queue-item" id="gen-queue-2"><span class="title">Crave You (Adventure Club Dubstep Remix)</span> <span class="purple">//</span> Flight Facilities</li>
+                <li class="queue-item" id="gen-queue-3"><span class="title">The Immortals (RÃ¶yksopp Remix) Radio Edit </span> <span class="purple">//</span> Kings of Leon</li>
+                <li class="queue-item" id="gen-queue-4"><span class="title">Collect Call (Adventure Club Remix) </span> <span class="purple">//</span> Metric</li>
+                <li class="queue-item" id="gen-queue-5"><span class="title">Ladi Dadi (Original Mix) </span> <span class="purple">//</span> Steve Aoki feat. Wynter Gordon</li>
+                <li class="queue-item" id="gen-queue-6"><span class="title">Rebound </span> <span class="purple">//</span> Arty &amp; Mat Zo</li>
+                <li class="queue-item" id="gen-queue-7"><span class="title">Promises (Calvin Harris Remix) </span> <span class="purple">//</span> Nero</li>
+                <li class="queue-item" id="gen-queue-8"><span class="title">Lost (Chill Mix) </span> <span class="purple">//</span> Sunlounger ft. Zara</li>
+                <li class="queue-item" id="gen-queue-9"><span class="title">Perfect Moments </span> <span class="purple">//</span> Lang &amp; Yep</li>
+                <li class="queue-item" id="gen-queue-10"><span class="title">Bass Embrace </span> <span class="purple">//</span> DJ i6</li>
+            </ol>
+        </div>
+    </div>
+                    
 	
 	</div><!-- end of content -->
 
@@ -273,7 +313,7 @@ include ("classes/GenreFilter.php");
 		</div><!-- end of threeColumnCenter -->
 		
 		<div class="threeColumnRight">
-			<h3>Queue (Expand)</h3>
+			<h3>Queue<span id="queue-max">[max]</span></h3>
 				<ol>
 					<li><span class="text">Anticipate</span> // <span class="text">Skream ft. Sam Frank</span></li>
 					<li><span class="text">Work Hard, Play Hard</span> // <span class="text">Tiesto ft. Kay</span></li>
