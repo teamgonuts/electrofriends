@@ -123,7 +123,6 @@ window.Rankings = class Rankings
         this.enableMoreSongsButton()
         console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
         for i in [startIndex..endIndex]
-            console.log $('#max_' + i).find('.comment-p').length
             #========Comments=====#
             if $('#max_' + i).find('.comment-p').length is 0 #no comment
                 $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
@@ -224,6 +223,40 @@ $ ->
                 (data) ->
                     $('#rankings-table').append(data) 
                     rankings.initializeSongs(lowerLimit, (lowerLimit + rankings.songsPerPage ))
+
+    #===========Voting Buttons=====================#
+#todo: this only works for voting buttons in the rankings, not in the player
+    $(document).on 'click', '.vote-button', ->
+        debug = true #turn on debugging for voting buttons
+        if not $(this).hasClass('highlight-vote') #if I haven't alredy made the same vote
+            temp = $(this).closest('.song').attr('id').split('_')
+            i = temp[1] #index of song in rankings
+
+            if $(this).attr('id') is 'up-vote' #up-vote
+                if debug then console.log 'UpVote called on ' + i
+                result = 'up'
+                $('#max_' + i).find("#up-vote").addClass('highlight-vote') #highlighting new vote
+                $('#max_' + i).find("#down-vote").removeClass('highlight-vote')#remove highlight from old vote
+            else if $(this).attr('id') is 'down-vote' #down-vote
+                if debug then console.log 'DownVote called on ' + i
+                result = 'down'
+                $('#max_' + i).find("#down-vote").addClass('highlight-vote')#highlight new vote
+                $('#max_' + i).find("#up-vote").removeClass('highlight-vote')#remove highlight from old vote
+            else
+                if debug then console.log 'Error: Something went wrong with the vote-buttons'
+                result = 'error'
+
+            $.post 'ajax/voteAjax.php',
+                    result: result
+                    ytcode: $('#ytcode_' + i).val()
+                    score: $('#score_' + i).val()
+                    ups: $('#ups_' + i).val()
+                    downs: $('#downs_' + i).val()
+                    (data) ->
+                        if debug then console.log 'Vote Success: ' + data
+                        $('#max_' + i).find('.score-container').html(data) #changing score in max
+                        $('#min_' + i).find('.score-container').html(data) #changing score in min
+                    
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())

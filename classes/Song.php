@@ -46,6 +46,8 @@ class Song
                         <input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/>
                         <input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/>
                         <input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/>
+                        <input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups .'"/>
+                        <input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs .'"/>
                         <input type="hidden" id="i_'.$this->i.'" value="'.$this->i.'"/>
                     <td class="song-info-min clickable"><span class="title">' . $this->title . '</span>
                     <span class="divider">//</span> <br />
@@ -53,7 +55,11 @@ class Song
                     </td>
                     <td class="song-genre">' . $this->genre . '</td>
                     <td class="song-score clickable">
-                        <div class="center"><span class="score">' . $this->score . '</span> [' . $this->ups . '/' . $this->downs .']</div>
+                        <div class="center">
+                            <span class="score-container">
+                                <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
+                            </span>
+                        </div>
                     </td>
                 </tr>';
         //max row
@@ -83,9 +89,14 @@ class Song
                                 <p>
                                     <br />
                                     <center>
-                                        <span class="score">2</span> [3/1] </br>
-                                        <span class="vote-button"> + </span>
-                                        <span class="vote-button"> - </span>
+                                        <span class="score-container">
+                                            <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
+                                        </span>
+                                        </br>
+                                        <span class="vote-buttons-container">
+                                            <span class="vote-button" id="up-vote"> + </span>
+                                            <span class="vote-button" id="down-vote"> - </span>
+                                        </span>
                                     </center>
                                 </p>
                     	

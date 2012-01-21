@@ -3,7 +3,7 @@ include('../connection.php');
 
 if($_POST)
 {
-    $result = $_POST['result'];
+        $result = $_POST['result'];
 	$ytcode = $_POST['ytcode'];
 	$score = $_POST['score']; //higher score
 	$ups = $_POST['ups']; //one more vote
@@ -40,4 +40,4 @@ if($_POST)
 else { die("FAIL: POST not set in voteUpAjax"); }
 ?>
 
-	<?php echo $score . '[' . $ups . '/' . $downs . '] ';?>
+	<?php echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';?>

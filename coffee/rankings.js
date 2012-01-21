@@ -149,7 +149,6 @@
       console.log('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called');
       _results = [];
       for (i = startIndex; startIndex <= endIndex ? i <= endIndex : i >= endIndex; startIndex <= endIndex ? i++ : i--) {
-        console.log($('#max_' + i).find('.comment-p').length);
         if ($('#max_' + i).find('.comment-p').length === 0) {
           $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>');
         }
@@ -266,6 +265,41 @@
         $('#rankings-table').append(data);
         return rankings.initializeSongs(lowerLimit, lowerLimit + rankings.songsPerPage);
       });
+    });
+    $(document).on('click', '.vote-button', function() {
+      var debug, i, result, temp;
+      debug = true;
+      if (!$(this).hasClass('highlight-vote')) {
+        temp = $(this).closest('.song').attr('id').split('_');
+        i = temp[1];
+        if ($(this).attr('id') === 'up-vote') {
+          if (debug) console.log('UpVote called on ' + i);
+          result = 'up';
+          $('#max_' + i).find("#up-vote").addClass('highlight-vote');
+          $('#max_' + i).find("#down-vote").removeClass('highlight-vote');
+        } else if ($(this).attr('id') === 'down-vote') {
+          if (debug) console.log('DownVote called on ' + i);
+          result = 'down';
+          $('#max_' + i).find("#down-vote").addClass('highlight-vote');
+          $('#max_' + i).find("#up-vote").removeClass('highlight-vote');
+        } else {
+          if (debug) {
+            console.log('Error: Something went wrong with the vote-buttons');
+          }
+          result = 'error';
+        }
+        return $.post('ajax/voteAjax.php', {
+          result: result,
+          ytcode: $('#ytcode_' + i).val(),
+          score: $('#score_' + i).val(),
+          ups: $('#ups_' + i).val(),
+          downs: $('#downs_' + i).val()
+        }, function(data) {
+          if (debug) console.log('Vote Success: ' + data);
+          $('#max_' + i).find('.score-container').html(data);
+          return $('#min_' + i).find('.score-container').html(data);
+        });
+      }
     });
     $('#search-button').click(function() {
       return rankings.search($('#search-input').val());

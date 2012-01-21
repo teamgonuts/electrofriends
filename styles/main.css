@@ -77,6 +77,9 @@ text-align: center;
 .vote-button:hover {
         background-color: #bd1dc9;
 }
+.highlight-vote {
+        background-color: #bd1dc9;
+}
 
 .score{
     font-weight: bold;
