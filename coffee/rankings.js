@@ -108,9 +108,30 @@
     };
 
     Rankings.prototype.nextComments = function(index) {
-      var debug;
-      debug = true;
-      if (debug) return console.log('Rankings.nextComments(' + index + ')');
+      var comments, debug, iterator, lowerLimit;
+      debug = false;
+      if (debug) console.log('Rankings.nextComments(' + index + ')');
+      lowerLimit = parseInt($('#commentIterator_' + index).val());
+      comments = this.commentsPerSong;
+      iterator = lowerLimit + this.commentsPerSong;
+      $('#commentIterator_' + index).val(iterator);
+      if (debug) {
+        console.log('POSTS: ');
+        console.log('lowerLimit: ' + lowerLimit);
+        console.log('upperLimit: ' + iterator);
+        console.log('ytcode: ' + $('#ytcode_' + index).val());
+      }
+      return $.post('ajax/nextCommentAjax.php', {
+        lowerLimit: lowerLimit,
+        upperLimit: iterator,
+        ytcode: $('#ytcode_' + index).val()
+      }, function(data) {
+        if (debug) console.log(data);
+        $('#max_' + index).find('.comment-display').html(data);
+        if ($('#max_' + index).find('.comment-p').length < comments) {
+          return $('#max_' + index).find('.see-more-comments').addClass('hidden');
+        }
+      });
     };
 
     /*checks to see if there should be a showMoreSongs button at the bottom of the rankings
@@ -199,11 +220,11 @@
         if (debug) {
           console.log('Comments on Song ' + i + ": " + $('#max_' + i).find('.comment-p').length);
         }
-        if ($('#max_' + i).find('.comment-p').length === 0) {
-          $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>');
-        }
         if ($('#max_' + i).find('.comment-p').length < this.commentsPerSong) {
-          _results.push($('#max_' + i).find('.see-more-comments').addClass('hidden'));
+          $('#max_' + i).find('.see-more-comments').addClass('hidden');
+        }
+        if ($('#max_' + i).find('.comment-p').length === 0) {
+          _results.push($('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>'));
         } else {
           _results.push(void 0);
         }

@@ -83,6 +83,7 @@ window.Rankings = class Rankings
     #initializes the styles and buttons in the rankings
     initialize: ->
         this.initializeSongs(1, @songsPerPage)
+        
 
     #filt("genre") = "all" is the same as @genre = all
     filt: (filter) ->
@@ -90,8 +91,30 @@ window.Rankings = class Rankings
 
     #displays the next comments for song (i)
     nextComments:(index) ->
-        debug = true
+        debug = false
         if debug then console.log 'Rankings.nextComments(' + index + ')'
+        #incrementing iterator value
+        lowerLimit = parseInt $('#commentIterator_' + index).val()
+        comments = @commentsPerSong
+        iterator = lowerLimit + @commentsPerSong
+        $('#commentIterator_' + index).val(iterator)
+        
+        if debug
+            console.log 'POSTS: '
+            console.log 'lowerLimit: ' + lowerLimit
+            console.log 'upperLimit: ' + iterator
+            console.log 'ytcode: ' + $('#ytcode_' + index).val()
+
+        $.post 'ajax/nextCommentAjax.php',
+            lowerLimit: lowerLimit
+            upperLimit: iterator
+            ytcode: $('#ytcode_' + index).val()
+            (data) ->
+                if debug then console.log data
+                $('#max_' + index).find('.comment-display').html(data)
+                if $('#max_' + index).find('.comment-p').length < comments #no show-more-comments button
+                    $('#max_' + index).find('.see-more-comments').addClass('hidden')
+
 
 
     ###checks to see if there should be a showMoreSongs button at the bottom of the rankings
@@ -169,11 +192,11 @@ window.Rankings = class Rankings
         for i in [startIndex..endIndex]
             #========Comments=====#
             if debug then console.log 'Comments on Song ' + i + ": " + $('#max_' + i).find('.comment-p').length
+            if $('#max_' + i).find('.comment-p').length < @commentsPerSong #no show-more-comments button
+                $('#max_' + i).find('.see-more-comments').addClass('hidden')
             if $('#max_' + i).find('.comment-p').length is 0 #no comment
                 $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
 
-            if $('#max_' + i).find('.comment-p').length < @commentsPerSong #no show-more-comments button
-                $('#max_' + i).find('.see-more-comments').addClass('hidden')
 
     ###searches database for songs with 'searchterm' in either the title or artist 
     and displays results in rankings###
