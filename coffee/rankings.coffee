@@ -80,13 +80,19 @@ window.Rankings = class Rankings
         @flag = 'normal' 
         this.initialize()
 
-#initializes the styles and buttons in the rankings
+    #initializes the styles and buttons in the rankings
     initialize: ->
         this.initializeSongs(1, @songsPerPage)
 
     #filt("genre") = "all" is the same as @genre = all
     filt: (filter) ->
         @filters.filt(filter)
+
+    #displays the next comments for song (i)
+    nextComments:(index) ->
+        debug = true
+        if debug then console.log 'Rankings.nextComments(' + index + ')'
+
 
     ###checks to see if there should be a showMoreSongs button at the bottom of the rankings
     if there is, show the button and return true, else don't show buton and return false###
@@ -102,7 +108,44 @@ window.Rankings = class Rankings
     #changes the title for the rankings
     changeTitle: (title) ->
         console.log('Rankings.changeTitle(' + title + ')')
-        $('#rankings-title').text(title)
+        $('#rankingsfalsetitle').text(title)
+
+    #============Submit Comment========#
+    #what is called when 'Submit Comment' is clicked, updates song in database and if the comments section of song
+    #if it is in the rankings
+    #params: comment - text of comment, index - song index to insert comment, -1 means its not in the rankings
+    submitComment: (comment, user, index = -1) ->
+        debug = false #set to true to debug comments
+        if debug then console.log ('User ' + user + ' commenting on ' + index + ': ' + comment)
+
+        if comment is '' then alert 'Please enter a comment'
+        else if user is '' then alert 'Please enter a username to comment'
+        else #submit comment
+            if index != -1 #if its a song in the rankings
+                ytcode = $('#ytcode_' + index).val()
+            else
+                ytcode = $('#upload_yturl').val()
+
+            if debug then console.log 'POSTS:'
+            if debug then console.log encodeURIComponent(user)
+            if debug then console.log encodeURIComponent(comment)
+            if debug then console.log 'ytcode: ' + ytcode
+            #todo: if its an uploaded song
+            $.post 'ajax/commentAjax.php',
+                    user: encodeURIComponent(user)
+                    comment: encodeURIComponent(comment)
+                    ytcode: ytcode
+                    (data) ->
+                        if debug then console.log 'Data: ' + data
+                        if index != -1
+                            if not $('#max_' + index).find('.no-comment').hasClass('hidden')
+                                $('#max_' + index).find('.no-comment').addClass('hidden')
+
+                            $('#max_' + index).find('.comment-display').prepend(data)
+                            $('#max_' + index).find('.submit-comment').addClass('hidden') #disable comment button
+        
+
+
 
     #refreshes the title for the rankings based off the filters applied
     refreshTitle: ->
@@ -120,10 +163,12 @@ window.Rankings = class Rankings
     #If there are no comments for song, adds Message
     initializeSongs:(startIndex, endIndex) ->
 #=================NOTE: When you change this method you also have to change the ajax in Rankings.search()
+        debug = false
         this.enableMoreSongsButton()
-        console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
+        if debug then console.log ('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called')
         for i in [startIndex..endIndex]
             #========Comments=====#
+            if debug then console.log 'Comments on Song ' + i + ": " + $('#max_' + i).find('.comment-p').length
             if $('#max_' + i).find('.comment-p').length is 0 #no comment
                 $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
 
@@ -224,13 +269,26 @@ $ ->
                     $('#rankings-table').append(data) 
                     rankings.initializeSongs(lowerLimit, (lowerLimit + rankings.songsPerPage ))
 
+    #===========Submit Comment=====================#
+    $(document).on 'click', '.submit-comment', ->
+        i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
+        rankings.submitComment($('#max_' + i).find('.comment-text').val() , 
+                               $('#max_' + i).find('.comment-user').val() ,
+                               i)
+
+    #===========See More Comments====================#
+    $(document).on 'click', '.see-more-comments', ->
+        debug = true
+        if debug then console.log 'See-More-Comments Clicked'
+        rankings.nextComments $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
+
+        
     #===========Voting Buttons=====================#
 #todo: this only works for voting buttons in the rankings, not in the player
     $(document).on 'click', '.vote-button', ->
-        debug = true #turn on debugging for voting buttons
+        debug = false #turn on debugging for voting buttons
         if not $(this).hasClass('highlight-vote') #if I haven't alredy made the same vote
-            temp = $(this).closest('.song').attr('id').split('_')
-            i = temp[1] #index of song in rankings
+            i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
 
             if $(this).attr('id') is 'up-vote' #up-vote
                 if debug then console.log 'UpVote called on ' + i
@@ -277,8 +335,12 @@ $ ->
                     $("#upload-box-result").removeClass('hidden');
                     if($("#upload-box-result").html().indexOf("Upload Failed") is -1)#upload success
                         $('#upload-box-result').css('color', '#33FF33')
+                        
+                        if $('#upload_comment').val() != ''#submitting initial comment
+                            rankings.submitComment($('#upload_comment').val() , 
+                                                   $('#upload_user').val() ,
+                                                   -1) #-1 because song is not in rankings
                     else #upload failed
                         $('#upload-box-result').css('color', 'red')
                     
-
 

@@ -111,7 +111,7 @@ include ("classes/GenreFilter.php");
                                                                 <label for="oldie">Archive: </label>
                                                                 <input type="checkbox" value="oldie" name="oldie" id="upload_oldie"><br>
                                                                 <label for="upload-comment">Comment: </label>
-                                                                <input type="text" id="upload-comment"></textarea><br>
+                                                                <input type="text" id="upload_comment"></textarea><br>
 
                                                                 <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
 						        </div><!-- end of right -->

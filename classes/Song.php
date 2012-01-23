@@ -102,7 +102,7 @@ class Song
                     	
                     	</div><!-- end of left -->
                     	<div class="right">
-	                    	<div class="comments"><!-- todo: showComments function? -->
+	                    	<div class="comments">
 				    <h3 class="comments">Comments</h3>
     				    <div class="comment-display">
                                     '. $this->showComments() .'
@@ -114,11 +114,11 @@ class Song
                     <td class="song-comments" colspan="2">
                         <span id="comments-container">
                             <div class="comments-input">
-                                <textarea class="comments-text" id="comment-text_'. $this->i .'" placeholder="Comments"></textarea><br>
-                                <label for="comment-user_'. $this->i .'" class="label">Username:</label>
-                                <input type="text" id="comment-user_'. $this->i .'" value="Anonymous">
+                                <textarea class="comment-text" placeholder="Comments"></textarea><br>
+                                <label for="comment-user" class="label">Username:</label>
+                                <input type="text" class="comment-user" value="Anonymous">
                                 <div class="comments">
-                                    <h4 class="comments">Submit Comment</h4>
+                                    <h4 class="comments submit-comment">Submit Comment</h4>
                                 </div>
                             </div>
                         </span>
@@ -135,7 +135,7 @@ class Song
             $qry = mysql_query("SELECT * FROM  `comments` 
                                 WHERE '" . $this->ytcode ."' = `youtubecode`
                                 ORDER BY upload_date DESC
-                                LIMIT 0,3 ");//DEFAULT: Comments shown=3
+                                LIMIT 0,4 ");//DEFAULT: Comments shown=3
             if (!$qry)
                 die("FAIL: " . mysql_error());
 

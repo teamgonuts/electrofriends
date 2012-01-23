@@ -107,6 +107,12 @@
       return this.filters.filt(filter);
     };
 
+    Rankings.prototype.nextComments = function(index) {
+      var debug;
+      debug = true;
+      if (debug) return console.log('Rankings.nextComments(' + index + ')');
+    };
+
     /*checks to see if there should be a showMoreSongs button at the bottom of the rankings
     if there is, show the button and return true, else don't show buton and return false
     */
@@ -123,7 +129,45 @@
 
     Rankings.prototype.changeTitle = function(title) {
       console.log('Rankings.changeTitle(' + title + ')');
-      return $('#rankings-title').text(title);
+      return $('#rankingsfalsetitle').text(title);
+    };
+
+    Rankings.prototype.submitComment = function(comment, user, index) {
+      var debug, ytcode;
+      if (index == null) index = -1;
+      debug = false;
+      if (debug) {
+        console.log('User ' + user + ' commenting on ' + index + ': ' + comment);
+      }
+      if (comment === '') {
+        return alert('Please enter a comment');
+      } else if (user === '') {
+        return alert('Please enter a username to comment');
+      } else {
+        if (index !== -1) {
+          ytcode = $('#ytcode_' + index).val();
+        } else {
+          ytcode = $('#upload_yturl').val();
+        }
+        if (debug) console.log('POSTS:');
+        if (debug) console.log(encodeURIComponent(user));
+        if (debug) console.log(encodeURIComponent(comment));
+        if (debug) console.log('ytcode: ' + ytcode);
+        return $.post('ajax/commentAjax.php', {
+          user: encodeURIComponent(user),
+          comment: encodeURIComponent(comment),
+          ytcode: ytcode
+        }, function(data) {
+          if (debug) console.log('Data: ' + data);
+          if (index !== -1) {
+            if (!$('#max_' + index).find('.no-comment').hasClass('hidden')) {
+              $('#max_' + index).find('.no-comment').addClass('hidden');
+            }
+            $('#max_' + index).find('.comment-display').prepend(data);
+            return $('#max_' + index).find('.submit-comment').addClass('hidden');
+          }
+        });
+      }
     };
 
     Rankings.prototype.refreshTitle = function() {
@@ -144,11 +188,17 @@
     };
 
     Rankings.prototype.initializeSongs = function(startIndex, endIndex) {
-      var i, _results;
+      var debug, i, _results;
+      debug = false;
       this.enableMoreSongsButton();
-      console.log('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called');
+      if (debug) {
+        console.log('Rankings.initializeComments(' + startIndex + ',' + endIndex + ') called');
+      }
       _results = [];
       for (i = startIndex; startIndex <= endIndex ? i <= endIndex : i >= endIndex; startIndex <= endIndex ? i++ : i--) {
+        if (debug) {
+          console.log('Comments on Song ' + i + ": " + $('#max_' + i).find('.comment-p').length);
+        }
         if ($('#max_' + i).find('.comment-p').length === 0) {
           $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>');
         }
@@ -266,12 +316,22 @@
         return rankings.initializeSongs(lowerLimit, lowerLimit + rankings.songsPerPage);
       });
     });
-    $(document).on('click', '.vote-button', function() {
-      var debug, i, result, temp;
+    $(document).on('click', '.submit-comment', function() {
+      var i;
+      i = $(this).closest('.song').attr('id').split('_')[1];
+      return rankings.submitComment($('#max_' + i).find('.comment-text').val(), $('#max_' + i).find('.comment-user').val(), i);
+    });
+    $(document).on('click', '.see-more-comments', function() {
+      var debug;
       debug = true;
+      if (debug) console.log('See-More-Comments Clicked');
+      return rankings.nextComments($(this).closest('.song').attr('id').split('_')[1]);
+    });
+    $(document).on('click', '.vote-button', function() {
+      var debug, i, result;
+      debug = false;
       if (!$(this).hasClass('highlight-vote')) {
-        temp = $(this).closest('.song').attr('id').split('_');
-        i = temp[1];
+        i = $(this).closest('.song').attr('id').split('_')[1];
         if ($(this).attr('id') === 'up-vote') {
           if (debug) console.log('UpVote called on ' + i);
           result = 'up';
@@ -320,7 +380,10 @@
         $("#upload-box-result").html(data);
         $("#upload-box-result").removeClass('hidden');
         if ($("#upload-box-result").html().indexOf("Upload Failed") === -1) {
-          return $('#upload-box-result').css('color', '#33FF33');
+          $('#upload-box-result').css('color', '#33FF33');
+          if ($('#upload_comment').val() !== '') {
+            return rankings.submitComment($('#upload_comment').val(), $('#upload_user').val(), -1);
+          }
         } else {
           return $('#upload-box-result').css('color', 'red');
         }
