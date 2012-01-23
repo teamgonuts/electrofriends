@@ -150,7 +150,7 @@
 
     Rankings.prototype.changeTitle = function(title) {
       console.log('Rankings.changeTitle(' + title + ')');
-      return $('#rankingsfalsetitle').text(title);
+      return $('#rankings-title').text(title);
     };
 
     Rankings.prototype.submitComment = function(comment, user, index) {
@@ -242,10 +242,10 @@
       commentsPerSong = this.commentsPerSong;
       searchterm = searchterm.trim();
       if (searchterm.length === 0) {
-        return alert('please enter a search term');
+        return alert('Please enter a search term');
       } else {
         console.log('search:' + searchterm);
-        this.changeTitle('searching: ' + searchterm);
+        this.changeTitle('Searching: ' + searchterm);
         this.flag = 'search';
         return $.post('ajax/searchAjax.php', {
           searchTerm: searchterm,
@@ -344,7 +344,7 @@
     });
     $(document).on('click', '.see-more-comments', function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('See-More-Comments Clicked');
       return rankings.nextComments($(this).closest('.song').attr('id').split('_')[1]);
     });

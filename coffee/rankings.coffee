@@ -131,7 +131,7 @@ window.Rankings = class Rankings
     #changes the title for the rankings
     changeTitle: (title) ->
         console.log('Rankings.changeTitle(' + title + ')')
-        $('#rankingsfalsetitle').text(title)
+        $('#rankings-title').text(title)
 
     #============Submit Comment========#
     #what is called when 'Submit Comment' is clicked, updates song in database and if the comments section of song
@@ -205,10 +205,10 @@ window.Rankings = class Rankings
         commentsPerSong = @commentsPerSong
         searchterm = searchterm.trim()
         if searchterm.length is 0
-            alert 'please enter a search term'
+            alert 'Please enter a search term'
         else
             console.log 'search:' + searchterm
-            this.changeTitle ('searching: ' + searchterm)
+            this.changeTitle ('Searching: ' + searchterm)
             @flag = 'search' 
 
             $.post 'ajax/searchAjax.php',
@@ -301,7 +301,7 @@ $ ->
 
     #===========See More Comments====================#
     $(document).on 'click', '.see-more-comments', ->
-        debug = true
+        debug = false
         if debug then console.log 'See-More-Comments Clicked'
         rankings.nextComments $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
 
