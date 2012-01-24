@@ -38,6 +38,18 @@ include ("classes/GenreFilter.php");
 
 		});
 	</script>
+        <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
+        <script type="text/javascript"> //Google Analytics
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-27461232-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
         <!--Amazon Affiliate -->
         <SCRIPT charset="utf-8" type="text/javascript" src="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822/US/t075c-20/8005/79bdde03-08b0-45a0-986c-0440e49253bf"> </SCRIPT> <NOSCRIPT><A HREF="http://ws.amazon.com/widgets/q?ServiceVersion=20070822&MarketPlace=US&ID=V20070822%2FUS%2Ft075c-20%2F8005%2F79bdde03-08b0-45a0-986c-0440e49253bf&Operation=NoScript">Amazon.com Widgets</A></NOSCRIPT>
 
@@ -110,7 +122,7 @@ include ("classes/GenreFilter.php");
                                                                 
                                                                 <label for="oldie">Archive: </label>
                                                                 <input type="checkbox" value="oldie" name="oldie" id="upload_oldie"><br>
-                                                                <label for="upload-comment">Comment: </label>
+                                                                <label for="upload_comment">Comment: </label>
                                                                 <input type="text" id="upload_comment"></textarea><br>
 
                                                                 <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
@@ -293,21 +305,14 @@ include ("classes/GenreFilter.php");
 		<div class="threeColumnCenter">
 			
 			<div class="twoColumnLeft">
-				<img src="images/ad/musicPlayer.png" />
+                        <span id="ytplayer">
+                            <p>You will need Flash 8 or better to view this content. Download it
+                                    <a href="http://get.adobe.com/flashplayer/">HERE</a>
+                            </p>
+                        </span>
 			</div><!-- end of twoColumnLeft -->
 			
 			<div class="twoColumnRight">
-                    <div class="vote-button" id="up">
-                    	<img src="images/bottomContainer/voteUp.png" alt="Give this song a vote up" />
-                    </div>
-
-                    <div class="vote-button" id="down">
-                    	<img src="images/bottomContainer/voteDown.png" alt="Give this song a down vote" />
-                    </div>
-                                        
-                    <div id="song-score">
-                    	1[1/0] 
-                    </div>                    
 
 				
 			</div><!-- end of twoColumnRight -->

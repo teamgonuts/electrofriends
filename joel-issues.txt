@@ -16,3 +16,5 @@
 15. Report button
 16. Fade comments in/out
 17. Check out ajax/commentAjax around line 40, it doesn't recognize <time> I think because that is not showing up in the comments
+18. When I paste a long url into the uploads it moves the screen write a cuts off some of the boxes
+19. Gray box behind logo on maxed queue
