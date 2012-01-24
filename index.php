@@ -18,8 +18,8 @@ include ("classes/GenreFilter.php");
 
 <!-- fancybox -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="coffee/test.js"></script>
         <script type="text/javascript" src="coffee/rankings.js"></script>
+        <script type="text/javascript" src="coffee/player.js"></script>
         
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.7.1min.js"><\/script>');
@@ -294,10 +294,10 @@ include ("classes/GenreFilter.php");
 			
 			<h3>Current Song</h3>
 			
-			<p><span class="currentSongSubTitle">Title:</span> Svenska (Original Mix)</p>
-			<p><span class="currentSongSubTitle">Artist:</span> Matisse & Sadko</p>
-			<p><span class="currentSongSubTitle">Genre:</span> House </p>
-			<p><span class="currentSongSubTitle">Uploaded By:</span> AF </p>
+			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
+			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
+			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
+			<p><span class="currentSongSubTitle">Uploaded By: </span><span id="currentSongUser"></span> </p>
 
 			
 		</div>	<!-- end of threeColumnLeft -->
