@@ -49,7 +49,7 @@ class Song
                         <input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups .'"/>
                         <input type="hidden" id="downs_'.$this->i.'" value="'.$this->downs .'"/>
                         <input type="hidden" id="commentIterator_'.$this->i.'" value="4"/>
-                    <td class="song-info-min clickable"><span class="title">' . $this->title . '</span>
+                    <td class="song-info-min song-info-min-clickable clickable"><span class="title">' . $this->title . '</span>
                     <span class="divider">//</span> <br />
                     '. $this->artist .'
                     </td>

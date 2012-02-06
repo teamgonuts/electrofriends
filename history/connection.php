@@ -1,6 +1,7 @@
 <?php
 //My SQL Connection
-$con = mysql_connect("localhost","root","root");
+/*
+$con = mysql_connect("localhost","root","");
 if(!$con)
 {
 	die('Could not connect: ' . mysql_error());
@@ -11,5 +12,5 @@ $db = 'ts';
 $db_selected = mysql_select_db($db);
 if (!$db_selected) {
     die ('Can\'t use foo : ' . mysql_error());
-}
+}*/
 ?>

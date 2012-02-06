@@ -281,12 +281,8 @@
   })();
 
   $(function() {
-    var params, rankings;
+    var rankings;
     rankings = new Rankings;
-    params = {
-      allowScriptAccess: "always"
-    };
-    swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "?enablejsapi=1&playerapiid=ytp&version=3" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0", "ytplayer", "275", "90", "8", null, null, params);
     $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {
         rankings.filters.set('genre', $(this).html().toLowerCase());
@@ -393,6 +389,8 @@
       return rankings.search($(this).html());
     });
     return $('#upload_song').click(function() {
+      var debug;
+      debug = false;
       return $.post('ajax/uploadAjax.php', {
         ytcode: $('#upload_yturl').val(),
         title: $('#upload_title').val(),
@@ -406,13 +404,14 @@
         $("#upload-box-result").removeClass('hidden');
         if ($("#upload-box-result").html().indexOf("Upload Failed") === -1) {
           $('#upload-box-result').css('color', '#33FF33');
+          if (debug) console.log('comment: ' + $('#upload_comment').val());
+          if ($('#upload_comment').val() !== '') {
+            rankings.submitComment($('#upload_comment').val(), $('#upload_user').val(), -1);
+          }
           $('#upload_yturl').val('');
           $('#upload_title').val('');
           $('#upload_artist').val('');
-          $('#upload_comment').val('');
-          if ($('#upload_comment').val() !== '') {
-            return rankings.submitComment($('#upload_comment').val(), $('#upload_user').val(), -1);
-          }
+          return $('#upload_comment').val('');
         } else {
           return $('#upload-box-result').css('color', 'red');
         }

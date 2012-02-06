@@ -10,7 +10,7 @@ include ("classes/GenreFilter.php");
 <!DOCTYPE HTML>
 <html>
 <head>
-
+<title>T3K.NO</title>
 <meta charset="UTF-8">
 
 <!-- mainstyles -->
@@ -18,8 +18,10 @@ include ("classes/GenreFilter.php");
 
 <!-- fancybox -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
         <script type="text/javascript" src="coffee/rankings.js"></script>
         <script type="text/javascript" src="coffee/player.js"></script>
+        
         
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.7.1min.js"><\/script>');
@@ -38,7 +40,6 @@ include ("classes/GenreFilter.php");
 
 		});
 	</script>
-        <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
         <script type="text/javascript"> //Google Analytics
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-27461232-1']);

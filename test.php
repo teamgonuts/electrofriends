@@ -2,57 +2,28 @@
 <head>
 
 <meta charset="UTF-8">
-
-<!-- mainstyles -->
-<link href="styles/main.css" rel="stylesheet" type="text/css">
-
-<!-- fancybox -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
     <script type="text/javascript" src="coffee/test.js"></script>
-    <script type="text/javascript" src="coffee/rankings.js"></script>
     
-    <script>
-            !window.jQuery && document.write('<script src="jquery-1.4.3.min.js"><\/script>');
-    </script>
-    <script type="text/javascript" src="js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-    <script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    <link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-    <script type="text/javascript">
-            $(document).ready(function() {
-
-                    $("#upload").fancybox({
-                            'titlePosition'		: 'inside',
-                            'transitionIn'		: 'none',
-                            'transitionOut'		: 'none'
-                    });
-
-            });
-    </script>
-
-
-<!-- typekit -->
-<script type="text/javascript" src="http://use.typekit.com/wlh5psa.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
 </head>
 
 <body>
-    <table id="rankings-table" cellspacing="0"><tbody>
-<?php
-
-include ("connection.php");
-include ("classes/Song.php");
-include ("classes/Rankings.php");
-include ("classes/Filter.php");
-include ("classes/DateFilter.php");
-include ("classes/GenreFilter.php");
-
-$filters = array("date" => new DateFilter('new'), "genre" => new GenreFilter('all'));
-$rankings = new Rankings($filters);
-$rankings->display();
-
-?>
-</tbody></table>
-    <p>Hiya</p>
+<div id="ytplayer">
+    <p>You will need Flash 8 or better to view this content.</p>
+</div>
+<a href="javascript:void(0);" onclick="play();">Play</a>
 </body>
+<script type="text/javascript">
+        var params = { allowScriptAccess: "always" };
+        swfobject.embedSWF( "http://www.youtube.com/v/yeClJneSNXA&enablejsapi=1&playerapiid=ytplayer", "ytplayer", "425", "365", "8", null, null, params);
+
+        function play() {
+            ytplayer = document.getElementById('ytplayer');
+            if (ytplayer) {
+                ytplayer.playVideo();
+            }
+        }
+        
+</script>
 </html>

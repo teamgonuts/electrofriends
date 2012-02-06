@@ -56,12 +56,12 @@ function showLogo()
 {
     echo '
     <center>
-	    <span class="pause-button">
-	        <div>
-	            <img src="img/monster-logo_90.png" />
-	        </div>
+        <span class="pause-button">
+            <div>
+                <img src="img/monster-logo_90.png" />
+            </div>
         </span>
-	</center>';
+    </center>';
 }
 //coverts dateFilter word into coresponding days
 function word2num($topof)

@@ -234,8 +234,6 @@ window.Rankings = class Rankings
 
 $ ->
     rankings = new Rankings
-    params = { allowScriptAccess: "always" }; #load song-swf
-    swfobject.embedSWF("http://www.youtube.com/v/"+ $('#ytcode_1').val() + "?enablejsapi=1&playerapiid=ytp&version=3" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0", "ytplayer", "275", "90", "8", null, null, params);
 
     #=============changing the rankings via filter=============
     $('.filter').click ->
@@ -343,10 +341,12 @@ $ ->
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())
-    $(document).on 'click', '.search-filter', -> rankings.search($(this).html())
+    $(document).on 'click', '.search-filter', -> 
+        rankings.search($(this).html())
 
     #===========Upload Song=====================#
     $('#upload_song').click -> 
+        debug = false
         $.post 'ajax/uploadAjax.php',
                 ytcode: $('#upload_yturl').val()
                 title: $('#upload_title').val()
@@ -360,15 +360,17 @@ $ ->
                     $("#upload-box-result").removeClass('hidden');
                     if($("#upload-box-result").html().indexOf("Upload Failed") is -1)#upload success
                         $('#upload-box-result').css('color', '#33FF33')
+                        if debug then console.log 'comment: ' + $('#upload_comment').val()
+                        if $('#upload_comment').val() != ''#submitting initial comment
+                            rankings.submitComment($('#upload_comment').val() , 
+                                                   $('#upload_user').val() ,
+                                                   -1) #-1 because song is not in rankings
+
                         #clearing fields
                         $('#upload_yturl').val('')
                         $('#upload_title').val('')
                         $('#upload_artist').val('')
                         $('#upload_comment').val('')
-                        if $('#upload_comment').val() != ''#submitting initial comment
-                            rankings.submitComment($('#upload_comment').val() , 
-                                                   $('#upload_user').val() ,
-                                                   -1) #-1 because song is not in rankings
                     else #upload failed
                         $('#upload-box-result').css('color', 'red')
                     
