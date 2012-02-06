@@ -19,7 +19,9 @@
     };
 
     Player.prototype.loadSong = function(i) {
-      console.log('loadSong Called()');
+      var debug;
+      debug = false;
+      if (debug) console.log('loadSong Called()');
       $('#currentSongTitle').html($('#title_' + i).val());
       $('#currentSongArtist').html($('#artist_' + i).val());
       $('#currentSongGenre').html($('#genre_' + i).val());
@@ -60,17 +62,30 @@
   };
 
   window.onPlayerError = function(errorCode) {
-    var debug;
+    var debug, params;
     debug = true;
-    if (debug) return console.log('onPlayerError() called!');
+    if (debug) console.log('onPlayerError() called!');
+    params = {
+      allowScriptAccess: "always"
+    };
+    return swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&autoplay=1&rel=0&showinfo=0&autohide=1", "ytplayer", "275", "90", "8", null, null, params);
   };
 
   $(function() {
-    var ytplayer;
-    ytplayer = new Player;
-    return $('.filter').click(function() {
-      console.log('filter clicked');
-      return ytplayer.loadSong(1);
+    var player;
+    player = new Player;
+    $(document).on('click', '.filter', function() {
+      var debug;
+      debug = false;
+      if (debug) console.log('filter clicked');
+      return player.loadSong(1);
+    });
+    return $(document).on('click', '.play-button', function() {
+      var i, ytplayer;
+      i = $(this).closest('.song').attr('id').split('_')[1];
+      ytplayer = document.getElementById('ytplayer');
+      ytplayer.loadVideoById($('#ytcode_' + i).val());
+      return player.loadSong(i);
     });
   });
 
