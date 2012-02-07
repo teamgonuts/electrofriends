@@ -1,20 +1,13 @@
-2. Adding class 'highlight-filter' doesn't add background color
 3. Add Rankings link next to About, Blog...etc
-5. Width of minimized songs...don't know what I messed up in the CSS
-6. Shouldn't be allowed to resize comments area
-7. When Show More Songs button is disabled, the bottom border of the rankings is gone
 8. When the title for the rankings is too big, it goes onto the next line and looks terrible. Ex. If someone seaches for some long search term
 9. Center 'Sorry there are no results' message 
 10. Fade open/close for songs on click
 11. Have score on maxed song line up with the other scores (far right of row), and have up/down vote buttons above and below it.
 12. Somehow need to show that you can click certains pieces of text (ex. Genre in the song's info)
     aka style links
-13. Drop down menu on upload page is too small, increase the size a little
 14. Upload box: line up old song checkbox next to text instead of below
-15. Report button
 16. Fade comments in/out
-17. Check out ajax/commentAjax around line 40, it doesn't recognize <time> I think because that is not showing up in the comments
 18. When I paste a long url into the uploads it moves the screen write a cuts off some of the boxes
 19. Gray box behind logo on maxed queue
 =============NEW==========
-1. Make max queue and user queue scrollable
+1. Make max queue and user queue scrollable so they don't overflow

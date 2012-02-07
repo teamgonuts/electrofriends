@@ -2,6 +2,11 @@
 /*------------------Universals--------------------*/
 /*------------------------------------------------*/
 
+header {
+    display: block;
+
+}
+
 *{
 	border: none;
 	margin: 0;
@@ -37,6 +42,11 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 /*------------------ADDED BY calvin------------------*/
 /*------------------------------------------------*/
+.play-button{
+    cursor: pointer;
+    font-weight: bold;
+}
+
 .filter:hover{
     cursor: pointer;
 }
@@ -56,10 +66,6 @@ font-style: italic;
 text-align: center;
 }
 
-.play-button{
-    cursor: pointer;
-    font-weight: bold;
-}
 
 .vote-button {
     font-size: 16px;
@@ -243,8 +249,6 @@ box-shadow: 0 0 10px #333;
 			
 			#rankings-table{
 				border: 1px solid #ccc;
-				border-top: none;
-				border-bottom: none;
 			}
 
 			#rankings-table .song-min{
@@ -291,6 +295,11 @@ box-shadow: 0 0 10px #333;
 			
 			#rankings-table td.song-info-min-clickable{
 				width: 470px;
+			}
+			
+			#rankings-table td.song-genre, #rankings-table td.song-score{
+                width: 88px;
+                text-align: right;
 			}
 			
 			
@@ -394,6 +403,7 @@ box-shadow: 0 0 10px #333;
 					width: 97%;
 					font-size: 12px;
 					padding: 3px;
+					resize: none;
 				}
 
 				.comments-input input {
@@ -638,6 +648,7 @@ box-shadow: 0 0 10px #333;
 			height: 50px;
 			line-height: 50px;
 			margin: 0 0 10px 0;
+			font-weight: normal;
 		}
 		
 		#sidebar h2 span {

@@ -36,8 +36,7 @@ window.GeneratedQueue = class GeneratedQueue
     clear: ->
         debug = true
         if debug then console.log 'GenQueue.clear() called!'
-
-        $('#gen-queue').html('<span>hi</span>')
+        $('#gen-queue').html('')
 
 $ ->
     genQ = new GeneratedQueue

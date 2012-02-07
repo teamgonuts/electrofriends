@@ -52,7 +52,7 @@
       var debug;
       debug = true;
       if (debug) console.log('GenQueue.clear() called!');
-      return $('#gen-queue').html('<span>hi</span>');
+      return $('#gen-queue').html('');
     };
 
     return GeneratedQueue;

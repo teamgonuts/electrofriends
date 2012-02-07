@@ -19,9 +19,7 @@ include ("classes/GenreFilter.php");
 <!-- fancybox -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
-        <script type="text/javascript" src="coffee/rankings.js"></script>
-        <script type="text/javascript" src="coffee/player.js"></script>
-        <script type="text/javascript" src="coffee/queue.js"></script>
+        <script type="text/javascript" src="coffee/master.js"></script>
         
         
 	<script>
@@ -314,9 +312,9 @@ include ("classes/GenreFilter.php");
 		<div class="threeColumnRight">
 			<h3>Queue<span id="queue-max">[max]</span></h3>
 				<ol>
-					<li><span class="text">Anticipate</span> // <span class="text">Skream ft. Sam Frank</span></li>
-					<li><span class="text">Work Hard, Play Hard</span> // <span class="text">Tiesto ft. Kay</span></li>
-					<li><span class="text">Pacifica (Chasing Shadows Remix)</span> // <span class="text">Spor</span></li>
+					<li><span class="text title">Anticipate</span> // <span class="text">Skream ft. Sam Frank</span></li>
+					<li><span class="text title">Work Hard, Play Hard</span> // <span class="text">Tiesto ft. Kay</span></li>
+					<li><span class="text title">Pacifica (Chasing Shadows Remix)</span> // <span class="text">Spor</span></li>
 				</ol>
 		</div><!-- end of threeColumnRight -->
 				

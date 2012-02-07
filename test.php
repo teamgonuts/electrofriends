@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
-    <script type="text/javascript" src="coffee/queue.js"></script>
+    <script type="text/javascript" src="coffee/rankings.js"></script>
+    <script type="text/javascript" src="coffee/test.js"></script>
     
 </head>
 
