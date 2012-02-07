@@ -19,3 +19,30 @@ window.Song = class Song
         $('#currentSongGenre').html @genre
         $('#currentSongUser').html @user
 
+window.GeneratedQueue = class GeneratedQueue
+    constructor: ->
+        this.refresh()
+
+        
+    #pulls the current songs from the rankings into the queue
+    refresh: ->
+        this.clear()
+        for i in [1..$('.song-max').length] #add each song in the rankings to the gen-queue
+              $('#gen-queue').append(' <li class="queue-item" id="gen-queue-' + i + '"><span class="title"> ' + 
+                      $('#title_' + i).val() + '</span><span class="purple">//</span> ' + 
+                      $('#artist_' + i).val() + '</li>')
+
+    #deletes all the songs from gen queue
+    clear: ->
+        debug = true
+        if debug then console.log 'GenQueue.clear() called!'
+
+        $('#gen-queue').html('<span>hi</span>')
+
+$ ->
+    genQ = new GeneratedQueue
+    
+    
+    $(document).on 'click', '.filter', ->
+        genQ.refresh()
+

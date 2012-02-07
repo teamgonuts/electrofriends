@@ -72,7 +72,7 @@ $ ->
     $(document).on 'click', '.filter', ->
         debug = false
         if debug then console.log 'filter clicked'
-        player.loadSongInRanking(1) #load the first song in the new rankings
+        player.loadSongInRankings(1) #load the first song in the new rankings
 
     $(document).on 'click', '.play-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked

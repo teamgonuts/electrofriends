@@ -78,7 +78,7 @@
       var debug;
       debug = false;
       if (debug) console.log('filter clicked');
-      return player.loadSongInRanking(1);
+      return player.loadSongInRankings(1);
     });
     return $(document).on('click', '.play-button', function() {
       var i, ytplayer;

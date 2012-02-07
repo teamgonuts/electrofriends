@@ -21,6 +21,7 @@ include ("classes/GenreFilter.php");
         <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
         <script type="text/javascript" src="coffee/rankings.js"></script>
         <script type="text/javascript" src="coffee/player.js"></script>
+        <script type="text/javascript" src="coffee/queue.js"></script>
         
         
 	<script>
@@ -235,16 +236,6 @@ include ("classes/GenreFilter.php");
                 <h3>Generated Queue</h3>
             </div>
             <ol class="max-queue" id="gen-queue">
-                <li class="queue-item" id="gen-queue-1"><span class="title">Mission</span> <span class="purple">//</span> Beats Antique</li>
-                <li class="queue-item" id="gen-queue-2"><span class="title">Crave You (Adventure Club Dubstep Remix)</span> <span class="purple">//</span> Flight Facilities</li>
-                <li class="queue-item" id="gen-queue-3"><span class="title">The Immortals (Röyksopp Remix) Radio Edit </span> <span class="purple">//</span> Kings of Leon</li>
-                <li class="queue-item" id="gen-queue-4"><span class="title">Collect Call (Adventure Club Remix) </span> <span class="purple">//</span> Metric</li>
-                <li class="queue-item" id="gen-queue-5"><span class="title">Ladi Dadi (Original Mix) </span> <span class="purple">//</span> Steve Aoki feat. Wynter Gordon</li>
-                <li class="queue-item" id="gen-queue-6"><span class="title">Rebound </span> <span class="purple">//</span> Arty &amp; Mat Zo</li>
-                <li class="queue-item" id="gen-queue-7"><span class="title">Promises (Calvin Harris Remix) </span> <span class="purple">//</span> Nero</li>
-                <li class="queue-item" id="gen-queue-8"><span class="title">Lost (Chill Mix) </span> <span class="purple">//</span> Sunlounger ft. Zara</li>
-                <li class="queue-item" id="gen-queue-9"><span class="title">Perfect Moments </span> <span class="purple">//</span> Lang &amp; Yep</li>
-                <li class="queue-item" id="gen-queue-10"><span class="title">Bass Embrace </span> <span class="purple">//</span> DJ i6</li>
             </ol>
         </div>
     </div>
