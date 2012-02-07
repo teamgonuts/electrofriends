@@ -72,7 +72,6 @@ class Song
 	                        <div class="song-buttons">
 	                            <center>
 	                                <span class="song-button play-button">Play</span>
-	                                <span class="song-button play-next-button">Play Next</span>
 	                                <span class="song-button queue-button">Add to Queue</span>
 	                            </center>
 	                        </div>

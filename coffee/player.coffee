@@ -13,10 +13,10 @@ window.Player = class Player
                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1",
                         "ytplayer", "275", "90", "8", null, null, params);
 
-        this.loadSong(1)#loads first song
+        this.loadSongInRankings(1)#loads first song
 
     #loads song i in the rankings into the player, loads up song info into current song:
-    loadSong: (i) ->
+    loadSongInRankings: (i) ->
         debug = false
         if debug then console.log 'loadSong Called()'
         $('#currentSongTitle').html $('#title_' + i).val()
@@ -72,10 +72,10 @@ $ ->
     $(document).on 'click', '.filter', ->
         debug = false
         if debug then console.log 'filter clicked'
-        player.loadSong(1) #load the first song in the new rankings
+        player.loadSongInRanking(1) #load the first song in the new rankings
 
     $(document).on 'click', '.play-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
         ytplayer = document.getElementById('ytplayer')
         ytplayer.loadVideoById $('#ytcode_' + i).val() #play song
-        player.loadSong(i) #load song's info
+        player.loadSongInRankings(i) #load song's info

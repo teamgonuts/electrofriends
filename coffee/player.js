@@ -15,10 +15,10 @@
         allowScriptAccess: "always"
       };
       swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1", "ytplayer", "275", "90", "8", null, null, params);
-      return this.loadSong(1);
+      return this.loadSongInRankings(1);
     };
 
-    Player.prototype.loadSong = function(i) {
+    Player.prototype.loadSongInRankings = function(i) {
       var debug;
       debug = false;
       if (debug) console.log('loadSong Called()');
@@ -78,14 +78,14 @@
       var debug;
       debug = false;
       if (debug) console.log('filter clicked');
-      return player.loadSong(1);
+      return player.loadSongInRanking(1);
     });
     return $(document).on('click', '.play-button', function() {
       var i, ytplayer;
       i = $(this).closest('.song').attr('id').split('_')[1];
       ytplayer = document.getElementById('ytplayer');
       ytplayer.loadVideoById($('#ytcode_' + i).val());
-      return player.loadSong(i);
+      return player.loadSongInRankings(i);
     });
   });
 
