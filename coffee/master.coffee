@@ -84,6 +84,7 @@ window.onPlayerError = (errorCode) ->
 #class for a Song in a queue
 window.Song = class Song
     constructor:(@ytcode, @title, @genre, @artist, @user) ->
+        @played = false #boolean to determine if the song has already been played
         debug = false
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
@@ -98,7 +99,9 @@ window.Queue = class Queue
         @userQ = new UserQueue
         @curQueue = 'genQ' #the current queue that the song is playing from
         @curSong = 1 #index of current song in the current Queue
+        @minQ_MaxSongs = 3 #number of songs to display in the min queue
         this.initialize()
+
 
     initialize: ->
         @genQ.refresh() #loads all the visible songs on the page into the gen-queue
@@ -107,13 +110,36 @@ window.Queue = class Queue
 
     #shows the next 3 songs to be played
     updateMinQueue: ->
-        debug = true
+        debug = false
         if debug then console.log 'Queue.updateMinQueue() called!'
+
+        $('#min-queue').html('')#clear out old queue
+        #adding songs from userQ
+        if $('#userQ').find('.queue-item').length != 0
+            for i in [0..($('#userQ').find('.queue-item').length-1)]
+                if debug then console.log 'Adding Song from UserQ'
+                if not @userQ.songs[i].played #if it hasnt been played
+                    $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
+                              @userQ.songs[i].title + '</span><span class="purple"> //</span> ' + 
+                              @userQ.songs[i].artist + '<span class="delete-song"> x</span></li>')
+
+                if $('#min-queue').find('.queue-item').length > @minQ_MaxSongs #if we should add more songs
+                    break
+
+        #if it there are any songs in the genQ left to add AND we should add more songs
+        i = @genQ.curSong + 1
+        while $('#genQ_' + i) and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
+            if debug then console.log 'Adding Song from GenQ: ' + $('#genQ_' + i).html()
+            $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + 
+                      $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
+                      $('#artist_' + i).val() + '</li>')
+            i++
+
 
     #sets the current song and queue to the specified paraments then plays song
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
     playSong: (queue, index) ->
-        debug = false
+        debug = true
         if debug then console.log 'Play Song ' + index + ' in ' + queue
         #checking for valid params
         if queue != 'genQ' and queue != 'userQ' 
@@ -170,7 +196,12 @@ window.GeneratedQueue = class GeneratedQueue
         debug = false
         if debug then console.log 'Generated Queue Created!'
         @songs = new Array()
-        
+
+        #current song selected in the generated queue
+        #CAN be different than the current song playing, used to determine where in the
+        #generated queue to start playing again if the userQueue runs out of songs
+        @curSong = 1
+
     #pulls the current songs from the rankings into the queue
     refresh: ->
         this.clear()
@@ -450,6 +481,11 @@ $ ->
             player.loadSongInRankings(i) #load song's info
         else if $(this).hasClass('queue-button')
             queue.userQ.append(i)
+            queue.updateMinQueue()
+
+    #when the next song button is clicked
+    $(document).on 'click', '.next-song', ->
+        queue.updateMinQueue()
 
     #when a song in the queue is clicked, highlight it and play
     $(document).on 'click', '.queue-item', ->
@@ -468,6 +504,9 @@ $ ->
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
+            queue.userQ.songs[i].played = true #mark the song as played
+
+        queue.updateMinQueue() #update the minQueue
         
 
     #=============changing the rankings via filter=============

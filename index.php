@@ -276,8 +276,7 @@ include ("classes/GenreFilter.php");
 		
 		<div class="threeColumnLeft">
 			
-			<h3>Current Song</h3>
-			
+			<h3>Current Song<span class="next-song"> >></span></h3>
 			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
 			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
 			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
@@ -298,13 +297,13 @@ include ("classes/GenreFilter.php");
 			
 			<div class="twoColumnRight">
 
-				
 			</div><!-- end of twoColumnRight -->
 			
 		</div><!-- end of threeColumnCenter -->
 		
 		<div class="threeColumnRight">
 			<h3>Queue<span id="queue-max">[max]</span></h3>
+				
 				<ol id="min-queue">
 				</ol>
 		</div><!-- end of threeColumnRight -->

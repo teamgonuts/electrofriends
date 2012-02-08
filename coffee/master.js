@@ -101,6 +101,7 @@
       this.genre = genre;
       this.artist = artist;
       this.user = user;
+      this.played = false;
       debug = false;
       if (debug) {
         console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', user: ' + this.user);
@@ -118,6 +119,7 @@
       this.userQ = new UserQueue;
       this.curQueue = 'genQ';
       this.curSong = 1;
+      this.minQ_MaxSongs = 3;
       this.initialize();
     }
 
@@ -128,14 +130,34 @@
     };
 
     Queue.prototype.updateMinQueue = function() {
-      var debug;
-      debug = true;
-      if (debug) return console.log('Queue.updateMinQueue() called!');
+      var debug, i, _ref, _results;
+      debug = false;
+      if (debug) console.log('Queue.updateMinQueue() called!');
+      $('#min-queue').html('');
+      if ($('#userQ').find('.queue-item').length !== 0) {
+        for (i = 0, _ref = $('#userQ').find('.queue-item').length - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
+          if (debug) console.log('Adding Song from UserQ');
+          if (!this.userQ.songs[i].played) {
+            $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i + 1) + '_2"><span class="title"> ' + this.userQ.songs[i].title + '</span><span class="purple"> //</span> ' + this.userQ.songs[i].artist + '<span class="delete-song"> x</span></li>');
+          }
+          if ($('#min-queue').find('.queue-item').length > this.minQ_MaxSongs) {
+            break;
+          }
+        }
+      }
+      i = this.genQ.curSong + 1;
+      _results = [];
+      while ($('#genQ_' + i) && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
+        if (debug) console.log('Adding Song from GenQ: ' + $('#genQ_' + i).html());
+        $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>');
+        _results.push(i++);
+      }
+      return _results;
     };
 
     Queue.prototype.playSong = function(queue, index) {
       var debug, ytcode, ytplayer;
-      debug = false;
+      debug = true;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
       if (queue !== 'genQ' && queue !== 'userQ') {
         console.log('Queue.playSong ERROR: Invalid param queue: ' + queue);
@@ -195,6 +217,7 @@
       debug = false;
       if (debug) console.log('Generated Queue Created!');
       this.songs = new Array();
+      this.curSong = 1;
     }
 
     GeneratedQueue.prototype.refresh = function() {
@@ -526,8 +549,12 @@
         ytplayer.loadVideoById($('#ytcode_' + i).val());
         return player.loadSongInRankings(i);
       } else if ($(this).hasClass('queue-button')) {
-        return queue.userQ.append(i);
+        queue.userQ.append(i);
+        return queue.updateMinQueue();
       }
+    });
+    $(document).on('click', '.next-song', function() {
+      return queue.updateMinQueue();
     });
     $(document).on('click', '.queue-item', function() {
       var debug, i, q;
@@ -539,11 +566,13 @@
       if (debug) console.log('  queue:' + q);
       queue.playSong(q, i);
       if (q === 'genQ') {
-        return player.loadSongInRankings(i);
+        player.loadSongInRankings(i);
       } else {
         i = i - 1;
-        return player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+        queue.userQ.songs[i].played = true;
       }
+      return queue.updateMinQueue();
     });
     $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {
