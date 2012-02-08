@@ -42,9 +42,22 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 /*------------------ADDED BY calvin------------------*/
 /*------------------------------------------------*/
-.play-button{
+.song-button{
     cursor: pointer;
     font-weight: bold;
+}
+
+.queue-item:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.selected-song{
+    background-color: #3fa9f5;
+}
+.empty-queue{
+    text-align:center;
+    font-style: italic;
 }
 
 .filter:hover{

@@ -34,6 +34,16 @@
       return $('#currentSongUser').html($('#user_' + i).val());
     };
 
+    Player.prototype.loadSongInfo = function(title, artist, genre, user) {
+      var debug;
+      debug = false;
+      if (debug) console.log('loadSong Called()');
+      $('#currentSongTitle').html(title);
+      $('#currentSongArtist').html(artist);
+      $('#currentSongGenre').html(genre);
+      return $('#currentSongUser').html(user);
+    };
+
     return Player;
 
   })();
@@ -69,7 +79,7 @@
 
   window.onPlayerError = function(errorCode) {
     var debug, params;
-    debug = true;
+    debug = false;
     if (debug) console.log('onPlayerError() called!');
     params = {
       allowScriptAccess: "always"
@@ -97,18 +107,6 @@
       }
     }
 
-    Song.prototype.play = function() {
-      var debug, ytplayer;
-      debug = false;
-      if (debug) console.log(this.title + '.play() called!');
-      ytplayer = document.getElementById('ytplayer');
-      ytplayer.loadVideoById(this.ytcode);
-      $('#currentSongTitle').html(this.title);
-      $('#currentSongArtist').html(this.artist);
-      $('#currentSongGenre').html(this.genre);
-      return $('#currentSongUser').html(this.user);
-    };
-
     return Song;
 
   })();
@@ -118,11 +116,47 @@
     function Queue() {
       this.genQ = new GeneratedQueue;
       this.userQ = new UserQueue;
+      this.curQueue = 'genQ';
+      this.curSong = 1;
       this.initialize();
     }
 
     Queue.prototype.initialize = function() {
-      return this.genQ.refresh();
+      this.genQ.refresh();
+      $('#' + this.curQueue + '_' + this.curSong).addClass('selected-song');
+      return this.updateMinQueue();
+    };
+
+    Queue.prototype.updateMinQueue = function() {
+      var debug;
+      debug = true;
+      if (debug) return console.log('Queue.updateMinQueue() called!');
+    };
+
+    Queue.prototype.playSong = function(queue, index) {
+      var debug, ytcode, ytplayer;
+      debug = false;
+      if (debug) console.log('Play Song ' + index + ' in ' + queue);
+      if (queue !== 'genQ' && queue !== 'userQ') {
+        console.log('Queue.playSong ERROR: Invalid param queue: ' + queue);
+        return;
+      }
+      if (index < 1 || index > $('#' + queue).find('.queue-item').length) {
+        console.log('Queue.playSong ERROR: Index out of bounds: ' + index);
+        return;
+      }
+      this.curQueue = queue;
+      this.curSong = index;
+      $('.queue-item').removeClass('selected-song');
+      $('#' + queue + '_' + index).addClass('selected-song');
+      if (queue === 'genQ') {
+        ytcode = $('#ytcode_' + index).val();
+      } else {
+        ytcode = this.userQ.songs[index - 1].ytcode;
+      }
+      if (debug) console.log('  about to play song with ytcode: ' + ytcode);
+      ytplayer = document.getElementById('ytplayer');
+      return ytplayer.loadVideoById(ytcode);
     };
 
     return Queue;
@@ -132,18 +166,15 @@
   window.UserQueue = UserQueue = (function() {
 
     function UserQueue() {
-      console.log('User Queue Created!');
+      var debug;
+      debug = false;
+      if (debug) console.log('User Queue Created!');
       this.songs = new Array();
-      this.initialize();
     }
 
-    UserQueue.prototype.initialize = function() {
-      var i, _results;
-      _results = [];
-      for (i = 1; i <= 5; i++) {
-        _results.push($('#userQ').append('<li class="queue-item" id="userQ_' + i + '"></li>'));
-      }
-      return _results;
+    UserQueue.prototype.append = function(i) {
+      this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val()));
+      return $('#userQ').append(' <li class="queue-item" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>');
     };
 
     UserQueue.prototype.clear = function() {
@@ -160,7 +191,9 @@
   window.GeneratedQueue = GeneratedQueue = (function() {
 
     function GeneratedQueue() {
-      console.log('Generated Queue Created!');
+      var debug;
+      debug = false;
+      if (debug) console.log('Generated Queue Created!');
       this.songs = new Array();
     }
 
@@ -485,12 +518,32 @@
     player = new Player;
     queue = new Queue;
     rankings = new Rankings;
-    $(document).on('click', '.play-button', function() {
+    $(document).on('click', '.song-button', function() {
       var i, ytplayer;
       i = $(this).closest('.song').attr('id').split('_')[1];
-      ytplayer = document.getElementById('ytplayer');
-      ytplayer.loadVideoById($('#ytcode_' + i).val());
-      return player.loadSongInRankings(i);
+      if ($(this).hasClass('play-button')) {
+        ytplayer = document.getElementById('ytplayer');
+        ytplayer.loadVideoById($('#ytcode_' + i).val());
+        return player.loadSongInRankings(i);
+      } else if ($(this).hasClass('queue-button')) {
+        return queue.userQ.append(i);
+      }
+    });
+    $(document).on('click', '.queue-item', function() {
+      var debug, i, q;
+      debug = false;
+      if (debug) console.log('queue-item clicked');
+      i = $(this).attr('id').split('_')[1];
+      q = $(this).attr('id').split('_')[0];
+      if (debug) console.log('  index:' + i);
+      if (debug) console.log('  queue:' + q);
+      queue.playSong(q, i);
+      if (q === 'genQ') {
+        return player.loadSongInRankings(i);
+      } else {
+        i = i - 1;
+        return player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+      }
     });
     $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {

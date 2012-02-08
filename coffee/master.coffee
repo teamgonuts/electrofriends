@@ -17,7 +17,7 @@ window.Player = class Player
 
         this.loadSongInRankings(1)#loads first song
 
-    #loads song i in the rankings into the player, loads up song info into current song:
+    #loads song 'i' info from rankings into current song in player
     loadSongInRankings: (i) ->
         debug = false
         if debug then console.log 'loadSong Called()'
@@ -25,6 +25,15 @@ window.Player = class Player
         $('#currentSongArtist').html $('#artist_' + i).val()
         $('#currentSongGenre').html $('#genre_' + i).val()
         $('#currentSongUser').html $('#user_' + i).val()
+
+    #loads song info into current song in player
+    loadSongInfo: (title, artist, genre, user) ->
+        debug = false
+        if debug then console.log 'loadSong Called()'
+        $('#currentSongTitle').html title
+        $('#currentSongArtist').html artist
+        $('#currentSongGenre').html genre
+        $('#currentSongUser').html user
 
 # method is called when the player is ready
 # binds listeneres to player
@@ -59,7 +68,7 @@ window.stateChange = (newState) ->
 
 #called when the player crashes
 window.onPlayerError = (errorCode) ->
-    debug = true
+    debug = false
     if debug then console.log 'onPlayerError() called!'
     #play load new player and start playing
     #TODO: it loads the first song when it crashes right now
@@ -76,44 +85,79 @@ window.onPlayerError = (errorCode) ->
 window.Song = class Song
     constructor:(@ytcode, @title, @genre, @artist, @user) ->
         debug = false
-
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
                                     ', artist: ' + @artist + 
                                     ', user: ' + @user
-    play: ->
-        debug = false 
-        if debug then console.log @title + '.play() called!'
-        ytplayer = document.getElementById('ytplayer')
-        ytplayer.loadVideoById @ytcode
-
-        #loading song into player
-        $('#currentSongTitle').html @title
-        $('#currentSongArtist').html @artist
-        $('#currentSongGenre').html @genre
-        $('#currentSongUser').html @user
 
 #overall queue class, this queue contains the gen and user queue
 window.Queue = class Queue
     constructor: ->
         @genQ = new GeneratedQueue
         @userQ = new UserQueue
+        @curQueue = 'genQ' #the current queue that the song is playing from
+        @curSong = 1 #index of current song in the current Queue
         this.initialize()
 
     initialize: ->
         @genQ.refresh() #loads all the visible songs on the page into the gen-queue
+        $('#' + @curQueue + '_' + @curSong).addClass('selected-song') #highlight first song
+        this.updateMinQueue() 
+
+    #shows the next 3 songs to be played
+    updateMinQueue: ->
+        debug = true
+        if debug then console.log 'Queue.updateMinQueue() called!'
+
+    #sets the current song and queue to the specified paraments then plays song
+    #params: queue should be 'gen' or 'user'; index should be valid song in queue
+    playSong: (queue, index) ->
+        debug = false
+        if debug then console.log 'Play Song ' + index + ' in ' + queue
+        #checking for valid params
+        if queue != 'genQ' and queue != 'userQ' 
+            console.log 'Queue.playSong ERROR: Invalid param queue: ' + queue
+            return
+        if index < 1 or index > $('#' + queue).find('.queue-item').length
+            console.log 'Queue.playSong ERROR: Index out of bounds: ' + index
+            return
+        
+        @curQueue = queue
+        @curSong = index
+        $('.queue-item').removeClass('selected-song') #remove current selection
+        $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
+
+        #play song
+        if queue is 'genQ' 
+            ytcode = $('#ytcode_' + index).val()
+        else #queue = 'userQ' 
+            ytcode = @userQ.songs[index-1].ytcode #-1 because the userQ's array is 0 based
+        
+        if debug then console.log '  about to play song with ytcode: ' + ytcode
+        ytplayer = document.getElementById('ytplayer')
+        ytplayer.loadVideoById ytcode
+
+
 
 window.UserQueue = class UserQueue
     constructor: ->
-        console.log 'User Queue Created!'
+        debug = false
+        if debug then console.log 'User Queue Created!'
         @songs = new Array()
-        this.initialize()
 
-    #initializes 5 blanks songs in userqueue
-    initialize: ->
-        for i in [1..5]
-            $('#userQ').append('<li class="queue-item" id="userQ_' + i + '"></li>') 
+    #append song 'i' from the rankings to the back of the userQueue
+    append: (i) ->
+        @songs.push new Song( $('#ytcode_' + i).val()
+                        $('#title_' + i).val()
+                        $('#genre_' + i).val()
+                        $('#artist_' + i).val()
+                        $('#user_' + i).val())
+
+        $('#userQ').append(' <li class="queue-item" id="userQ_' + @songs.length + '"><span class="title"> ' + 
+                  $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
+                  $('#artist_' + i).val() + '</li>')
+        
 
     #deletes all the songs from user queue
     clear: ->
@@ -123,7 +167,8 @@ window.UserQueue = class UserQueue
 
 window.GeneratedQueue = class GeneratedQueue
     constructor: ->
-        console.log 'Generated Queue Created!'
+        debug = false
+        if debug then console.log 'Generated Queue Created!'
         @songs = new Array()
         
     #pulls the current songs from the rankings into the queue
@@ -395,12 +440,35 @@ $ ->
     queue = new Queue
     rankings = new Rankings
     
+    #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player
-    $(document).on 'click', '.play-button', ->
+    $(document).on 'click', '.song-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
-        ytplayer = document.getElementById('ytplayer')
-        ytplayer.loadVideoById $('#ytcode_' + i).val() #play song
-        player.loadSongInRankings(i) #load song's info
+        if $(this).hasClass('play-button')
+            ytplayer = document.getElementById('ytplayer')
+            ytplayer.loadVideoById $('#ytcode_' + i).val() #play song
+            player.loadSongInRankings(i) #load song's info
+        else if $(this).hasClass('queue-button')
+            queue.userQ.append(i)
+
+    #when a song in the queue is clicked, highlight it and play
+    $(document).on 'click', '.queue-item', ->
+        debug = false
+        if debug then console.log 'queue-item clicked'
+        i = $(this).attr('id').split('_')[1] #index of song clicked
+        q = $(this).attr('id').split('_')[0] #queue that was clicked
+        if debug then console.log '  index:' + i
+        if debug then console.log '  queue:' + q
+        queue.playSong(q, i)
+        if q is 'genQ'
+            player.loadSongInRankings(i)
+        else #queue is userQ
+            i = i-1# i-1 because userQ array is 0 based
+            player.loadSongInfo(queue.userQ.songs[i].title,
+                                queue.userQ.songs[i].artist,
+                                queue.userQ.songs[i].genre,
+                                queue.userQ.songs[i].user)
+        
 
     #=============changing the rankings via filter=============
     $('.filter').click ->

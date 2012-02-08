@@ -220,7 +220,6 @@ include ("classes/GenreFilter.php");
             <div class="queue-title">
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
-
             <ol class="max-queue" id="userQ">
             </ol>
         </div>
@@ -306,10 +305,7 @@ include ("classes/GenreFilter.php");
 		
 		<div class="threeColumnRight">
 			<h3>Queue<span id="queue-max">[max]</span></h3>
-				<ol>
-					<li><span class="text title">Anticipate</span> // <span class="text">Skream ft. Sam Frank</span></li>
-					<li><span class="text title">Work Hard, Play Hard</span> // <span class="text">Tiesto ft. Kay</span></li>
-					<li><span class="text title">Pacifica (Chasing Shadows Remix)</span> // <span class="text">Spor</span></li>
+				<ol id="min-queue">
 				</ol>
 		</div><!-- end of threeColumnRight -->
 				
