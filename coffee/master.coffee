@@ -127,8 +127,9 @@ window.Queue = class Queue
                     break
 
         #if it there are any songs in the genQ left to add AND we should add more songs
-        i = @genQ.curSong + 1
-        while $('#genQ_' + i) and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
+        i = parseInt(@genQ.curSong) + 1
+        while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
+            if debug then console.log 'Next song to add: ' + i
             if debug then console.log 'Adding Song from GenQ: ' + $('#genQ_' + i).html()
             $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + 
                       $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
@@ -498,6 +499,7 @@ $ ->
         queue.playSong(q, i)
         if q is 'genQ'
             player.loadSongInRankings(i)
+            queue.genQ.curSong = i
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,

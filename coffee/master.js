@@ -145,9 +145,10 @@
           }
         }
       }
-      i = this.genQ.curSong + 1;
+      i = parseInt(this.genQ.curSong) + 1;
       _results = [];
-      while ($('#genQ_' + i) && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
+      while ($('#genQ_' + i).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
+        if (debug) console.log('Next song to add: ' + i);
         if (debug) console.log('Adding Song from GenQ: ' + $('#genQ_' + i).html());
         $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>');
         _results.push(i++);
@@ -567,6 +568,7 @@
       queue.playSong(q, i);
       if (q === 'genQ') {
         player.loadSongInRankings(i);
+        queue.genQ.curSong = i;
       } else {
         i = i - 1;
         player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);

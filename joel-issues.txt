@@ -15,3 +15,4 @@
 3. Style highlighted/hover song in queue
 4. Style delete buttons in user queue
 5. Site icon
+6. Styling of songs in min-queue
