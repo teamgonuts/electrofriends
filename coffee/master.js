@@ -174,7 +174,7 @@
 
     UserQueue.prototype.append = function(i) {
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val()));
-      return $('#userQ').append(' <li class="queue-item" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>');
+      return $('#userQ').append(' <li class="queue-item" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="delete-song"> x</span></li>');
     };
 
     UserQueue.prototype.clear = function() {
@@ -212,7 +212,7 @@
       var debug;
       debug = false;
       if (debug) console.log('GenQueue.clear() called!');
-      return $('#gen-queue').html('');
+      return $('#genQ').html('');
     };
 
     return GeneratedQueue;

@@ -13,3 +13,5 @@
 1. Make max queue and user queue scrollable so they don't overflow
 2. In Queue: 1 song per line, if song + artist is too long, want it to end in (...)
 3. Style highlighted/hover song in queue
+4. Style delete buttons in user queue
+5. Site icon

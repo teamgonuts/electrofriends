@@ -156,7 +156,7 @@ window.UserQueue = class UserQueue
 
         $('#userQ').append(' <li class="queue-item" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '</li>')
+                  $('#artist_' + i).val() + '<span class="delete-song"> x</span></li>')
         
 
     #deletes all the songs from user queue
@@ -184,7 +184,7 @@ window.GeneratedQueue = class GeneratedQueue
     clear: ->
         debug = false
         if debug then console.log 'GenQueue.clear() called!'
-        $('#gen-queue').html('')
+        $('#genQ').html('')
 
 
 ###=================================================

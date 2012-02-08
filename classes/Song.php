@@ -85,19 +85,6 @@ class Song
 	                        <p><span class="more-info-heading">Download</span>: 
                                     <a type="amzn" category="music" search="' . $this->title . ' ' . $this->artist . '">Amazon</a> 
                                 </p>
-                                <p>
-                                    <br />
-                                    <center>
-                                        <span class="score-container">
-                                            <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
-                                        </span>
-                                        </br>
-                                        <span class="vote-buttons-container">
-                                            <span class="vote-button" id="up-vote"> + </span>
-                                            <span class="vote-button" id="down-vote"> - </span>
-                                        </span>
-                                    </center>
-                                </p>
                     	
                     	</div><!-- end of left -->
                     	<div class="right">
@@ -111,6 +98,19 @@ class Song
                     	</div><!-- end of right -->
                     </td>
                     <td class="song-comments" colspan="2">
+                        <p>
+                            <br />
+                            <center>
+                                <span class="score-container">
+                                    <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
+                                </span>
+                                </br>
+                                <span class="vote-buttons-container">
+                                    <span class="vote-button" id="up-vote"> + </span>
+                                    <span class="vote-button" id="down-vote"> - </span>
+                                </span>
+                            </center>
+                        </p>
                         <span id="comments-container">
                             <div class="comments-input">
                                 <textarea class="comment-text" placeholder="Comments"></textarea><br>

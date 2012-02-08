@@ -46,6 +46,10 @@ h1, h2, h3, h4, h5 {
     cursor: pointer;
     font-weight: bold;
 }
+.delete-song{
+color: red;
+font-weight:bold;
+}
 
 .queue-item:hover{
     text-decoration: underline;
