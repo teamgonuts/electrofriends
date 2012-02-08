@@ -221,19 +221,14 @@ include ("classes/GenreFilter.php");
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
 
-            <ol class="max-queue">
-                <li class="queue-item" id="user-queue-1"></li>
-                <li class="queue-item" id="user-queue-2"></li>
-                <li class="queue-item" id="user-queue-3"></li>
-                <li class="queue-item" id="user-queue-4"></li>
-                <li class="queue-item" id="user-queue-5"></li>
+            <ol class="max-queue" id="userQ">
             </ol>
         </div>
         <div id="generated-queue">
             <div class="queue-title">
                 <h3>Generated Queue</h3>
             </div>
-            <ol class="max-queue" id="gen-queue">
+            <ol class="max-queue" id="genQ">
             </ol>
         </div>
     </div>

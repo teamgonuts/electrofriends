@@ -76,6 +76,7 @@ window.onPlayerError = (errorCode) ->
 window.Song = class Song
     constructor:(@ytcode, @title, @genre, @artist, @user) ->
         debug = false
+
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
@@ -93,22 +94,50 @@ window.Song = class Song
         $('#currentSongGenre').html @genre
         $('#currentSongUser').html @user
 
+#overall queue class, this queue contains the gen and user queue
+window.Queue = class Queue
+    constructor: ->
+        @genQ = new GeneratedQueue
+        @userQ = new UserQueue
+        this.initialize()
+
+    initialize: ->
+        @genQ.refresh() #loads all the visible songs on the page into the gen-queue
+
+window.UserQueue = class UserQueue
+    constructor: ->
+        console.log 'User Queue Created!'
+        @songs = new Array()
+        this.initialize()
+
+    #initializes 5 blanks songs in userqueue
+    initialize: ->
+        for i in [1..5]
+            $('#userQ').append('<li class="queue-item" id="userQ_' + i + '"></li>') 
+
+    #deletes all the songs from user queue
+    clear: ->
+        debug = false
+        if debug then console.log 'UserQueue.clear() called!'
+        this.initialize()
+
 window.GeneratedQueue = class GeneratedQueue
     constructor: ->
-        this.refresh()
-
+        console.log 'Generated Queue Created!'
+        @songs = new Array()
         
     #pulls the current songs from the rankings into the queue
     refresh: ->
         this.clear()
         for i in [1..$('.song-max').length] #add each song in the rankings to the gen-queue
-              $('#gen-queue').append(' <li class="queue-item" id="gen-queue-' + i + '"><span class="title"> ' + 
+            @songs.push(i)
+            $('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + 
                       $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
                       $('#artist_' + i).val() + '</li>')
 
     #deletes all the songs from gen queue
     clear: ->
-        debug = true
+        debug = false
         if debug then console.log 'GenQueue.clear() called!'
         $('#gen-queue').html('')
 
@@ -363,7 +392,7 @@ window.Rankings = class Rankings
 
 $ ->
     player = new Player
-    genQ = new GeneratedQueue
+    queue = new Queue
     rankings = new Rankings
     
     #when the play-button is clicked in a maxed song, loads the song in the player
@@ -392,7 +421,7 @@ $ ->
                     rankings.refreshTitle()
                     rankings.flag = 'normal' #resetting flag
                     player.loadSongInRankings(1) #load the first song in the new rankings
-                    genQ.refresh() #updating the generated queue
+                    queue.genQ.refresh() #updating the generated queue
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->

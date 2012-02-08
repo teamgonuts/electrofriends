@@ -5,7 +5,7 @@
 */
 
 (function() {
-  var Filters, GeneratedQueue, Player, Rankings, Song;
+  var Filters, GeneratedQueue, Player, Queue, Rankings, Song, UserQueue;
 
   window.Player = Player = (function() {
 
@@ -113,10 +113,55 @@
 
   })();
 
+  window.Queue = Queue = (function() {
+
+    function Queue() {
+      this.genQ = new GeneratedQueue;
+      this.userQ = new UserQueue;
+      this.initialize();
+    }
+
+    Queue.prototype.initialize = function() {
+      return this.genQ.refresh();
+    };
+
+    return Queue;
+
+  })();
+
+  window.UserQueue = UserQueue = (function() {
+
+    function UserQueue() {
+      console.log('User Queue Created!');
+      this.songs = new Array();
+      this.initialize();
+    }
+
+    UserQueue.prototype.initialize = function() {
+      var i, _results;
+      _results = [];
+      for (i = 1; i <= 5; i++) {
+        _results.push($('#userQ').append('<li class="queue-item" id="userQ_' + i + '"></li>'));
+      }
+      return _results;
+    };
+
+    UserQueue.prototype.clear = function() {
+      var debug;
+      debug = false;
+      if (debug) console.log('UserQueue.clear() called!');
+      return this.initialize();
+    };
+
+    return UserQueue;
+
+  })();
+
   window.GeneratedQueue = GeneratedQueue = (function() {
 
     function GeneratedQueue() {
-      this.refresh();
+      console.log('Generated Queue Created!');
+      this.songs = new Array();
     }
 
     GeneratedQueue.prototype.refresh = function() {
@@ -124,14 +169,15 @@
       this.clear();
       _results = [];
       for (i = 1, _ref = $('.song-max').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
-        _results.push($('#gen-queue').append(' <li class="queue-item" id="gen-queue-' + i + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>'));
+        this.songs.push(i);
+        _results.push($('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>'));
       }
       return _results;
     };
 
     GeneratedQueue.prototype.clear = function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('GenQueue.clear() called!');
       return $('#gen-queue').html('');
     };
@@ -435,9 +481,9 @@
   */
 
   $(function() {
-    var genQ, player, rankings;
+    var player, queue, rankings;
     player = new Player;
-    genQ = new GeneratedQueue;
+    queue = new Queue;
     rankings = new Rankings;
     $(document).on('click', '.play-button', function() {
       var i, ytplayer;
@@ -461,7 +507,7 @@
         rankings.refreshTitle();
         rankings.flag = 'normal';
         player.loadSongInRankings(1);
-        return genQ.refresh();
+        return queue.genQ.refresh();
       });
     });
     $(document).on('click', '.song', function() {

@@ -11,3 +11,4 @@
 19. Gray box behind logo on maxed queue
 =============NEW==========
 1. Make max queue and user queue scrollable so they don't overflow
+2. In Queue: 1 song per line, if song + artist is too long, want it to end in (...)
