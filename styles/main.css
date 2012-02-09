@@ -50,10 +50,13 @@ h1, h2, h3, h4, h5 {
 color: red;
 font-weight:bold;
 }
-.next-song{
-    font-size: 14px;
+.song-control{
+    font-size: 16px;
     color: black;
     cursor: pointer;
+}
+.song-control:hover{
+    text-decoration: underline;
 }
 
 .queue-item:hover{

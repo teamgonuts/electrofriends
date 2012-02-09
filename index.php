@@ -212,7 +212,7 @@ include ("classes/GenreFilter.php");
 
 <img src="queue.jpg" alt="T3K.no Logo"/>
 
-    <span class="queue-min">[min]</span>
+    <span class="queue-min">[close]</span>
 
     <div class="clear"></div><!-- end of clear -->
        
@@ -276,7 +276,7 @@ include ("classes/GenreFilter.php");
 		
 		<div class="threeColumnLeft">
 			
-			<h3>Current Song<span class="next-song"> >></span></h3>
+                        <h3><span class="song-control previous-song"> << </span>Current Song<span class="song-control next-song"> >></span></h3>
 			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
 			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
 			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
