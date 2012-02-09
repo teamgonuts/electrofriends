@@ -201,9 +201,9 @@ ol.max-queue li{
 }
 #queue-max{
     float:right;
-    margin-right:10px;
     display:block;
     cursor: pointer;
+    font-size: 16px;
 }
 
 span.purple {

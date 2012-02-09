@@ -302,7 +302,7 @@ include ("classes/GenreFilter.php");
 		</div><!-- end of threeColumnCenter -->
 		
 		<div class="threeColumnRight">
-			<h3>Queue<span id="queue-max">[max]</span></h3>
+			<h3>Up Next:<span id="queue-max">[Show Queue]</span></h3>
 				
 				<ol id="min-queue">
 				</ol>
