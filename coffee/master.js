@@ -229,16 +229,18 @@
       var debug, i, _ref, _ref2, _results;
       debug = false;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
-      _results = [];
-      for (i = _ref = index + 1, _ref2 = this.songs.length - 1; _ref <= _ref2 ? i <= _ref2 : i >= _ref2; _ref <= _ref2 ? i++ : i--) {
-        this.songs[i].played = false;
-        if (debug) {
-          _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
-        } else {
-          _results.push(void 0);
+      if ($('#userQ').find('.queue-item').length > 1) {
+        _results = [];
+        for (i = _ref = index + 1, _ref2 = this.songs.length - 1; _ref <= _ref2 ? i <= _ref2 : i >= _ref2; _ref <= _ref2 ? i++ : i--) {
+          this.songs[i].played = false;
+          if (debug) {
+            _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+          } else {
+            _results.push(void 0);
+          }
         }
+        return _results;
       }
-      return _results;
     };
 
     return UserQueue;
