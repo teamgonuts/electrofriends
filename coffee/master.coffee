@@ -109,7 +109,8 @@ window.Queue = class Queue
         this.updateMinQueue() 
 
     #shows the next 3 songs to be played
-    updateMinQueue: ->
+    #rankingsChange will be true if updateMinQueue is called as a result of a filter click
+    updateMinQueue: (rankingsChange = false) ->
         debug = false
         if debug then console.log 'Queue.updateMinQueue() called!'
 
@@ -118,16 +119,16 @@ window.Queue = class Queue
         if $('#userQ').find('.queue-item').length != 0
             for i in [0..($('#userQ').find('.queue-item').length-1)]
                 if debug then console.log 'Adding Song from UserQ'
+                if $('#min-queue').find('.queue-item').length >= @minQ_MaxSongs then break #if we shouldn't add more songs
                 if not @userQ.songs[i].played #if it hasnt been played
                     $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
                               @userQ.songs[i].title + '</span><span class="purple"> //</span> ' + 
-                              @userQ.songs[i].artist + '<span class="delete-song"> x</span></li>')
+                              @userQ.songs[i].artist) 
 
-                if $('#min-queue').find('.queue-item').length > @minQ_MaxSongs #if we should add more songs
-                    break
 
+        #if new rankings, add the 1st song to the queue
+        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1 
         #if it there are any songs in the genQ left to add AND we should add more songs
-        i = parseInt(@genQ.curSong) + 1
         while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
             if debug then console.log 'Next song to add: ' + i
             if debug then console.log 'Adding Song from GenQ: ' + $('#genQ_' + i).html()
@@ -140,7 +141,7 @@ window.Queue = class Queue
     #sets the current song and queue to the specified paraments then plays song
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
     playSong: (queue, index) ->
-        debug = true
+        debug = false
         if debug then console.log 'Play Song ' + index + ' in ' + queue
         #checking for valid params
         if queue != 'genQ' and queue != 'userQ' 
@@ -183,7 +184,7 @@ window.UserQueue = class UserQueue
 
         $('#userQ').append(' <li class="queue-item" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '<span class="delete-song"> x</span></li>')
+                  $('#artist_' + i).val()) 
         
 
     #deletes all the songs from user queue
@@ -191,6 +192,21 @@ window.UserQueue = class UserQueue
         debug = false
         if debug then console.log 'UserQueue.clear() called!'
         this.initialize()
+
+    #marks all songs played
+    markAllPlayed: ->
+        debug = false
+        if debug then console.log 'UserQueue.markAllPlayed() called!'
+        for song in @songs
+            song.played = true
+
+    #marks all the songs below 'index' not played
+    markAllNotPlayed: (index) ->
+        debug = false
+        if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
+        for i in [index+1..@songs.length-1]
+            @songs[i].played = false
+            if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
 
 window.GeneratedQueue = class GeneratedQueue
     constructor: ->
@@ -206,6 +222,7 @@ window.GeneratedQueue = class GeneratedQueue
     #pulls the current songs from the rankings into the queue
     refresh: ->
         this.clear()
+        @curSong = 1
         for i in [1..$('.song-max').length] #add each song in the rankings to the gen-queue
             @songs.push(i)
             $('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + 
@@ -500,6 +517,10 @@ $ ->
         if q is 'genQ'
             player.loadSongInRankings(i)
             queue.genQ.curSong = i
+
+            #marking all songs in userQ played so next song is the song 
+            #directly below this song in the generated queue
+            queue.userQ.markAllPlayed() 
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,
@@ -507,6 +528,10 @@ $ ->
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
             queue.userQ.songs[i].played = true #mark the song as played
+
+            #marks all the songs below i not played so that the next song
+            #to be played in the song directly below i in userQ
+            queue.userQ.markAllNotPlayed(i) 
 
         queue.updateMinQueue() #update the minQueue
         
@@ -529,8 +554,8 @@ $ ->
                     rankings.initialize()
                     rankings.refreshTitle()
                     rankings.flag = 'normal' #resetting flag
-                    player.loadSongInRankings(1) #load the first song in the new rankings
                     queue.genQ.refresh() #updating the generated queue
+                    queue.updateMinQueue(true)
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->
