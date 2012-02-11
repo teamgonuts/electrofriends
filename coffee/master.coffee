@@ -17,6 +17,9 @@ window.Player = class Player
 
         this.loadSongInRankings(1)#loads first song
 
+    test: ->
+        alert 'hi!'
+
     #loads song 'i' info from rankings into current song in player
     loadSongInRankings: (i) ->
         debug = false
@@ -53,7 +56,7 @@ window.stateChange = (newState) ->
     switch newState
         when 0 #song ended
             if debug then console.log 'Song Ended'
-            #todo: nextSong()
+                #$('.previous-song').click()
         when 1 #song is playing
             if debug then console.log 'Song Playing'
             #change the title of the page
@@ -504,7 +507,36 @@ $ ->
 
     #when the next song button is clicked
     $(document).on 'click', '.next-song', ->
-        queue.updateMinQueue()
+        debug = false
+        if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
+        id = $('#min-queue').find('.queue-item:first-child').attr('id') #next songs id
+        i = id.split('_')[1] #index of song clicked
+        q = id.split('_')[0] #queue that was clicked
+        if debug then console.log 'queue: ' + q + ', index: ' + i
+
+        queue.playSong(q, i)
+        if q is 'genQ'
+            player.loadSongInRankings(i)
+            queue.genQ.curSong = i
+
+            #marking all songs in userQ played so next song is the song 
+            #directly below this song in the generated queue
+            queue.userQ.markAllPlayed() 
+        else #queue is userQ
+            i = i-1# i-1 because userQ array is 0 based
+            player.loadSongInfo(queue.userQ.songs[i].title,
+                                queue.userQ.songs[i].artist,
+                                queue.userQ.songs[i].genre,
+                                queue.userQ.songs[i].user)
+            queue.userQ.songs[i].played = true #mark the song as played
+
+            #marks all the songs below i not played so that the next song
+            #to be played in the song directly below i in userQ
+            queue.userQ.markAllNotPlayed(i) 
+        queue.updateMinQueue() #update the minQueue
+
+    $(document).on 'click', '.previous-song', ->
+        alert 'hihihihi'
 
     #when a song in the queue is clicked, highlight it and play
     $(document).on 'click', '.queue-item', ->
@@ -512,8 +544,7 @@ $ ->
         if debug then console.log 'queue-item clicked'
         i = $(this).attr('id').split('_')[1] #index of song clicked
         q = $(this).attr('id').split('_')[0] #queue that was clicked
-        if debug then console.log '  index:' + i
-        if debug then console.log '  queue:' + q
+        if debug then console.log 'queue: ' + q + ', index: ' + i
         queue.playSong(q, i)
         if q is 'genQ'
             player.loadSongInRankings(i)
@@ -594,6 +625,9 @@ $ ->
                 (data) ->
                     $('#rankings-table').append(data) 
                     rankings.initializeSongs(lowerLimit, (lowerLimit + rankings.songsPerPage ))
+                    #updating queues
+                    queue.genQ.refresh() 
+                    queue.updateMinQ()
 
     #===========Submit Comment=====================#
     $(document).on 'click', '.submit-comment', ->

@@ -24,6 +24,10 @@
       return this.loadSongInRankings(1);
     };
 
+    Player.prototype.test = function() {
+      return alert('hi!');
+    };
+
     Player.prototype.loadSongInRankings = function(i) {
       var debug;
       debug = false;
@@ -592,7 +596,30 @@
       }
     });
     $(document).on('click', '.next-song', function() {
+      var debug, i, id, q;
+      debug = false;
+      if (debug) {
+        console.log($('#min-queue').find('.queue-item:first-child').html());
+      }
+      id = $('#min-queue').find('.queue-item:first-child').attr('id');
+      i = id.split('_')[1];
+      q = id.split('_')[0];
+      if (debug) console.log('queue: ' + q + ', index: ' + i);
+      queue.playSong(q, i);
+      if (q === 'genQ') {
+        player.loadSongInRankings(i);
+        queue.genQ.curSong = i;
+        queue.userQ.markAllPlayed();
+      } else {
+        i = i - 1;
+        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+        queue.userQ.songs[i].played = true;
+        queue.userQ.markAllNotPlayed(i);
+      }
       return queue.updateMinQueue();
+    });
+    $(document).on('click', '.previous-song', function() {
+      return alert('hihihihi');
     });
     $(document).on('click', '.queue-item', function() {
       var debug, i, q;
@@ -600,8 +627,7 @@
       if (debug) console.log('queue-item clicked');
       i = $(this).attr('id').split('_')[1];
       q = $(this).attr('id').split('_')[0];
-      if (debug) console.log('  index:' + i);
-      if (debug) console.log('  queue:' + q);
+      if (debug) console.log('queue: ' + q + ', index: ' + i);
       queue.playSong(q, i);
       if (q === 'genQ') {
         player.loadSongInRankings(i);
@@ -668,7 +694,9 @@
         upperLimit: $('tr.song-min').length + rankings.songsPerPage
       }, function(data) {
         $('#rankings-table').append(data);
-        return rankings.initializeSongs(lowerLimit, lowerLimit + rankings.songsPerPage);
+        rankings.initializeSongs(lowerLimit, lowerLimit + rankings.songsPerPage);
+        queue.genQ.refresh();
+        return queue.updateMinQ();
       });
     });
     $(document).on('click', '.submit-comment', function() {

@@ -42,6 +42,12 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 /*------------------ADDED BY calvin------------------*/
 /*------------------------------------------------*/
+
+#queue-max:hover{
+     font-style: italic;
+}
+
+
 .song-button{
     cursor: pointer;
     font-weight: bold;

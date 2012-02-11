@@ -16,3 +16,4 @@
 4. Style delete buttons in user queue
 5. Site icon
 6. Styling of songs in min-queue
+7. Open ' Made Of Sun (Stoneface & Terminal Remix)' by Kyau & Albert...for some reason it expands the whole page not just to the end of the rankings
