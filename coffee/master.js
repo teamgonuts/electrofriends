@@ -233,9 +233,12 @@
       var debug, i, _ref, _ref2, _results;
       debug = false;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
-      if ($('#userQ').find('.queue-item').length > 1) {
+      if ((index + 1) <= (this.songs.length - 1)) {
         _results = [];
         for (i = _ref = index + 1, _ref2 = this.songs.length - 1; _ref <= _ref2 ? i <= _ref2 : i >= _ref2; _ref <= _ref2 ? i++ : i--) {
+          if (debug) {
+            console.log('i: ' + i + ', @songs.length-1: ' + (this.songs.length - 1));
+          }
           this.songs[i].played = false;
           if (debug) {
             _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
@@ -596,7 +599,7 @@
       }
     });
     $(document).on('click', '.next-song', function() {
-      var debug, i, id, q;
+      var debug, i, id, q, song, _i, _len, _ref;
       debug = false;
       if (debug) {
         console.log($('#min-queue').find('.queue-item:first-child').html());
@@ -614,6 +617,13 @@
         i = i - 1;
         player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
         queue.userQ.songs[i].played = true;
+        if (debug) {
+          _ref = queue.userQ.songs;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            song = _ref[_i];
+            console.log(song.title('.played: ' + song.played));
+          }
+        }
         queue.userQ.markAllNotPlayed(i);
       }
       return queue.updateMinQueue();

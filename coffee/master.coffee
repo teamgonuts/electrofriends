@@ -207,8 +207,9 @@ window.UserQueue = class UserQueue
     markAllNotPlayed: (index) ->
         debug = false
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
-        if $('#userQ').find('.queue-item').length > 1 #if it is 1, then no need to mark anything unplayed
-            for i in [index+1..@songs.length-1]
+        if (index+1) <= (@songs.length-1) #checking out of bounds
+            for i in [(index+1)..(@songs.length-1)]
+                if debug then console.log 'i: ' + i + ', @songs.length-1: ' + (@songs.length-1)
                 @songs[i].played = false
                 if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
 
@@ -530,6 +531,9 @@ $ ->
                                 queue.userQ.songs[i].user)
             queue.userQ.songs[i].played = true #mark the song as played
 
+            if debug
+                for song in queue.userQ.songs
+                    console.log song.title '.played: ' + song.played
             #marks all the songs below i not played so that the next song
             #to be played in the song directly below i in userQ
             queue.userQ.markAllNotPlayed(i) 
