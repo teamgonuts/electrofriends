@@ -159,16 +159,28 @@ window.Queue = class Queue
         $('.queue-item').removeClass('selected-song') #remove current selection
         $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
 
-        #play song
-        if queue is 'genQ' 
+        if queue is 'genQ'
             ytcode = $('#ytcode_' + index).val()
-        else #queue = 'userQ' 
+            @genQ.curSong = index
+
+            #marking all songs in userQ played so next song is the song 
+            #directly below this song in the generated queue
+            @userQ.markAllPlayed() 
+        else #queue is userQ
             ytcode = @userQ.songs[index-1].ytcode #-1 because the userQ's array is 0 based
-        
+            @userQ.songs[index-1].played = true #mark the song as played
+
+            if debug
+                for song in @userQ.songs
+                    console.log song.title '.played: ' + song.played
+            #marks all the songs below i not played so that the next song
+            #to be played in the song directly below i in userQ
+            @userQ.markAllNotPlayed(index) 
+
         if debug then console.log '  about to play song with ytcode: ' + ytcode
         ytplayer = document.getElementById('ytplayer')
         ytplayer.loadVideoById ytcode
-
+        this.updateMinQueue() #update the minQueue
 
 
 window.UserQueue = class UserQueue
@@ -499,8 +511,7 @@ $ ->
     $(document).on 'click', '.song-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
         if $(this).hasClass('play-button')
-            ytplayer = document.getElementById('ytplayer')
-            ytplayer.loadVideoById $('#ytcode_' + i).val() #play song
+            queue.playSong('genQ', i)
             player.loadSongInRankings(i) #load song's info
         else if $(this).hasClass('queue-button')
             queue.userQ.append(i)
@@ -516,28 +527,14 @@ $ ->
         if debug then console.log 'queue: ' + q + ', index: ' + i
 
         queue.playSong(q, i)
-        if q is 'genQ'
+        if q is 'genQ' 
             player.loadSongInRankings(i)
-            queue.genQ.curSong = i
-
-            #marking all songs in userQ played so next song is the song 
-            #directly below this song in the generated queue
-            queue.userQ.markAllPlayed() 
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
-            queue.userQ.songs[i].played = true #mark the song as played
-
-            if debug
-                for song in queue.userQ.songs
-                    console.log song.title '.played: ' + song.played
-            #marks all the songs below i not played so that the next song
-            #to be played in the song directly below i in userQ
-            queue.userQ.markAllNotPlayed(i) 
-        queue.updateMinQueue() #update the minQueue
 
     $(document).on 'click', '.previous-song', ->
         alert 'hihihihi'
@@ -550,25 +547,14 @@ $ ->
         q = $(this).attr('id').split('_')[0] #queue that was clicked
         if debug then console.log 'queue: ' + q + ', index: ' + i
         queue.playSong(q, i)
-        if q is 'genQ'
+        if q is 'genQ' 
             player.loadSongInRankings(i)
-            queue.genQ.curSong = i
-
-            #marking all songs in userQ played so next song is the song 
-            #directly below this song in the generated queue
-            queue.userQ.markAllPlayed() 
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
-            queue.userQ.songs[i].played = true #mark the song as played
-
-            #marks all the songs below i not played so that the next song
-            #to be played in the song directly below i in userQ
-            queue.userQ.markAllNotPlayed(i) 
-        queue.updateMinQueue() #update the minQueue
         
 
     #=============changing the rankings via filter=============
