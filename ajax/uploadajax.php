@@ -56,9 +56,17 @@ if(isset($_POST['title']) && validPost())
 			else
                 die('Error: ' . $error . '<br />');
         }
-        else
+        else{
             echo 'Upload Successful';
-	}
+
+            //adding user to the user's database if he doesn't already exist
+            $qry = mysql_query('INSERT IGNORE INTO users (user) VALUES ("' . $user . '")');
+            if (!$qry)
+                die("FAIL: " . mysql_error());
+        }
+    }
+
+
     else
         echo 'Upload Failed =( <br />';
 }
