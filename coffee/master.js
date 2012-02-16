@@ -485,8 +485,14 @@
           comment: encodeURIComponent(comment),
           ytcode: ytcode
         }, function(data) {
-          if (debug) return console.log('Data: ' + data);
-        }, index !== -1 ? (!$('#max_' + index).find('.no-comment').hasClass('hidden') ? $('#max_' + index).find('.no-comment').addClass('hidden') : void 0, $('#max_' + index).find('.comment-display').prepend(data)) : void 0);
+          if (debug) console.log('Data: ' + data);
+          if (index !== -1) {
+            if (!$('#max_' + index).find('.no-comment').hasClass('hidden')) {
+              $('#max_' + index).find('.no-comment').addClass('hidden');
+            }
+            return $('#max_' + index).find('.comment-display').prepend(data);
+          }
+        });
       }
     };
 

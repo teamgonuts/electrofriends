@@ -421,7 +421,7 @@ window.Rankings = class Rankings
                     ytcode: ytcode
                     (data) ->
                         if debug then console.log 'Data: ' + data
-                       if index != -1
+                        if index != -1
                             if not $('#max_' + index).find('.no-comment').hasClass('hidden')
                                 $('#max_' + index).find('.no-comment').addClass('hidden')
 
