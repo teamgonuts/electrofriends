@@ -19,3 +19,4 @@
 7. Open ' Made Of Sun (Stoneface & Terminal Remix)' by Kyau & Albert...for some reason it expands the whole page not just to the end of the rankings
 8. When the queue is open, the logo has an area of gray the right of it if the song is too long
 9. Submit Comment - Submit is styled but 'comment' is not, in white right below the button
+10. Style user Scores

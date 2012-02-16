@@ -724,18 +724,20 @@
       return rankings.nextComments($(this).closest('.song').attr('id').split('_')[1]);
     });
     $(document).on('click', '.vote-button', function() {
-      var debug, i, result;
+      var debug, i, result, toAdd;
       debug = false;
       if (!$(this).hasClass('highlight-vote')) {
         i = $(this).closest('.song').attr('id').split('_')[1];
         if ($(this).attr('id') === 'up-vote') {
           if (debug) console.log('UpVote called on ' + i);
           result = 'up';
+          toAdd = 1;
           $('#max_' + i).find("#up-vote").addClass('highlight-vote');
           $('#max_' + i).find("#down-vote").removeClass('highlight-vote');
         } else if ($(this).attr('id') === 'down-vote') {
           if (debug) console.log('DownVote called on ' + i);
           result = 'down';
+          toAdd = -1;
           $('#max_' + i).find("#down-vote").addClass('highlight-vote');
           $('#max_' + i).find("#up-vote").removeClass('highlight-vote');
         } else {
@@ -747,13 +749,17 @@
         return $.post('ajax/voteAjax.php', {
           result: result,
           ytcode: $('#ytcode_' + i).val(),
+          user: $('#user_' + i).val(),
           score: $('#score_' + i).val(),
           ups: $('#ups_' + i).val(),
           downs: $('#downs_' + i).val()
         }, function(data) {
+          var oldScore;
           if (debug) console.log('Vote Success: ' + data);
           $('#max_' + i).find('.score-container').html(data);
-          return $('#min_' + i).find('.score-container').html(data);
+          $('#min_' + i).find('.score-container').html(data);
+          oldScore = parseInt($('#max_' + i).find('.user-score').html());
+          return $('#max_' + i).find('.user-score').html(oldScore + toAdd);
         });
       }
     });

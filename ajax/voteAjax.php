@@ -8,12 +8,15 @@ if($_POST)
 	$score = $_POST['score']; //higher score
 	$ups = $_POST['ups']; //one more vote
 	$downs = $_POST['downs'];
+	$user = $_POST['user'];
 
     //calulating new score, ups, downs
+    $toAdd = -1; //what to add to the user's score. 
     if($result == 'up')
     {
         $score ++;
         $ups ++;
+        $toAdd = 1;
     }
     else //result == 'down'
     {
@@ -21,7 +24,7 @@ if($_POST)
         $downs ++;
     }
 
-
+    //updating song's score in database
     $qry = "UPDATE songs SET score='$score' , ups='$ups', downs='$downs' WHERE youtubecode='$ytcode'";
     $qry = mysql_query($qry);
     if (!$qry)
@@ -36,6 +39,11 @@ if($_POST)
 	$qry = mysql_query("INSERT INTO ipcheck (ytcode, ip) VALUES ('$ytcode', '$ip')");
 			if (!$qry)
 				die("FAIL: " . mysql_error());
+
+    //updating user's score in database
+    $qry = mysql_query('UPDATE users SET points=points + '. $toAdd . ' WHERE user="'. $user .'"');
+    if (!$qry)
+        die("FAIL: " . mysql_error());
 }
 else { die("FAIL: POST not set in voteUpAjax"); }
 ?>

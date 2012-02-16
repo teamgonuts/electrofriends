@@ -666,11 +666,13 @@ $ ->
             if $(this).attr('id') is 'up-vote' #up-vote
                 if debug then console.log 'UpVote called on ' + i
                 result = 'up'
+                toAdd = 1; #what to add to
                 $('#max_' + i).find("#up-vote").addClass('highlight-vote') #highlighting new vote
-                $('#max_' + i).find("#down-vote").removeClass('highlight-vote')#remove highlight from old vote
+                $('#max_' + i).find("#down-vote").removeClass('highlight-vote')#remove highlight from old vote userScore
             else if $(this).attr('id') is 'down-vote' #down-vote
                 if debug then console.log 'DownVote called on ' + i
                 result = 'down'
+                toAdd = -1; #what to add to userScore
                 $('#max_' + i).find("#down-vote").addClass('highlight-vote')#highlight new vote
                 $('#max_' + i).find("#up-vote").removeClass('highlight-vote')#remove highlight from old vote
             else
@@ -680,6 +682,7 @@ $ ->
             $.post 'ajax/voteAjax.php',
                     result: result
                     ytcode: $('#ytcode_' + i).val()
+                    user: $('#user_' + i).val()
                     score: $('#score_' + i).val()
                     ups: $('#ups_' + i).val()
                     downs: $('#downs_' + i).val()
@@ -687,7 +690,8 @@ $ ->
                         if debug then console.log 'Vote Success: ' + data
                         $('#max_' + i).find('.score-container').html(data) #changing score in max
                         $('#min_' + i).find('.score-container').html(data) #changing score in min
-                    
+                        oldScore = parseInt($('#max_' + i).find('.user-score').html()) #changing score in min
+                        $('#max_' + i).find('.user-score').html(oldScore + toAdd)
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())
