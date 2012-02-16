@@ -28,7 +28,6 @@
       var debug;
       debug = false;
       if (debug) console.log('loadSong Called()');
-      console.log('userScore: ' + $('#userScore_' + i).val());
       $('#currentSongTitle').html($('#title_' + i).val());
       $('#currentSongArtist').html($('#artist_' + i).val());
       $('#currentSongGenre').html($('#genre_' + i).val());
@@ -120,7 +119,7 @@
       this.user = user;
       this.userScore = userScore;
       this.played = false;
-      debug = true;
+      debug = false;
       if (debug) {
         console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
       }
@@ -486,12 +485,8 @@
           comment: encodeURIComponent(comment),
           ytcode: ytcode
         }, function(data) {
-          if (debug) console.log('Data: ' + data);
-          if (index !== -1) {
-            $('#max_' + index).find('.comment-display').prepend(data);
-            return $('#max_' + index).find('.submit-comment').addClass('hidden');
-          }
-        });
+          if (debug) return console.log('Data: ' + data);
+        }, index !== -1 ? (!$('#max_' + index).find('.no-comment').hasClass('hidden') ? $('#max_' + index).find('.no-comment').addClass('hidden') : void 0, $('#max_' + index).find('.comment-display').prepend(data)) : void 0);
       }
     };
 
@@ -609,7 +604,7 @@
     });
     $(document).on('click', '.next-song', function() {
       var debug, i, id, q;
-      debug = true;
+      debug = false;
       if (debug) {
         console.log($('#min-queue').find('.queue-item:first-child').html());
       }

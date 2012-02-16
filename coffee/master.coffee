@@ -21,7 +21,6 @@ window.Player = class Player
     loadSongInRankings: (i) ->
         debug = false
         if debug then console.log 'loadSong Called()'
-        console.log 'userScore: ' + $('#userScore_' + i).val()
         $('#currentSongTitle').html $('#title_' + i).val()
         $('#currentSongArtist').html $('#artist_' + i).val()
         $('#currentSongGenre').html $('#genre_' + i).val()
@@ -99,7 +98,7 @@ window.onPlayerError = (errorCode) ->
 window.Song = class Song
     constructor:(@ytcode, @title, @genre, @artist, @user, @userScore) ->
         @played = false #boolean to determine if the song has already been played
-        debug = true
+        debug = false
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
@@ -422,10 +421,11 @@ window.Rankings = class Rankings
                     ytcode: ytcode
                     (data) ->
                         if debug then console.log 'Data: ' + data
-                        if index != -1 #if the song is in the rankings, display the new comment now
+                       if index != -1
+                            if not $('#max_' + index).find('.no-comment').hasClass('hidden')
+                                $('#max_' + index).find('.no-comment').addClass('hidden')
+
                             $('#max_' + index).find('.comment-display').prepend(data)
-                            $('#max_' + index).find('.submit-comment').addClass('hidden') #disable comment button
-        
 
 
 
@@ -519,7 +519,7 @@ $ ->
 
     #when the next song button is clicked
     $(document).on 'click', '.next-song', ->
-        debug = true
+        debug = false
         if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
         id = $('#min-queue').find('.queue-item:first-child').attr('id') #next songs id
         i = id.split('_')[1] #index of song clicked
