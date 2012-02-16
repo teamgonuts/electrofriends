@@ -21,19 +21,20 @@ window.Player = class Player
     loadSongInRankings: (i) ->
         debug = false
         if debug then console.log 'loadSong Called()'
+        console.log 'userScore: ' + $('#userScore_' + i).val()
         $('#currentSongTitle').html $('#title_' + i).val()
         $('#currentSongArtist').html $('#artist_' + i).val()
         $('#currentSongGenre').html $('#genre_' + i).val()
-        $('#currentSongUser').html $('#user_' + i).val()
+        $('#currentSongUser').html $('#user_' + i).val() + ' (' + $('#userScore_' + i).val() + ')'
 
     #loads song info into current song in player
-    loadSongInfo: (title, artist, genre, user) ->
+    loadSongInfo: (title, artist, genre, user, userScore) ->
         debug = false
         if debug then console.log 'loadSong Called()'
         $('#currentSongTitle').html title
         $('#currentSongArtist').html artist
         $('#currentSongGenre').html genre
-        $('#currentSongUser').html user
+        $('#currentSongUser').html user + ' (' + userScore + ')'
 
 # method is called when the player is ready
 # binds listeneres to player
@@ -87,9 +88,7 @@ window.incrementPlayCount =  ->
 window.onPlayerError = (errorCode) ->
     debug = false
     if debug then console.log 'onPlayerError() called!'
-    #play load new player and start playing
-    #TODO: it loads the first song when it crashes right now
-    $('.next-song').click()
+    $('.next-song').click() #start playing next song
     return
 
 
@@ -98,13 +97,14 @@ window.onPlayerError = (errorCode) ->
 =================================================###
 #class for a Song in a queue
 window.Song = class Song
-    constructor:(@ytcode, @title, @genre, @artist, @user) ->
+    constructor:(@ytcode, @title, @genre, @artist, @user, @userScore) ->
         @played = false #boolean to determine if the song has already been played
-        debug = false
+        debug = true
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
                                     ', artist: ' + @artist + 
+                                    ', userScore: ' + @userScore + 
                                     ', user: ' + @user
 
 #overall queue class, this queue contains the gen and user queue
@@ -195,7 +195,8 @@ window.UserQueue = class UserQueue
                         $('#title_' + i).val()
                         $('#genre_' + i).val()
                         $('#artist_' + i).val()
-                        $('#user_' + i).val())
+                        $('#user_' + i).val()
+                        $('#userScore_' + i).val())
 
         $('#userQ').append(' <li class="queue-item" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
@@ -537,7 +538,8 @@ $ ->
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
-                                queue.userQ.songs[i].user)
+                                queue.userQ.songs[i].user,
+                                queue.userQ.songs[i].userScore)
             queue.userQ.songs[i].played = true #mark the song as played
 
             #marks all the songs below i not played so that the next song
@@ -568,7 +570,8 @@ $ ->
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
-                                queue.userQ.songs[i].user)
+                                queue.userQ.songs[i].user,
+                                queue.userQ.songs[i].userScore)
             queue.userQ.songs[i].played = true #mark the song as played
 
             #marks all the songs below i not played so that the next song

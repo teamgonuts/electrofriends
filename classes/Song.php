@@ -1,5 +1,6 @@
 <?php
 
+
 class Song
 {
     //Make public or private?
@@ -11,6 +12,7 @@ class Song
     public $id;
     public $user;
     public $score;
+    public $userScore;
     public $ups;
     public $downs;
     public $i; //index of song on rankings
@@ -30,6 +32,13 @@ class Song
         $this->ups = $row['ups'];
         $this->downs = $row['downs'];
         $this->plays = $row['plays'];
+        //finding the userScore
+        $qry = mysql_query('SELECT points FROM users WHERE user = "' . $this->user .'"');
+        if (!$qry)
+            die("FAIL: " . mysql_error());
+        $row = mysql_fetch_array($qry); 
+        $this->userScore = $row['points'];
+        
     }
 	
 
@@ -44,6 +53,7 @@ class Song
                         <input type="hidden" id="title_'.$this->i.'" value="'.$this->title.'"/>
                         <input type="hidden" id="artist_'.$this->i.'" value="'.$this->artist.'"/>
                         <input type="hidden" id="genre_'.$this->i.'" value="'.$this->genre.'"/>
+                        <input type="hidden" id="userScore_'.$this->i.'" value="'.$this->userScore.'"/>
                         <input type="hidden" id="score_'.$this->i.'" value="'.$this->score.'"/>
                         <input type="hidden" id="user_'.$this->i.'" value="'.$this->user.'"/>
                         <input type="hidden" id="ups_'.$this->i.'" value="'.$this->ups .'"/>
@@ -77,7 +87,7 @@ class Song
 	                        <p id="title"><span class="more-info-heading title">Title</span>: '. $this->title .'</p>
 	                        <p><span class="more-info-heading">Artist</span>: <span class="highlight search-filter">'. $this->artist .'</span></p>
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
-	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .'</p>
+	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' (' . $this->userScore . ')</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
                                 ';
         /* TODO: IMPLEMENT

@@ -28,20 +28,21 @@
       var debug;
       debug = false;
       if (debug) console.log('loadSong Called()');
+      console.log('userScore: ' + $('#userScore_' + i).val());
       $('#currentSongTitle').html($('#title_' + i).val());
       $('#currentSongArtist').html($('#artist_' + i).val());
       $('#currentSongGenre').html($('#genre_' + i).val());
-      return $('#currentSongUser').html($('#user_' + i).val());
+      return $('#currentSongUser').html($('#user_' + i).val() + ' (' + $('#userScore_' + i).val() + ')');
     };
 
-    Player.prototype.loadSongInfo = function(title, artist, genre, user) {
+    Player.prototype.loadSongInfo = function(title, artist, genre, user, userScore) {
       var debug;
       debug = false;
       if (debug) console.log('loadSong Called()');
       $('#currentSongTitle').html(title);
       $('#currentSongArtist').html(artist);
       $('#currentSongGenre').html(genre);
-      return $('#currentSongUser').html(user);
+      return $('#currentSongUser').html(user + ' (' + userScore + ')');
     };
 
     return Player;
@@ -110,17 +111,18 @@
 
   window.Song = Song = (function() {
 
-    function Song(ytcode, title, genre, artist, user) {
+    function Song(ytcode, title, genre, artist, user, userScore) {
       var debug;
       this.ytcode = ytcode;
       this.title = title;
       this.genre = genre;
       this.artist = artist;
       this.user = user;
+      this.userScore = userScore;
       this.played = false;
-      debug = false;
+      debug = true;
       if (debug) {
-        console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', user: ' + this.user);
+        console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
       }
     }
 
@@ -217,7 +219,7 @@
     }
 
     UserQueue.prototype.append = function(i) {
-      this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val()));
+      this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
       return $('#userQ').append(' <li class="queue-item" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val());
     };
 
@@ -622,7 +624,7 @@
         queue.userQ.markAllPlayed();
       } else {
         i = i - 1;
-        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user, queue.userQ.songs[i].userScore);
         queue.userQ.songs[i].played = true;
         queue.userQ.markAllNotPlayed(i);
       }
@@ -645,7 +647,7 @@
         queue.userQ.markAllPlayed();
       } else {
         i = i - 1;
-        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user);
+        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user, queue.userQ.songs[i].userScore);
         queue.userQ.songs[i].played = true;
         queue.userQ.markAllNotPlayed(i);
       }
