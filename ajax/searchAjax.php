@@ -30,7 +30,7 @@ if($_POST)
 
     //checking is no results were returned
     if ($levArr == null)
-        echo '<tr><td><h3>Sorry, there are no results matching your criteria. Bummer dude.</h3></td></tr>';
+        echo '<tr><td id="no-result"><h3>Sorry, there are no results matching your criteria. Bummer.</h3></td></tr>';
     else {
         $i = 1;
         foreach ($levArr as $row) {

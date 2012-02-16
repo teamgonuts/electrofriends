@@ -77,6 +77,8 @@ include ("classes/GenreFilter.php");
 		<div class="twoColumnRight">
 
 			<div class="headerTop">
+
+<!--  				
 				<p class="signIn">
 					<a href="#">Sign Up</a> // 
 					<a href="#">Login</a> 
@@ -84,7 +86,7 @@ include ("classes/GenreFilter.php");
 					<span class="socialSignIn">Sign in with:</span> 
                                         <span>Coming Soon</span>
 				</p>
-				
+-->				
 				<p class="upload">
 					<a href="#lightbox" id="upload"> 
 						<img src="images/header/upload.png"> Upload </a>
@@ -169,7 +171,7 @@ include ("classes/GenreFilter.php");
 			
 			<div id="search">
 				<h2>Search</h2>
-                                <input type="text" name="search" id="search-input" placeholder="Seach">
+                                <input type="text" name="search" id="search-input" placeholder="Search">
 				<input id="search-button" type="submit" value="Go">  
 				<div class="clear"></div>
 			</div>
@@ -276,12 +278,10 @@ include ("classes/GenreFilter.php");
 		
 		<div class="threeColumnLeft">
 			
-                        <h3><span class="song-control previous-song"> << </span>Current Song<span class="song-control next-song"> >></span></h3>
-			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
-			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
-			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
-			<p><span class="currentSongSubTitle">Uploaded By: </span><span id="currentSongUser"></span> </p>
-
+            <h3>Up Next:<span id="queue-max">[Show Queue]</span></h3>
+				
+				<ol id="min-queue">
+				</ol>
 			
 		</div>	<!-- end of threeColumnLeft -->
 		
@@ -302,10 +302,14 @@ include ("classes/GenreFilter.php");
 		</div><!-- end of threeColumnCenter -->
 		
 		<div class="threeColumnRight">
-			<h3>Up Next:<span id="queue-max">[Show Queue]</span></h3>
-				
-				<ol id="min-queue">
-				</ol>
+		
+		<h3>Current Song <span class="song-control previous-song">Last</span>  <span class="song-control next-song">Next</span></h3>
+			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
+			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
+			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
+			<p><span class="currentSongSubTitle">Uploaded By: </span><span id="currentSongUser"></span> </p>
+
+			
 		</div><!-- end of threeColumnRight -->
 				
 	</div><!-- end of content -->

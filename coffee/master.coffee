@@ -17,9 +17,6 @@ window.Player = class Player
 
         this.loadSongInRankings(1)#loads first song
 
-    test: ->
-        alert 'hi!'
-
     #loads song 'i' info from rankings into current song in player
     loadSongInRankings: (i) ->
         debug = false
@@ -56,9 +53,11 @@ window.stateChange = (newState) ->
     switch newState
         when 0 #song ended
             if debug then console.log 'Song Ended'
-                #$('.previous-song').click()
+            $('.next-song').click()
+            return
         when 1 #song is playing
             if debug then console.log 'Song Playing'
+            incrementPlayCount()
             #change the title of the page
             document.title = $('#currentSongTitle').html() + ' by ' +
                              $('#currentSongArtist').html()
@@ -69,16 +68,29 @@ window.stateChange = (newState) ->
             if debug then console.log 'Song Loading'
             document.title = 'Loading Song - T3K.NO' #change title of page
 
+window.incrementPlayCount =  ->
+    debug = false
+    #parsing ytcode
+    ytplayer = document.getElementById('ytplayer')
+    video_id = ytplayer.getVideoUrl().split('v=')[1];
+    ampersandPosition = video_id.indexOf('&');
+    if(ampersandPosition != -1) 
+      ytcode = video_id.substring(0, ampersandPosition);
+
+    if debug then console.log 'window.incrementPlayCount(' + ytcode + ')'
+    $.post 'ajax/incrementPlayCount.php',
+        ytcode: ytcode
+        (data) ->
+            if debug then console.log ' Successfully Incremented Play Count!'
+
 #called when the player crashes
 window.onPlayerError = (errorCode) ->
     debug = false
     if debug then console.log 'onPlayerError() called!'
     #play load new player and start playing
     #TODO: it loads the first song when it crashes right now
-    params = { allowScriptAccess: "always" };
-    swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() +  "&enablejsapi=1&playerapiid=ytplayer" +
-                   "&hd=1&iv_load_policy=3&autoplay=1&rel=0&showinfo=0&autohide=1",
-                    "ytplayer", "275", "90", "8", null, null, params);
+    $('.next-song').click()
+    return
 
 
 ###=================================================
@@ -159,28 +171,16 @@ window.Queue = class Queue
         $('.queue-item').removeClass('selected-song') #remove current selection
         $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
 
-        if queue is 'genQ'
+        #play song
+        if queue is 'genQ' 
             ytcode = $('#ytcode_' + index).val()
-            @genQ.curSong = index
-
-            #marking all songs in userQ played so next song is the song 
-            #directly below this song in the generated queue
-            @userQ.markAllPlayed() 
-        else #queue is userQ
+        else #queue = 'userQ' 
             ytcode = @userQ.songs[index-1].ytcode #-1 because the userQ's array is 0 based
-            @userQ.songs[index-1].played = true #mark the song as played
-
-            if debug
-                for song in @userQ.songs
-                    console.log song.title '.played: ' + song.played
-            #marks all the songs below i not played so that the next song
-            #to be played in the song directly below i in userQ
-            @userQ.markAllNotPlayed(index) 
-
+        
         if debug then console.log '  about to play song with ytcode: ' + ytcode
         ytplayer = document.getElementById('ytplayer')
         ytplayer.loadVideoById ytcode
-        this.updateMinQueue() #update the minQueue
+
 
 
 window.UserQueue = class UserQueue
@@ -219,9 +219,8 @@ window.UserQueue = class UserQueue
     markAllNotPlayed: (index) ->
         debug = false
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
-        if (index+1) <= (@songs.length-1) #checking out of bounds
-            for i in [(index+1)..(@songs.length-1)]
-                if debug then console.log 'i: ' + i + ', @songs.length-1: ' + (@songs.length-1)
+        if $('#userQ').find('.queue-item').length > 1 #if it is 1, then no need to mark anything unplayed
+            for i in [index+1..@songs.length-1]
                 @songs[i].played = false
                 if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
 
@@ -422,10 +421,7 @@ window.Rankings = class Rankings
                     ytcode: ytcode
                     (data) ->
                         if debug then console.log 'Data: ' + data
-                        if index != -1
-                            if not $('#max_' + index).find('.no-comment').hasClass('hidden')
-                                $('#max_' + index).find('.no-comment').addClass('hidden')
-
+                        if index != -1 #if the song is in the rankings, display the new comment now
                             $('#max_' + index).find('.comment-display').prepend(data)
                             $('#max_' + index).find('.submit-comment').addClass('hidden') #disable comment button
         
@@ -511,15 +507,18 @@ $ ->
     $(document).on 'click', '.song-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
         if $(this).hasClass('play-button')
-            queue.playSong('genQ', i)
+            ytcode = $('#ytcode_' + i).val()
+            ytplayer = document.getElementById('ytplayer')
+            ytplayer.loadVideoById ytcode #play song
             player.loadSongInRankings(i) #load song's info
         else if $(this).hasClass('queue-button')
             queue.userQ.append(i)
             queue.updateMinQueue()
 
+
     #when the next song button is clicked
     $(document).on 'click', '.next-song', ->
-        debug = false
+        debug = true
         if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
         id = $('#min-queue').find('.queue-item:first-child').attr('id') #next songs id
         i = id.split('_')[1] #index of song clicked
@@ -527,14 +526,24 @@ $ ->
         if debug then console.log 'queue: ' + q + ', index: ' + i
 
         queue.playSong(q, i)
-        if q is 'genQ' 
+        if q is 'genQ'
             player.loadSongInRankings(i)
+            queue.genQ.curSong = i
+            #marking all songs in userQ played so next song is the song 
+            #directly below this song in the generated queue
+            queue.userQ.markAllPlayed() 
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
+            queue.userQ.songs[i].played = true #mark the song as played
+
+            #marks all the songs below i not played so that the next song
+            #to be played in the song directly below i in userQ
+            queue.userQ.markAllNotPlayed(i) 
+        queue.updateMinQueue() #update the minQueue
 
     $(document).on 'click', '.previous-song', ->
         alert 'hihihihi'
@@ -547,14 +556,25 @@ $ ->
         q = $(this).attr('id').split('_')[0] #queue that was clicked
         if debug then console.log 'queue: ' + q + ', index: ' + i
         queue.playSong(q, i)
-        if q is 'genQ' 
+        if q is 'genQ'
             player.loadSongInRankings(i)
+            queue.genQ.curSong = i
+
+            #marking all songs in userQ played so next song is the song 
+            #directly below this song in the generated queue
+            queue.userQ.markAllPlayed() 
         else #queue is userQ
             i = i-1# i-1 because userQ array is 0 based
             player.loadSongInfo(queue.userQ.songs[i].title,
                                 queue.userQ.songs[i].artist,
                                 queue.userQ.songs[i].genre,
                                 queue.userQ.songs[i].user)
+            queue.userQ.songs[i].played = true #mark the song as played
+
+            #marks all the songs below i not played so that the next song
+            #to be played in the song directly below i in userQ
+            queue.userQ.markAllNotPlayed(i) 
+        queue.updateMinQueue() #update the minQueue
         
 
     #=============changing the rankings via filter=============

@@ -70,22 +70,24 @@ class Song
                     <td class="song-info-max-clickable">
 			<div class="left"> 
 	                        <div class="song-buttons">
-	                            <center>
-	                                <span class="song-button play-button">Play</span>
-	                                <span class="song-button queue-button">Add to Queue</span>
-	                            </center>
+	                                <p class="song-button play-button">Play</p>
+	                                <p class="song-button queue-button">Add to Queue</p>
 	                        </div>
 	                        
-	                        <p><span class="more-info-heading">Title</span>: '. $this->title .'</p>
-	                        <p><span class="more-info-heading">Artist</span>:<span class="highlight search-filter"> '. $this->artist .'</span></p>
+	                        <p id="title"><span class="more-info-heading title">Title</span>: '. $this->title .'</p>
+	                        <p><span class="more-info-heading">Artist</span>: <span class="highlight search-filter">'. $this->artist .'</span></p>
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .'</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
+                                ';
+        /* TODO: IMPLEMENT
 	                        <p><span class="more-info-heading">Share</span>: </p>
 	                        <p><span class="more-info-heading">Download</span>: 
                                     <a type="amzn" category="music" search="' . $this->title . ' ' . $this->artist . '">Amazon</a> 
                                 </p>
+        */
                     	
+        $html .= '
                     	</div><!-- end of left -->
                     	<div class="right">
 	                    	<div class="comments">
@@ -93,31 +95,26 @@ class Song
     				    <div class="comment-display">
                                     '. $this->showComments() .'
 				    </div><!-- comment-display -->					
-				    <h4 class="comments see-more-comments">See More Comments</h4>
+				    <h4 class="comments see-more-comments">See More</h4>
 				</div><!-- end of comments -->	
                     	</div><!-- end of right -->
                     </td>
                     <td class="song-comments" colspan="2">
-                        <p>
-                            <br />
-                            <center>
-                                <span class="score-container">
+                                <p class="score-container">
                                     <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
-                                </span>
-                                </br>
-                                <span class="vote-buttons-container">
-                                    <span class="vote-button" id="up-vote"> + </span>
-                                    <span class="vote-button" id="down-vote"> - </span>
-                                </span>
-                            </center>
-                        </p>
+                                </p>
+                                <div class="vote-buttons-container">
+                                    <p class="vote-button" id="up-vote"></p>
+                                    <p class="vote-button" id="down-vote"></p>
+                                </div>                       
+                            
                         <span id="comments-container">
                             <div class="comments-input">
                                 <textarea class="comment-text" placeholder="Comments"></textarea><br>
                                 <label for="comment-user" class="label">Username:</label>
                                 <input type="text" class="comment-user" value="Anonymous">
                                 <div class="comments">
-                                    <h4 class="comments submit-comment">Submit Comment</h4>
+                                    <h4 class="comments submit-comment">Submit</h4>
                                 </div>
                             </div>
                         </span>
