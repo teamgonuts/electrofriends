@@ -196,16 +196,12 @@ p#up-vote {
     float: right;
     width: 25px;
     height: 22px;
-    background-image: url('../images/sprites/vote-buttons.png');
-    background-repeat: no-repeat;
-    background-position-x: 0;
-    background-position-y: 0;
+    background: url('../images/sprites/vote-buttons.png') no-repeat 0 0;
     margin: 3px 0 0 0;
 }
 
 p#up-vote:hover {
-    background-position-x: 0;
-    background-position-y: -24px;
+    background-position: 0 -24px;
 }
 
 p#down-vote {
@@ -213,16 +209,12 @@ p#down-vote {
     float: right;
     width: 25px;
     height: 22px;
-    background-image: url('../images/sprites/vote-buttons.png');
-    background-repeat: no-repeat;
-    background-position-x: -32px;
-    background-position-y: 0;
+    background: url('../images/sprites/vote-buttons.png') no-repeat -32px 0;
     margin: 3px 0 0 0;    
 }
 
 p#down-vote:hover {
-    background-position-x: -32px;
-    background-position-y: -24px;
+    background-position: -32px -24px;
 }
 
 /*.vote-button:hover {
