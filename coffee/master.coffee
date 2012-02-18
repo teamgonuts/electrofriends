@@ -622,8 +622,10 @@ $ ->
     #=====queue-controls===
     $(document).on 'click', '.queue-min', ->
         $('#max-queue').addClass 'hidden'
+        $('.content').removeClass 'queue-open'
     $(document).on 'click', '#queue-max', ->
         $('#max-queue').removeClass 'hidden'
+        $('.content').addClass 'queue-open'
 
     #===========showMoreSongs=====================#
     $(document).on 'click', '#showMoreSongs', ->

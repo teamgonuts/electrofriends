@@ -97,7 +97,16 @@ include ("classes/GenreFilter.php");
 							    
 							    <div id="lightBoxLeft">
 							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
-							        <div class="hidden" id="upload-box-result"></div>
+							        <div class="" id="upload-box-result">
+                                                                    <h2>Rules</h2>
+                                                                    <ul>
+                                                                        <li>Share new songs you find.</li>
+                                                                        <li>Earn reputation by submitting popular songs.</li>
+                                                                        <li>Archive songs that aren't new, but you feel are quality and should be shared.</li>
+                                                                        <li>Avoid Reposts. If you're unsure, use the searh function first. </li>
+                                                                        <li>Song's below a certain score are automatically removed.</li>
+                                                                    </ul>
+                                                                </div>
 							    </div><!-- end of left -->
 							    <div id="lightBoxRight">
                                                                 <label for="url">YouTube URL: </label> 

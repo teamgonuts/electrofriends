@@ -690,10 +690,12 @@
       }
     });
     $(document).on('click', '.queue-min', function() {
-      return $('#max-queue').addClass('hidden');
+      $('#max-queue').addClass('hidden');
+      return $('.content').removeClass('queue-open');
     });
     $(document).on('click', '#queue-max', function() {
-      return $('#max-queue').removeClass('hidden');
+      $('#max-queue').removeClass('hidden');
+      return $('.content').addClass('queue-open');
     });
     $(document).on('click', '#showMoreSongs', function() {
       var lowerLimit;
