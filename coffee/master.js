@@ -709,7 +709,9 @@
     });
     $(document).on('click', '#queue-max', function() {
       $('#max-queue').removeClass('hidden');
-      return $('.content').addClass('queue-open');
+      return $({
+        '.content': !'#bottom-contests'
+      }).addClass('queue-open');
     });
     $(document).on('click', '#showMoreSongs', function() {
       var lowerLimit;

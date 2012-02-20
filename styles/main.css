@@ -276,7 +276,7 @@ p#down-vote:hover {
     position: fixed;
     font-size:14px;
     z-index: 10000;
-    bottom: 0px;
+    top: 0px;
     left: 0px;
     border-left: 1px solid #56A4DB;
     width: 315px;

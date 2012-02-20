@@ -283,7 +283,7 @@ include ("classes/GenreFilter.php");
 
 <section id="bottomControls">
 	
-	<div class="content">
+	<div class="content" id="bottom-contents">
 		
 		<div class="threeColumnLeft">
 			
