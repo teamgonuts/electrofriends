@@ -21,3 +21,5 @@
 9. Submit Comment - Submit is styled but 'comment' is not, in white right below the button
 10. Style user Scores
 11. When content is floated right, the bottom banner is messed up
+12. Floating player over resets song, need to float everything except player
+13. A maxed song from the search results has the wrong width

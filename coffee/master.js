@@ -26,22 +26,29 @@
 
     Player.prototype.loadSongInRankings = function(i) {
       var debug;
-      debug = false;
-      if (debug) console.log('loadSong Called()');
-      $('#currentSongTitle').html($('#title_' + i).val());
-      $('#currentSongArtist').html($('#artist_' + i).val());
-      $('#currentSongGenre').html($('#genre_' + i).val());
-      return $('#currentSongUser').html($('#user_' + i).val() + ' (' + $('#userScore_' + i).val() + ')');
+      debug = true;
+      if (debug) console.log('loadSongInRankings Called()');
+      window.currentSong = new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val());
+      return this.updateCurrentSongInfo();
     };
 
-    Player.prototype.loadSongInfo = function(title, artist, genre, user, userScore) {
+    Player.prototype.loadSongInQueue = function(i) {
       var debug;
-      debug = false;
-      if (debug) console.log('loadSong Called()');
-      $('#currentSongTitle').html(title);
-      $('#currentSongArtist').html(artist);
-      $('#currentSongGenre').html(genre);
-      return $('#currentSongUser').html(user + ' (' + userScore + ')');
+      debug = true;
+      if (debug) console.log('loadSongInQueue Called(' + i + ')');
+      console.log(window.queue.userQ.songs[0].title);
+      window.currentSong = new Song(window.queue.userQ.songs[i].ytcode, window.queue.userQ.songs[i].title, window.queue.userQ.songs[i].genre, window.queue.userQ.songs[i].artist, window.queue.userQ.songs[i].user, window.queue.userQ.songs[i].userScore);
+      return this.updateCurrentSongInfo();
+    };
+
+    Player.prototype.updateCurrentSongInfo = function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('player.updateCurrentSongInfo()');
+      $('#currentSongTitle').html(window.currentSong.title);
+      $('#currentSongArtist').html(window.currentSong.artist);
+      $('#currentSongGenre').html(window.currentSong.genre);
+      return $('#currentSongUser').html(window.currentSong.user + ' (' + window.currentSong.userScore + ')');
     };
 
     return Player;
@@ -88,12 +95,17 @@
     if (ampersandPosition !== -1) {
       ytcode = video_id.substring(0, ampersandPosition);
     }
-    if (debug) console.log('window.incrementPlayCount(' + ytcode + ')');
-    return $.post('ajax/incrementPlayCount.php', {
-      ytcode: ytcode
-    }, function(data) {
-      if (debug) return console.log(' Successfully Incremented Play Count!');
-    });
+    if (debug) {
+      console.log('window.incrementPlayCount(' + ytcode + '), currentSong.played: ' + window.currentSong.played);
+    }
+    if (!window.currentSong.played) {
+      window.currentSong.played = true;
+      return $.post('ajax/incrementPlayCount.php', {
+        ytcode: ytcode
+      }, function(data) {
+        if (debug) return console.log(' Successfully Incremented Play Count!');
+      });
+    }
   };
 
   window.onPlayerError = function(errorCode) {
@@ -119,7 +131,7 @@
       this.user = user;
       this.userScore = userScore;
       this.played = false;
-      debug = false;
+      debug = true;
       if (debug) {
         console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
       }
@@ -134,15 +146,12 @@
     function Queue() {
       this.genQ = new GeneratedQueue;
       this.userQ = new UserQueue;
-      this.curQueue = 'genQ';
-      this.curSong = 1;
       this.minQ_MaxSongs = 3;
       this.initialize();
     }
 
     Queue.prototype.initialize = function() {
       this.genQ.refresh();
-      $('#' + this.curQueue + '_' + this.curSong).addClass('selected-song');
       return this.updateMinQueue();
     };
 
@@ -179,7 +188,7 @@
     };
 
     Queue.prototype.playSong = function(queue, index) {
-      var debug, ytcode, ytplayer;
+      var debug, i, ytcode, ytplayer;
       debug = false;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
       if (queue !== 'genQ' && queue !== 'userQ') {
@@ -190,15 +199,21 @@
         console.log('Queue.playSong ERROR: Index out of bounds: ' + index);
         return;
       }
-      this.curQueue = queue;
-      this.curSong = index;
       $('.queue-item').removeClass('selected-song');
       $('#' + queue + '_' + index).addClass('selected-song');
       if (queue === 'genQ') {
         ytcode = $('#ytcode_' + index).val();
+        window.player.loadSongInRankings(index);
+        this.genQ.curSong = index;
+        this.userQ.markAllPlayed();
       } else {
         ytcode = this.userQ.songs[index - 1].ytcode;
+        i = index - 1;
+        window.player.loadSongInQueue(i);
+        this.userQ.songs[i].played = true;
+        this.userQ.markAllNotPlayed(i);
       }
+      this.updateMinQueue();
       if (debug) console.log('  about to play song with ytcode: ' + ytcode);
       ytplayer = document.getElementById('ytplayer');
       return ytplayer.loadVideoById(ytcode);
@@ -591,18 +606,14 @@
   */
 
   $(function() {
-    var player, queue, rankings;
-    player = new Player;
-    queue = new Queue;
-    rankings = new Rankings;
+    window.player = new Player;
+    window.queue = new Queue;
+    window.rankings = new Rankings;
     $(document).on('click', '.song-button', function() {
-      var i, ytcode, ytplayer;
+      var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
       if ($(this).hasClass('play-button')) {
-        ytcode = $('#ytcode_' + i).val();
-        ytplayer = document.getElementById('ytplayer');
-        ytplayer.loadVideoById(ytcode);
-        return player.loadSongInRankings(i);
+        return queue.playSong('genQ', i);
       } else if ($(this).hasClass('queue-button')) {
         queue.userQ.append(i);
         return queue.updateMinQueue();
@@ -618,18 +629,7 @@
       i = id.split('_')[1];
       q = id.split('_')[0];
       if (debug) console.log('queue: ' + q + ', index: ' + i);
-      queue.playSong(q, i);
-      if (q === 'genQ') {
-        player.loadSongInRankings(i);
-        queue.genQ.curSong = i;
-        queue.userQ.markAllPlayed();
-      } else {
-        i = i - 1;
-        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user, queue.userQ.songs[i].userScore);
-        queue.userQ.songs[i].played = true;
-        queue.userQ.markAllNotPlayed(i);
-      }
-      return queue.updateMinQueue();
+      return queue.playSong(q, i);
     });
     $(document).on('click', '.previous-song', function() {
       return alert('hihihihi');
@@ -641,18 +641,7 @@
       i = $(this).attr('id').split('_')[1];
       q = $(this).attr('id').split('_')[0];
       if (debug) console.log('queue: ' + q + ', index: ' + i);
-      queue.playSong(q, i);
-      if (q === 'genQ') {
-        player.loadSongInRankings(i);
-        queue.genQ.curSong = i;
-        queue.userQ.markAllPlayed();
-      } else {
-        i = i - 1;
-        player.loadSongInfo(queue.userQ.songs[i].title, queue.userQ.songs[i].artist, queue.userQ.songs[i].genre, queue.userQ.songs[i].user, queue.userQ.songs[i].userScore);
-        queue.userQ.songs[i].played = true;
-        queue.userQ.markAllNotPlayed(i);
-      }
-      return queue.updateMinQueue();
+      return queue.playSong(q, i);
     });
     $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {
