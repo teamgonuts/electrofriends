@@ -18,7 +18,7 @@ if($_POST)
 
         //let's set a cookie so the user can't vote again
         $inTwoMonths = 60 * 60 * 24 * 60 + time(); 
-        setcookie($ytcode, date("G:i - m/d/y"), $inTwoMonths);
+        setcookie($ytcode, $result, $inTwoMonths);
 
         //calulating new score, ups, downs
         $toAdd = -1; //what to add to the user's score. 
