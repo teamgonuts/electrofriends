@@ -223,7 +223,7 @@ include ("classes/GenreFilter.php");
 
 <img src="queue.jpg" alt="T3K.no Logo"/>
 
-    <span class="queue-min">[close]</span>
+    <span class="queue-min">[x]</span>
 
     <div class="clear"></div><!-- end of clear -->
        

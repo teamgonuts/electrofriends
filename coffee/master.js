@@ -705,11 +705,17 @@
     });
     $(document).on('click', '.queue-min', function() {
       $('#max-queue').addClass('hidden');
-      return $('.content').removeClass('queue-open');
+      $('.content').removeClass('queue-open');
+      return $('#queue-max').html("[Show Queue]");
     });
     $(document).on('click', '#queue-max', function() {
-      $('#max-queue').removeClass('hidden');
-      return $('.content:not(#bottom-contents)').addClass('queue-open');
+      if ($('#max-queue').hasClass('hidden')) {
+        $('#max-queue').removeClass('hidden');
+        $('.content:not(#bottom-contents)').addClass('queue-open');
+        return $('#queue-max').html("[Close Queue]");
+      } else {
+        return $('.queue-min').click();
+      }
     });
     $(document).on('click', '#showMoreSongs', function() {
       var lowerLimit;

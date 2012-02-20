@@ -634,9 +634,15 @@ $ ->
     $(document).on 'click', '.queue-min', ->
         $('#max-queue').addClass 'hidden'
         $('.content').removeClass 'queue-open'
+        $('#queue-max').html("[Show Queue]")
+
     $(document).on 'click', '#queue-max', ->
-        $('#max-queue').removeClass 'hidden'
-        $('.content:not(#bottom-contents)').addClass 'queue-open'
+        if $('#max-queue').hasClass 'hidden'
+            $('#max-queue').removeClass 'hidden'
+            $('.content:not(#bottom-contents)').addClass 'queue-open'
+            $('#queue-max').html("[Close Queue]")
+        else #queue is already open, so close it
+            $('.queue-min').click()
 
     #===========showMoreSongs=====================#
     $(document).on 'click', '#showMoreSongs', ->
