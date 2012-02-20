@@ -4,6 +4,8 @@
 window.Player = class Player
     constructor: ->
         this.initializePlayer()
+        @previousSongs = new Array() 
+        @songsToRemember = 10 #number of songs to keep in history
     
     initializePlayer: ->
         #loads the first song in the rankings into the player
@@ -20,7 +22,7 @@ window.Player = class Player
     #loads song 'i' info from rankings into current song in player
     #sets the global variable currentSong
     loadSongInRankings: (i) ->
-        debug = true
+        debug = false
         if debug then console.log 'loadSongInRankings Called()'
         window.currentSong = new Song($('#ytcode_' + i).val(), 
                                       $('#title_' + i).val(), 
@@ -33,7 +35,7 @@ window.Player = class Player
     #loads the song in the userQ at index i into the player
     #sets the global variable currentSong
     loadSongInQueue: (i) ->
-        debug = true
+        debug = false
         if debug then console.log 'loadSongInQueue Called(' + i + ')'
         console.log window.queue.userQ.songs[0].title
         window.currentSong = new Song(window.queue.userQ.songs[i].ytcode,
@@ -44,10 +46,30 @@ window.Player = class Player
                                       window.queue.userQ.songs[i].userScore)
         this.updateCurrentSongInfo()
 
+    #adds song (object) to the previousSongs queue
+    #if there are already 10 songs in queue, removes the last element to maintain size
+    addToHistory: (song) ->
+        debug = false
+        if debug then console.log 'adding ' + song.title + ' to song history'
+        @previousSongs.push song #adds the song to the end of the array
+        if @previousSongs.length > @songsToRemember
+            @previousSongs.shift()
+
+    #loads the previous song played 
+    #DOES NOT add currently playing song back into the queue
+    previousSong: ->
+        debug = false
+        if debug then console.log 'player.previousSong()'
+        if @previousSongs.length > 0 #if there are songs in the history
+            window.currentSong = @previousSongs.pop()
+            this.updateCurrentSongInfo()
+            ytplayer = document.getElementById('ytplayer')
+            ytplayer.loadVideoById currentSong.ytcode
+
     #updates the currentSong's info (title, artist, genre, user)
     #from window.currentSong
     updateCurrentSongInfo: ->
-        debug = true
+        debug = false
         if debug then console.log 'player.updateCurrentSongInfo()'
         $('#currentSongTitle').html window.currentSong.title
         $('#currentSongArtist').html window.currentSong.artist
@@ -120,7 +142,7 @@ window.onPlayerError = (errorCode) ->
 window.Song = class Song
     constructor:(@ytcode, @title, @genre, @artist, @user, @userScore) ->
         @played = false #boolean to determine if the song has already been played
-        debug = true
+        debug = false
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
@@ -172,6 +194,7 @@ window.Queue = class Queue
 
 
     #sets the current song and queue to the specified paraments then plays song
+    #adds the song that was just played to the previouslyPlayed queue
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
     playSong: (queue, index) ->
         debug = false
@@ -187,6 +210,7 @@ window.Queue = class Queue
         $('.queue-item').removeClass('selected-song') #remove current selection
         $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
 
+        window.player.addToHistory window.currentSong #adds previous song to history
         #play song
         if queue is 'genQ' 
             ytcode = $('#ytcode_' + index).val()
@@ -555,7 +579,8 @@ $ ->
         queue.playSong(q, i)
 
     $(document).on 'click', '.previous-song', ->
-        alert 'hihihihi'
+        player.previousSong()
+
 
     #when a song in the queue is clicked, highlight it and play
     $(document).on 'click', '.queue-item', ->
@@ -574,6 +599,7 @@ $ ->
         else   
             rankings.filters.set('time', $(this).html().toLowerCase())
 
+        rankings.refreshTitle()
         #todo: add loading screen to rankings here
         #ajax post
         $.post 'ajax/rankingsAjax.php',
@@ -582,7 +608,6 @@ $ ->
                 (data) ->
                     $('#rankings-table').html(data) 
                     rankings.initialize()
-                    rankings.refreshTitle()
                     rankings.flag = 'normal' #resetting flag
                     queue.genQ.refresh() #updating the generated queue
                     queue.updateMinQueue(true)

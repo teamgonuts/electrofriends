@@ -11,6 +11,8 @@
 
     function Player() {
       this.initializePlayer();
+      this.previousSongs = new Array();
+      this.songsToRemember = 10;
     }
 
     Player.prototype.initializePlayer = function() {
@@ -26,7 +28,7 @@
 
     Player.prototype.loadSongInRankings = function(i) {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('loadSongInRankings Called()');
       window.currentSong = new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val());
       return this.updateCurrentSongInfo();
@@ -34,16 +36,38 @@
 
     Player.prototype.loadSongInQueue = function(i) {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('loadSongInQueue Called(' + i + ')');
       console.log(window.queue.userQ.songs[0].title);
       window.currentSong = new Song(window.queue.userQ.songs[i].ytcode, window.queue.userQ.songs[i].title, window.queue.userQ.songs[i].genre, window.queue.userQ.songs[i].artist, window.queue.userQ.songs[i].user, window.queue.userQ.songs[i].userScore);
       return this.updateCurrentSongInfo();
     };
 
+    Player.prototype.addToHistory = function(song) {
+      var debug;
+      debug = false;
+      if (debug) console.log('adding ' + song.title + ' to song history');
+      this.previousSongs.push(song);
+      if (this.previousSongs.length > this.songsToRemember) {
+        return this.previousSongs.shift();
+      }
+    };
+
+    Player.prototype.previousSong = function() {
+      var debug, ytplayer;
+      debug = false;
+      if (debug) console.log('player.previousSong()');
+      if (this.previousSongs.length > 0) {
+        window.currentSong = this.previousSongs.pop();
+        this.updateCurrentSongInfo();
+        ytplayer = document.getElementById('ytplayer');
+        return ytplayer.loadVideoById(currentSong.ytcode);
+      }
+    };
+
     Player.prototype.updateCurrentSongInfo = function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('player.updateCurrentSongInfo()');
       $('#currentSongTitle').html(window.currentSong.title);
       $('#currentSongArtist').html(window.currentSong.artist);
@@ -131,7 +155,7 @@
       this.user = user;
       this.userScore = userScore;
       this.played = false;
-      debug = true;
+      debug = false;
       if (debug) {
         console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
       }
@@ -201,6 +225,7 @@
       }
       $('.queue-item').removeClass('selected-song');
       $('#' + queue + '_' + index).addClass('selected-song');
+      window.player.addToHistory(window.currentSong);
       if (queue === 'genQ') {
         ytcode = $('#ytcode_' + index).val();
         window.player.loadSongInRankings(index);
@@ -632,7 +657,7 @@
       return queue.playSong(q, i);
     });
     $(document).on('click', '.previous-song', function() {
-      return alert('hihihihi');
+      return player.previousSong();
     });
     $(document).on('click', '.queue-item', function() {
       var debug, i, q;
@@ -649,13 +674,13 @@
       } else {
         rankings.filters.set('time', $(this).html().toLowerCase());
       }
+      rankings.refreshTitle();
       return $.post('ajax/rankingsAjax.php', {
         genrefilter: rankings.filt('genre'),
         timefilter: rankings.filt('time')
       }, function(data) {
         $('#rankings-table').html(data);
         rankings.initialize();
-        rankings.refreshTitle();
         rankings.flag = 'normal';
         queue.genQ.refresh();
         return queue.updateMinQueue(true);

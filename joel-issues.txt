@@ -23,3 +23,4 @@
 11. When content is floated right, the bottom banner is messed up
 12. Floating player over resets song, need to float everything except player
 13. A maxed song from the search results has the wrong width
+14. Go to http://www.ajaxload.info/, create the loading icon you think looks best. Set up a div for it (kind of lightbox over the rankings) and it's display initially hidden. Let me know the class name and I'll activate it via a click
