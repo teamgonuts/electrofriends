@@ -636,7 +636,7 @@ $ ->
         $('.content').removeClass 'queue-open'
     $(document).on 'click', '#queue-max', ->
         $('#max-queue').removeClass 'hidden'
-        $('.content':not('#bottom-contests')).addClass 'queue-open'
+        $('.content:not(#bottom-contents)').addClass 'queue-open'
 
     #===========showMoreSongs=====================#
     $(document).on 'click', '#showMoreSongs', ->
