@@ -98,11 +98,11 @@ include ("classes/GenreFilter.php");
 							    <div id="lightBoxLeft">
 							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
 							        <div class="" id="upload-box-result">
-                                                                    <h2>Rules</h2>
+                                                                    <h2>How it works</h2>
                                                                     <ul>
                                                                         <li>Share new songs you find</li>
                                                                         <li>Earn reputation by submitting popular songs</li>
-                                                                        <li>Archive songs that aren't new, but you feel are quality and should be shared (ie a "classic")</li>
+                                                                        <li>Archive the classics. The Fresh List is only for new songs</li>
                                                                         <li>Avoid Reposts. If you're unsure, use the searh function first </li>
                                                                         <li>Song's below a certain score are automatically removed</li>
                                                                     </ul>
@@ -274,9 +274,8 @@ include ("classes/GenreFilter.php");
 		
 		<img src="images/footer/footerLogo.png" alt="T3K.no Logo" />
 		<p>&copy; 2011 T3K.no | All Rights Reserved.</p>
-		<img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/>
-		<img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/>
-		
+		<a href="http://www.facebook.com/pages/t3kno/146156005506087" target="_blank"><img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/></a>
+		<a href="https://twitter.com/#!/t3kdev" target="_blank"><img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/></a> 
 	</div><!-- end of content -->
 
 </footer><!-- end of footer -->

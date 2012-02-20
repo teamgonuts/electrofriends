@@ -676,7 +676,7 @@ $ ->
 
         
     #===========Voting Buttons=====================#
-#todo: this only works for voting buttons in the rankings, not in the player
+    #todo: this only works for voting buttons in the rankings, not in the player
     $(document).on 'click', '.vote-button', ->
         debug = false #turn on debugging for voting buttons
         if not $(this).hasClass('highlight-vote') #if I haven't alredy made the same vote
