@@ -190,6 +190,7 @@ window.Queue = class Queue
 
         #if new rankings, add the 1st song to the queue
         if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1
+        if debug then console.log '@genQ.curSong=' + @genQ.curSong
         #if it there are any songs in the genQ left to add AND we should add more songs
         while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
             if debug then console.log 'Next song to add: ' + i
@@ -224,6 +225,7 @@ window.Queue = class Queue
             ytcode = $('#ytcode_' + index).val()
             window.player.loadSongInRankings(index)
             @genQ.curSong = index
+            if debug then console.log '@genQ.curSong=' + @genQ.curSong
             #marking all songs in userQ played so next song is the song 
             #directly below this song in the generated queue
             @userQ.markAllPlayed() 
@@ -319,9 +321,12 @@ window.GeneratedQueue = class GeneratedQueue
         @curSong = 0
 
     #pulls the current songs from the rankings into the queue
-    refresh: ->
+    refresh: (reset = true) ->
+        debug = false
         this.clear()
-        @curSong = 1
+        if debug then console.log 'refresh(' + reset + ').@curSong=' + @curSong
+        if reset then @curSong = 1
+
         for i in [1..$('.song-max').length] #add each song in the rankings to the gen-queue
             @songs.push(i)
             $('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + 
@@ -713,8 +718,8 @@ $ ->
                     $('#rankings-table').append(data) 
                     rankings.initializeSongs(lowerLimit, (lowerLimit + rankings.songsPerPage ))
                     #updating queues
-                    queue.genQ.refresh() 
-                    queue.updateMinQ()
+                    queue.genQ.refresh(false) #false so that it doesn't reset genQ.curSong 
+                    queue.updateMinQueue()
 
     #===========Submit Comment=====================#
     $(document).on 'click', '.submit-comment', ->

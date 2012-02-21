@@ -208,6 +208,7 @@ if debug then console.log 'delete-song clicked'
       } else {
         i = parseInt(this.genQ.curSong) + 1;
       }
+      if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
       _results = [];
       while ($('#genQ_' + i).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
         if (debug) console.log('Next song to add: ' + i);
@@ -237,6 +238,7 @@ if debug then console.log 'delete-song clicked'
         ytcode = $('#ytcode_' + index).val();
         window.player.loadSongInRankings(index);
         this.genQ.curSong = index;
+        if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
         this.userQ.markAllPlayed();
       } else {
         i = index - 1;
@@ -349,10 +351,13 @@ if debug then console.log 'delete-song clicked'
       this.curSong = 0;
     }
 
-    GeneratedQueue.prototype.refresh = function() {
-      var i, _ref, _results;
+    GeneratedQueue.prototype.refresh = function(reset) {
+      var debug, i, _ref, _results;
+      if (reset == null) reset = true;
+      debug = false;
       this.clear();
-      this.curSong = 1;
+      if (debug) console.log('refresh(' + reset + ').@curSong=' + this.curSong);
+      if (reset) this.curSong = 1;
       _results = [];
       for (i = 1, _ref = $('.song-max').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
         this.songs.push(i);
@@ -794,8 +799,8 @@ if debug then console.log 'delete-song clicked'
       }, function(data) {
         $('#rankings-table').append(data);
         rankings.initializeSongs(lowerLimit, lowerLimit + rankings.songsPerPage);
-        queue.genQ.refresh();
-        return queue.updateMinQ();
+        queue.genQ.refresh(false);
+        return queue.updateMinQueue();
       });
     });
     $(document).on('click', '.submit-comment', function() {
