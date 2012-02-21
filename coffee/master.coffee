@@ -12,9 +12,6 @@ window.Player = class Player
         debug = false
         if debug then console.log 'Player.initializePlayer()'
 
-        #first let's set the size of the max-queue
-        nh = $('#max-queue').height() - 12 - $('#bottomControls').height()
-        $('#max-queue').height(nh)
         
         params = { allowScriptAccess: "always" };
         swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() +  "&enablejsapi=1&playerapiid=ytplayer" +
@@ -22,6 +19,12 @@ window.Player = class Player
                         "ytplayer", "275", "90", "8", null, null, params);
 
         this.loadSongInRankings(1)#loads first song
+        this.resizeMaxQueue()
+
+    #resizes the max queue to fit the screen
+    resizeMaxQueue: ->
+        nh = $(window).height() - 12 - $('#bottomControls').height()
+        $('#max-queue').height(nh)
 
     #loads song 'i' info from rankings into current song in player
     #sets the global variable currentSong
@@ -561,6 +564,12 @@ $ ->
     window.queue = new Queue
     window.rankings = new Rankings
     
+    #when the window is resized, resize the maxQ
+    $(window).resize ->
+        debug = true
+        if debug then console.log 'resized window'
+        player.resizeMaxQueue()
+
     #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player
     $(document).on 'click', '.song-button', ->

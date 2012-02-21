@@ -101,9 +101,9 @@ include ("classes/GenreFilter.php");
                                                                     <h2>How it works</h2>
                                                                     <ul>
                                                                         <li>Share new songs you find</li>
-                                                                        <li>Earn reputation by submitting popular songs</li>
+                                                                        <li>Earn reputation by submitting good songs</li>
                                                                         <li>Archive the classics. The Fresh List is only for new songs</li>
-                                                                        <li>Avoid Reposts. If you're unsure, use the searh function first </li>
+                                                                        <li>Avoid Reposts. If you're unsure, use the search function first </li>
                                                                         <li>Song's below a certain score are automatically removed</li>
                                                                     </ul>
                                                                 </div>

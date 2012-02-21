@@ -16,16 +16,21 @@
     }
 
     Player.prototype.initializePlayer = function() {
-      var debug, nh, params;
+      var debug, params;
       debug = false;
       if (debug) console.log('Player.initializePlayer()');
-      nh = $('#max-queue').height() - 12 - $('#bottomControls').height();
-      $('#max-queue').height(nh);
       params = {
         allowScriptAccess: "always"
       };
       swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1", "ytplayer", "275", "90", "8", null, null, params);
-      return this.loadSongInRankings(1);
+      this.loadSongInRankings(1);
+      return this.resizeMaxQueue();
+    };
+
+    Player.prototype.resizeMaxQueue = function() {
+      var nh;
+      nh = $(window).height() - 12 - $('#bottomControls').height();
+      return $('#max-queue').height(nh);
     };
 
     Player.prototype.loadSongInRankings = function(i) {
@@ -636,6 +641,12 @@
     window.player = new Player;
     window.queue = new Queue;
     window.rankings = new Rankings;
+    $(window).resize(function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('resized window');
+      return player.resizeMaxQueue();
+    });
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
