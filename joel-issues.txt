@@ -1,8 +1,0 @@
-10. Style user Scores
-18. Fade open/close for songs in rankings
-19. Have score on maxed song line up with the other scores (far right of row), and have up/down vote buttons above and below it. (See picture in facebook message)
-20. Somehow need to show that you can click certains pieces of text (ex. Genre in the song's info) aka style links
-21. Upload box: line up archive song checkbox next to text instead of below. Currently works in Chrome but not firefox
-22. When I paste a long url into the uploads it moves the screen write a cuts off some of the boxes
-23. Fix logo on max queue. Needs to be centered and placed on top of a black background. Also, on the reflected version of the logo it looks like there is a gray box behind it
-24. Max-queue shouldn't overlap bottom contorls (ie the height should be 100% of the page minus the height of the bottom controls) example: http://i.imgur.com/MI0AQ.png

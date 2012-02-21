@@ -633,6 +633,7 @@ $ ->
     #when the fresh list link is clicked on the top navigation
     $('#fresh-list').click ->
         rankings.filters.set('time', 'new')
+        rankings.filters.set('genre', 'all')
         rankings.update()
 
     #=============to maximize and minimize songs in the rankings=============

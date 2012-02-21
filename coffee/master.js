@@ -708,6 +708,7 @@
     });
     $('#fresh-list').click(function() {
       rankings.filters.set('time', 'new');
+      rankings.filters.set('genre', 'all');
       return rankings.update();
     });
     $(document).on('click', '.song', function() {
