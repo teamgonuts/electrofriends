@@ -405,6 +405,24 @@ window.Rankings = class Rankings
     #initializes the styles and buttons in the rankings
     initialize: ->
         this.initializeSongs(1, @songsPerPage)
+
+    #updates the rankings based off the current filters
+    update: ->
+        debug = true
+        if debug then console.log 'Rankings.update()'
+        this.refreshTitle()
+        #todo: add loading screen to rankings here
+        #ajax post
+        $.post 'ajax/rankingsAjax.php',
+                genrefilter: rankings.filt('genre')
+                timefilter: rankings.filt('time')
+                (data) ->
+                    $('#rankings-table').html(data) 
+                    rankings.initialize()
+                    rankings.flag = 'normal' #resetting flag
+                    queue.genQ.refresh() #updating the generated queue
+                    queue.updateMinQueue(true)
+        
         
 
     #filt("genre") = "all" is the same as @genre = all
@@ -493,7 +511,7 @@ window.Rankings = class Rankings
     #refreshes the title for the rankings based off the filters applied
     refreshTitle: ->
         if this.filt('genre') is 'all' then genre = 'Tracks' else genre=this.filt('genre')
-        if genre is 'all' and this.filt('time') is 'new' #the fresh list
+        if genre is 'Tracks' and this.filt('time') is 'new' #the fresh list
             title = 'The Fresh List'
         else if this.filt('time') is 'new' #change up the title to make sense
             title = 'The Freshest ' + genre
@@ -566,7 +584,7 @@ $ ->
     
     #when the window is resized, resize the maxQ
     $(window).resize ->
-        debug = true
+        debug = false
         if debug then console.log 'resized window'
         player.resizeMaxQueue()
 
@@ -611,19 +629,11 @@ $ ->
             rankings.filters.set('genre', $(this).html().toLowerCase())
         else   
             rankings.filters.set('time', $(this).html().toLowerCase())
-
-        rankings.refreshTitle()
-        #todo: add loading screen to rankings here
-        #ajax post
-        $.post 'ajax/rankingsAjax.php',
-                genrefilter: rankings.filt('genre')
-                timefilter: rankings.filt('time')
-                (data) ->
-                    $('#rankings-table').html(data) 
-                    rankings.initialize()
-                    rankings.flag = 'normal' #resetting flag
-                    queue.genQ.refresh() #updating the generated queue
-                    queue.updateMinQueue(true)
+        rankings.update()
+    #when the fresh list link is clicked on the top navigation
+    $('#fresh-list').click ->
+        rankings.filters.set('time', 'new')
+        rankings.update()
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->

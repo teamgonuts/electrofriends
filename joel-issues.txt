@@ -1,9 +1,5 @@
 10. Style user Scores
-15. Add voting buttons to the right of currentSong
-16. Add Fresh List link next to About, Blog...etc
-17. Center 'Sorry there are no results' message 
 18. Fade open/close for songs in rankings
-18. Style the rules in upload lightbox
 19. Have score on maxed song line up with the other scores (far right of row), and have up/down vote buttons above and below it. (See picture in facebook message)
 20. Somehow need to show that you can click certains pieces of text (ex. Genre in the song's info) aka style links
 21. Upload box: line up archive song checkbox next to text instead of below. Currently works in Chrome but not firefox

@@ -150,6 +150,7 @@ include ("classes/GenreFilter.php");
 					<li><a href="#">Contact</a></li>					
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
 					<li><a href="#">About</a></li>
+					<li><a id="fresh-list" href="#">Fresh List</a></li>					
 				</ul>
 			</nav><!-- end of headerNav -->			
 		</div><!-- end of twoColumnRight -->

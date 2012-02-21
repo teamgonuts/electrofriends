@@ -456,6 +456,23 @@
       return this.initializeSongs(1, this.songsPerPage);
     };
 
+    Rankings.prototype.update = function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('Rankings.update()');
+      this.refreshTitle();
+      return $.post('ajax/rankingsAjax.php', {
+        genrefilter: rankings.filt('genre'),
+        timefilter: rankings.filt('time')
+      }, function(data) {
+        $('#rankings-table').html(data);
+        rankings.initialize();
+        rankings.flag = 'normal';
+        queue.genQ.refresh();
+        return queue.updateMinQueue(true);
+      });
+    };
+
     Rankings.prototype.filt = function(filter) {
       return this.filters.filt(filter);
     };
@@ -550,7 +567,7 @@
       } else {
         genre = this.filt('genre');
       }
-      if (genre === 'all' && this.filt('time') === 'new') {
+      if (genre === 'Tracks' && this.filt('time') === 'new') {
         title = 'The Fresh List';
       } else if (this.filt('time') === 'new') {
         title = 'The Freshest ' + genre;
@@ -643,7 +660,7 @@
     window.rankings = new Rankings;
     $(window).resize(function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('resized window');
       return player.resizeMaxQueue();
     });
@@ -687,17 +704,11 @@
       } else {
         rankings.filters.set('time', $(this).html().toLowerCase());
       }
-      rankings.refreshTitle();
-      return $.post('ajax/rankingsAjax.php', {
-        genrefilter: rankings.filt('genre'),
-        timefilter: rankings.filt('time')
-      }, function(data) {
-        $('#rankings-table').html(data);
-        rankings.initialize();
-        rankings.flag = 'normal';
-        queue.genQ.refresh();
-        return queue.updateMinQueue(true);
-      });
+      return rankings.update();
+    });
+    $('#fresh-list').click(function() {
+      rankings.filters.set('time', 'new');
+      return rankings.update();
     });
     $(document).on('click', '.song', function() {
       var i, state, temp;
