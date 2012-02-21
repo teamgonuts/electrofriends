@@ -147,7 +147,7 @@ include ("classes/GenreFilter.php");
 			<br/>			
 			<nav id="headerNav">
 				<ul>
-					<li><a href="#">Contact</a></li>					
+					<li><a href="#">Contact</a></li><!-- end of contact button -->
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
 					<li><a href="#">About</a></li>
 					<li><a id="fresh-list" href="#">Fresh List</a></li>					
@@ -229,7 +229,7 @@ include ("classes/GenreFilter.php");
     <div class="clear"></div><!-- end of clear -->
        
         <div id="user-queue">
-            <div class="queue-title">
+            <div class="queue-title">  
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
             <ol class="max-queue" id="userQ">
