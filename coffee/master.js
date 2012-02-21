@@ -273,7 +273,11 @@ if debug then console.log 'delete-song clicked'
     UserQueue.prototype["delete"] = function(i) {
       var debug;
       debug = true;
-      if (debug) return console.log('UserQueue.delete(' + i + ')');
+      if (debug) console.log('UserQueue.delete(' + i + ')');
+      $('#userQ_' + i).remove();
+      console.log(this.songs.length);
+      this.songs.splice(i - 1, 1);
+      return console.log(this.songs.length);
     };
 
     UserQueue.prototype.clear = function() {

@@ -264,9 +264,14 @@ window.UserQueue = class UserQueue
                   $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
         
     #deletes the song i from the user queue
+    # the i that is a param is the correct number for the queue but i-1 should be used for @songs
     delete: (i) ->
         debug = true
         if debug then console.log 'UserQueue.delete(' + i + ')'
+        $('#userQ_' + i).remove()
+        console.log @songs.length
+        @songs.splice(i-1, 1)
+        console.log @songs.length
 
     #deletes all the songs from user queue
     clear: ->
