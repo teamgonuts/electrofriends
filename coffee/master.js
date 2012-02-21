@@ -16,9 +16,11 @@
     }
 
     Player.prototype.initializePlayer = function() {
-      var debug, params;
+      var debug, nh, params;
       debug = false;
       if (debug) console.log('Player.initializePlayer()');
+      nh = $('#max-queue').height() - 12 - $('#bottomControls').height();
+      $('#max-queue').height(nh);
       params = {
         allowScriptAccess: "always"
       };

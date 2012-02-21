@@ -12,6 +12,10 @@ window.Player = class Player
         debug = false
         if debug then console.log 'Player.initializePlayer()'
 
+        #first let's set the size of the max-queue
+        nh = $('#max-queue').height() - 12 - $('#bottomControls').height()
+        $('#max-queue').height(nh)
+        
         params = { allowScriptAccess: "always" };
         swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() +  "&enablejsapi=1&playerapiid=ytplayer" +
                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1",
