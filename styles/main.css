@@ -43,6 +43,14 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 /*------------------ADDED BY calvin------------------*/
 /*------------------------------------------------*/
+.delete-song{
+    color: red;
+    float: right;
+    text-size:10px;
+    padding-right: 20px;
+    margin-top:-10px;
+    text-decoration:none;
+}
 
 .queue-open{
     float:right;

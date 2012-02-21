@@ -1,0 +1,120 @@
+<style>
+
+*{
+    padding:0;
+    margin:0;
+}
+
+.clear{
+    display:block;
+    clear:both;
+}
+
+#max-queue{
+    background-color: #CCC;
+    position: fixed;
+    z-index: 10000;
+    bottom: 0px;
+    right: 0px;
+    border-left: 1px solid #56A4DB;
+    width: 300px;
+    padding-top: 10px;
+    height: 100%;
+    color: black;
+    
+    -webkit-box-shadow: -5px 0 35px #56A4DB;
+    -moz-box-shadow: -5px 0 35px #56A4DB;
+    -o-box-shadow: -5px 0 35px #56A4DB;
+    box-shadow: -5px 0 35px #56A4DB;
+    
+}
+    
+#user-queue {
+    border-bottom: 1px solid white;
+}
+
+span.queue-control-queue-control-max{
+    float:right;
+    margin-right:10px;
+    display:block;
+}   
+
+#user-queue{
+    display:block;
+    clear:left;
+} 
+
+.queue-title h3 {
+    text-align:center;
+    margin: 5px 0;
+}
+
+ol.max-queue {
+    margin: 10px 0 0px 30px;
+}
+
+ol.max-queue li{
+    margin: 0 0 3px 0;
+}
+
+span.purple {
+    color:#a0469a;
+}
+
+span.title {
+    font-weight:bold;
+}
+    
+</style>
+
+
+<div class="" id="max-queue">
+
+<img src="queue.jpg" alt="T3K.no Logo"/>
+
+    <span class="queue-control-queue-control-max">[min]</span>
+
+<div class="clear"></div><!-- end of clear -->
+   
+    <div id="user-queue">
+        <div class="queue-title">
+            <h3>User Queue</h3>
+        </div><!-- end of queue-title -->
+
+        <ol class="max-queue">
+            <li class="queue-item" id="user-queue-1"></li>
+            <li class="queue-item" id="user-queue-2"></li>
+            <li class="queue-item" id="user-queue-3"></li>
+            <li class="queue-item" id="user-queue-4"></li>
+            <li class="queue-item" id="user-queue-5"></li>
+            <li class="queue-item" id="user-queue-6"></li>
+            <li class="queue-item" id="user-queue-7"></li>
+            <li class="queue-item" id="user-queue-8"></li>
+            <li class="queue-item" id="user-queue-9"></li>
+            <li class="queue-item" id="user-queue-10"></li>
+
+        </ol>
+    </div>
+    <div id="generated-queue">
+        <div class="queue-title">
+            <h3>Generated Queue</h3>
+        </div>
+        <ol class="max-queue" id="gen-queue">
+            <li class="queue-item" id="gen-queue-1"><span class="title">Mission</span> <span class="purple">//</span> Beats Antique</li>
+            <li class="queue-item" id="gen-queue-2"><span class="title">Crave You (Adventure Club Dubstep Remix)</span> <span class="purple">//</span> Flight Facilities</li>
+            <li class="queue-item" id="gen-queue-3"><span class="title">The Immortals (RÃ¶yksopp Remix) Radio Edit </span> <span class="purple">//</span> Kings of Leon</li>
+            <li class="queue-item" id="gen-queue-4"><span class="title">Collect Call (Adventure Club Remix) </span> <span class="purple">//</span> Metric</li>
+            <li class="queue-item" id="gen-queue-5"><span class="title">Ladi Dadi (Original Mix) </span> <span class="purple">//</span> Steve Aoki feat. Wynter Gordon</li>
+            <li class="queue-item" id="gen-queue-6"><span class="title">Rebound </span> <span class="purple">//</span> Arty &amp; Mat Zo</li>
+            <li class="queue-item" id="gen-queue-7"><span class="title">Promises (Calvin Harris Remix) </span> <span class="purple">//</span> Nero</li>
+            <li class="queue-item" id="gen-queue-8"><span class="title">Lost (Chill Mix) </span> <span class="purple">//</span> Sunlounger ft. Zara</li>
+            <li class="queue-item" id="gen-queue-9"><span class="title">Perfect Moments </span> <span class="purple">//</span> Lang &amp; Yep</li>
+            <li class="queue-item" id="gen-queue-10"><span class="title">Bass Embrace </span> <span class="purple">//</span> DJ i6</li>
+            <li class="queue-item" id="gen-queue-11"><span class="title">Future Sound (Nero vs Knife Party vs Gorillaz) </span> <span class="purple">//</span> Loo &amp; Placido</li>
+            <li class="queue-item" id="gen-queue-12"><span class="title">Levels (Skrillex Remix) </span> <span class="purple">//</span> Avicii</li>
+            <li class="queue-item" id="gen-queue-13"><span class="title">Stars Come Out (Ryan Enzed Remix) </span> <span class="purple">//</span> Zedd</li>
+            <li class="queue-item" id="gen-queue-14"><span class="title">Tourniquet </span> <span class="purple">//</span> Knife Party</li>
+            <li class="queue-item" id="gen-queue-15"><span class="title">Destroy Them With Lazers </span> <span class="purple">//</span> Knife Party</li>
+        </ol>
+    </div>
+</div>

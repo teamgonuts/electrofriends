@@ -1,4 +1,5 @@
 ###=================================================
+if debug then console.log 'delete-song clicked'
 ----------------Youtube Player----------------------
 =================================================###
 window.Player = class Player
@@ -112,10 +113,10 @@ window.stateChange = (newState) ->
                              $('#currentSongArtist').html()
         when 2 #song is paused
             if debug then console.log 'Song Paused'
-            document.title = 'Paused - T3K.NO' #change title of page
+            document.title = 'Paused - t3k.no' #change title of page
         when 3 #song is buffering
             if debug then console.log 'Song Loading'
-            document.title = 'Loading Song - T3K.NO' #change title of page
+            document.title = 'Loading Song - t3k.no' #change title of page
 
 window.incrementPlayCount =  ->
     debug = false
@@ -258,10 +259,14 @@ window.UserQueue = class UserQueue
                         $('#user_' + i).val()
                         $('#userScore_' + i).val())
 
-        $('#userQ').append(' <li class="queue-item" id="userQ_' + @songs.length + '"><span class="title"> ' + 
+        $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val()) 
+                  $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
         
+    #deletes the song i from the user queue
+    delete: (i) ->
+        debug = true
+        if debug then console.log 'UserQueue.delete(' + i + ')'
 
     #deletes all the songs from user queue
     clear: ->
@@ -598,6 +603,15 @@ $ ->
             queue.userQ.append(i)
             queue.updateMinQueue()
 
+    #=============Delete Song Button=============
+    $(document).on 'hover', '.user-queue', ->
+        $(this).find('.delete-song').toggleClass('hidden')
+    $(document).on 'click', '.delete-song', (event) ->
+        debug = true
+        if debug then console.log 'delete-song clicked'
+        i = $(this).closest('.queue-item').attr('id').split('_')[1] #index of song clicked
+        queue.userQ.delete(i)
+        event.stopPropagation() #song should not be played after its deleted
 
     #when the next song button is clicked
     $(document).on 'click', '.next-song', ->

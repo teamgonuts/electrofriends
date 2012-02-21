@@ -1,5 +1,6 @@
 
 /*=================================================
+if debug then console.log 'delete-song clicked'
 ----------------Youtube Player----------------------
 =================================================
 */
@@ -110,10 +111,10 @@
         return document.title = $('#currentSongTitle').html() + ' by ' + $('#currentSongArtist').html();
       case 2:
         if (debug) console.log('Song Paused');
-        return document.title = 'Paused - T3K.NO';
+        return document.title = 'Paused - t3k.no';
       case 3:
         if (debug) console.log('Song Loading');
-        return document.title = 'Loading Song - T3K.NO';
+        return document.title = 'Loading Song - t3k.no';
     }
   };
 
@@ -266,7 +267,13 @@
 
     UserQueue.prototype.append = function(i) {
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
-      return $('#userQ').append(' <li class="queue-item" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val());
+      return $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
+    };
+
+    UserQueue.prototype["delete"] = function(i) {
+      var debug;
+      debug = true;
+      if (debug) return console.log('UserQueue.delete(' + i + ')');
     };
 
     UserQueue.prototype.clear = function() {
@@ -673,6 +680,17 @@
         queue.userQ.append(i);
         return queue.updateMinQueue();
       }
+    });
+    $(document).on('hover', '.user-queue', function() {
+      return $(this).find('.delete-song').toggleClass('hidden');
+    });
+    $(document).on('click', '.delete-song', function(event) {
+      var debug, i;
+      debug = true;
+      if (debug) console.log('delete-song clicked');
+      i = $(this).closest('.queue-item').attr('id').split('_')[1];
+      queue.userQ["delete"](i);
+      return event.stopPropagation();
     });
     $(document).on('click', '.next-song', function() {
       var debug, i, id, q;
