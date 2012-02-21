@@ -206,7 +206,7 @@ if debug then console.log 'delete-song clicked'
       if (rankingsChange) {
         i = 1;
       } else {
-        i = parseInt(this.genQ.curSong);
+        i = parseInt(this.genQ.curSong) + 1;
       }
       _results = [];
       while ($('#genQ_' + i).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {

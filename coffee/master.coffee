@@ -189,7 +189,7 @@ window.Queue = class Queue
 
 
         #if new rankings, add the 1st song to the queue
-        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) 
+        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1
         #if it there are any songs in the genQ left to add AND we should add more songs
         while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
             if debug then console.log 'Next song to add: ' + i
