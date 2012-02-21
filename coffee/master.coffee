@@ -45,7 +45,6 @@ window.Player = class Player
     loadSongInQueue: (i) ->
         debug = false
         if debug then console.log 'loadSongInQueue Called(' + i + ')'
-        console.log window.queue.userQ.songs[0].title
         window.currentSong = new Song(window.queue.userQ.songs[i].ytcode,
                                       window.queue.userQ.songs[i].title,
                                       window.queue.userQ.songs[i].genre,
@@ -190,7 +189,7 @@ window.Queue = class Queue
 
 
         #if new rankings, add the 1st song to the queue
-        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1 
+        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) 
         #if it there are any songs in the genQ left to add AND we should add more songs
         while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
             if debug then console.log 'Next song to add: ' + i
@@ -207,6 +206,7 @@ window.Queue = class Queue
     playSong: (queue, index) ->
         debug = false
         if debug then console.log 'Play Song ' + index + ' in ' + queue
+
         #checking for valid params
         if queue != 'genQ' and queue != 'userQ' 
             console.log 'Queue.playSong ERROR: Invalid param queue: ' + queue
@@ -228,8 +228,8 @@ window.Queue = class Queue
             #directly below this song in the generated queue
             @userQ.markAllPlayed() 
         else #queue = 'userQ' 
-            ytcode = @userQ.songs[index-1].ytcode #-1 because the userQ's array is 0 based
             i = index-1# i-1 because userQ array is 0 based
+            ytcode = @userQ.songs[i].ytcode #-1 because the userQ's array is 0 based
             window.player.loadSongInQueue(i)
             @userQ.songs[i].played = true #mark the song as played
 
@@ -266,12 +266,19 @@ window.UserQueue = class UserQueue
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
     delete: (i) ->
-        debug = true
+        debug = false
         if debug then console.log 'UserQueue.delete(' + i + ')'
-        $('#userQ_' + i).remove()
-        console.log @songs.length
-        @songs.splice(i-1, 1)
-        console.log @songs.length
+        $('#userQ_' + i).remove() #remove the li
+        @songs.splice(i-1, 1) #remove it from the array
+        #renaming the ids of all songs in the userQ
+        i = 1
+        for song in $('#userQ').children()
+            $(song).attr('id', 'userQ_' + i)
+            i++
+            if debug then console.log $(song).attr('id') + ', i=' + i
+        queue.updateMinQueue() #update the minQueue
+
+
 
     #deletes all the songs from user queue
     clear: ->
@@ -290,10 +297,15 @@ window.UserQueue = class UserQueue
     markAllNotPlayed: (index) ->
         debug = false
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
-        if $('#userQ').find('.queue-item').length > 1 #if it is 1, then no need to mark anything unplayed
-            for i in [index+1..@songs.length-1]
-                @songs[i].played = false
-                if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
+        if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
+            for i in [0..@songs.length-1]
+                if i <= index
+                    @songs[i].played = true
+                    if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
+                else if i > index and i <= @songs.length-1
+                    @songs[i].played = false
+                    if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
+                else
 
 window.GeneratedQueue = class GeneratedQueue
     constructor: ->
@@ -304,7 +316,7 @@ window.GeneratedQueue = class GeneratedQueue
         #current song selected in the generated queue
         #CAN be different than the current song playing, used to determine where in the
         #generated queue to start playing again if the userQueue runs out of songs
-        @curSong = 1
+        @curSong = 0
 
     #pulls the current songs from the rankings into the queue
     refresh: ->
@@ -418,7 +430,7 @@ window.Rankings = class Rankings
 
     #updates the rankings based off the current filters
     update: ->
-        debug = true
+        debug = false
         if debug then console.log 'Rankings.update()'
         this.refreshTitle()
         #todo: add loading screen to rankings here
@@ -480,7 +492,6 @@ window.Rankings = class Rankings
             
     #changes the title for the rankings
     changeTitle: (title) ->
-        console.log('Rankings.changeTitle(' + title + ')')
         $('#rankings-title').text(title)
 
     #============Submit Comment========#
@@ -549,13 +560,14 @@ window.Rankings = class Rankings
     ###searches database for songs with 'searchterm' in either the title or artist 
     and displays results in rankings###
     search: (searchterm) ->
+        debug = false
         upperlimit = @songsPerPage #creating a local variable for songsperpage so it can be accessed within the ajax
         commentsPerSong = @commentsPerSong
         searchterm = searchterm.trim()
         if searchterm.length is 0
             alert 'Please enter a search term'
         else
-            console.log 'search:' + searchterm
+            if debug then console.log 'search:' + searchterm
             this.changeTitle ('Searching: ' + searchterm)
             @flag = 'search' 
 
@@ -612,7 +624,7 @@ $ ->
     $(document).on 'hover', '.user-queue', ->
         $(this).find('.delete-song').toggleClass('hidden')
     $(document).on 'click', '.delete-song', (event) ->
-        debug = true
+        debug = false
         if debug then console.log 'delete-song clicked'
         i = $(this).closest('.queue-item').attr('id').split('_')[1] #index of song clicked
         queue.userQ.delete(i)

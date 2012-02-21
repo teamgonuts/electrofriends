@@ -46,7 +46,6 @@ if debug then console.log 'delete-song clicked'
       var debug;
       debug = false;
       if (debug) console.log('loadSongInQueue Called(' + i + ')');
-      console.log(window.queue.userQ.songs[0].title);
       window.currentSong = new Song(window.queue.userQ.songs[i].ytcode, window.queue.userQ.songs[i].title, window.queue.userQ.songs[i].genre, window.queue.userQ.songs[i].artist, window.queue.userQ.songs[i].user, window.queue.userQ.songs[i].userScore);
       return this.updateCurrentSongInfo();
     };
@@ -207,7 +206,7 @@ if debug then console.log 'delete-song clicked'
       if (rankingsChange) {
         i = 1;
       } else {
-        i = parseInt(this.genQ.curSong) + 1;
+        i = parseInt(this.genQ.curSong);
       }
       _results = [];
       while ($('#genQ_' + i).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
@@ -240,8 +239,8 @@ if debug then console.log 'delete-song clicked'
         this.genQ.curSong = index;
         this.userQ.markAllPlayed();
       } else {
-        ytcode = this.userQ.songs[index - 1].ytcode;
         i = index - 1;
+        ytcode = this.userQ.songs[i].ytcode;
         window.player.loadSongInQueue(i);
         this.userQ.songs[i].played = true;
         this.userQ.markAllNotPlayed(i);
@@ -271,13 +270,20 @@ if debug then console.log 'delete-song clicked'
     };
 
     UserQueue.prototype["delete"] = function(i) {
-      var debug;
-      debug = true;
+      var debug, song, _i, _len, _ref;
+      debug = false;
       if (debug) console.log('UserQueue.delete(' + i + ')');
       $('#userQ_' + i).remove();
-      console.log(this.songs.length);
       this.songs.splice(i - 1, 1);
-      return console.log(this.songs.length);
+      i = 1;
+      _ref = $('#userQ').children();
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        song = _ref[_i];
+        $(song).attr('id', 'userQ_' + i);
+        i++;
+        if (debug) console.log($(song).attr('id') + ', i=' + i);
+      }
+      return queue.updateMinQueue();
     };
 
     UserQueue.prototype.clear = function() {
@@ -301,17 +307,28 @@ if debug then console.log 'delete-song clicked'
     };
 
     UserQueue.prototype.markAllNotPlayed = function(index) {
-      var debug, i, _ref, _ref2, _results;
+      var debug, i, _ref, _results;
       debug = false;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
-      if ($('#userQ').find('.queue-item').length > 1) {
+      if ($('#userQ').children().length > 1) {
         _results = [];
-        for (i = _ref = index + 1, _ref2 = this.songs.length - 1; _ref <= _ref2 ? i <= _ref2 : i >= _ref2; _ref <= _ref2 ? i++ : i--) {
-          this.songs[i].played = false;
-          if (debug) {
-            _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+        for (i = 0, _ref = this.songs.length - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
+          if (i <= index) {
+            this.songs[i].played = true;
+            if (debug) {
+              _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+            } else {
+              _results.push(void 0);
+            }
+          } else if (i > index && i <= this.songs.length - 1) {
+            this.songs[i].played = false;
+            if (debug) {
+              _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+            } else {
+              _results.push(void 0);
+            }
           } else {
-            _results.push(void 0);
+
           }
         }
         return _results;
@@ -329,7 +346,7 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('Generated Queue Created!');
       this.songs = new Array();
-      this.curSong = 1;
+      this.curSong = 0;
     }
 
     GeneratedQueue.prototype.refresh = function() {
@@ -469,7 +486,7 @@ if debug then console.log 'delete-song clicked'
 
     Rankings.prototype.update = function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('Rankings.update()');
       this.refreshTitle();
       return $.post('ajax/rankingsAjax.php', {
@@ -530,7 +547,6 @@ if debug then console.log 'delete-song clicked'
     };
 
     Rankings.prototype.changeTitle = function(title) {
-      console.log('Rankings.changeTitle(' + title + ')');
       return $('#rankings-title').text(title);
     };
 
@@ -617,14 +633,15 @@ if debug then console.log 'delete-song clicked'
     */
 
     Rankings.prototype.search = function(searchterm) {
-      var commentsPerSong, upperlimit;
+      var commentsPerSong, debug, upperlimit;
+      debug = false;
       upperlimit = this.songsPerPage;
       commentsPerSong = this.commentsPerSong;
       searchterm = searchterm.trim();
       if (searchterm.length === 0) {
         return alert('Please enter a search term');
       } else {
-        console.log('search:' + searchterm);
+        if (debug) console.log('search:' + searchterm);
         this.changeTitle('Searching: ' + searchterm);
         this.flag = 'search';
         return $.post('ajax/searchAjax.php', {
@@ -690,7 +707,7 @@ if debug then console.log 'delete-song clicked'
     });
     $(document).on('click', '.delete-song', function(event) {
       var debug, i;
-      debug = true;
+      debug = false;
       if (debug) console.log('delete-song clicked');
       i = $(this).closest('.queue-item').attr('id').split('_')[1];
       queue.userQ["delete"](i);
