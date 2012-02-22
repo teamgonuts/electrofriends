@@ -96,7 +96,7 @@ include ("classes/GenreFilter.php");
 						<img src="images/header/upload.png"> Upload </a>
 				</p>
 					<div style="display: none;">
-						<div id="lightbox" style="width:800px;height:500px; background-color:#000; color #fff; overflow:auto;">
+						<div id="lightbox" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
 							<div class="" id="upload_box">
 							    
 							    <div id="lightBoxLeft">
@@ -106,9 +106,9 @@ include ("classes/GenreFilter.php");
                                                                     <ul>
                                                                         <li>Share new songs you find</li>
                                                                         <li>Earn reputation by submitting good songs</li>
-                                                                        <li>Archive the classics. The Fresh List is only for new songs</li>
-                                                                        <li>Avoid Reposts. If you're unsure, use the search function first </li>
-                                                                        <li>Song's below a certain score are automatically removed</li>
+                                                                        <li>Avoid reposts </li>
+                                                                        <li>Archive old songs (ie a classic)</li>
+                                                                        <li>A bad score sends a song to the graveyard</li>
                                                                     </ul>
                                                                 </div>
 							    </div><!-- end of left -->
@@ -154,7 +154,7 @@ include ("classes/GenreFilter.php");
 					<li><a href="#">Contact</a></li><!-- end of contact button -->
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
 					<li><a href="#">About</a></li>
-					<li><a id="fresh-list" href="index.php">Fresh List</a></li>	
+					<li><a id="fresh-list" href="#">Fresh List</a></li>	
 				</ul>
 			</nav><!-- end of headerNav -->			
 		</div><!-- end of twoColumnRight -->
