@@ -61,7 +61,7 @@ include ("classes/GenreFilter.php");
 </head>
 
 <body>
-
+<div id="fb-root"></div>
 <div id="headerTopLine">
 </div><!-- end of headerTopLine -->
 
@@ -214,10 +214,8 @@ include ("classes/GenreFilter.php");
                                 
 					<li><a class="filter time-filter" id="filter-century" href="#">Century</a></li>
 				</ul>
-
 			</div><!-- end of topList -->
 			
-                        
 			
 		</div><!-- end of sidebar -->
 <div class="hidden" id="max-queue">

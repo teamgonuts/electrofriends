@@ -28,6 +28,16 @@ if debug then console.log 'delete-song clicked'
       return this.resizeMaxQueue();
     };
 
+    Player.prototype.refreshPlayer = function() {
+      var params;
+      $('.next-song').click();
+      params = {
+        allowScriptAccess: "always"
+      };
+      swfobject.embedSWF("http://www.youtube.com/v/" + window.currentSong.ytcode + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1&autoplay=1", "ytplayer", "275", "90", "8", null, null, params);
+      return this.updateCurrentSongInfo();
+    };
+
     Player.prototype.resizeMaxQueue = function() {
       var nh;
       nh = $(window).height() - 12 - $('#bottomControls').height();
@@ -143,7 +153,7 @@ if debug then console.log 'delete-song clicked'
     var debug;
     debug = false;
     if (debug) console.log('onPlayerError() called!');
-    $('.next-song').click();
+    player.refreshPlayer();
   };
 
   /*=================================================

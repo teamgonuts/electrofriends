@@ -22,6 +22,16 @@ window.Player = class Player
         this.loadSongInRankings(1)#loads first song
         this.resizeMaxQueue()
 
+    #refreshes the embed of the player to help with errors
+    #automatically starts playing the next-song
+    refreshPlayer: ->
+        $('.next-song').click() #window.current_song is set
+        params = { allowScriptAccess: "always" };
+        swfobject.embedSWF("http://www.youtube.com/v/" + window.currentSong.ytcode +  "&enablejsapi=1&playerapiid=ytplayer" +
+                       "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1&autoplay=1",
+                        "ytplayer", "275", "90", "8", null, null, params);
+        this.updateCurrentSongInfo()
+        
     #resizes the max queue to fit the screen
     resizeMaxQueue: ->
         nh = $(window).height() - 12 - $('#bottomControls').height()
@@ -138,7 +148,7 @@ window.incrementPlayCount =  ->
 window.onPlayerError = (errorCode) ->
     debug = false
     if debug then console.log 'onPlayerError() called!'
-    $('.next-song').click() #start playing next song
+    player.refreshPlayer()
     return
 
 
