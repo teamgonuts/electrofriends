@@ -52,6 +52,9 @@ h1, h2, h3, h4, h5 {
     text-decoration:none;
 }
 
+#generated-queue{
+    padding-top: 10px;
+}
 .queue-open{
     float:right;
     margin-right: 15px;
