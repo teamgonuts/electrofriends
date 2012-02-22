@@ -111,7 +111,7 @@ include ("classes/GenreFilter.php");
                                                                         <li>Earn reputation by submitting good songs</li>
                                                                         <li>Avoid reposts </li>
                                                                         <li>Archive old songs (ie a classic)</li>
-                                                                        <li>A bad score sends the song to the graveyard</li>
+                                                                        <li>A bad score sends a song to the graveyard</li>
                                                                     </ul>
                                                                 </div>
 							    </div><!-- end of left -->
@@ -138,7 +138,7 @@ include ("classes/GenreFilter.php");
                                                                 <label for="user">Uploaded By: </label>
                                                                 <input id="upload_user" type="text" name="user" value=""> <br>
                                                                 
-                                                                <label for="oldie">Archive: </label>
+                                                                <label for="oldie" id="oldie">Archive: </label>
                                                                 <input type="checkbox" value="oldie" name="oldie" id="upload_oldie"><br>
                                                                 <label for="upload_comment">Comment: </label>
                                                                 <input type="text" id="upload_comment"></textarea><br>
@@ -319,7 +319,7 @@ include ("classes/GenreFilter.php");
 		<a href="http://www.facebook.com/pages/t3kno/146156005506087" target="_blank"><img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/></a>
 		<a href="https://twitter.com/#!/t3kdev" target="_blank"><img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/></a> 
 	</div><!-- end of content -->
-
+<div class="clear"></div>
 </footer><!-- end of footer -->
 
 <section id="bottomControls">

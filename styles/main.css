@@ -28,7 +28,6 @@ body {
 
 h1, h2, h3, h4, h5 {
 	font-family:TelegraficoRegular, sans-serif;
-	font-weight: normal;
 }
 
 .clear {
@@ -85,6 +84,7 @@ p.song-button{
     background: linear-gradient(top, #1a1a1a 0%,#4d4d4d 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#4d4d4d',GradientType=0 ); /* IE6-8 */
 }
+
 #upload-box-result{
     color:white;
 }
@@ -100,6 +100,9 @@ p.song-button{
     line-height: 19px;   
     margin: 0 0 0 20px;        
 }
+
+
+
 
 p.song-button:hover {
     background: #3fa9f5; /* Old browsers */
@@ -175,7 +178,7 @@ span.previous-song:hover, span.next-song:hover{
 }
 
 .selected-song{
-    background-color: #3fa9f5;
+    color: #3fa9f5;
 }
 .empty-queue{
     text-align:center;
@@ -200,8 +203,6 @@ text-decoration: underline;
 
 #max-queue .title{
     font-weight: bold;
-    display: block;
-    color:#bd1dc9;    
 }
 
 .no-comment{
@@ -316,7 +317,6 @@ p#down-vote:hover {
 }
 
 li.queue-item span.purple {
-    display: none;
 }
     
 #user-queue {
@@ -758,7 +758,6 @@ box-shadow: 0 0 10px #333;
 			
 
 				
-				
 
 
 			/*--------------------------------------------------*/
@@ -932,14 +931,14 @@ box-shadow: 0 0 10px #333;
 
 				
 			}
-
+			
             td#no-result{
                 width: 677px;
             }
             
             td#no-result h3{
                 text-align: center;            			
-            }			
+            }
 		/*--------------------------------------------------*/
 		/*----------------------search----------------------*/
 		/*--------------------------------------------------*/
@@ -1064,7 +1063,7 @@ box-shadow: 0 0 10px #333;
 	#adBlock {
 		width: 100%;
 		background-color: #e6e6e6;
-		height: 140px;
+		height: 290px;
 		margin: 25px 0 0 0;
 		
 		-webkit-box-shadow: 0 0 10px #ccc;
@@ -1077,7 +1076,7 @@ box-shadow: 0 0 10px #333;
 	
 	.adBlockLeft, .adBlockCenter, .adBlockRight {
 		width: 300px;
-		height: 100px;
+		height: 250px;
 		float: left;
 		margin: 20px 0 0 0
 	}
