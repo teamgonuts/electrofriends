@@ -92,7 +92,7 @@ include ("classes/GenreFilter.php");
 						<img src="images/header/upload.png"> Upload </a>
 				</p>
 					<div style="display: none;">
-						<div id="lightbox" style="width:600px;height:400px; background-color:#000; color #fff; overflow:auto;">
+						<div id="lightbox" style="width:800px;height:500px; background-color:#000; color #fff; overflow:auto;">
 							<div class="" id="upload_box">
 							    
 							    <div id="lightBoxLeft">
@@ -150,7 +150,7 @@ include ("classes/GenreFilter.php");
 					<li><a href="#">Contact</a></li><!-- end of contact button -->
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
 					<li><a href="#">About</a></li>
-					<li><a id="fresh-list" href="#">Fresh List</a></li>					
+					<li><a id="fresh-list" href="index.php">Fresh List</a></li>	
 				</ul>
 			</nav><!-- end of headerNav -->			
 		</div><!-- end of twoColumnRight -->
