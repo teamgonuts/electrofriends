@@ -638,6 +638,7 @@ $ ->
     #=============Delete Song Button=============
     $(document).on 'hover', '.user-queue', ->
         $(this).find('.delete-song').toggleClass('hidden')
+        
     $(document).on 'click', '.delete-song', (event) ->
         debug = false
         if debug then console.log 'delete-song clicked'

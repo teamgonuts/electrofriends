@@ -13,7 +13,7 @@ include ("classes/GenreFilter.php");
 <title>t3k.no</title>
 <meta charset="UTF-8">
 <meta name="description" content="t3k.no is a user-driven electronic music community. " />
-<meta name="keywords" content="t3k.no,t3kno,play music online, streaming music, listen to techno online, create playlist, freshest tracks, fresh list, free online music, free music" />
+<meta name="keywords" content="t3k.no,t3kno,play music online, streaming music, listen to techno online, create playlist, freshest tracks, fresh list, free online music, free music, electronic music, dubstep, house, trance, electro, hardstyle, dnb, drum & bass" />
 
 
 <!-- flavicon -->

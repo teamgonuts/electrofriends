@@ -297,7 +297,7 @@ p#down-vote:hover {
     background-color: #CCC;
     position: fixed;
     font-size:14px;
-    z-index: 10000;
+    z-index: 9500;
     top: 0px;
     left: 0px;
     border-left: 1px solid #56A4DB;
@@ -1142,6 +1142,7 @@ box-shadow: 0 0 10px #333;
 
 	#bottomControls {
 		width: 100%;
+                z-index: 9501;
 		position: fixed;
 		bottom: 0;
 		left: 0;
