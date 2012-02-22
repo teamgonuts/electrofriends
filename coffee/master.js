@@ -766,30 +766,32 @@ if debug then console.log 'delete-song clicked'
       return rankings.update();
     });
     $(document).on('click', '.song', function() {
-      var i, state, temp;
+      var debug, i, state, temp;
+      debug = false;
       temp = $(this).attr('id').split('_');
       i = temp[1];
       state = temp[0];
       if (state === 'min') {
+        if (debug) console.log('rankings.maxed_song: ' + rankings.maxed_song);
         if (rankings.maxed_song !== -1) {
-          $('#max_' + rankings.maxed_song).addClass('hidden');
+          $('#max_' + rankings.maxed_song).css('display', 'none');
           $('#min_' + rankings.maxed_song).removeClass('hidden');
         } else {
 
         }
         $('#min_' + i).addClass('hidden');
-        $('#max_' + i).removeClass('hidden');
+        $('#max_' + i).show('slow');
         return rankings.maxed_song = i;
       }
     });
     $(document).on('click', '.queue-min', function() {
-      $('#max-queue').addClass('hidden');
+      $('#max-queue').hide('slow');
       $('.content').removeClass('queue-open');
       return $('#queue-max').html("[Show Queue]");
     });
     $(document).on('click', '#queue-max', function() {
       if ($('#max-queue').hasClass('hidden')) {
-        $('#max-queue').removeClass('hidden');
+        $('#max-queue').show('slow');
         $('.content:not(#bottom-contents)').addClass('queue-open');
         return $('#queue-max').html("[Close Queue]");
       } else {

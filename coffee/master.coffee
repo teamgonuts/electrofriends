@@ -684,31 +684,33 @@ $ ->
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->
+        debug = false
         #getting index and song state
         temp = $(this).attr('id').split('_')
         i = temp[1] #index of song in rankings
         state = temp[0] #either min or max
         if state is 'min'
             #if there is another maxed song, hide it
+            if debug then console.log 'rankings.maxed_song: ' + rankings.maxed_song
             if rankings.maxed_song != -1
-                $('#max_' + rankings.maxed_song).addClass('hidden')
+                $('#max_' + rankings.maxed_song).css('display', 'none')
                 $('#min_' + rankings.maxed_song).removeClass('hidden')
             else
 
             #max clicked song
             $('#min_' + i).addClass('hidden')
-            $('#max_' + i).removeClass('hidden')
+            $('#max_' + i).show('slow')
             rankings.maxed_song = i #set clicked song to new maxed song
 
     #=====queue-controls===
     $(document).on 'click', '.queue-min', ->
-        $('#max-queue').addClass 'hidden'
+        $('#max-queue').hide('slow')
         $('.content').removeClass 'queue-open'
         $('#queue-max').html("[Show Queue]")
 
     $(document).on 'click', '#queue-max', ->
         if $('#max-queue').hasClass 'hidden'
-            $('#max-queue').removeClass 'hidden'
+            $('#max-queue').show('slow')
             $('.content:not(#bottom-contents)').addClass 'queue-open'
             $('#queue-max').html("[Close Queue]")
         else #queue is already open, so close it
