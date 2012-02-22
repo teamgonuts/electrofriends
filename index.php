@@ -13,6 +13,10 @@ include ("classes/GenreFilter.php");
 <title>t3k.no</title>
 <meta charset="UTF-8">
 
+<!-- flavicon -->
+<link rel="shortcut icon" href="images/favicon.ico" />
+
+
 <!-- mainstyles -->
 <link href="styles/main.css" rel="stylesheet" type="text/css">
 
