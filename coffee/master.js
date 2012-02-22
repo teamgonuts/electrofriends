@@ -790,11 +790,12 @@ if debug then console.log 'delete-song clicked'
       return $('#queue-max').html("[Show Queue]");
     });
     $(document).on('click', '#queue-max', function() {
-      if ($('#max-queue').hasClass('hidden')) {
+      if ($('#max-queue').css('display') === 'none') {
         $('#max-queue').show('slow');
         $('.content:not(#bottom-contents)').addClass('queue-open');
         return $('#queue-max').html("[Close Queue]");
       } else {
+        console.log('closing');
         return $('.queue-min').click();
       }
     });

@@ -709,11 +709,12 @@ $ ->
         $('#queue-max').html("[Show Queue]")
 
     $(document).on 'click', '#queue-max', ->
-        if $('#max-queue').hasClass 'hidden'
+        if $('#max-queue').css('display') is 'none'
             $('#max-queue').show('slow')
             $('.content:not(#bottom-contents)').addClass 'queue-open'
             $('#queue-max').html("[Close Queue]")
         else #queue is already open, so close it
+            console.log 'closing'
             $('.queue-min').click()
 
     #===========showMoreSongs=====================#
