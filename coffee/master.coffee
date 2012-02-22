@@ -714,7 +714,6 @@ $ ->
             $('.content:not(#bottom-contents)').addClass 'queue-open'
             $('#queue-max').html("[Close Queue]")
         else #queue is already open, so close it
-            console.log 'closing'
             $('.queue-min').click()
 
     #===========showMoreSongs=====================#

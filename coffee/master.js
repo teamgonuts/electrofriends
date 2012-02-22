@@ -795,7 +795,6 @@ if debug then console.log 'delete-song clicked'
         $('.content:not(#bottom-contents)').addClass('queue-open');
         return $('#queue-max').html("[Close Queue]");
       } else {
-        console.log('closing');
         return $('.queue-min').click();
       }
     });
