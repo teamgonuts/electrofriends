@@ -12,6 +12,9 @@ include ("classes/GenreFilter.php");
 <head>
 <title>t3k.no</title>
 <meta charset="UTF-8">
+<meta name="description" content="t3k.no is a User-driven electronic music community. " />
+<meta name="keywords" content="t3k.no,t3kno,play music online, streaming music, listen to techno online, create playlist, freshest tracks, fresh list, free online music, free music" />
+
 
 <!-- flavicon -->
 <link rel="shortcut icon" href="images/favicon.ico" />
@@ -257,15 +260,51 @@ include ("classes/GenreFilter.php");
 	<div class="content">
 		
 		<div class="adBlockLeft">
-			<img src="images/ad/adBlock.png" />
+			
+			<script type="text/javascript"><!--
+            google_ad_client = "ca-pub-6274607241853425";
+            /* Footer ad */
+            google_ad_slot = "6791996487";
+            google_ad_width = 300;
+            google_ad_height = 250;
+            //-->
+            </script>
+            <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+			
 		</div><!-- end of adBlockLeft -->
 		
 		<div class="adBlockCenter">
-			<img src="images/ad/adBlock.png" />
+
+            <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-6274607241853425";
+            /* footer ad 2 */
+            google_ad_slot = "9153020020";
+            google_ad_width = 300;
+            google_ad_height = 250;
+            //-->
+            </script>
+            <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+
 		</div><!-- end of adBlockCenter -->
 		
 		<div class="adBlockRight">
-			<img src="images/ad/adBlock.png" />		
+
+            <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-6274607241853425";
+            /* footer ad 3 */
+            google_ad_slot = "9800245746";
+            google_ad_width = 300;
+            google_ad_height = 250;
+            //-->
+            </script>
+            <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+            </script>
+
 		</div><!-- end of adBlockRight -->
 		
 	</div><!-- end of content -->
