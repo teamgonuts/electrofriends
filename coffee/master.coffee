@@ -645,7 +645,7 @@ $ ->
         queue.userQ.delete(i)
         event.stopPropagation() #song should not be played after its deleted
 
-    #when the next song button is clicked
+    #=============Song Controls=============
     $(document).on 'click', '.next-song', ->
         debug = false
         if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
