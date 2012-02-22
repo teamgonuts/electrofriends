@@ -87,8 +87,18 @@ p.song-button{
 }
 #upload-box-result{
     color:white;
-    text-size: 12pxe
-list-style-type: circle;        
+}
+
+#upload-box-result h2 {
+    font-size: 24px;
+    margin: 0 0 5px 0;
+}
+
+#upload-box-result li {
+    list-style: normal;
+    font-size: 14px; 
+    line-height: 19px;   
+    margin: 0 0 0 20px;        
 }
 
 p.song-button:hover {

@@ -384,6 +384,16 @@
 		display: block;	
 		
 	}
+
+	#lightBoxRight label#oldie{
+		color: #fff;
+		width: auto;
+		font-size: 15px;
+		margin: 10px 0 10px 0px;
+		float: left;
+		display: block;			
+	}
+
 	
 	#lightBoxRight input {
 		width: 100%;
@@ -391,6 +401,15 @@
 		font-size: 15px;
 		padding: 5px;	
 		
+	}
+
+	#lightBoxRight input#upload_oldie {
+		width: auto;
+		float: left;
+		clear: none;
+        margin: 14px 0 0 5px;		
+		font-size: 15px;
+		padding: 5px;	   
 	}
 	
 	#lightBoxRight input[type=submit] {
