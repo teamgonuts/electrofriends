@@ -114,8 +114,8 @@ class Song
                                     <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
                                 </p>
                                 <div class="vote-buttons-container">
-                                    <p class="vote-button" id="up-vote"></p>
                                     <p class="vote-button" id="down-vote"></p>
+                                    <p class="vote-button" id="up-vote"></p>
                                 </div>                       
                             
                         <span id="comments-container">
