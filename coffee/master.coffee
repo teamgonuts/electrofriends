@@ -272,7 +272,7 @@ window.UserQueue = class UserQueue
                         $('#userScore_' + i).val())
 
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
-                  $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
+                  $('#title_' + i).val() + '</span><span class="purple"> //</span><br /> ' + 
                   $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
         
     #deletes the song i from the user queue
@@ -340,7 +340,7 @@ window.GeneratedQueue = class GeneratedQueue
         for i in [1..$('.song-max').length] #add each song in the rankings to the gen-queue
             @songs.push(i)
             $('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + 
-                      $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
+                      $('#title_' + i).val() + '</span><span class="purple"> //</span><br /> ' + 
                       $('#artist_' + i).val() + '</li>')
 
     #deletes all the songs from gen queue

@@ -278,7 +278,7 @@ if debug then console.log 'delete-song clicked'
 
     UserQueue.prototype.append = function(i) {
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
-      return $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
+      return $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span><br /> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
     };
 
     UserQueue.prototype["delete"] = function(i) {
@@ -371,7 +371,7 @@ if debug then console.log 'delete-song clicked'
       _results = [];
       for (i = 1, _ref = $('.song-max').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
         this.songs.push(i);
-        _results.push($('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>'));
+        _results.push($('#genQ').append(' <li class="queue-item" id="genQ_' + i + '"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span><br /> ' + $('#artist_' + i).val() + '</li>'));
       }
       return _results;
     };
