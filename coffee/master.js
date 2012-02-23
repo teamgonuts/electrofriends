@@ -163,7 +163,7 @@ if debug then console.log 'delete-song clicked'
 
   window.Song = Song = (function() {
 
-    function Song(ytcode, title, genre, artist, user, userScore) {
+    function Song(ytcode, title, genre, artist, user, userScore, played) {
       var debug;
       this.ytcode = ytcode;
       this.title = title;
@@ -171,7 +171,7 @@ if debug then console.log 'delete-song clicked'
       this.artist = artist;
       this.user = user;
       this.userScore = userScore;
-      this.played = false;
+      this.played = played != null ? played : false;
       debug = false;
       if (debug) {
         console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
@@ -274,6 +274,7 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('User Queue Created!');
       this.songs = new Array();
+      this.getSongCookies();
     }
 
     UserQueue.prototype.append = function(i) {
@@ -281,25 +282,44 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
-      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
+      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span></li>');
       window.queue.updateMinQueue();
-      return this.setSongCookie($('#ytcode_' + i).val());
+      return this.updateSongCookies();
     };
 
-    UserQueue.prototype.setSongCookie = function(ytcode) {
+    UserQueue.prototype.updateSongCookies = function() {
       var debug, song, songStr, _i, _len, _ref;
-      debug = true;
-      if (debug) console.log('UserQueue.setSongCookie()');
+      debug = false;
+      if (debug) console.log('UserQueue.updateSongCookie()');
       songStr = "";
       _ref = this.songs;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         song = _ref[_i];
-        songStr = songStr + song.ytcode;
+        songStr = songStr + song.ytcode + ',';
       }
+      songStr = songStr.substr(0, songStr.length - 1);
       return $.post('ajax/setSongCookies.php', {
         ytcodes: songStr
       }, function(data) {
         if (debug) return console.log('successfully set cookie: ' + songStr);
+      });
+    };
+
+    UserQueue.prototype.getSongCookies = function() {
+      var debug;
+      debug = false;
+      if (debug) console.log('UserQueue.getSongCookies()');
+      return $.get('ajax/getSongCookies.php', function(data) {
+        var i, _ref;
+        if (debug) console.log('data: ' + data);
+        $('#userQ').html(data);
+        if ($('.user-queue').length > 0) {
+          for (i = 1, _ref = $('.user-queue').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
+            window.queue.userQ.songs.push(new Song($('#uq_ytcode_' + i).val(), $('#uq_title_' + i).val(), $('#uq_genre_' + i).val(), $('#uq_artist_' + i).val(), $('#uq_user_' + i).val(), $('#uq_userScore_' + i).val(), true));
+          }
+          $('.delete-info').html('');
+        }
+        return window.queue.updateMinQueue();
       });
     };
 
@@ -317,6 +337,7 @@ if debug then console.log 'delete-song clicked'
         i++;
         if (debug) console.log($(song).attr('id') + ', i=' + i);
       }
+      this.updateSongCookies();
       return window.queue.updateMinQueue();
     };
 

@@ -157,8 +157,7 @@ window.onPlayerError = (errorCode) ->
 =================================================###
 #class for a Song in a queue
 window.Song = class Song
-    constructor:(@ytcode, @title, @genre, @artist, @user, @userScore) ->
-        @played = false #boolean to determine if the song has already been played
+    constructor:(@ytcode, @title, @genre, @artist, @user, @userScore , @played = false) ->
         debug = false
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
@@ -261,6 +260,7 @@ window.UserQueue = class UserQueue
         debug = false
         if debug then console.log 'User Queue Created!'
         @songs = new Array()
+        this.getSongCookies()#retrieve old userQueue songs
 
     #append song 'i' from the rankings to the back of the userQueue
     append: (i) ->
@@ -275,24 +275,48 @@ window.UserQueue = class UserQueue
 
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
-
+                  $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span></li>') 
         window.queue.updateMinQueue()
+        this.updateSongCookies()
 
-        this.setSongCookie $('#ytcode_' + i).val()
-
-    #adds 'ytcode' to the userQ's cookie string
-    setSongCookie: (ytcode) ->
-        debug = true
-        if debug then console.log 'UserQueue.setSongCookie()'
+    #sets a new cookie for the current userSongs
+    updateSongCookies: ->
+        debug = false
+        if debug then console.log 'UserQueue.updateSongCookie()'
         songStr = ""
         for song in @songs
-            songStr = songStr + song.ytcode
+            songStr = songStr + song.ytcode + ','
+        songStr = songStr.substr(0, songStr.length-1) #removing last comma
             
         $.post 'ajax/setSongCookies.php',
                 ytcodes: songStr
                 (data) ->
                     if debug then console.log 'successfully set cookie: ' + songStr 
+
+    #retrieves songs that were stored in cookies from last time
+    getSongCookies: ->
+        debug = false
+        if debug then console.log 'UserQueue.getSongCookies()'
+
+        $.get 'ajax/getSongCookies.php' , (data) ->
+            if debug then console.log 'data: ' + data
+            $('#userQ').html(data) 
+            #creating songs and adding to userq
+            if $('.user-queue').length > 0
+                for i in [1..$('.user-queue').length]
+                    window.queue.userQ.songs.push new Song( $('#uq_ytcode_' + i).val()
+                                    $('#uq_title_' + i).val()
+                                    $('#uq_genre_' + i).val()
+                                    $('#uq_artist_' + i).val()
+                                    $('#uq_user_' + i).val()
+                                    $('#uq_userScore_' + i).val(), true)
+                $('.delete-info').html('')
+            window.queue.updateMinQueue()
+    
+
+            
+
+        
 
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
@@ -307,6 +331,7 @@ window.UserQueue = class UserQueue
             $(song).attr('id', 'userQ_' + i)
             i++
             if debug then console.log $(song).attr('id') + ', i=' + i
+        this.updateSongCookies()
         window.queue.updateMinQueue() #update the minQueue
 
 
