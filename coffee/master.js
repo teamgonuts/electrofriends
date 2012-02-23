@@ -335,7 +335,7 @@ if debug then console.log 'delete-song clicked'
         i++;
         if (debug) console.log($(song).attr('id') + ', i=' + i);
       }
-      return window.queue.updateMinQueue();
+      return queue.updateMinQueue();
     };
 
     UserQueue.prototype.clear = function() {
@@ -754,21 +754,16 @@ if debug then console.log 'delete-song clicked'
         return queue.playSong('genQ', i);
       } else if ($(this).hasClass('queue-button')) {
         console.log('clicked');
-        return queue.userQ.append(i);
+        queue.userQ.append(i);
+        return queue.updateMinQueue();
       }
     });
     $(document).on('click', '#hide-ads', function() {
       $('.ads').slideUp('slow');
-      $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
-      return $('#adBlock').animate({
-        height: 30
-      }, 'slow');
+      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
     });
     $(document).on('click', '#show-ads', function() {
-      $('.ads').show('slow');
-      $('#adBlock').animate({
-        height: 300
-      }, 'slow');
+      console.log('showads clicked');
       $('.ads').slideDown('slow');
       return $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.');
     });

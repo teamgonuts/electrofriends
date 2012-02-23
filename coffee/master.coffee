@@ -281,9 +281,7 @@ window.UserQueue = class UserQueue
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
                   $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
-
         window.queue.updateMinQueue()
-
         this.setSongCookie $('#ytcode_' + i).val()
 
     #adds 'ytcode' to the userQ's cookie string
@@ -320,7 +318,7 @@ window.UserQueue = class UserQueue
             $(song).attr('id', 'userQ_' + i)
             i++
             if debug then console.log $(song).attr('id') + ', i=' + i
-        window.queue.updateMinQueue() #update the minQueue
+        queue.updateMinQueue() #update the minQueue
 
 
 
@@ -666,16 +664,14 @@ $ ->
         else if $(this).hasClass('queue-button')
             console.log 'clicked'
             queue.userQ.append(i)
+            queue.updateMinQueue()
 
     #=============Show/Hide ads============
     $(document).on 'click', '#hide-ads', ->
         $('.ads').slideUp('slow')
         $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.')
-        $('#adBlock').animate({height:30}, 'slow')
-        
     $(document).on 'click', '#show-ads', ->
-        $('.ads').show('slow')
-        $('#adBlock').animate({height:300}, 'slow')
+        console.log 'showads clicked'
         $('.ads').slideDown('slow')
         $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.')
 
