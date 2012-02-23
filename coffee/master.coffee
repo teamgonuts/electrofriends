@@ -635,6 +635,18 @@ $ ->
             queue.userQ.append(i)
             queue.updateMinQueue()
 
+    #=============Show/Hide ads============
+    $(document).on 'click', '#hide-ads', ->
+        $('.ads').slideUp('slow')
+        $('#adBlock').animate({height:50}, 'slow')
+        $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast by <span class="ads-button" id="show-ads">clicking here</span> to enable ads.')
+    $(document).on 'click', '#show-ads', ->
+        console.log 'showads clicked'
+        $('.ads').show('slow')
+        $('#adBlock').animate({height:290}, 'slow')
+        $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.')
+
+    
     #=============Delete Song Button=============
     $(document).on 'hover', '.user-queue', ->
         $(this).find('.delete-song').toggleClass('hidden')

@@ -717,6 +717,21 @@ if debug then console.log 'delete-song clicked'
         return queue.updateMinQueue();
       }
     });
+    $(document).on('click', '#hide-ads', function() {
+      $('.ads').slideUp('slow');
+      $('#adBlock').animate({
+        height: 50
+      }, 'slow');
+      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast by <span class="ads-button" id="show-ads">clicking here</span> to enable ads.');
+    });
+    $(document).on('click', '#show-ads', function() {
+      console.log('showads clicked');
+      $('.ads').show('slow');
+      $('#adBlock').animate({
+        height: 290
+      }, 'slow');
+      return $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.');
+    });
     $(document).on('hover', '.user-queue', function() {
       return $(this).find('.delete-song').toggleClass('hidden');
     });

@@ -43,6 +43,11 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 /*------------------ADDED BY calvin------------------*/
 /*------------------------------------------------*/
+.ads-button{
+    cursor:pointer;
+    font-weight:bolder;
+}
+
 .delete-song{
     color: red;
     text-size:10px;
