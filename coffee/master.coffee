@@ -638,12 +638,10 @@ $ ->
     #=============Show/Hide ads============
     $(document).on 'click', '#hide-ads', ->
         $('.ads').slideUp('slow')
-        $('#adBlock').animate({height:50}, 'slow')
         $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.')
     $(document).on 'click', '#show-ads', ->
         console.log 'showads clicked'
-        $('.ads').show('slow')
-        $('#adBlock').animate({height:290}, 'slow')
+        $('.ads').slideDown('slow')
         $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.')
 
     

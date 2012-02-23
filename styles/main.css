@@ -54,6 +54,7 @@ h1, h2, h3, h4, h5 {
 
 p#adsPlease {
     text-align: center;
+    margin-top: 5px;
 }
 
 .delete-song{
@@ -1076,7 +1077,7 @@ box-shadow: 0 0 10px #333;
 	#adBlock {
 		width: 100%;
 		background-color: #e6e6e6;
-		height: 290px;
+		height: 300px;
 		margin: 25px 0 0 0;
 		
 		-webkit-box-shadow: 0 0 10px #ccc;
