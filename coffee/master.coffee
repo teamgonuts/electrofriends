@@ -183,7 +183,7 @@ window.Queue = class Queue
     #shows the next 3 songs to be played
     #rankingsChange will be true if updateMinQueue is called as a result of a filter click
     updateMinQueue: (rankingsChange = false) ->
-        debug = false
+        debug = true
         if debug then console.log 'Queue.updateMinQueue() called!'
 
         $('#min-queue').html('')#clear out old queue
@@ -261,10 +261,15 @@ window.UserQueue = class UserQueue
         debug = false
         if debug then console.log 'User Queue Created!'
         @songs = new Array()
+        this.initialize()
+
+    #gets all the stored song cookies and puts them in userqueue
+    initialize: ->
+        this.getSongCookies()
 
     #append song 'i' from the rankings to the back of the userQueue
     append: (i) ->
-        debug = false
+        debug = true
         if debug then console.log 'appending to user queue'
         @songs.push new Song( $('#ytcode_' + i).val()
                         $('#title_' + i).val()
@@ -287,12 +292,20 @@ window.UserQueue = class UserQueue
         if debug then console.log 'UserQueue.setSongCookie()'
         songStr = ""
         for song in @songs
-            songStr = songStr + song.ytcode
-            
+            songStr = songStr + song.ytcode + ','
+        songStr = songStr.substr(0, songStr.length-1) #removing last comma
         $.post 'ajax/setSongCookies.php',
                 ytcodes: songStr
                 (data) ->
-                    if debug then console.log 'successfully set cookie: ' + songStr 
+                    if debug then console.log 'successfully set cookie: ' + songStr + ':' + data
+    
+    #gets any stored cookies from last time
+    getSongCookies: ->
+        debug = true
+        if debug then console.log 'UserQueue.getSongCookies()'
+        $.get 'ajax/getSongCookies.php', (data)->
+            if debug then console.log 'successfully got cookeis'
+            $('#userQ').html(data)
 
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
@@ -651,6 +664,7 @@ $ ->
         if $(this).hasClass('play-button')
             queue.playSong('genQ', i)
         else if $(this).hasClass('queue-button')
+            console.log 'clicked'
             queue.userQ.append(i)
 
     #=============Show/Hide ads============

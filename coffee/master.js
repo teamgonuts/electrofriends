@@ -199,7 +199,7 @@ if debug then console.log 'delete-song clicked'
     Queue.prototype.updateMinQueue = function(rankingsChange) {
       var debug, i, _ref, _results;
       if (rankingsChange == null) rankingsChange = false;
-      debug = false;
+      debug = true;
       if (debug) console.log('Queue.updateMinQueue() called!');
       $('#min-queue').html('');
       if ($('#userQ').find('.queue-item').length !== 0) {
@@ -274,11 +274,16 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('User Queue Created!');
       this.songs = new Array();
+      this.initialize();
     }
+
+    UserQueue.prototype.initialize = function() {
+      return this.getSongCookies();
+    };
 
     UserQueue.prototype.append = function(i) {
       var debug;
-      debug = false;
+      debug = true;
       if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
       $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
@@ -294,12 +299,25 @@ if debug then console.log 'delete-song clicked'
       _ref = this.songs;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         song = _ref[_i];
-        songStr = songStr + song.ytcode;
+        songStr = songStr + song.ytcode + ',';
       }
+      songStr = songStr.substr(0, songStr.length - 1);
       return $.post('ajax/setSongCookies.php', {
         ytcodes: songStr
       }, function(data) {
-        if (debug) return console.log('successfully set cookie: ' + songStr);
+        if (debug) {
+          return console.log('successfully set cookie: ' + songStr + ':' + data);
+        }
+      });
+    };
+
+    UserQueue.prototype.getSongCookies = function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('UserQueue.getSongCookies()');
+      return $.get('ajax/getSongCookies.php', function(data) {
+        if (debug) console.log('successfully got cookeis');
+        return $('#userQ').html(data);
       });
     };
 
@@ -735,6 +753,7 @@ if debug then console.log 'delete-song clicked'
       if ($(this).hasClass('play-button')) {
         return queue.playSong('genQ', i);
       } else if ($(this).hasClass('queue-button')) {
+        console.log('clicked');
         return queue.userQ.append(i);
       }
     });
