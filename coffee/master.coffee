@@ -639,7 +639,7 @@ $ ->
     $(document).on 'click', '#hide-ads', ->
         $('.ads').slideUp('slow')
         $('#adBlock').animate({height:50}, 'slow')
-        $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast by <span class="ads-button" id="show-ads">clicking here</span> to enable ads.')
+        $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.')
     $(document).on 'click', '#show-ads', ->
         console.log 'showads clicked'
         $('.ads').show('slow')
@@ -717,9 +717,9 @@ $ ->
 
     #=====queue-controls===
     $(document).on 'click', '.queue-min', ->
-        $('#max-queue').slideUp 400, ->
-            $('.content').removeClass 'queue-open'
-            $('#queue-max').html("[Show Queue]")
+        $('#max-queue').hide 400
+        $('#queue-max').html("[Show Queue]")
+        $('.content').removeClass 'queue-open'
 
     $(document).on 'click', '#queue-max', ->
         if $('#max-queue').css('display') is 'none'

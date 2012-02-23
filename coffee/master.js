@@ -722,7 +722,7 @@ if debug then console.log 'delete-song clicked'
       $('#adBlock').animate({
         height: 50
       }, 'slow');
-      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast by <span class="ads-button" id="show-ads">clicking here</span> to enable ads.');
+      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
     });
     $(document).on('click', '#show-ads', function() {
       console.log('showads clicked');
@@ -800,10 +800,9 @@ if debug then console.log 'delete-song clicked'
       }
     });
     $(document).on('click', '.queue-min', function() {
-      return $('#max-queue').slideUp(400, function() {
-        $('.content').removeClass('queue-open');
-        return $('#queue-max').html("[Show Queue]");
-      });
+      $('#max-queue').hide(400);
+      $('#queue-max').html("[Show Queue]");
+      return $('.content').removeClass('queue-open');
     });
     $(document).on('click', '#queue-max', function() {
       if ($('#max-queue').css('display') === 'none') {
