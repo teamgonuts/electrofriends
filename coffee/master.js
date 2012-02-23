@@ -800,14 +800,16 @@ if debug then console.log 'delete-song clicked'
       }
     });
     $(document).on('click', '.queue-min', function() {
-      $('#max-queue').hide('slow');
-      $('.content').removeClass('queue-open');
-      return $('#queue-max').html("[Show Queue]");
+      return $('#max-queue').slideUp(400, function() {
+        $('.content').removeClass('queue-open');
+        return $('#queue-max').html("[Show Queue]");
+      });
     });
     $(document).on('click', '#queue-max', function() {
       if ($('#max-queue').css('display') === 'none') {
-        $('#max-queue').show('slow');
         $('.content:not(#bottom-contents)').addClass('queue-open');
+        $('#max-queue').slideDown(400);
+        $('#max-queue').removeClass('hidden');
         return $('#queue-max').html("[Close Queue]");
       } else {
         return $('.queue-min').click();

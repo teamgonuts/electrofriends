@@ -717,14 +717,15 @@ $ ->
 
     #=====queue-controls===
     $(document).on 'click', '.queue-min', ->
-        $('#max-queue').hide('slow')
-        $('.content').removeClass 'queue-open'
-        $('#queue-max').html("[Show Queue]")
+        $('#max-queue').slideUp 400, ->
+            $('.content').removeClass 'queue-open'
+            $('#queue-max').html("[Show Queue]")
 
     $(document).on 'click', '#queue-max', ->
         if $('#max-queue').css('display') is 'none'
-            $('#max-queue').show('slow')
             $('.content:not(#bottom-contents)').addClass 'queue-open'
+            $('#max-queue').slideDown(400)
+            $('#max-queue').removeClass('hidden')
             $('#queue-max').html("[Close Queue]")
         else #queue is already open, so close it
             $('.queue-min').click()
