@@ -177,7 +177,6 @@ span.previous-song:hover, span.next-song:hover{
 .queue-item:hover{
     text-decoration: underline;
     cursor: pointer;
-    color: black;
 }
 
 .selected-song{
