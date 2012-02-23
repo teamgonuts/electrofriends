@@ -45,7 +45,15 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 .ads-button{
     cursor:pointer;
-    font-weight:bolder;
+    font-weight:bold;
+}
+
+.ads-button:hover {
+    color: #bd1dc9;
+}
+
+p#adsPlease {
+    text-align: center;
 }
 
 .delete-song{
