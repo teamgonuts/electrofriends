@@ -223,6 +223,8 @@ include ("classes/GenreFilter.php");
 				</ul>
 			</div><!-- end of topList -->
 			
+			<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Ft3kno%2F146156005506087&amp;width=300&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;border_color=%23cccccc&amp;stream=false&amp;header=true&amp;appId=313109265403858" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:290px;" allowTransparency="true"></iframe>			
+			
 			
 		</div><!-- end of sidebar -->
 <div class="hidden" id="max-queue">
