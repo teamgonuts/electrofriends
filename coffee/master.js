@@ -277,8 +277,30 @@ if debug then console.log 'delete-song clicked'
     }
 
     UserQueue.prototype.append = function(i) {
+      var debug;
+      debug = false;
+      if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
-      return $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
+      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
+      window.queue.updateMinQueue();
+      return this.setSongCookie($('#ytcode_' + i).val());
+    };
+
+    UserQueue.prototype.setSongCookie = function(ytcode) {
+      var debug, song, songStr, _i, _len, _ref;
+      debug = true;
+      if (debug) console.log('UserQueue.setSongCookie()');
+      songStr = "";
+      _ref = this.songs;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        song = _ref[_i];
+        songStr = songStr + song.ytcode;
+      }
+      return $.post('ajax/setSongCookies.php', {
+        ytcodes: songStr
+      }, function(data) {
+        if (debug) return console.log('successfully set cookie: ' + songStr);
+      });
     };
 
     UserQueue.prototype["delete"] = function(i) {
@@ -295,7 +317,7 @@ if debug then console.log 'delete-song clicked'
         i++;
         if (debug) console.log($(song).attr('id') + ', i=' + i);
       }
-      return queue.updateMinQueue();
+      return window.queue.updateMinQueue();
     };
 
     UserQueue.prototype.clear = function() {
@@ -713,23 +735,22 @@ if debug then console.log 'delete-song clicked'
       if ($(this).hasClass('play-button')) {
         return queue.playSong('genQ', i);
       } else if ($(this).hasClass('queue-button')) {
-        queue.userQ.append(i);
-        return queue.updateMinQueue();
+        return queue.userQ.append(i);
       }
     });
     $(document).on('click', '#hide-ads', function() {
       $('.ads').slideUp('slow');
-      $('#adBlock').animate({
-        height: 50
+      $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
+      return $('#adBlock').animate({
+        height: 30
       }, 'slow');
-      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
     });
     $(document).on('click', '#show-ads', function() {
-      console.log('showads clicked');
       $('.ads').show('slow');
       $('#adBlock').animate({
-        height: 290
+        height: 300
       }, 'slow');
+      $('.ads').slideDown('slow');
       return $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.');
     });
     $(document).on('hover', '.user-queue', function() {

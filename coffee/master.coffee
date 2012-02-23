@@ -264,6 +264,8 @@ window.UserQueue = class UserQueue
 
     #append song 'i' from the rankings to the back of the userQueue
     append: (i) ->
+        debug = false
+        if debug then console.log 'appending to user queue'
         @songs.push new Song( $('#ytcode_' + i).val()
                         $('#title_' + i).val()
                         $('#genre_' + i).val()
@@ -274,7 +276,24 @@ window.UserQueue = class UserQueue
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
                   $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>') 
-        
+
+        window.queue.updateMinQueue()
+
+        this.setSongCookie $('#ytcode_' + i).val()
+
+    #adds 'ytcode' to the userQ's cookie string
+    setSongCookie: (ytcode) ->
+        debug = true
+        if debug then console.log 'UserQueue.setSongCookie()'
+        songStr = ""
+        for song in @songs
+            songStr = songStr + song.ytcode
+            
+        $.post 'ajax/setSongCookies.php',
+                ytcodes: songStr
+                (data) ->
+                    if debug then console.log 'successfully set cookie: ' + songStr 
+
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
     delete: (i) ->
@@ -288,7 +307,7 @@ window.UserQueue = class UserQueue
             $(song).attr('id', 'userQ_' + i)
             i++
             if debug then console.log $(song).attr('id') + ', i=' + i
-        queue.updateMinQueue() #update the minQueue
+        window.queue.updateMinQueue() #update the minQueue
 
 
 
@@ -633,14 +652,16 @@ $ ->
             queue.playSong('genQ', i)
         else if $(this).hasClass('queue-button')
             queue.userQ.append(i)
-            queue.updateMinQueue()
 
     #=============Show/Hide ads============
     $(document).on 'click', '#hide-ads', ->
         $('.ads').slideUp('slow')
         $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.')
+        $('#adBlock').animate({height:30}, 'slow')
+        
     $(document).on 'click', '#show-ads', ->
-        console.log 'showads clicked'
+        $('.ads').show('slow')
+        $('#adBlock').animate({height:300}, 'slow')
         $('.ads').slideDown('slow')
         $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.')
 
