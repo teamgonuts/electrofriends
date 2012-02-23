@@ -791,8 +791,6 @@ if debug then console.log 'delete-song clicked'
         if (rankings.maxed_song !== -1) {
           $('#max_' + rankings.maxed_song).css('display', 'none');
           $('#min_' + rankings.maxed_song).removeClass('hidden');
-        } else {
-
         }
         $('#min_' + i).addClass('hidden');
         $('#max_' + i).show('slow');

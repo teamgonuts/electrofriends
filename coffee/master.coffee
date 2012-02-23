@@ -708,7 +708,6 @@ $ ->
             if rankings.maxed_song != -1
                 $('#max_' + rankings.maxed_song).css('display', 'none')
                 $('#min_' + rankings.maxed_song).removeClass('hidden')
-            else
 
             #max clicked song
             $('#min_' + i).addClass('hidden')
