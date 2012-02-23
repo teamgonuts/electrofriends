@@ -198,13 +198,13 @@ include ("classes/GenreFilter.php");
 				<h2>Genre</h2>
 				
 					<ul>
-						<li><a class="filter genre-filter" id="filter-all" title="all" href="#">All</a></li>
-						<li><a class="filter genre-filter" id="filter-dnb" href="#">DnB</a></li>
-						<li><a class="filter genre-filter" id="filter-dubstep" href="#">Dubstep</a></li>
-						<li><a class="filter genre-filter" id="filter-electro" href="#">Electro</a></li>
-						<li><a class="filter genre-filter" id="filter-hardstyle" href="#">Hardstyle</a></li>
-						<li><a class="filter genre-filter" id="filter-house" href="#">House</a></li>
-						<li><a class="filter genre-filter" id="filter-trance" href="#">Trance</a></li>
+						<li><a class="filter genre-filter" id="filter-all" title="all">All</a></li>
+						<li><a class="filter genre-filter" id="filter-dnb" >DnB</a></li>
+						<li><a class="filter genre-filter" id="filter-dubstep" >Dubstep</a></li>
+						<li><a class="filter genre-filter" id="filter-electro" >Electro</a></li>
+						<li><a class="filter genre-filter" id="filter-hardstyle">Hardstyle</a></li>
+						<li><a class="filter genre-filter" id="filter-house" >House</a></li>
+						<li><a class="filter genre-filter" id="filter-trance">Trance</a></li>
 					</ul>
 			
 			</div><!-- end of genre -->
