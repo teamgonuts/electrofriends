@@ -201,6 +201,9 @@ span.previous-song:hover, span.next-song:hover{
 
 .highlight:hover{
     cursor: pointer;
+    color: #bd1dc9;
+    text-decoration: none;
+    
 }
 .highlight{
 text-decoration: underline;
