@@ -199,7 +199,7 @@ if debug then console.log 'delete-song clicked'
     Queue.prototype.updateMinQueue = function(rankingsChange) {
       var debug, i, _ref, _results;
       if (rankingsChange == null) rankingsChange = false;
-      debug = true;
+      debug = false;
       if (debug) console.log('Queue.updateMinQueue() called!');
       $('#min-queue').html('');
       if ($('#userQ').find('.queue-item').length !== 0) {
@@ -274,16 +274,11 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('User Queue Created!');
       this.songs = new Array();
-      this.initialize();
     }
-
-    UserQueue.prototype.initialize = function() {
-      return this.getSongCookies();
-    };
 
     UserQueue.prototype.append = function(i) {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
       $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span>');
@@ -299,25 +294,12 @@ if debug then console.log 'delete-song clicked'
       _ref = this.songs;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         song = _ref[_i];
-        songStr = songStr + song.ytcode + ',';
+        songStr = songStr + song.ytcode;
       }
-      songStr = songStr.substr(0, songStr.length - 1);
       return $.post('ajax/setSongCookies.php', {
         ytcodes: songStr
       }, function(data) {
-        if (debug) {
-          return console.log('successfully set cookie: ' + songStr + ':' + data);
-        }
-      });
-    };
-
-    UserQueue.prototype.getSongCookies = function() {
-      var debug;
-      debug = true;
-      if (debug) console.log('UserQueue.getSongCookies()');
-      return $.get('ajax/getSongCookies.php', function(data) {
-        if (debug) console.log('successfully got cookeis');
-        return $('#userQ').html(data);
+        if (debug) return console.log('successfully set cookie: ' + songStr);
       });
     };
 
@@ -335,7 +317,7 @@ if debug then console.log 'delete-song clicked'
         i++;
         if (debug) console.log($(song).attr('id') + ', i=' + i);
       }
-      return queue.updateMinQueue();
+      return window.queue.updateMinQueue();
     };
 
     UserQueue.prototype.clear = function() {
@@ -753,17 +735,21 @@ if debug then console.log 'delete-song clicked'
       if ($(this).hasClass('play-button')) {
         return queue.playSong('genQ', i);
       } else if ($(this).hasClass('queue-button')) {
-        console.log('clicked');
-        queue.userQ.append(i);
-        return queue.updateMinQueue();
+        return queue.userQ.append(i);
       }
     });
     $(document).on('click', '#hide-ads', function() {
       $('.ads').slideUp('slow');
-      return $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
+      $('#adsPlease').html('Ads help support t3k.no\'s developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.');
+      return $('#adBlock').animate({
+        height: 30
+      }, 'slow');
     });
     $(document).on('click', '#show-ads', function() {
-      console.log('showads clicked');
+      $('.ads').show('slow');
+      $('#adBlock').animate({
+        height: 300
+      }, 'slow');
       $('.ads').slideDown('slow');
       return $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.');
     });
