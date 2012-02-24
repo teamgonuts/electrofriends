@@ -1,14 +1,22 @@
 $ ->
-    console.log 'sortable'
-    $('#songs').sortable({
-        start: startHelper
-        update: stopHelper
+    $('#songs2').sortable({
+        update: (event,ui) ->
+            console.log '2nd list'
+        connectWith: '#songs'
+        receive: (event, ui) ->
+            console.log 'receiving li'
     })
+    
+        
 
-    startHelper = ->
-        console.log 'startHelper'
-    stopHelper = ->
-        console.log 'stopHelper'
+    $('#songs').sortable({
+        update: (event,ui) ->
+            console.log '1st list updated'
+        receive: (event,ui) ->
+            console.log '1st list received li'
+    })
+    
+
     
     ###$('.song').draggable( {
         containment: '#songs',

@@ -25,6 +25,14 @@
     <li class="song">test 5</li>
     <li class="song">test 6</li>
 </ol>
+<ol id="songs2" style="width:100px; background-color: white;">
+    <li class="song">test 7</li>
+    <li class="song">test 8</li>
+    <li class="song">test 9</li>
+    <li class="song">test 10</li>
+    <li class="song">test 11</li>
+    <li class="song">test 12</li>
+</ol>
 </div>
  
 </body>

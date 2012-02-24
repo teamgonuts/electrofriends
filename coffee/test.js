@@ -1,18 +1,23 @@
 (function() {
 
   $(function() {
-    var startHelper, stopHelper;
-    console.log('sortable');
-    $('#songs').sortable({
-      start: startHelper,
-      update: stopHelper
+    $('#songs2').sortable({
+      update: function(event, ui) {
+        return console.log('2nd list');
+      },
+      connectWith: '#songs',
+      receive: function(event, ui) {
+        return console.log('receiving li');
+      }
     });
-    startHelper = function() {
-      return console.log('startHelper');
-    };
-    return stopHelper = function() {
-      return console.log('stopHelper');
-    };
+    return $('#songs').sortable({
+      update: function(event, ui) {
+        return console.log('1st list updated');
+      },
+      receive: function(event, ui) {
+        return console.log('1st list received li');
+      }
+    });
     /*$('.song').draggable( {
         containment: '#songs',
         cursor: 'move',
