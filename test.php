@@ -1,39 +1,31 @@
-<html>
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+ 
+<style>
+#makeMeDraggable { width: 300px; height: 300px; background: red; }
+</style>
+ 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript" src="coffee/test.js"></script>
+ 
+<script type="text/javascript">
+ 
+</script>
+ 
 </head>
-
 <body>
-<?php
-include ("connection.php");
-
-/* ADDING EVERY USER TO THE USER DATABASE
-$qry = mysql_query("SELECT user FROM songs");
-if (!$qry)
-    die("FAIL: " . mysql_error());
-
-while($row = mysql_fetch_array($qry)) {
-    echo $row['user'] . '<br>';
-    $qry2 = mysql_query('INSERT IGNORE INTO users (user) VALUES ("' . $row['user'] . '")');
-    if (!$qry2)
-        die("FAIL: " . mysql_error());
-}
-*/
-/* UPDATING SCORES FOR EVERY USER
-$qry = mysql_query("SELECT user, score FROM songs");
-if (!$qry)
-    die("FAIL: " . mysql_error());
-
-while($row = mysql_fetch_array($qry)) {
-    echo $row['user'] . ': ' . $row['score'] . '<br>';
-    $qry2 = mysql_query('UPDATE users SET points = points + ' . $row['score'] . ' WHERE user = "' . $row['user'] . '"');
-    if (!$qry2)
-        die("FAIL: " . mysql_error());
-}
-*/
-?>
+ 
+<div id="content" style="height: 400px;">
+<ol id="songs" style="width:100px; background-color: white;">
+    <li class="song">test 1</li>
+    <li class="song">test 2</li>
+    <li class="song">test 3</li>
+    <li class="song">test 4</li>
+    <li class="song">test 5</li>
+    <li class="song">test 6</li>
+</ol>
+</div>
+ 
 </body>
 </html>

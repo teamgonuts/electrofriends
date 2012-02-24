@@ -23,7 +23,7 @@ if debug then console.log 'delete-song clicked'
       params = {
         allowScriptAccess: "always"
       };
-      swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1", "ytplayer", "275", "90", "8", null, null, params);
+      swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1", "ytplayer", "200", "90", "8", null, null, params);
       this.loadSongInRankings(1);
       return this.resizeMaxQueue();
     };
@@ -34,7 +34,7 @@ if debug then console.log 'delete-song clicked'
       params = {
         allowScriptAccess: "always"
       };
-      swfobject.embedSWF("http://www.youtube.com/v/" + window.currentSong.ytcode + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1&autoplay=1", "ytplayer", "275", "90", "8", null, null, params);
+      swfobject.embedSWF("http://www.youtube.com/v/" + window.currentSong.ytcode + "&enablejsapi=1&playerapiid=ytplayer" + "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1&autoplay=1", "ytplayer", "200", "90", "8", null, null, params);
       return this.updateCurrentSongInfo();
     };
 

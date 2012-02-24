@@ -17,7 +17,7 @@ window.Player = class Player
         params = { allowScriptAccess: "always" };
         swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() +  "&enablejsapi=1&playerapiid=ytplayer" +
                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1",
-                        "ytplayer", "275", "90", "8", null, null, params);
+                        "ytplayer", "200", "90", "8", null, null, params);
 
         this.loadSongInRankings(1)#loads first song
         this.resizeMaxQueue()
@@ -29,7 +29,7 @@ window.Player = class Player
         params = { allowScriptAccess: "always" };
         swfobject.embedSWF("http://www.youtube.com/v/" + window.currentSong.ytcode +  "&enablejsapi=1&playerapiid=ytplayer" +
                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1&autoplay=1",
-                        "ytplayer", "275", "90", "8", null, null, params);
+                        "ytplayer", "200", "90", "8", null, null, params);
         this.updateCurrentSongInfo()
         
     #resizes the max queue to fit the screen
@@ -668,6 +668,10 @@ $ ->
         debug = false
         if debug then console.log 'resized window'
         player.resizeMaxQueue()
+    
+    #makings shit dragable
+    #$('.user-queue').draggable({containment:'parent'})
+        
 
     #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player
