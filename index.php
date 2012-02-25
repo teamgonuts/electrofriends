@@ -335,10 +335,15 @@ include ("classes/GenreFilter.php");
 		<div class="threeColumnCenter">
 			
 			<div class="twoColumnLeft">
+                   <div class="left">
                         <span id="ytplayer">
                             <p>You will need Flash 8 or better to view this content. Download it
                                     <a href="http://get.adobe.com/flashplayer/">HERE</a>
                             </p>
+                    </div><!-- end of left -->                            
+                    <div class="right">
+                        
+                    </div><!-- end of right -->
                         </span>
 			</div><!-- end of twoColumnLeft -->
 			
