@@ -191,7 +191,7 @@ window.Queue = class Queue
             for song in $('#userQ').find('li')
                 if debug then console.log 'Adding Song from UserQ'
                 if $('#min-queue').find('.queue-item').length >= @minQ_MaxSongs then break #if we shouldn't add more songs
-                i = song.id.split('_')[1] - 1 #index of song in array
+                i = song.id.split('_')[1] - 1 #index of song in queue array
                 if not @userQ.songs[i].played #if it hasnt been played
                     $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
                               @userQ.songs[i].title + '</span><span class="purple"> //</span> ' + 
@@ -254,9 +254,10 @@ window.Queue = class Queue
 
             #marks all the songs below i not played so that the next song
             #to be played in the song directly below i in userQ
-            @userQ.markAllNotPlayed(i) 
+            qindex = $('#userQ_' + index).index() #index of song in the queue
+            @userQ.markAllNotPlayed(qindex + 1) 
+
         this.updateMinQueue() #update the minQueue
-        
         if debug then console.log '  about to play song with ytcode: ' + ytcode
         ytplayer = document.getElementById('ytplayer')
         ytplayer.loadVideoById ytcode
@@ -361,17 +362,18 @@ window.UserQueue = class UserQueue
 
     #marks all the songs below 'index' not played
     markAllNotPlayed: (index) ->
-        debug = false
+        debug = true
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
         if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
             for i in [0..@songs.length-1]
-                if i <= index
-                    @songs[i].played = true
-                    if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
-                else if i > index and i <= @songs.length-1
-                    @songs[i].played = false
-                    if debug then console.log @songs[i].title + ' played: ' + @songs[i].played
-                else
+                qindex = $('#userQ_' + (i+1)).index()
+                if debug then console.log ' qindex: ' + qindex
+                if i < index
+                    @songs[qindex].played = true
+                    if debug then console.log @songs[i].title + ' makred played: ' + @songs[qindex].played
+                else if i >= index and i <= @songs.length-1
+                    @songs[qindex].played = false
+                    if debug then console.log @songs[i].title + ' marked unplayed: ' + @songs[qindex].played
 
 window.GeneratedQueue = class GeneratedQueue
     constructor: ->
@@ -682,7 +684,7 @@ $ ->
     $('#genQ').sortable({
         update: (event, ui) ->
             queue.updateMinQueue()
-        #connectWith: $('#userQ')
+            #connectWith: $('#userQ')
     })
     $('#userQ').sortable({
         update: (event, ui) ->
@@ -691,17 +693,16 @@ $ ->
         receive: (event,ui) ->
             console.log '1st list received:' + ui.item.attr('id')
             rindex = ui.item.attr('id').split('_') #index of song in rankings
-            ui.item.attr('id', 'userQ_' + rindex) #setting new id
-            ###queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
+            ui.item.attr('id', 'userQ_' + queue.userQ.songs.length) #setting new id
+            queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
                             $('#title_' + rindex).val()
                             $('#genre_' + rindex).val()
                             $('#artist_' + rindex).val()
                             $('#user_' + rindex).val()
                             $('#userScore_' + rindex).val())
-            ###
 
-            #window.queue.updateMinQueue()
-            #queue.userQ.updateSongCookies()
+            window.queue.updateMinQueue()
+            queue.userQ.updateSongCookies()
     })
         
 

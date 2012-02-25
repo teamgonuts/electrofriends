@@ -241,7 +241,7 @@ if debug then console.log 'delete-song clicked'
     };
 
     Queue.prototype.playSong = function(queue, index, rankings) {
-      var debug, i, ytcode, ytplayer;
+      var debug, i, qindex, ytcode, ytplayer;
       if (rankings == null) rankings = false;
       debug = false;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
@@ -271,7 +271,8 @@ if debug then console.log 'delete-song clicked'
         ytcode = this.userQ.songs[i].ytcode;
         window.player.loadSongInQueue(i);
         this.userQ.songs[i].played = true;
-        this.userQ.markAllNotPlayed(i);
+        qindex = $('#userQ_' + index).index();
+        this.userQ.markAllNotPlayed(qindex + 1);
       }
       this.updateMinQueue();
       if (debug) console.log('  about to play song with ytcode: ' + ytcode);
@@ -380,28 +381,30 @@ if debug then console.log 'delete-song clicked'
     };
 
     UserQueue.prototype.markAllNotPlayed = function(index) {
-      var debug, i, _ref, _results;
-      debug = false;
+      var debug, i, qindex, _ref, _results;
+      debug = true;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
       if ($('#userQ').children().length > 1) {
         _results = [];
         for (i = 0, _ref = this.songs.length - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
-          if (i <= index) {
-            this.songs[i].played = true;
+          qindex = $('#userQ_' + (i + 1)).index();
+          if (debug) console.log(' qindex: ' + qindex);
+          if (i < index) {
+            this.songs[qindex].played = true;
             if (debug) {
-              _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+              _results.push(console.log(this.songs[i].title + ' makred played: ' + this.songs[qindex].played));
             } else {
               _results.push(void 0);
             }
-          } else if (i > index && i <= this.songs.length - 1) {
-            this.songs[i].played = false;
+          } else if (i >= index && i <= this.songs.length - 1) {
+            this.songs[qindex].played = false;
             if (debug) {
-              _results.push(console.log(this.songs[i].title + ' played: ' + this.songs[i].played));
+              _results.push(console.log(this.songs[i].title + ' marked unplayed: ' + this.songs[qindex].played));
             } else {
               _results.push(void 0);
             }
           } else {
-
+            _results.push(void 0);
           }
         }
         return _results;
@@ -782,14 +785,10 @@ if debug then console.log 'delete-song clicked'
         var rindex;
         console.log('1st list received:' + ui.item.attr('id'));
         rindex = ui.item.attr('id').split('_');
-        return ui.item.attr('id', 'userQ_' + rindex);
-        /*queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
-                        $('#title_' + rindex).val()
-                        $('#genre_' + rindex).val()
-                        $('#artist_' + rindex).val()
-                        $('#user_' + rindex).val()
-                        $('#userScore_' + rindex).val())
-        */
+        ui.item.attr('id', 'userQ_' + queue.userQ.songs.length);
+        queue.userQ.songs.push(new Song($('#ytcode_' + rindex).val(), $('#title_' + rindex).val(), $('#genre_' + rindex).val(), $('#artist_' + rindex).val(), $('#user_' + rindex).val(), $('#userScore_' + rindex).val()));
+        window.queue.updateMinQueue();
+        return queue.userQ.updateSongCookies();
       }
     });
     $(document).on('click', '.song-button', function() {
