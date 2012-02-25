@@ -213,7 +213,8 @@ window.Queue = class Queue
     #sets the current song and queue to the specified paraments then plays song
     #adds the song that was just played to the previouslyPlayed queue
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
-    playSong: (queue, index) ->
+             #rankings will be true if the index of the songs should come from the rankings
+    playSong: (queue, index, rankings=false) ->
         debug = false
         if debug then console.log 'Play Song ' + index + ' in ' + queue
 
@@ -226,14 +227,16 @@ window.Queue = class Queue
             return
         
         $('.queue-item').removeClass('selected-song') #remove current selection
-        $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
+        $('#genQ_' + i).addClass('selected-song')#highlight new song
 
         window.player.addToHistory window.currentSong #adds previous song to history
         #play song
         if queue is 'genQ' 
+            #incase the order of the songs has been swtiched, lets look up the ytcode out of the genQ
             ytcode = $('#ytcode_' + index).val()
             window.player.loadSongInRankings(index)
-            @genQ.curSong = index
+
+            if rankings then @genQ.curSong = index else @genQ.curSong = $('#genQ_' + index).index() + 1
             if debug then console.log '@genQ.curSong=' + @genQ.curSong
             #marking all songs in userQ played so next song is the song 
             #directly below this song in the generated queue
@@ -275,7 +278,7 @@ window.UserQueue = class UserQueue
 
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span></li>') 
+                  $('#artist_' + i).val() + '<span class="delete-song">[x]</span></li>') 
         window.queue.updateMinQueue()
         this.updateSongCookies()
 
@@ -392,7 +395,6 @@ window.GeneratedQueue = class GeneratedQueue
         debug = false
         if debug then console.log 'GenQueue.clear() called!'
         $('#genQ').html('')
-
 
 ###=================================================
 ---------------------Filters--------------------------
@@ -669,8 +671,8 @@ $ ->
         if debug then console.log 'resized window'
         player.resizeMaxQueue()
     
-    #makings shit dragable
-    #$('.user-queue').draggable({containment:'parent'})
+    #makings shit sortable
+    $('#genQ').sortable()
         
 
     #either add to queue or play song, whichever was pressed
@@ -678,7 +680,7 @@ $ ->
     $(document).on 'click', '.song-button', ->
         i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
         if $(this).hasClass('play-button')
-            queue.playSong('genQ', i)
+            queue.playSong('genQ', i, true)
         else if $(this).hasClass('queue-button')
             queue.userQ.append(i)
 
@@ -696,8 +698,11 @@ $ ->
 
     
     #=============Delete Song Button=============
-    $(document).on 'hover', '.user-queue', ->
+    $(document).on 'hover' , '.user-queue', -> 
+        debug = false
+        if debug then console.log 'hover: ' + $(this).attr('id')
         $(this).find('.delete-song').toggleClass('hidden')
+            
         
     $(document).on 'click', '.delete-song', (event) ->
         debug = false
@@ -714,7 +719,7 @@ $ ->
         i = id.split('_')[1] #index of song clicked
         q = id.split('_')[0] #queue that was clicked
         if debug then console.log 'queue: ' + q + ', index: ' + i
-        queue.playSong(q, i)
+        queue.playSong(q, i, true)
 
     $(document).on 'click', '.previous-song', ->
         player.previousSong()
@@ -724,7 +729,7 @@ $ ->
     $(document).on 'click', '.queue-item', ->
         debug = false
         if debug then console.log 'queue-item clicked'
-        i = $(this).attr('id').split('_')[1] #index of song clicked
+        i = $(this).attr('id').split('_')[1]
         q = $(this).attr('id').split('_')[0] #queue that was clicked
         if debug then console.log 'queue: ' + q + ', index: ' + i
         queue.playSong(q, i)

@@ -229,8 +229,9 @@ if debug then console.log 'delete-song clicked'
       return _results;
     };
 
-    Queue.prototype.playSong = function(queue, index) {
+    Queue.prototype.playSong = function(queue, index, rankings) {
       var debug, i, ytcode, ytplayer;
+      if (rankings == null) rankings = false;
       debug = false;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
       if (queue !== 'genQ' && queue !== 'userQ') {
@@ -242,12 +243,16 @@ if debug then console.log 'delete-song clicked'
         return;
       }
       $('.queue-item').removeClass('selected-song');
-      $('#' + queue + '_' + index).addClass('selected-song');
+      $('#genQ_' + i).addClass('selected-song');
       window.player.addToHistory(window.currentSong);
       if (queue === 'genQ') {
         ytcode = $('#ytcode_' + index).val();
         window.player.loadSongInRankings(index);
-        this.genQ.curSong = index;
+        if (rankings) {
+          this.genQ.curSong = index;
+        } else {
+          this.genQ.curSong = $('#genQ_' + index).index() + 1;
+        }
         if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
         this.userQ.markAllPlayed();
       } else {
@@ -282,7 +287,7 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
-      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="hidden delete-song">[x]</span></li>');
+      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<span class="delete-song">[x]</span></li>');
       window.queue.updateMinQueue();
       return this.updateSongCookies();
     };
@@ -750,11 +755,12 @@ if debug then console.log 'delete-song clicked'
       if (debug) console.log('resized window');
       return player.resizeMaxQueue();
     });
+    $('#genQ').sortable();
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
       if ($(this).hasClass('play-button')) {
-        return queue.playSong('genQ', i);
+        return queue.playSong('genQ', i, true);
       } else if ($(this).hasClass('queue-button')) {
         return queue.userQ.append(i);
       }
@@ -775,6 +781,9 @@ if debug then console.log 'delete-song clicked'
       return $('#adsPlease').html('Ads help support t3k.no\'s development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.');
     });
     $(document).on('hover', '.user-queue', function() {
+      var debug;
+      debug = false;
+      if (debug) console.log('hover: ' + $(this).attr('id'));
       return $(this).find('.delete-song').toggleClass('hidden');
     });
     $(document).on('click', '.delete-song', function(event) {
@@ -795,7 +804,7 @@ if debug then console.log 'delete-song clicked'
       i = id.split('_')[1];
       q = id.split('_')[0];
       if (debug) console.log('queue: ' + q + ', index: ' + i);
-      return queue.playSong(q, i);
+      return queue.playSong(q, i, true);
     });
     $(document).on('click', '.previous-song', function() {
       return player.previousSong();
