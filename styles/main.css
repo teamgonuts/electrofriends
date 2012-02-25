@@ -67,10 +67,13 @@ p#adsPlease {
     height: 21px;
     display: block;
     float: right;
+    text-indent: -1000px;
+    margin-top: -5px;    
 }
 
 .delete-song:hover{
     text-decoration: none;
+    background-position: 0 -21px;
 }
 
 #generated-queue{
