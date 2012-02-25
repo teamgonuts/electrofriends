@@ -227,7 +227,7 @@ window.Queue = class Queue
             return
         
         $('.queue-item').removeClass('selected-song') #remove current selection
-        $('#genQ_' + i).addClass('selected-song')#highlight new song
+        $('#' + queue + '_' + index).addClass('selected-song')#highlight new song
 
         window.player.addToHistory window.currentSong #adds previous song to history
         #play song
@@ -673,6 +673,7 @@ $ ->
     
     #makings shit sortable
     $('#genQ').sortable()
+    $('#userQ').sortable()
         
 
     #either add to queue or play song, whichever was pressed

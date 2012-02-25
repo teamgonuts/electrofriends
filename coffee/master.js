@@ -243,7 +243,7 @@ if debug then console.log 'delete-song clicked'
         return;
       }
       $('.queue-item').removeClass('selected-song');
-      $('#genQ_' + i).addClass('selected-song');
+      $('#' + queue + '_' + index).addClass('selected-song');
       window.player.addToHistory(window.currentSong);
       if (queue === 'genQ') {
         ytcode = $('#ytcode_' + index).val();
@@ -756,6 +756,7 @@ if debug then console.log 'delete-song clicked'
       return player.resizeMaxQueue();
     });
     $('#genQ').sortable();
+    $('#userQ').sortable();
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
