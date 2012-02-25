@@ -110,7 +110,6 @@ class Song
                     	</div><!-- end of right -->
                     </td>
                     <td class="song-comments" colspan="2">
-                                <p class="songScore">Song Score:</p>
                                 <p class="score-container">
                                     <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
                                 </p>
