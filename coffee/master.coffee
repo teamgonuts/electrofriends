@@ -287,8 +287,10 @@ window.UserQueue = class UserQueue
         debug = false
         if debug then console.log 'UserQueue.updateSongCookie()'
         songStr = ""
-        for song in @songs
-            songStr = songStr + song.ytcode + ','
+        for song in $('#userQ').find('li')
+            if debug then console.log 'id: '  + song.id
+            i = parseInt(song.id.split('_')[1]) - 1#index of song in @songs
+            songStr = songStr + @songs[i].ytcode + ','
         songStr = songStr.substr(0, songStr.length-1) #removing last comma
             
         $.post 'ajax/setSongCookies.php',
@@ -673,7 +675,11 @@ $ ->
     
     #makings shit sortable
     $('#genQ').sortable()
-    $('#userQ').sortable()
+    $('#userQ').sortable({
+        update: (event, ui) ->
+            console.log 'userQ.update()'
+            queue.userQ.updateSongCookies()
+    })
         
 
     #either add to queue or play song, whichever was pressed

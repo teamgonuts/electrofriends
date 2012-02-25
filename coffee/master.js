@@ -293,14 +293,16 @@ if debug then console.log 'delete-song clicked'
     };
 
     UserQueue.prototype.updateSongCookies = function() {
-      var debug, song, songStr, _i, _len, _ref;
+      var debug, i, song, songStr, _i, _len, _ref;
       debug = false;
       if (debug) console.log('UserQueue.updateSongCookie()');
       songStr = "";
-      _ref = this.songs;
+      _ref = $('#userQ').find('li');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         song = _ref[_i];
-        songStr = songStr + song.ytcode + ',';
+        if (debug) console.log('id: ' + song.id);
+        i = parseInt(song.id.split('_')[1]) - 1;
+        songStr = songStr + this.songs[i].ytcode + ',';
       }
       songStr = songStr.substr(0, songStr.length - 1);
       return $.post('ajax/setSongCookies.php', {
@@ -756,7 +758,12 @@ if debug then console.log 'delete-song clicked'
       return player.resizeMaxQueue();
     });
     $('#genQ').sortable();
-    $('#userQ').sortable();
+    $('#userQ').sortable({
+      update: function(event, ui) {
+        console.log('userQ.update()');
+        return queue.userQ.updateSongCookies();
+      }
+    });
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
