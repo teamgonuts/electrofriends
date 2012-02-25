@@ -78,7 +78,7 @@ include ("classes/GenreFilter.php");
 	<div class="content">
 		<div class="twoColumnLeft">
 		
-			<a href="index.php"><img src="images/header/headerLogo.png" alt="t3k.no Logo" /></a>
+			<img src="images/header/headerLogo.png" alt="t3k.no Logo" id="header-logo" />
 		
 		</div><!-- end of twoColumnLeft -->
 		

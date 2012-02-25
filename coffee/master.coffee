@@ -737,6 +737,10 @@ $ ->
         else   
             rankings.filters.set('time', $(this).html().toLowerCase())
         rankings.update()
+
+    #when the logo is clicked, go to the fresh list
+    $('#header-logo').click ->
+        $('#fresh-list').click()
     #when the fresh list link is clicked on the top navigation
     $('#fresh-list').click ->
         rankings.filters.set('time', 'new')

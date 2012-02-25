@@ -817,6 +817,9 @@ if debug then console.log 'delete-song clicked'
       }
       return rankings.update();
     });
+    $('#header-logo').click(function() {
+      return $('#fresh-list').click();
+    });
     $('#fresh-list').click(function() {
       rankings.filters.set('time', 'new');
       rankings.filters.set('genre', 'all');
