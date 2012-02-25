@@ -22,7 +22,7 @@ body {
 }
 
 .content {
-	width: 995px;
+	width: 945px;
 	margin: 0 auto;
 }
 
@@ -485,6 +485,11 @@ box-shadow: 0 0 10px #333;
 				text-align: center;
 				vertical-align: middle;
 				font-size: 14px;
+				width: 20px;
+			}
+			
+			table {
+			     border-collapse: collapse;
 			}
 			
 			#rankings-table td.song-info-max-clickable {
@@ -547,12 +552,12 @@ box-shadow: 0 0 10px #333;
 				}
 
 				#rankings-table td.song-info-max-clickable .left {
-					width: 55%;
+					width: 220px;
 					float: left;
 				}
 
 				#rankings-table td.song-info-max-clickable .right {
-					width: 43%;
+					width: 320px;
                     float: left;
                     margin: 0 0 0 5px;
 				}
@@ -579,17 +584,60 @@ box-shadow: 0 0 10px #333;
 					color: #fff;
 					text-align: center;
 				}
+								
+				.comments time {
+					font-size: 9px;
+				}
 				
-				.comments h4.comments {
-					font-size: 14px;
+				.comment-display {
+					height: 110px;
+					margin: 5px 0 0 0;
+					overflow: auto;
+				}
+				
+				#rankings-table td.song-info-max-clickable .comments p {
+					font-size: 12px;
+					margin: 0 0 3px 5px;
+				}
+				
+				.comments p span.userName {
+					font-weight: bold;
+				}
+				
+				.comments-input textarea {
+					height: 30px;
+					width: 97%;
+					font-size: 12px;
+					padding: 3px;
+					resize: none;
+					margin: 5px 0 10px 0;
+				}
+                
+                .comments-input label {
+                    display: block;
+                    width: 60px;
+                    float: left;
+					padding: 3px 0;                    
+                }
+                
+				.comments-input input {
+					font-size: 12px;
+					width: 180px;
+                    float: left;					
+					padding: 3px;
+				}				
+				.comments-input input[type="submit"]{
+                    font-size: 14px;
 					font-weight: normal;
 					color: #fff;
-					text-align: center;
 					cursor: pointer;
-					width: 70px;
-					height: 20px;
-					line-height: 21px;
-					margin: 5px 0 0 0;
+                    width: 60px;
+                    height: 20px;
+                    line-height: 16px;
+                    text-align: center;
+                    padding: 0;
+                    margin: 0 0 0 7px;
+                    font-family: TelegraficoRegular, sans-serif;
 					
 					background: #1a1a1a; /* Old browsers */
                     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -606,10 +654,10 @@ box-shadow: 0 0 10px #333;
 					-moz-border-radius: 20px;
 					-o-border-radius: 20px;
 					border-radius: 20px;
-																							
+
 				}
 				
-				.comments h4.comments:hover {
+				.comments-input input[type="submit"]:hover {
                     background: #3fa9f5; /* Old browsers */
                     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
                     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNmYTlmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwZTI3MzgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -621,47 +669,7 @@ box-shadow: 0 0 10px #333;
                     background: linear-gradient(top, #3fa9f5 0%,#0e2738 100%); /* W3C */
                     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3fa9f5', endColorstr='#0e2738',GradientType=0 ); /* IE6-8 */
 				}
-				
-				.comments time {
-					font-size: 9px;
-				}
-				
-				.comment-display {
-					height: 140px;
-					margin: 5px 0 0 0;
-					overflow: auto;
-				}
-				
-				#rankings-table td.song-info-max-clickable .comments p {
-					font-size: 12px;
-					margin: 0 0 3px 0;
-				}
-				
-				.comments p span.userName {
-					font-weight: bold;
-				}
-				
-				.comments-input textarea {
-					height: 60px;
-					width: 97%;
-					font-size: 12px;
-					padding: 3px;
-					resize: none;
-					margin: 5px 0 0 0;
-				}
 
-				.comments-input input {
-					font-size: 12px;
-					width: 97%;
-					padding: 3px;
-				}				
-				.comments-input input[type="submit"]{
-					width: auto;
-					padding: 2px 7px;
-					font-size: 12px;
-					background-color: #333;
-
-				}
 				
 				#rankings-table .comments label.label {
 					clear: left;
@@ -886,7 +894,7 @@ box-shadow: 0 0 10px #333;
 	/*--------------------------------------------------*/
 		
 		#sidebar{
-			width: 300px;
+			width: 250px;
 			float: left;
 			margin: 0 0 0 10px;
 		}
@@ -916,11 +924,14 @@ box-shadow: 0 0 10px #333;
 				font-size: 16px;
 				font-family: "adobe-garamond-pro-1","adobe-garamond-pro-2", serif;
 				padding: 5px 5px 5px 3px;
-				width: 250px;
+				width: 200px;
 				float: left;
 				background-color: #ccc;
 				
 				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				-o-border-radius: 10px;
+				border-radius: 10px;												
 			}
 			
 			#search input[type="submit"] {
@@ -1174,6 +1185,10 @@ box-shadow: 0 0 10px #333;
 /*------------------------------------------------*/
 /*----------------bottom controls-----------------*/
 /*------------------------------------------------*/
+	#bottomControls .content {
+	   width: 995px;
+	}
+
 
 	#bottomControls {
 		width: 100%;
