@@ -188,9 +188,10 @@ window.Queue = class Queue
         $('#min-queue').html('')#clear out old queue
         #adding songs from userQ
         if $('#userQ').find('.queue-item').length != 0
-            for i in [0..($('#userQ').find('.queue-item').length-1)]
+            for song in $('#userQ').find('li')
                 if debug then console.log 'Adding Song from UserQ'
                 if $('#min-queue').find('.queue-item').length >= @minQ_MaxSongs then break #if we shouldn't add more songs
+                i = song.id.split('_')[1] - 1 #index of song in array
                 if not @userQ.songs[i].played #if it hasnt been played
                     $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
                               @userQ.songs[i].title + '</span><span class="purple"> //</span> ' + 
@@ -201,13 +202,17 @@ window.Queue = class Queue
         if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1
         if debug then console.log '@genQ.curSong=' + @genQ.curSong
         #if it there are any songs in the genQ left to add AND we should add more songs
-        while $('#genQ_' + i).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
-            if debug then console.log 'Next song to add: ' + i
-            if debug then console.log 'Adding Song from GenQ: ' + $('#genQ_' + i).html()
-            $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + 
-                      $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + 
-                      $('#artist_' + i).val() + '</li>')
+        songs = $('#genQ').find('li')
+        id = songs[i].id.split('_')[1]
+        while $('#genQ_' + id).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
+            if debug then console.log 'Index of Next Song in Queue: ' + parseInt(i-1)
+            id = songs[i-1].id.split('_')[1]
+            if debug then console.log 'ID of Next Song in Queue ' + id
+            $('#min-queue').append(' <li class="queue-item" id="genQ_' + id + '_2"><span class="title"> ' + 
+                      $('#title_' + id).val() + '</span><span class="purple"> //</span> ' + 
+                      $('#artist_' + id).val() + '</li>')
             i++
+            if debug then console.log 'after song to add id: ' + id
 
 
     #sets the current song and queue to the specified paraments then plays song
@@ -674,11 +679,14 @@ $ ->
         player.resizeMaxQueue()
     
     #makings shit sortable
-    $('#genQ').sortable()
+    $('#genQ').sortable({
+        update: (event, ui) ->
+            queue.updateMinQueue()
+    })
     $('#userQ').sortable({
         update: (event, ui) ->
-            console.log 'userQ.update()'
             queue.userQ.updateSongCookies()
+            queue.updateMinQueue()
     })
         
 

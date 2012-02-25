@@ -197,17 +197,20 @@ if debug then console.log 'delete-song clicked'
     };
 
     Queue.prototype.updateMinQueue = function(rankingsChange) {
-      var debug, i, _ref, _results;
+      var debug, i, id, song, songs, _i, _len, _ref, _results;
       if (rankingsChange == null) rankingsChange = false;
       debug = false;
       if (debug) console.log('Queue.updateMinQueue() called!');
       $('#min-queue').html('');
       if ($('#userQ').find('.queue-item').length !== 0) {
-        for (i = 0, _ref = $('#userQ').find('.queue-item').length - 1; 0 <= _ref ? i <= _ref : i >= _ref; 0 <= _ref ? i++ : i--) {
+        _ref = $('#userQ').find('li');
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          song = _ref[_i];
           if (debug) console.log('Adding Song from UserQ');
           if ($('#min-queue').find('.queue-item').length >= this.minQ_MaxSongs) {
             break;
           }
+          i = song.id.split('_')[1] - 1;
           if (!this.userQ.songs[i].played) {
             $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i + 1) + '_2"><span class="title"> ' + this.userQ.songs[i].title + '</span><span class="purple"> //</span> ' + this.userQ.songs[i].artist);
           }
@@ -219,12 +222,20 @@ if debug then console.log 'delete-song clicked'
         i = parseInt(this.genQ.curSong) + 1;
       }
       if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
+      songs = $('#genQ').find('li');
+      id = songs[i].id.split('_')[1];
       _results = [];
-      while ($('#genQ_' + i).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
-        if (debug) console.log('Next song to add: ' + i);
-        if (debug) console.log('Adding Song from GenQ: ' + $('#genQ_' + i).html());
-        $('#min-queue').append(' <li class="queue-item" id="genQ_' + i + '_2"><span class="title"> ' + $('#title_' + i).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li>');
-        _results.push(i++);
+      while ($('#genQ_' + id).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
+        if (debug) console.log('Index of Next Song in Queue: ' + parseInt(i - 1));
+        id = songs[i - 1].id.split('_')[1];
+        if (debug) console.log('ID of Next Song in Queue ' + id);
+        $('#min-queue').append(' <li class="queue-item" id="genQ_' + id + '_2"><span class="title"> ' + $('#title_' + id).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + id).val() + '</li>');
+        i++;
+        if (debug) {
+          _results.push(console.log('after song to add id: ' + id));
+        } else {
+          _results.push(void 0);
+        }
       }
       return _results;
     };
@@ -757,11 +768,15 @@ if debug then console.log 'delete-song clicked'
       if (debug) console.log('resized window');
       return player.resizeMaxQueue();
     });
-    $('#genQ').sortable();
+    $('#genQ').sortable({
+      update: function(event, ui) {
+        return queue.updateMinQueue();
+      }
+    });
     $('#userQ').sortable({
       update: function(event, ui) {
-        console.log('userQ.update()');
-        return queue.userQ.updateSongCookies();
+        queue.userQ.updateSongCookies();
+        return queue.updateMinQueue();
       }
     });
     $(document).on('click', '.song-button', function() {
