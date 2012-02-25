@@ -777,6 +777,19 @@ if debug then console.log 'delete-song clicked'
       update: function(event, ui) {
         queue.userQ.updateSongCookies();
         return queue.updateMinQueue();
+      },
+      receive: function(event, ui) {
+        var rindex;
+        console.log('1st list received:' + ui.item.attr('id'));
+        rindex = ui.item.attr('id').split('_');
+        return ui.item.attr('id', 'userQ_' + rindex);
+        /*queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
+                        $('#title_' + rindex).val()
+                        $('#genre_' + rindex).val()
+                        $('#artist_' + rindex).val()
+                        $('#user_' + rindex).val()
+                        $('#userScore_' + rindex).val())
+        */
       }
     });
     $(document).on('click', '.song-button', function() {

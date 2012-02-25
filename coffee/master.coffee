@@ -682,11 +682,26 @@ $ ->
     $('#genQ').sortable({
         update: (event, ui) ->
             queue.updateMinQueue()
+        #connectWith: $('#userQ')
     })
     $('#userQ').sortable({
         update: (event, ui) ->
             queue.userQ.updateSongCookies()
             queue.updateMinQueue()
+        receive: (event,ui) ->
+            console.log '1st list received:' + ui.item.attr('id')
+            rindex = ui.item.attr('id').split('_') #index of song in rankings
+            ui.item.attr('id', 'userQ_' + rindex) #setting new id
+            ###queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
+                            $('#title_' + rindex).val()
+                            $('#genre_' + rindex).val()
+                            $('#artist_' + rindex).val()
+                            $('#user_' + rindex).val()
+                            $('#userScore_' + rindex).val())
+            ###
+
+            #window.queue.updateMinQueue()
+            #queue.userQ.updateSongCookies()
     })
         
 
