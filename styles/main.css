@@ -62,10 +62,15 @@ p#adsPlease {
 }
 
 .delete-song{
-    color: red;
-    text-size:10px;
-    padding-left: 20px;
-    text-decoration:none;
+    background: url("../images/deleteButton.png") no-repeat;
+    width: 25px;
+    height: 21px;
+    display: block;
+    float: right;
+}
+
+.delete-song:hover{
+    text-decoration: none;
 }
 
 #generated-queue{
@@ -133,11 +138,6 @@ p.song-button:hover {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3fa9f5', endColorstr='#0e2738',GradientType=0 ); /* IE6-8 */    
 }
 
-
-.delete-song{
-color: red;
-font-weight:bold;
-}
 .song-control{
     font-size: 16px;
     color: black;
@@ -492,6 +492,10 @@ box-shadow: 0 0 10px #333;
 			#rankings-table td.song-genre, #rankings-table td.song-score{
                 width: 88px;
                 text-align: right;
+			}
+			
+			p.songScore {
+                font-size: 120%;
 			}
 			
 			
