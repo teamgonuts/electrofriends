@@ -487,9 +487,17 @@ box-shadow: 0 0 10px #333;
 				font-size: 14px;
 			}
 			
+			#rankings-table td.song-info-max-clickable {
+			     width: 200px;
+			}
 			
 			#rankings-table td.song-info-min-clickable{
 				width: 470px;
+			}
+			
+			td.song-comments {
+			     display: block;
+			     width: 100px;
 			}
 			
 			#rankings-table td.song-genre, #rankings-table td.song-score{

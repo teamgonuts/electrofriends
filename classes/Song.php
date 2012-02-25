@@ -77,7 +77,7 @@ class Song
                     <td class="song-index-clickable">
                         '.$this->i .'
                     </td>
-                    <td class="song-info-max-clickable">
+                    <td class="song-info-max-clickable" colspan="2">
 			<div class="left"> 
 	                        <div class="song-buttons">
 	                                <p class="song-button play-button">Play</p>
@@ -105,11 +105,26 @@ class Song
     				    <div class="comment-display">
                                     '. $this->showComments() .'
 				    </div><!-- comment-display -->					
-				    <h4 class="comments see-more-comments">See More</h4>
+				    <!-- <h4 class="comments see-more-comments">See More</h4> -->
 				</div><!-- end of comments -->	
+				    
+                <div id="comments-container">
+                            <div class="comments-input">
+                                <textarea class="comment-text" placeholder="Comments"></textarea><br>
+                                <label for="comment-user" class="label">Username:</label>
+                                <input type="text" class="comment-user" value="Anonymous">
+                                <input type="submit" value="Submit" class="comments submit-comment">
+                            </div>
+                        </div>				    
+				
                     	</div><!-- end of right -->
                     </td>
+<<<<<<< HEAD
                     <td class="song-comments" colspan="2">
+=======
+                    <td class="song-comments">
+
+>>>>>>> changed the layout of the comments
                                 <p class="score-container">
                                     <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
                                 </p>
@@ -118,16 +133,6 @@ class Song
                                     <p class="vote-button" id="up-vote"></p>
                                 </div>                       
                             
-                        <span id="comments-container">
-                            <div class="comments-input">
-                                <textarea class="comment-text" placeholder="Comments"></textarea><br>
-                                <label for="comment-user" class="label">Username:</label>
-                                <input type="text" class="comment-user" value="Anonymous">
-                                <div class="comments">
-                                    <h4 class="comments submit-comment">Submit</h4>
-                                </div>
-                            </div>
-                        </span>
                     </td>
                 </tr>';
 
