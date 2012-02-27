@@ -481,7 +481,8 @@ window.Rankings = class Rankings
         @filters = new Filters
         @maxed_song = -1 #song currently maximized in rankings, -1 for no maxed songs
         @songsPerPage = $('tr.song-min').length #default songsPerPage, set this in Rankings.php
-        @commentsPerSong = 4 #how many comments can be shown per song
+        #if you change @commentsPerSong, you must also change SQL statement in Song.php
+        @commentsPerSong = 5 #how many comments can be shown per song,
         ###=================================
         #special flag to tell ajax what is currently displayed in rankings
         Possible values:

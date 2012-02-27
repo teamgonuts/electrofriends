@@ -141,7 +141,7 @@ class Song
             $qry = mysql_query("SELECT * FROM  `comments` 
                                 WHERE '" . $this->ytcode ."' = `youtubecode`
                                 ORDER BY upload_date DESC
-                                LIMIT 0,4 ");//DEFAULT: Comments shown=3
+                                LIMIT 0,5 ");//DEFAULT: Comments shown=5
             if (!$qry)
                 die("FAIL: " . mysql_error());
 

@@ -545,7 +545,7 @@ if debug then console.log 'delete-song clicked'
       this.filters = new Filters;
       this.maxed_song = -1;
       this.songsPerPage = $('tr.song-min').length;
-      this.commentsPerSong = 4;
+      this.commentsPerSong = 5;
       /*=================================
       #special flag to tell ajax what is currently displayed in rankings
       Possible values:
