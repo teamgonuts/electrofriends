@@ -223,10 +223,8 @@ if debug then console.log 'delete-song clicked'
       }
       if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
       songs = $('#genQ').find('li');
-      id = songs[i].id.split('_')[1];
       _results = [];
-      while ($('#genQ_' + id).html() !== null && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
-        if (debug) console.log('Index of Next Song in Queue: ' + parseInt(i - 1));
+      while ($('#genQ_' + i).html() && $('#min-queue').find('.queue-item').length < this.minQ_MaxSongs) {
         id = songs[i - 1].id.split('_')[1];
         if (debug) console.log('ID of Next Song in Queue ' + id);
         $('#min-queue').append(' <li class="queue-item" id="genQ_' + id + '_2"><span class="title"> ' + $('#title_' + id).val() + '</span><span class="purple"> //</span> ' + $('#artist_' + id).val() + '</li>');

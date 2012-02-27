@@ -199,13 +199,11 @@ window.Queue = class Queue
 
 
         #if new rankings, add the 1st song to the queue
-        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1
+        if rankingsChange then i = 1 else i = parseInt(@genQ.curSong) + 1 #i is the next song to be played
         if debug then console.log '@genQ.curSong=' + @genQ.curSong
         #if it there are any songs in the genQ left to add AND we should add more songs
         songs = $('#genQ').find('li')
-        id = songs[i].id.split('_')[1]
-        while $('#genQ_' + id).html() != null and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
-            if debug then console.log 'Index of Next Song in Queue: ' + parseInt(i-1)
+        while $('#genQ_' + i).html() and $('#min-queue').find('.queue-item').length < @minQ_MaxSongs 
             id = songs[i-1].id.split('_')[1]
             if debug then console.log 'ID of Next Song in Queue ' + id
             $('#min-queue').append(' <li class="queue-item" id="genQ_' + id + '_2"><span class="title"> ' + 
