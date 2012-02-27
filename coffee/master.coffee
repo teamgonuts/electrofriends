@@ -362,7 +362,7 @@ window.UserQueue = class UserQueue
 
     #marks all the songs below 'index' not played
     markAllNotPlayed: (index) ->
-        debug = true
+        debug = false
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
         if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
             for i in [0..@songs.length-1]

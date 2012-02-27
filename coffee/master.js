@@ -382,7 +382,7 @@ if debug then console.log 'delete-song clicked'
 
     UserQueue.prototype.markAllNotPlayed = function(index) {
       var debug, i, qindex, _ref, _results;
-      debug = true;
+      debug = false;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
       if ($('#userQ').children().length > 1) {
         _results = [];
