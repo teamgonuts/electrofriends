@@ -50,6 +50,12 @@ h1, h2, h3, h4, h5 {
 .user-score{
     color: #BD1DC9;
 }
+#queue-tip{
+    text-align:center;
+    text-size: smaller;
+    color: white;
+    background-color: black;
+}
 
 .ads-button{
     cursor:pointer;
