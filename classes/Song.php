@@ -119,12 +119,7 @@ class Song
 				
                     	</div><!-- end of right -->
                     </td>
-<<<<<<< HEAD
                     <td class="song-comments" colspan="2">
-=======
-                    <td class="song-comments">
-
->>>>>>> changed the layout of the comments
                                 <p class="score-container">
                                     <span class="score">'. $this->score .'</span> ['. $this->ups .'/'. $this->downs .'] 
                                 </p>
