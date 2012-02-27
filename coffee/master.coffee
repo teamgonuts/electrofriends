@@ -91,7 +91,7 @@ window.Player = class Player
         $('#currentSongTitle').html window.currentSong.title
         $('#currentSongArtist').html window.currentSong.artist
         $('#currentSongGenre').html window.currentSong.genre
-        $('#currentSongUser').html (window.currentSong.user + ' (' + window.currentSong.userScore + ')')
+        $('#currentSongUser').html (window.currentSong.user + ' {<span class="user-score">' + window.currentSong.userScore + '</span>}')
         
 
 # method is called when the player is ready

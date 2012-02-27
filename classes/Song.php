@@ -87,7 +87,7 @@ class Song
 	                        <p id="title"><span class="more-info-heading title">Title</span>: '. $this->title .'</p>
 	                        <p><span class="more-info-heading">Artist</span>: <span class="highlight search-filter">'. $this->artist .'</span></p>
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
-	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' (<span class="user-score">' . $this->userScore . '</span>)</p>
+	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' {<span class="user-score">' . $this->userScore . '</span>}</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
                                 ';
         /* TODO: IMPLEMENT

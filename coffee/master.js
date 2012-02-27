@@ -89,7 +89,7 @@ if debug then console.log 'delete-song clicked'
       $('#currentSongTitle').html(window.currentSong.title);
       $('#currentSongArtist').html(window.currentSong.artist);
       $('#currentSongGenre').html(window.currentSong.genre);
-      return $('#currentSongUser').html(window.currentSong.user + ' (' + window.currentSong.userScore + ')');
+      return $('#currentSongUser').html(window.currentSong.user + ' {<span class="user-score">' + window.currentSong.userScore + '</span>}');
     };
 
     return Player;

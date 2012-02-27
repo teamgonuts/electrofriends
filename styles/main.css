@@ -47,6 +47,10 @@ h1, h2, h3, h4, h5 {
     cursor:pointer;
 }
 
+.user-score{
+    color: #BD1DC9;
+}
+
 .ads-button{
     cursor:pointer;
     font-weight:bold;
