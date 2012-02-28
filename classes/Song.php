@@ -73,8 +73,9 @@ class Song
                     </td>
                 </tr>';
         //max row
-        $html .= ' <tr class="song song-max hidden" id="max_'. $this->i .'">
-                    <td class="song-index-clickable">
+        $html .= ' 
+            <tr class="hidden song song-max" id="max_'. $this->i .'">
+                <td class="song-index-clickable">
                         '.$this->i .'
                     </td>
                     <td class="song-info-max-clickable" colspan="2">
@@ -89,10 +90,10 @@ class Song
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' {<span class="user-score">' . $this->userScore . '</span>}</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
+	                        <p><span class="more-info-heading">Download</span>: <a href="http://dirpy.com/studio/'. $this->ytcode . '" target="_blank"><img src="images/dirpy-logo-small.png" /></a></p> 
                                 ';
         /* TODO: IMPLEMENT
 	                        <p><span class="more-info-heading">Share</span>: </p>
-	                        <p><span class="more-info-heading">Download</span>: 
                                     <a type="amzn" category="music" search="' . $this->title . ' ' . $this->artist . '">Amazon</a> 
                                 </p>
         */

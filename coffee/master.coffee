@@ -672,6 +672,7 @@ $ ->
     window.player = new Player
     window.queue = new Queue
     window.rankings = new Rankings
+
     
     #when the window is resized, resize the maxQ
     $(window).resize ->
