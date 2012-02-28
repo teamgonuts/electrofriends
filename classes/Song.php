@@ -90,7 +90,10 @@ class Song
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' {<span class="user-score">' . $this->userScore . '</span>}</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
-	                        <p><span class="more-info-heading">Download</span>: <a href="http://dirpy.com/studio/'. $this->ytcode . '" target="_blank"><img src="images/dirpy-logo-small.png" /></a></p> 
+	                        <p><span class="more-info-heading">Download</span>: 
+                                    <a href="http://dirpy.com/studio/'. $this->ytcode . '" target="_blank"><img src="images/dirpy-logo-small.png" /></a>
+                                    <a href="http://www.beatport.com/search?query=' . urlencode($this->title) . '" target="_blank"><img src="images/beatport_logo_small.png" /></a>
+                                </p> 
                                 ';
         /* TODO: IMPLEMENT
 	                        <p><span class="more-info-heading">Share</span>: </p>
