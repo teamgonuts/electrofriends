@@ -230,8 +230,10 @@ include ("classes/GenreFilter.php");
 		</div><!-- end of sidebar -->
 <div class="hidden" id="max-queue">
 
-<img src="queue.jpg" alt="T3K.no Logo"/>
-<div id="queue-tip">drag & drop songs to change the order</div>
+    <div id="queue-logo-container">
+        <img src="queue.jpg" alt="T3K.no Logo"/>
+    </div>
+    <div id="queue-tip">drag & drop songs to change the order</div>
     <span class="queue-min">[close]</span>
 
     <div class="clear"></div><!-- end of clear -->
@@ -311,7 +313,7 @@ include ("classes/GenreFilter.php");
 	
 	<div class="content">
 		
-		<img src="images/footer/footerLogo.png" alt="T3K.no Logo" />
+                <img src="images/footer/footerLogo.png" alt="T3K.no Logo" />
 		<p>&copy; 2011 t3k.no | All Rights Reserved.</p>
 		<a href="http://www.facebook.com/pages/t3kno/146156005506087" target="_blank"><img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/></a>
 		<a href="https://twitter.com/#!/t3kdev" target="_blank"><img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/></a> 
