@@ -39,24 +39,55 @@ h1, h2, h3, h4, h5 {
     display:none;
 }
 
+/*------------------------------------------------*/
+/*-------------------scroll bars------------------*/
+/*------------------------------------------------*/
 
-/*------------------------------------------------*/
-/*------------------ADDED BY calvin------------------*/
-/*------------------------------------------------*/
-.next-last-songs{
-    text-align:center;
+
+/* Let's get this party started */
+
+#max-queue::-webkit-scrollbar {
+    width: 15px;
+}
+ 
+/* Track */
+#max-queue::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+#max-queue::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #bd1ca9; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+#max-queue::-webkit-scrollbar-thumb:window-inactive {
+	background: #bd1ca9; 
 }
 
+
+
+/*------------------------------------------------*/
+/*-------------------scroll bars------------------*/
+/*------------------------------------------------*/
+
+
+/*------------------------------------------------*/
+/*------------------ADDED BY calvin---------------*/
+/*------------------------------------------------*/
 #queue-logo-container{
     background:#000;
-    width: 100%;
+    width: 300px;
+    height: 140px;
+    position: fixed;
     padding: 10px 0 0 0;
 }
 
 #queue-logo-container img{
-    display: block;
     width: 300px;
-    margin: 0 auto;
     background: #000;    
 }
 
@@ -76,6 +107,7 @@ h1, h2, h3, h4, h5 {
     text-size: smaller;
     color: white;
     background-color: black;
+    margin-top: 150px;
 }
 
 .ads-button{
@@ -360,6 +392,7 @@ p#down-vote:hover {
     height: 100%;
     color: black;
     overflow-y: scroll;
+    overflow-x: hidden;
     
     -webkit-box-shadow: -5px 0 35px #56A4DB;
     -moz-box-shadow: -5px 0 35px #56A4DB;
@@ -409,8 +442,12 @@ ol.max-queue li{
     font-size: 16px;
 }
 
+#queue-max:hover{
+    color:#BD1DC9;
+}
+
 span.purple {
-    color:#a0469a;
+    color:#BD1DC9;
 }
 
     
@@ -1242,11 +1279,17 @@ box-shadow: 0 0 10px #333;
 		font-size: 25px;
 		color: #bd1dc9;
 		margin: 0 0 5px 0;
-		font-weight: normal;		
+		font-weight: normal;
 	}
+
+    #bottomControls .threeColumnLeft h3 {
+        float: left;
+        margin-top: -10px;
+	}
+
 	
 	#bottomControls p, #bottomControls li {
-		font-size: 14px;
+		font-size: 13px;
 	}
 	
 	#bottomControls p span.currentSongSubTitle {
