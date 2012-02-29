@@ -231,7 +231,7 @@ include ("classes/GenreFilter.php");
 <div class="hidden" id="max-queue">
 
     <div id="queue-logo-container">
-        <img src="queue.jpg" alt="T3K.no Logo"/>
+        <img src="images/queue/queue.jpg" alt="T3K.no Logo"/>
     </div>
     <div id="queue-tip">drag & drop songs to change the order</div>
     <span class="queue-min">[close]</span>
