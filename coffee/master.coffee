@@ -282,7 +282,7 @@ window.UserQueue = class UserQueue
 
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '<span class="delete-song">[x]</span></li>') 
+                  $('#artist_' + i).val() + '<div class="delete-song">[x]</div></li>') 
         window.queue.updateMinQueue()
         this.updateSongCookies()
 
