@@ -1238,6 +1238,7 @@ box-shadow: 0 0 10px #333;
 		font-size: 25px;
 		color: #bd1dc9;
 		margin: 0 0 5px 0;
+		font-weight: normal;		
 	}
 	
 	#bottomControls p, #bottomControls li {
