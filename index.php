@@ -215,12 +215,12 @@ include ("classes/GenreFilter.php");
 				<h2>Top of The</h2>
 				
 				<ul>
-					<li><a class="filter time-filter" id="filter-day" href="#">Day</a></li>
-					<li><a class="filter time-filter" id="filter-week" href="#">Week</a></li>
-					<li><a class="filter time-filter" id="filter-month" href="#">Month</a></li>
-					<li><a class="filter time-filter" id="filter-year" href="#">Year</a></li>
+					<li><a class="filter time-filter" id="filter-day" href="#rankings-title">Day</a></li>
+					<li><a class="filter time-filter" id="filter-week" href="#rankings-title">Week</a></li>
+					<li><a class="filter time-filter" id="filter-month" href="#rankings-title">Month</a></li>
+					<li><a class="filter time-filter" id="filter-year" href="#rankings-title">Year</a></li>
                                 
-					<li><a class="filter time-filter" id="filter-century" href="#">Century</a></li>
+					<li><a class="filter time-filter" id="filter-century" href="#rankings-title">Century</a></li>
 				</ul>
 			</div><!-- end of topList -->
 			<br/>
