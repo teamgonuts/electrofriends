@@ -91,6 +91,12 @@ h1, h2, h3, h4, h5 {
     overflow: hidden;
     list-style-position: inside;
 }
+#min-queue li{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    list-style-position: inside;
+}
 
 .next-last-songs{
     text-align:center;

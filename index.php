@@ -168,7 +168,7 @@ include ("classes/GenreFilter.php");
 <section id="body">
 	<div class="content">
 		<div id="songTable">
-                    <h2 id="rankings-title">The Fresh List</h2>
+                    <h2 class="ellipsis" id="rankings-title">The Fresh List</h2>
                                     
                     <table id="rankings-table" cellspacing="0"><tbody>
                         <?php 
