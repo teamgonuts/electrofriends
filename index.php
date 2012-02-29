@@ -345,8 +345,10 @@ include ("classes/GenreFilter.php");
 			</div><!-- end of twoColumnLeft -->
 			
 			<div class="twoColumnRight">
-                <div class="song-control previous-song">Last</div>  
-                <div class="song-control next-song">Next</div>
+                            <div class="next-last-songs">
+                                <span class="song-control previous-song">|<</span>  
+                                <span class="song-control next-song">>|</span>
+                            </div>
 			</div><!-- end of twoColumnRight -->
 			
 		</div><!-- end of threeColumnCenter -->
