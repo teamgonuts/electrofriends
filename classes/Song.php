@@ -90,9 +90,14 @@ class Song
 	                        <p><span class="more-info-heading">Genre</span>: <span class="highlight filter genre-filter">'. $this->genre .'</span></p>
 	                        <p><span class="more-info-heading">Uploaded By</span>: '. $this->user .' {<span class="user-score">' . $this->userScore . '</span>}</p>
 	                        <p><span class="more-info-heading">Plays</span>: '. $this->plays .'</p>
-	                        <p><span class="more-info-heading">Download</span>: 
-                                    <a href="http://dirpy.com/studio/'. $this->ytcode . '" target="_blank"><img src="images/dirpy-logo-small.png" /></a>
-                                    <a href="http://www.beatport.com/search?query=' . urlencode($this->title) . '" target="_blank"><img src="images/beatport_logo_small.png" /></a>
+	                        <p><span class="more-info-heading">Download</span>:<br /> 
+                                    <a class="download-logo" href="http://www.dirpy.com/studio/'. $this->ytcode . '" target="_blank"><img src="images/dirpy-logo-small.png" /></a>
+                                    <a class="download-logo" href="http://www.hddownloader.com/index.php?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D'. $this->ytcode . 
+                                        '&server=s3.hddownloader.com&dldtype=256" target="_blank">
+                                        <img src="images/hdlogo.png" /></a>
+                                    <a class="download-logo" href="http://www.beatport.com/search?query=' . urlencode($this->title) . '" target="_blank"><img src="images/beatport_logo_small.png" /></a>
+                                    <a class="download-logo" href="http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Ddigital-music&field-keywords=' . urlencode($this->title) . '" target="_blank">
+                                        <img src="images/amazon-logo.png" /></a>
                                 </p> 
                                 ';
         /* TODO: IMPLEMENT

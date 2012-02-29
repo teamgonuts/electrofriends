@@ -47,6 +47,10 @@ h1, h2, h3, h4, h5 {
     background-color:black;
 }
 
+.download-logo{
+    margin-left:8px;
+    padding-top: 8px;
+}
 #header-logo{
     cursor:pointer;
 }
