@@ -193,7 +193,7 @@ window.Queue = class Queue
                 if $('#min-queue').find('.queue-item').length >= @minQ_MaxSongs then break #if we shouldn't add more songs
                 i = song.id.split('_')[1] - 1 #index of song in queue array
                 if not @userQ.songs[i].played #if it hasnt been played
-                    $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
+                    $('#min-queue').append(' <li class="queue-item ellipsis" id="userQ_' + (i+1) + '_2"><span class="title"> ' + 
                               @userQ.songs[i].title + '</span><span class="purple"> //</span> ' + 
                               @userQ.songs[i].artist) 
 

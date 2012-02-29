@@ -212,7 +212,7 @@ if debug then console.log 'delete-song clicked'
           }
           i = song.id.split('_')[1] - 1;
           if (!this.userQ.songs[i].played) {
-            $('#min-queue').append(' <li class="queue-item" id="userQ_' + (i + 1) + '_2"><span class="title"> ' + this.userQ.songs[i].title + '</span><span class="purple"> //</span> ' + this.userQ.songs[i].artist);
+            $('#min-queue').append(' <li class="queue-item ellipsis" id="userQ_' + (i + 1) + '_2"><span class="title"> ' + this.userQ.songs[i].title + '</span><span class="purple"> //</span> ' + this.userQ.songs[i].artist);
           }
         }
       }

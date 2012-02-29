@@ -29,7 +29,6 @@ include ("classes/GenreFilter.php");
         <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
         <script type="text/javascript" src="coffee/master.js"></script>
         
-        
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.7.1min.js"><\/script>');
 	</script>
@@ -330,7 +329,7 @@ include ("classes/GenreFilter.php");
             <h3>Up Next:</h3>
 				<div class="clear"></div><!-- end of clear -->
 				
-				<ol id="min-queue">
+				<ol class="elipsis" id="min-queue">
 				</ol>
 			
 		</div>	<!-- end of threeColumnLeft -->
@@ -357,8 +356,8 @@ include ("classes/GenreFilter.php");
 		<div class="threeColumnRight">
 		
 		<h3>Current Song </h3>
-			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
-			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
+			<p class="ellipsis"><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
+			<p class="ellipsis"><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
 			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
 			<p><span class="currentSongSubTitle">Uploaded By: </span><span id="currentSongUser"></span> </p>
 
