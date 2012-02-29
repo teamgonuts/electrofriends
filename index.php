@@ -337,27 +337,23 @@ include ("classes/GenreFilter.php");
 		<div class="threeColumnCenter">
 			
 			<div class="twoColumnLeft">
-                   <div class="left">
-                        <span id="ytplayer">
-                            <p>You will need Flash 8 or better to view this content. Download it
-                                    <a href="http://get.adobe.com/flashplayer/">HERE</a>
-                            </p>
-                    </div><!-- end of left -->                            
-                    <div class="right">
-                        
-                    </div><!-- end of right -->
-                        </span>
+                <div id="ytplayer">
+                    <p>You will need Flash 8 or better to view this content. Download it
+                            <a href="http://get.adobe.com/flashplayer/">HERE</a>
+                    </p>
+                 </div>   
 			</div><!-- end of twoColumnLeft -->
 			
 			<div class="twoColumnRight">
-
+                <div class="song-control previous-song">Last</div>  
+                <div class="song-control next-song">Next</div>
 			</div><!-- end of twoColumnRight -->
 			
 		</div><!-- end of threeColumnCenter -->
 		
 		<div class="threeColumnRight">
 		
-		<h3>Current Song <span class="song-control previous-song">Last</span>  <span class="song-control next-song">Next</span></h3>
+		<h3>Current Song </h3>
 			<p><span class="currentSongSubTitle">Title: </span> <span id="currentSongTitle"></span></p>
 			<p><span class="currentSongSubTitle">Artist: </span><span id="currentSongArtist"></span></p> 
 			<p><span class="currentSongSubTitle">Genre: </span><span id="currentSongGenre"></span></p>
