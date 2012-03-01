@@ -83,6 +83,16 @@ window.Player = class Player
             ytplayer = document.getElementById('ytplayer')
             ytplayer.loadVideoById currentSong.ytcode
 
+    #pauses the current song
+    playOrPause: ->
+        ytplayer = document.getElementById('ytplayer')
+        state = ytplayer.getPlayerState()
+        if state is 1 #video is playing
+            ytplayer.pauseVideo()
+        else#video is paused
+            ytplayer.playVideo()
+
+        
     #updates the currentSong's info (title, artist, genre, user)
     #from window.currentSong
     updateCurrentSongInfo: ->
@@ -221,6 +231,7 @@ window.Queue = class Queue
         debug = false
         if debug then console.log 'Play Song ' + index + ' in ' + queue
 
+
         #checking for valid params
         if queue != 'genQ' and queue != 'userQ' 
             console.log 'Queue.playSong ERROR: Invalid param queue: ' + queue
@@ -256,6 +267,11 @@ window.Queue = class Queue
             @userQ.markAllNotPlayed(qindex + 1) 
 
         this.updateMinQueue() #update the minQueue
+        #if this is the last song in the queue, load more songs
+        if $('#min-queue').find('li').length <= 1  #showing more songs at 19 so we can instantly play 20
+            if debug then console.log 'loading more songs'
+            $('#showMoreSongs').click() #no more songs in rankings, let's see some more
+
         if debug then console.log '  about to play song with ytcode: ' + ytcode
         ytplayer = document.getElementById('ytplayer')
         ytplayer.loadVideoById ytcode
@@ -747,8 +763,6 @@ $ ->
         debug = false
         if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
         id = $('#min-queue').find('.queue-item:first-child').attr('id') #next songs id
-        if $('#min-queue').find('li').length <= 1  #showing more songs at 19 so we can instantly play 20
-            $('#showMoreSongs').click() #no more songs in rankings, let's see some more
 
         i = id.split('_')[1] #index of song clicked
         q = id.split('_')[0] #queue that was clicked
@@ -763,10 +777,13 @@ $ ->
     $(document).on 'click', '.queue-item', ->
         debug = false
         if debug then console.log 'queue-item clicked'
-        i = $(this).attr('id').split('_')[1]
-        q = $(this).attr('id').split('_')[0] #queue that was clicked
-        if debug then console.log 'queue: ' + q + ', index: ' + i
-        queue.playSong(q, i)
+        if $(this).hasClass('selected-song') #current song playing
+            window.player.playOrPause()
+        else
+            i = $(this).attr('id').split('_')[1]
+            q = $(this).attr('id').split('_')[0] #queue that was clicked
+            if debug then console.log 'queue: ' + q + ', index: ' + i
+            queue.playSong(q, i)
 
     #=============changing the rankings via filter=============
     $('.filter').click ->

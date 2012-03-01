@@ -82,6 +82,17 @@ if debug then console.log 'delete-song clicked'
       }
     };
 
+    Player.prototype.playOrPause = function() {
+      var state, ytplayer;
+      ytplayer = document.getElementById('ytplayer');
+      state = ytplayer.getPlayerState();
+      if (state === 1) {
+        return ytplayer.pauseVideo();
+      } else {
+        return ytplayer.playVideo();
+      }
+    };
+
     Player.prototype.updateCurrentSongInfo = function() {
       var debug;
       debug = false;
@@ -273,6 +284,10 @@ if debug then console.log 'delete-song clicked'
         this.userQ.markAllNotPlayed(qindex + 1);
       }
       this.updateMinQueue();
+      if ($('#min-queue').find('li').length <= 1) {
+        if (debug) console.log('loading more songs');
+        $('#showMoreSongs').click();
+      }
       if (debug) console.log('  about to play song with ytcode: ' + ytcode);
       ytplayer = document.getElementById('ytplayer');
       return ytplayer.loadVideoById(ytcode);
@@ -834,7 +849,6 @@ if debug then console.log 'delete-song clicked'
         console.log($('#min-queue').find('.queue-item:first-child').html());
       }
       id = $('#min-queue').find('.queue-item:first-child').attr('id');
-      if ($('#min-queue').find('li').length <= 1) $('#showMoreSongs').click();
       i = id.split('_')[1];
       q = id.split('_')[0];
       if (debug) console.log('queue: ' + q + ', index: ' + i);
@@ -847,10 +861,14 @@ if debug then console.log 'delete-song clicked'
       var debug, i, q;
       debug = false;
       if (debug) console.log('queue-item clicked');
-      i = $(this).attr('id').split('_')[1];
-      q = $(this).attr('id').split('_')[0];
-      if (debug) console.log('queue: ' + q + ', index: ' + i);
-      return queue.playSong(q, i);
+      if ($(this).hasClass('selected-song')) {
+        return window.player.playOrPause();
+      } else {
+        i = $(this).attr('id').split('_')[1];
+        q = $(this).attr('id').split('_')[0];
+        if (debug) console.log('queue: ' + q + ', index: ' + i);
+        return queue.playSong(q, i);
+      }
     });
     $('.filter').click(function() {
       if ($(this).hasClass('genre-filter')) {
