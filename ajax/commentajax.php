@@ -33,6 +33,8 @@ else
 //fixing strings
 $comment = str_replace('\\' , '', $comment);
 $user  = str_replace('\\' , '', $user);
+$neverexpire = 60 * 60 * 24 * 365 * 99 + time(); 
+setcookie("username", $user, $neverexpire);
 ?>
 <p class="comment-p">
     <span class="userName"><?php echo $user ?></span>

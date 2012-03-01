@@ -747,6 +747,9 @@ $ ->
         debug = false
         if debug then console.log $('#min-queue').find('.queue-item:first-child').html()
         id = $('#min-queue').find('.queue-item:first-child').attr('id') #next songs id
+        if $('#min-queue').find('li').length <= 1  #showing more songs at 19 so we can instantly play 20
+            $('#showMoreSongs').click() #no more songs in rankings, let's see some more
+
         i = id.split('_')[1] #index of song clicked
         q = id.split('_')[0] #queue that was clicked
         if debug then console.log 'queue: ' + q + ', index: ' + i

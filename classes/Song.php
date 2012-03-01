@@ -106,6 +106,17 @@ class Song
                                 </p>
         */
                     	
+        //doesn't work
+        /*
+        if(isset($_COOKIE['username'])){
+            $username = $_COOKIE['username'];
+        }
+        else{
+            $username = 'Anonymous'; //default username
+        }
+        */
+        $username = 'Anonymous';
+
         $html .= '
                     	</div><!-- end of left -->
                     	<div class="right">
@@ -121,7 +132,7 @@ class Song
                             <div class="comments-input">
                                 <textarea class="comment-text" placeholder="Comments"></textarea><br>
                                 <label for="comment-user" class="label">Username:</label>
-                                <input type="text" class="comment-user" value="Anonymous">
+                                <input type="text" class="comment-user" value="' . $username . '">
                                 <input type="submit" value="Submit" class="comments submit-comment">
                             </div>
                         </div>				    

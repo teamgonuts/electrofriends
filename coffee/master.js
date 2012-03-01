@@ -834,6 +834,7 @@ if debug then console.log 'delete-song clicked'
         console.log($('#min-queue').find('.queue-item:first-child').html());
       }
       id = $('#min-queue').find('.queue-item:first-child').attr('id');
+      if ($('#min-queue').find('li').length <= 1) $('#showMoreSongs').click();
       i = id.split('_')[1];
       q = id.split('_')[0];
       if (debug) console.log('queue: ' + q + ', index: ' + i);
