@@ -85,13 +85,8 @@ h1, h2, h3, h4, h5 {
     position: fixed;
     padding: 10px 0 0 0;
 }
-.ellipsis{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    list-style-position: inside;
-}
-#min-queue li{
+
+#min-queue li, .ellipsis{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -1305,7 +1300,7 @@ box-shadow: 0 0 10px #333;
 
 	
 	#bottomControls p, #bottomControls li {
-		font-size: 13px;
+		font-size: 14px;
 	}
 	
 	#bottomControls p span.currentSongSubTitle {
