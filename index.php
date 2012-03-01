@@ -111,7 +111,7 @@ include ("classes/GenreFilter.php");
                                                                         <li>Earn reputation by submitting good songs</li>
                                                                         <li>Avoid reposts </li>
                                                                         <li>Archive old songs (ie a classic)</li>
-                                                                        <li>Songs deemed unworthy by the community are removed</li>
+                                                                        <li>Songs deemed unworthy by the community are automatically removed</li>
                                                                     </ul>
                                                                 </div>
 							    </div><!-- end of left -->
