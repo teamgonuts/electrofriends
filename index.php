@@ -345,6 +345,13 @@ include ("classes/GenreFilter.php");
 			</div><!-- end of twoColumnLeft -->
 			
 			<div class="twoColumnRight">
+                            <p class="score-container">
+                                <span class="score">0</span> [0/0] 
+                            </p>
+                            <div class="vote-buttons-container">
+                                <p class="vote-button" id="down-vote"></p>
+                                <p class="vote-button" id="up-vote"></p>
+                            </div><br /><br />                       
                             <div class="next-last-songs">
                                 <span class="song-control previous-song">|<</span>  
                                 <span class="song-control next-song">>|</span>
