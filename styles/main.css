@@ -1348,6 +1348,15 @@ box-shadow: 0 0 10px #333;
 			margin: 0 0 0 10px;	
 		}
 		
+		#bottomControls .threeColumnCenter .twoColumnRight p {
+            text-align: center;
+		}		
+		
+		#bottomControls .threeColumnCenter .twoColumnRight .vote-buttons-container{
+            width: 75px;
+            margin: 0 auto;
+		}
+		
 		#up.vote-button, #down.vote-button {
 			width: 25px;
 			text-align: center;
