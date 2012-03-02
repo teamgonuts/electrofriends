@@ -350,7 +350,7 @@ include ("classes/GenreFilter.php");
                                 <span class="song-control next-song">>|</span>
                             </div>
                             <br />
-                            <p>Vote for this Song</p>
+                            <p>Song Score</p>
                             <p class="score-container">
                                 <span class="score">0</span> [0/0] 
                             </p>
