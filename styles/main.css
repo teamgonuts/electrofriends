@@ -440,6 +440,12 @@ ol.max-queue li{
     margin: 0 0 3px 0;
 }
 
+.shuffle {
+    width: 25px;
+    height: 22px;
+    background: url('../images/shuffleButton.png') no-repeat;
+}
+
 .queue-min{
     float:right;
     margin-right:10px;
