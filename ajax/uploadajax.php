@@ -10,6 +10,23 @@ if(isset($_POST['title']) && validPost())
         $oldie = $_POST['oldie'];
     else
         $oldie = 'unchecked';
+
+    if(isset($_COOKIE['recent_upload'])){//if the user recently uploaded a song
+        if($_COOKIE['recent_upload'] == '1'){ //only submitted one song, let the user submit again
+            $inOneDay = 60 * 60 * 24 + time(); 
+            setcookie("recent_upload", "2" , $inOneDay); //now the user can't submit again for another day
+        }
+        else {//user can't submit again
+            echo 'Please wait 24 hours to submit again <br />';
+            $ok = false;
+        }
+    }
+    else //user hasn't submitted a song in the last 24 hours
+    {
+        $inOneDay = 60 * 60 * 24 + time(); 
+        setcookie("recent_upload", "1" , $inOneDay);
+    }
+
                 
     $title = safeString($_POST['title']);
     $artist = safeString($_POST['artist']);
@@ -45,13 +62,12 @@ if(isset($_POST['title']) && validPost())
         $qry = mysql_query($qryStr);
         if(!$qry)
         {
-			$error = mysql_error();
-
-			if(strpos($error, 'Duplicate entry') == 0) //THIS DOESNT WORK
+            $error = mysql_error();
+            if(strpos($error, 'Duplicate entry') == 0) //THIS DOESNT WORK
             {
                 echo $error . '<br />';
                 echo $qryStr . '<br />';
-				echo 'Upload Failed: Song Already Submitted <br />';
+                echo 'Upload Failed: Song Already Submitted <br />';
             }
 			else
                 die('Error: ' . $error . '<br />');

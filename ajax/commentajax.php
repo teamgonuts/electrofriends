@@ -12,6 +12,11 @@ if($_POST)
         $cookie_user  = str_replace('\\' , '', $user);
         $inOneYear = 60 * 60 * 24 * 30 * 12 + time();
         setcookie("username", $cookie_user, $inOneYear);
+        if(isset($_COOKIE['recent_comment'])){ //user hasn't commented in the last 15 seconds
+            die("Wait 15 seconds to submit another comment.<br />");
+        }else{ //if this is set, user shouldn't be able to comment for 15 seconds
+            setcookie("recent_comment", "dont-comment", time() + 15); 
+        }
 
         $comment = $_POST['comment'];
         $comment = urldecode($comment);
