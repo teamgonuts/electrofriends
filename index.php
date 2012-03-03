@@ -356,11 +356,11 @@ include ("classes/GenreFilter.php");
                             <br />
                             <p>Song Score</p>
                             <p class="score-container">
-                                <span class="score">0</span> [0/0] 
+                                <span class="score" id="currentSongScore"></span> [<span id="currentSongUps"></span>/<span id="currentSongDowns"></span>] 
                             </p>
                             <div class="vote-buttons-container">
-                                <p class="vote-button" id="down-vote"></p>
-                                <p class="vote-button" id="up-vote"></p>
+                                <p class="vote-button" id="player-down-vote"></p>
+                                <p class="vote-button" id="player-up-vote"></p>
                             </div>
 			</div><!-- end of twoColumnRight -->
 			

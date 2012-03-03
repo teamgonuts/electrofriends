@@ -47,7 +47,10 @@ window.Player = class Player
                                       $('#genre_' + i).val(), 
                                       $('#artist_' + i).val(), 
                                       $('#user_' + i).val(), 
-                                      $('#userScore_' + i).val())
+                                      $('#userScore_' + i).val(),
+                                      $('#score_' + i).val(), 
+                                      $('#ups_' + i).val(), 
+                                      $('#downs_' + i).val())
         this.updateCurrentSongInfo()
 
     #loads the song in the userQ at index i into the player
@@ -60,7 +63,10 @@ window.Player = class Player
                                       window.queue.userQ.songs[i].genre,
                                       window.queue.userQ.songs[i].artist,
                                       window.queue.userQ.songs[i].user,
-                                      window.queue.userQ.songs[i].userScore)
+                                      window.queue.userQ.songs[i].userScore,
+                                      window.queue.userQ.songs[i].score,
+                                      window.queue.userQ.songs[i].ups,
+                                      window.queue.userQ.songs[i].downs)
         this.updateCurrentSongInfo()
 
     #adds song (object) to the previousSongs queue
@@ -102,6 +108,9 @@ window.Player = class Player
         $('#currentSongArtist').html window.currentSong.artist
         $('#currentSongGenre').html window.currentSong.genre
         $('#currentSongUser').html (window.currentSong.user + ' {<span class="user-score">' + window.currentSong.userScore + '</span>}')
+        $('#currentSongScore').html window.currentSong.score
+        $('#currentSongUps').html window.currentSong.ups
+        $('#currentSongDowns').html window.currentSong.downs
         
 
 # method is called when the player is ready
@@ -167,14 +176,17 @@ window.onPlayerError = (errorCode) ->
 =================================================###
 #class for a Song in a queue
 window.Song = class Song
-    constructor:(@ytcode, @title, @genre, @artist, @user, @userScore , @played = false) ->
+    constructor:(@ytcode, @title, @genre, @artist, @user, @userScore, @score, @ups, @downs, @played = false) ->
         debug = false
         if debug then console.log 'Song Created! ytcode: ' + @ytcode +
                                     ', title: ' + @title +
                                     ', genre: ' + @genre + 
                                     ', artist: ' + @artist + 
                                     ', userScore: ' + @userScore + 
-                                    ', user: ' + @user
+                                    ', user: ' + @user +
+                                    ', score: ' + @score +
+                                    ', ups: ' + @ups + 
+                                    ', downs: ' + @downs
 
 #overall queue class, this queue contains the gen and user queue
 window.Queue = class Queue
@@ -294,7 +306,10 @@ window.UserQueue = class UserQueue
                         $('#genre_' + i).val()
                         $('#artist_' + i).val()
                         $('#user_' + i).val()
-                        $('#userScore_' + i).val())
+                        $('#userScore_' + i).val()
+                        $('#score_' + i).val()
+                        $('#ups_' + i).val()
+                        $('#downs_' + i).val())
 
         $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
@@ -334,7 +349,11 @@ window.UserQueue = class UserQueue
                                     $('#uq_genre_' + i).val()
                                     $('#uq_artist_' + i).val()
                                     $('#uq_user_' + i).val()
-                                    $('#uq_userScore_' + i).val(), true)
+                                    $('#uq_userScore_' + i).val()
+                                    $('#uq_score_' + i).val()
+                                    $('#uq_ups_' + i).val()
+                                    $('#uq_downs_' + i).val()
+                                    , true)
                 $('.delete-info').html('')
             window.queue.updateMinQueue()
     
@@ -728,7 +747,10 @@ $ ->
                             $('#genre_' + rindex).val()
                             $('#artist_' + rindex).val()
                             $('#user_' + rindex).val()
-                            $('#userScore_' + rindex).val())
+                            $('#userScore_' + rindex).val()
+                            $('#score_' + rindex).val()
+                            $('#ups_' + rindex).val()
+                            $('#downs_' + rindex).val())
 
             window.queue.updateMinQueue()
             queue.userQ.updateSongCookies()
@@ -884,39 +906,64 @@ $ ->
     #===========Voting Buttons=====================#
     #todo: this only works for voting buttons in the rankings, not in the player
     $(document).on 'click', '.vote-button', ->
-        debug = false #turn on debugging for voting buttons
+        debug = true #turn on debugging for voting buttons
         if not $(this).hasClass('highlight-vote') #if I haven't alredy made the same vote
-            i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
-
-            if $(this).attr('id') is 'up-vote' #up-vote
-                if debug then console.log 'UpVote called on ' + i
-                result = 'up'
-                toAdd = 1; #what to add to
-                $('#max_' + i).find("#up-vote").addClass('highlight-vote') #highlighting new vote
-                $('#max_' + i).find("#down-vote").removeClass('highlight-vote')#remove highlight from old vote userScore
-            else if $(this).attr('id') is 'down-vote' #down-vote
-                if debug then console.log 'DownVote called on ' + i
-                result = 'down'
-                toAdd = -1; #what to add to userScore
-                $('#max_' + i).find("#down-vote").addClass('highlight-vote')#highlight new vote
-                $('#max_' + i).find("#up-vote").removeClass('highlight-vote')#remove highlight from old vote
-            else
-                if debug then console.log 'Error: Something went wrong with the vote-buttons'
-                result = 'error'
+            if $(this).attr('id').indexOf('player') is -1 #vote button is from rankings
+                i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
+                if $(this).attr('id') is 'up-vote' #up-vote
+                    if debug then console.log 'UpVote called on ' + i
+                    result = 'up'
+                    toAdd = 1; #what to add to
+                    $('#max_' + i).find("#up-vote").addClass('highlight-vote') #highlighting new vote
+                    $('#max_' + i).find("#down-vote").removeClass('highlight-vote')#remove highlight from old vote userScore
+                else if $(this).attr('id') is 'down-vote' #down-vote
+                    if debug then console.log 'DownVote called on ' + i
+                    result = 'down'
+                    toAdd = -1; #what to add to userScore
+                    $('#max_' + i).find("#down-vote").addClass('highlight-vote')#highlight new vote
+                    $('#max_' + i).find("#up-vote").removeClass('highlight-vote')#remove highlight from old vote
+                else
+                    if debug then console.log 'Error: Something went wrong with the vote-buttons'
+                    result = 'error'
+                player = false #vote button was not in player
+                ytcode = $('#ytcode_' + i).val()
+                user = $('#user_' + i).val()
+                score = $('#score_' + i).val()
+                ups = $('#ups_' + i).val()
+                downs = $('#downs_' + i).val()
+            else #vote-button is in the player
+                if debug then console.log 'vote button clicked is in the player'
+                if $(this).attr('id').indexOf('up-vote') is -1 #downvote clicked
+                    result = 'down'
+                    toAdd = -1
+                else #upvote clicked
+                    result = 'up'
+                    toAdd = 1
+                player = true #boolean to say vote button was in player
+                ytcode = window.currentSong.ytcode
+                user = window.currentSong.user
+                score = window.currentSong.score
+                ups = window.currentSong.ups
+                downs = window.currentSong.downs
 
             $.post 'ajax/voteAjax.php',
                     result: result
-                    ytcode: $('#ytcode_' + i).val()
-                    user: $('#user_' + i).val()
-                    score: $('#score_' + i).val()
-                    ups: $('#ups_' + i).val()
-                    downs: $('#downs_' + i).val()
+                    ytcode: ytcode
+                    user: user
+                    score: score
+                    ups: ups
+                    downs: downs
                     (data) ->
                         if debug then console.log 'Vote Success: ' + data
-                        $('#max_' + i).find('.score-container').html(data) #changing score in max
-                        $('#min_' + i).find('.score-container').html(data) #changing score in min
-                        oldScore = parseInt($('#max_' + i).find('.user-score').html()) #changing score in min
-                        $('#max_' + i).find('.user-score').html(oldScore + toAdd)
+                        if player
+                            $('#bottomControls').find('.score-container').html(data)#updating score in player
+                            newScore = parseInt(window.currentSong.userScore) + toAdd
+                            $('#currentSongUser').html (window.currentSong.user + ' {<span class="user-score">' + newScore + '</span>}')
+                        else
+                            $('#max_' + i).find('.score-container').html(data) #changing score in max
+                            $('#min_' + i).find('.score-container').html(data) #changing score in min
+                            oldScore = parseInt($('#max_' + i).find('.user-score').html()) #changing score in min
+                            $('#max_' + i).find('.user-score').html(oldScore + toAdd)
 
     #===========Search=====================#
     $('#search-button').click -> rankings.search($('#search-input').val())

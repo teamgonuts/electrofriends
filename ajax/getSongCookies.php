@@ -21,6 +21,9 @@ if(isset($_COOKIE['userQueue'])) {
         $user = str_replace('\\', '', $row['user']);
         $genre = $row['genre'];
         $ytcode = $row['youtubecode'];
+        $score = $row['score'];
+        $ups = $row['ups'];
+        $downs = $row['downs'];
 
         $qry = mysql_query('SELECT points FROM users WHERE user = "' . $user .'"');
         if (!$qry)
@@ -39,6 +42,9 @@ if(isset($_COOKIE['userQueue'])) {
             <input type="hidden" id="uq_genre_'. $i .'" value="'. $genre .'"/>
             <input type="hidden" id="uq_user_'. $i .'" value="'. $user .'"/>
             <input type="hidden" id="uq_userScore_'. $i .'" value="'. $userScore .'"/>
+            <input type="hidden" id="uq_score_'. $i .'" value="'. $score .'"/>
+            <input type="hidden" id="uq_ups_'. $i .'" value="'. $ups .'"/>
+            <input type="hidden" id="uq_downs_'. $i .'" value="'. $downs .'"/>
             </span></li>';
     }
 }

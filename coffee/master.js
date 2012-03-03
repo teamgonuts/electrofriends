@@ -48,7 +48,7 @@ if debug then console.log 'delete-song clicked'
       var debug;
       debug = false;
       if (debug) console.log('loadSongInRankings Called()');
-      window.currentSong = new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val());
+      window.currentSong = new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val(), $('#score_' + i).val(), $('#ups_' + i).val(), $('#downs_' + i).val());
       return this.updateCurrentSongInfo();
     };
 
@@ -56,7 +56,7 @@ if debug then console.log 'delete-song clicked'
       var debug;
       debug = false;
       if (debug) console.log('loadSongInQueue Called(' + i + ')');
-      window.currentSong = new Song(window.queue.userQ.songs[i].ytcode, window.queue.userQ.songs[i].title, window.queue.userQ.songs[i].genre, window.queue.userQ.songs[i].artist, window.queue.userQ.songs[i].user, window.queue.userQ.songs[i].userScore);
+      window.currentSong = new Song(window.queue.userQ.songs[i].ytcode, window.queue.userQ.songs[i].title, window.queue.userQ.songs[i].genre, window.queue.userQ.songs[i].artist, window.queue.userQ.songs[i].user, window.queue.userQ.songs[i].userScore, window.queue.userQ.songs[i].score, window.queue.userQ.songs[i].ups, window.queue.userQ.songs[i].downs);
       return this.updateCurrentSongInfo();
     };
 
@@ -100,7 +100,10 @@ if debug then console.log 'delete-song clicked'
       $('#currentSongTitle').html(window.currentSong.title);
       $('#currentSongArtist').html(window.currentSong.artist);
       $('#currentSongGenre').html(window.currentSong.genre);
-      return $('#currentSongUser').html(window.currentSong.user + ' {<span class="user-score">' + window.currentSong.userScore + '</span>}');
+      $('#currentSongUser').html(window.currentSong.user + ' {<span class="user-score">' + window.currentSong.userScore + '</span>}');
+      $('#currentSongScore').html(window.currentSong.score);
+      $('#currentSongUps').html(window.currentSong.ups);
+      return $('#currentSongDowns').html(window.currentSong.downs);
     };
 
     return Player;
@@ -174,7 +177,7 @@ if debug then console.log 'delete-song clicked'
 
   window.Song = Song = (function() {
 
-    function Song(ytcode, title, genre, artist, user, userScore, played) {
+    function Song(ytcode, title, genre, artist, user, userScore, score, ups, downs, played) {
       var debug;
       this.ytcode = ytcode;
       this.title = title;
@@ -182,10 +185,13 @@ if debug then console.log 'delete-song clicked'
       this.artist = artist;
       this.user = user;
       this.userScore = userScore;
+      this.score = score;
+      this.ups = ups;
+      this.downs = downs;
       this.played = played != null ? played : false;
       debug = false;
       if (debug) {
-        console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user);
+        console.log('Song Created! ytcode: ' + this.ytcode + ', title: ' + this.title + ', genre: ' + this.genre + ', artist: ' + this.artist + ', userScore: ' + this.userScore + ', user: ' + this.user + ', score: ' + this.score + ', ups: ' + this.ups + ', downs: ' + this.downs);
       }
     }
 
@@ -311,7 +317,7 @@ if debug then console.log 'delete-song clicked'
       var debug;
       debug = false;
       if (debug) console.log('appending to user queue');
-      this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val()));
+      this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val(), $('#score_' + i).val(), $('#ups_' + i).val(), $('#downs_' + i).val()));
       $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '<div class="delete-song">[x]</div></li>');
       window.queue.updateMinQueue();
       return this.updateSongCookies();
@@ -347,7 +353,7 @@ if debug then console.log 'delete-song clicked'
         $('#userQ').html(data);
         if ($('.user-queue').length > 0) {
           for (i = 1, _ref = $('.user-queue').length; 1 <= _ref ? i <= _ref : i >= _ref; 1 <= _ref ? i++ : i--) {
-            window.queue.userQ.songs.push(new Song($('#uq_ytcode_' + i).val(), $('#uq_title_' + i).val(), $('#uq_genre_' + i).val(), $('#uq_artist_' + i).val(), $('#uq_user_' + i).val(), $('#uq_userScore_' + i).val(), true));
+            window.queue.userQ.songs.push(new Song($('#uq_ytcode_' + i).val(), $('#uq_title_' + i).val(), $('#uq_genre_' + i).val(), $('#uq_artist_' + i).val(), $('#uq_user_' + i).val(), $('#uq_userScore_' + i).val(), $('#uq_score_' + i).val(), $('#uq_ups_' + i).val(), $('#uq_downs_' + i).val(), true));
           }
           $('.delete-info').html('');
         }
@@ -811,7 +817,7 @@ if debug then console.log 'delete-song clicked'
         console.log('1st list received:' + ui.item.attr('id'));
         rindex = ui.item.attr('id').split('_');
         ui.item.attr('id', 'userQ_' + queue.userQ.songs.length);
-        queue.userQ.songs.push(new Song($('#ytcode_' + rindex).val(), $('#title_' + rindex).val(), $('#genre_' + rindex).val(), $('#artist_' + rindex).val(), $('#user_' + rindex).val(), $('#userScore_' + rindex).val()));
+        queue.userQ.songs.push(new Song($('#ytcode_' + rindex).val(), $('#title_' + rindex).val(), $('#genre_' + rindex).val(), $('#artist_' + rindex).val(), $('#user_' + rindex).val(), $('#userScore_' + rindex).val(), $('#score_' + rindex).val(), $('#ups_' + rindex).val(), $('#downs_' + rindex).val()));
         window.queue.updateMinQueue();
         return queue.userQ.updateSongCookies();
       }
@@ -959,42 +965,71 @@ if debug then console.log 'delete-song clicked'
       return rankings.nextComments($(this).closest('.song').attr('id').split('_')[1]);
     });
     $(document).on('click', '.vote-button', function() {
-      var debug, i, result, toAdd;
-      debug = false;
+      var debug, downs, i, player, result, score, toAdd, ups, user, ytcode;
+      debug = true;
       if (!$(this).hasClass('highlight-vote')) {
-        i = $(this).closest('.song').attr('id').split('_')[1];
-        if ($(this).attr('id') === 'up-vote') {
-          if (debug) console.log('UpVote called on ' + i);
-          result = 'up';
-          toAdd = 1;
-          $('#max_' + i).find("#up-vote").addClass('highlight-vote');
-          $('#max_' + i).find("#down-vote").removeClass('highlight-vote');
-        } else if ($(this).attr('id') === 'down-vote') {
-          if (debug) console.log('DownVote called on ' + i);
-          result = 'down';
-          toAdd = -1;
-          $('#max_' + i).find("#down-vote").addClass('highlight-vote');
-          $('#max_' + i).find("#up-vote").removeClass('highlight-vote');
-        } else {
-          if (debug) {
-            console.log('Error: Something went wrong with the vote-buttons');
+        if ($(this).attr('id').indexOf('player') === -1) {
+          i = $(this).closest('.song').attr('id').split('_')[1];
+          if ($(this).attr('id') === 'up-vote') {
+            if (debug) console.log('UpVote called on ' + i);
+            result = 'up';
+            toAdd = 1;
+            $('#max_' + i).find("#up-vote").addClass('highlight-vote');
+            $('#max_' + i).find("#down-vote").removeClass('highlight-vote');
+          } else if ($(this).attr('id') === 'down-vote') {
+            if (debug) console.log('DownVote called on ' + i);
+            result = 'down';
+            toAdd = -1;
+            $('#max_' + i).find("#down-vote").addClass('highlight-vote');
+            $('#max_' + i).find("#up-vote").removeClass('highlight-vote');
+          } else {
+            if (debug) {
+              console.log('Error: Something went wrong with the vote-buttons');
+            }
+            result = 'error';
           }
-          result = 'error';
+          player = false;
+          ytcode = $('#ytcode_' + i).val();
+          user = $('#user_' + i).val();
+          score = $('#score_' + i).val();
+          ups = $('#ups_' + i).val();
+          downs = $('#downs_' + i).val();
+        } else {
+          if (debug) console.log('vote button clicked is in the player');
+          if ($(this).attr('id').indexOf('up-vote') === -1) {
+            result = 'down';
+            toAdd = -1;
+          } else {
+            result = 'up';
+            toAdd = 1;
+          }
+          player = true;
+          ytcode = window.currentSong.ytcode;
+          user = window.currentSong.user;
+          score = window.currentSong.score;
+          ups = window.currentSong.ups;
+          downs = window.currentSong.downs;
         }
         return $.post('ajax/voteAjax.php', {
           result: result,
-          ytcode: $('#ytcode_' + i).val(),
-          user: $('#user_' + i).val(),
-          score: $('#score_' + i).val(),
-          ups: $('#ups_' + i).val(),
-          downs: $('#downs_' + i).val()
+          ytcode: ytcode,
+          user: user,
+          score: score,
+          ups: ups,
+          downs: downs
         }, function(data) {
-          var oldScore;
+          var newScore, oldScore;
           if (debug) console.log('Vote Success: ' + data);
-          $('#max_' + i).find('.score-container').html(data);
-          $('#min_' + i).find('.score-container').html(data);
-          oldScore = parseInt($('#max_' + i).find('.user-score').html());
-          return $('#max_' + i).find('.user-score').html(oldScore + toAdd);
+          if (player) {
+            $('#bottomControls').find('.score-container').html(data);
+            newScore = parseInt(window.currentSong.userScore) + toAdd;
+            return $('#currentSongUser').html(window.currentSong.user + ' {<span class="user-score">' + newScore + '</span>}');
+          } else {
+            $('#max_' + i).find('.score-container').html(data);
+            $('#min_' + i).find('.score-container').html(data);
+            oldScore = parseInt($('#max_' + i).find('.user-score').html());
+            return $('#max_' + i).find('.user-score').html(oldScore + toAdd);
+          }
         });
       }
     });

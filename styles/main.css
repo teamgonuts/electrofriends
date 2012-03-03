@@ -320,7 +320,7 @@ text-align: center;
 														
 }
 
-p#up-vote {
+p#up-vote, #player-up-vote {
     display: block;
     float: right;
     width: 25px;
@@ -329,11 +329,11 @@ p#up-vote {
     margin: 3px 0 0 0;
 }
 
-p#up-vote:hover {
+p#up-vote, #player-up-vote:hover {
     background-position: 0 -24px;
 }
 
-p#down-vote {
+p#down-vote, #player-down-vote {
     display: block;
     float: right;
     width: 25px;
@@ -342,7 +342,7 @@ p#down-vote {
     margin: 3px 0 0 0;    
 }
 
-p#down-vote:hover {
+p#down-vote, #player-down-vote:hover {
     background-position: -32px -24px;
 }
 
