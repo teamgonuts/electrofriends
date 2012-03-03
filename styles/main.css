@@ -329,7 +329,10 @@ p#up-vote, #player-up-vote {
     margin: 3px 0 0 0;
 }
 
-p#up-vote, #player-up-vote:hover {
+p#up-vote:hover {
+    background-position: 0 -24px;
+}
+p#player-up-vote:hover {
     background-position: 0 -24px;
 }
 
@@ -342,7 +345,10 @@ p#down-vote, #player-down-vote {
     margin: 3px 0 0 0;    
 }
 
-p#down-vote, #player-down-vote:hover {
+p#down-vote:hover {
+    background-position: -32px -24px;
+}
+p#player-down-vote:hover {
     background-position: -32px -24px;
 }
 

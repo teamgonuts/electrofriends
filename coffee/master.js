@@ -966,7 +966,7 @@ if debug then console.log 'delete-song clicked'
     });
     $(document).on('click', '.vote-button', function() {
       var debug, downs, i, player, result, score, toAdd, ups, user, ytcode;
-      debug = true;
+      debug = false;
       if (!$(this).hasClass('highlight-vote')) {
         if ($(this).attr('id').indexOf('player') === -1) {
           i = $(this).closest('.song').attr('id').split('_')[1];
@@ -1016,7 +1016,8 @@ if debug then console.log 'delete-song clicked'
           user: user,
           score: score,
           ups: ups,
-          downs: downs
+          downs: downs,
+          player: player
         }, function(data) {
           var newScore, oldScore;
           if (debug) console.log('Vote Success: ' + data);

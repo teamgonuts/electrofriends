@@ -9,11 +9,18 @@ if($_POST)
 	$ups = $_POST['ups']; //one more vote
 	$downs = $_POST['downs'];
 	$user = $_POST['user'];
+        $player = $_POST['player']; //true if the vote buttons are in the player else false
 
     //first, let's make sure the user hasn't voted before
     if(isset($_COOKIE[$ytcode])) { 
         //user voted before, let's just return the same score
-	echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
+        if($player == "true"){
+            echo '<span class="score" id="currentSongScore">'. $score .
+                 '</span> [<span id="currentSongUps">' . $ups .'</span>/<span id="currentSongDowns">' . $downs . '</span>] ';
+        }
+        else{
+            echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
+        }
     } else {//user hasn't voted before
 
         //let's set a cookie so the user can't vote again
@@ -46,7 +53,13 @@ if($_POST)
         if (!$qry)
             die("FAIL: " . mysql_error());
 
-        echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
+        if($player == "true"){
+            echo '<span class="score" id="currentSongScore">'. $score .
+                 '</span> [<span id="currentSongUps">' . $ups .'</span>/<span id="currentSongDowns">' . $downs . '</span>] ';
+        }
+        else{
+            echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
+        }
     }
 }
 else { die("FAIL: POST not set in voteUpAjax"); }

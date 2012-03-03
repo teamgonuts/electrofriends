@@ -906,7 +906,7 @@ $ ->
     #===========Voting Buttons=====================#
     #todo: this only works for voting buttons in the rankings, not in the player
     $(document).on 'click', '.vote-button', ->
-        debug = true #turn on debugging for voting buttons
+        debug = false #turn on debugging for voting buttons
         if not $(this).hasClass('highlight-vote') #if I haven't alredy made the same vote
             if $(this).attr('id').indexOf('player') is -1 #vote button is from rankings
                 i = $(this).closest('.song').attr('id').split('_')[1] #index of song clicked
@@ -953,6 +953,7 @@ $ ->
                     score: score
                     ups: ups
                     downs: downs
+                    player: player
                     (data) ->
                         if debug then console.log 'Vote Success: ' + data
                         if player
