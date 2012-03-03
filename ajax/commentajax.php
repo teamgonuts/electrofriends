@@ -3,11 +3,15 @@ include('../connection.php');
 
 if($_POST)
 {	
-	
 	$user = $_POST['user'];
         $user = urldecode($user);
 	$user = strip_tags($user);
 	$user = mysql_real_escape_string($user);
+
+        #1st, let's set a cookie for the username
+        $cookie_user  = str_replace('\\' , '', $user);
+        $inOneYear = 60 * 60 * 24 * 30 * 12 + time();
+        setcookie("username", $cookie_user, $inOneYear);
 
         $comment = $_POST['comment'];
         $comment = urldecode($comment);
@@ -33,8 +37,6 @@ else
 //fixing strings
 $comment = str_replace('\\' , '', $comment);
 $user  = str_replace('\\' , '', $user);
-$neverexpire = 60 * 60 * 24 * 365 * 99 + time(); 
-setcookie("username", $user, $neverexpire);
 ?>
 <p class="comment-p">
     <span class="userName"><?php echo $user ?></span>

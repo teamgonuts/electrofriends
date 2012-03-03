@@ -579,10 +579,10 @@ if debug then console.log 'delete-song clicked'
 
     Rankings.prototype.loadUsernameCookie = function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('Rankings.loadUsernameCookie');
       return $.get('ajax/loadUsernameCookie.php', function(data) {
-        console.log('username cookie: ' + data);
+        if (debug) console.log('username cookie: ' + data);
         return $('.song-max').find('.comment-user').val(data);
       });
     };

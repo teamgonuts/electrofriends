@@ -517,10 +517,10 @@ window.Rankings = class Rankings
 
     #if a cookie is set for a username, load it
     loadUsernameCookie: ->
-        debug = true
+        debug = false
         if debug then console.log 'Rankings.loadUsernameCookie'
         $.get 'ajax/loadUsernameCookie.php', (data) ->
-            console.log 'username cookie: ' + data
+            if debug then console.log 'username cookie: ' + data
             $('.song-max').find('.comment-user').val(data)
 
     #updates the rankings based off the current filters
