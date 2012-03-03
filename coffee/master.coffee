@@ -512,6 +512,16 @@ window.Rankings = class Rankings
     #initializes the styles and buttons in the rankings
     initialize: ->
         this.initializeSongs(1, @songsPerPage)
+        this.loadUsernameCookie()
+
+
+    #if a cookie is set for a username, load it
+    loadUsernameCookie: ->
+        debug = true
+        if debug then console.log 'Rankings.loadUsernameCookie'
+        $.get 'ajax/loadUsernameCookie.php', (data) ->
+            console.log 'username cookie: ' + data
+            $('.song-max').find('.comment-user').val(data)
 
     #updates the rankings based off the current filters
     update: ->
@@ -611,6 +621,9 @@ window.Rankings = class Rankings
                                 $('#max_' + index).find('.no-comment').addClass('hidden')
 
                             $('#max_' + index).find('.comment-display').prepend(data)
+
+                        #setting all usernames to whichever username was just used to comment
+                        $('.song-max').find('.comment-user').val(user)
 
 
 

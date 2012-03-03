@@ -106,15 +106,6 @@ class Song
                                 </p>
         */
                     	
-        //doesn't work
-        /*
-        if(isset($_COOKIE['username'])){
-            $username = $_COOKIE['username'];
-        }
-        else{
-            $username = 'Anonymous'; //default username
-        }
-        */
         $username = 'Anonymous';
 
         $html .= '

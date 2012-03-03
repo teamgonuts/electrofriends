@@ -27,7 +27,6 @@ class Rankings
 
         $topOf = $this->filters['date']->getDaysWord();
          //=================Rankings Table====================//
-        //hardcoding DB
         if($topOf == 'New') //newest was selected, order by upload date
         {
                 $qry = mysql_query("SELECT * FROM  `songs` 

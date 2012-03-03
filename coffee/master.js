@@ -573,7 +573,18 @@ if debug then console.log 'delete-song clicked'
     }
 
     Rankings.prototype.initialize = function() {
-      return this.initializeSongs(1, this.songsPerPage);
+      this.initializeSongs(1, this.songsPerPage);
+      return this.loadUsernameCookie();
+    };
+
+    Rankings.prototype.loadUsernameCookie = function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('Rankings.loadUsernameCookie');
+      return $.get('ajax/loadUsernameCookie.php', function(data) {
+        console.log('username cookie: ' + data);
+        return $('.song-max').find('.comment-user').val(data);
+      });
     };
 
     Rankings.prototype.update = function() {
@@ -673,8 +684,9 @@ if debug then console.log 'delete-song clicked'
             if (!$('#max_' + index).find('.no-comment').hasClass('hidden')) {
               $('#max_' + index).find('.no-comment').addClass('hidden');
             }
-            return $('#max_' + index).find('.comment-display').prepend(data);
+            $('#max_' + index).find('.comment-display').prepend(data);
           }
+          return $('.song-max').find('.comment-user').val(user);
         });
       }
     };
