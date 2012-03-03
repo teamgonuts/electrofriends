@@ -241,6 +241,8 @@ include ("classes/GenreFilter.php");
             <div class="queue-title">  
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
+            <div class="shuffle">
+            </div><!-- end of shuffle -->
             <ol class="max-queue" id="userQ">
             </ol>
         </div>
@@ -248,6 +250,8 @@ include ("classes/GenreFilter.php");
             <div class="queue-title">
                 <h3>Generated Queue</h3>
             </div>
+            <div class="shuffle">
+            </div><!-- end of shuffle -->            
             <ol class="max-queue" id="genQ">
             </ol>
         </div>
