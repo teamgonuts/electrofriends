@@ -20,11 +20,23 @@ if($_POST)
         $genre = $_POST['genrefilter'];
         $filters = array("date" => new DateFilter($topOf), "genre" => new GenreFilter($genre));
         $where = $filters['date']->genSQL() . ' AND ' . $filters['genre']->genSQL();
-        $qry = mysql_query("SELECT * FROM  `songs`
-                            WHERE $where
-                            ORDER BY 'score' DESC
-                            LIMIT $lowerLimit , $upperLimit
-                            ");
+
+        if($topOf == 'new') //newest was selected, order by upload date
+        {
+                $qry = mysql_query("SELECT * FROM  `songs` 
+                    WHERE $where
+                    ORDER BY uploaded_on DESC
+                    LIMIT $lowerLimit , $upperLimit
+                    ");
+        }
+        else //order by score
+        {
+                $qry = mysql_query("SELECT * FROM  `songs` 
+                    WHERE $where
+                    ORDER BY score DESC
+                    LIMIT $lowerLimit , $upperLimit
+                    ");
+        }					
         if (!$qry)
 		die("FAIL: " . mysql_error());
 
