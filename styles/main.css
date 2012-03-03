@@ -440,6 +440,19 @@ ol.max-queue li{
     margin: 0 0 3px 0;
 }
 
+.shuffle {
+    width: 25px;
+    height: 20px;
+    background: url('../images/shuffleButton.png') no-repeat;
+    cursor: pointer;
+    margin: 0 0 0 10px;
+}
+
+.shuffle:hover {
+    background-position-y: -21px;
+
+}
+
 .queue-min{
     float:right;
     margin-right:10px;
@@ -1346,6 +1359,15 @@ box-shadow: 0 0 10px #333;
 			width: 105px;
 			float: left;
 			margin: 0 0 0 10px;	
+		}
+		
+		#bottomControls .threeColumnCenter .twoColumnRight p {
+            text-align: center;
+		}		
+		
+		#bottomControls .threeColumnCenter .twoColumnRight .vote-buttons-container{
+            width: 50px;
+            margin: 0 auto;
 		}
 		
 		#up.vote-button, #down.vote-button {

@@ -241,6 +241,8 @@ include ("classes/GenreFilter.php");
             <div class="queue-title">  
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
+            <div class="shuffle">
+            </div><!-- end of shuffle -->
             <ol class="max-queue" id="userQ">
             </ol>
         </div>
@@ -248,6 +250,8 @@ include ("classes/GenreFilter.php");
             <div class="queue-title">
                 <h3>Generated Queue</h3>
             </div>
+            <div class="shuffle">
+            </div><!-- end of shuffle -->            
             <ol class="max-queue" id="genQ">
             </ol>
         </div>
@@ -350,7 +354,7 @@ include ("classes/GenreFilter.php");
                                 <span class="song-control next-song">>|</span>
                             </div>
                             <br />
-                            <p>Song Score:</p>
+                            <p>Song Score</p>
                             <p class="score-container">
                                 <span class="score">0</span> [0/0] 
                             </p>
