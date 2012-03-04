@@ -27,6 +27,7 @@ include ("classes/GenreFilter.php");
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js">//for drag & drop</script>
         <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
+        <script type="text/javascript" src="js/jquery.shuffle.js">//embedding youtube videos</script>
         <script type="text/javascript" src="coffee/master.js"></script>
         
 	<script>
@@ -237,7 +238,7 @@ include ("classes/GenreFilter.php");
 
     <div class="clear"></div><!-- end of clear -->
        
-        <div id="user-queue">
+        <div class="queue" id="user-queue">
             <div class="queue-title">  
                 <h3>User Queue</h3>
             </div><!-- end of queue-title -->
@@ -246,7 +247,7 @@ include ("classes/GenreFilter.php");
             <ol class="max-queue" id="userQ">
             </ol>
         </div>
-        <div id="generated-queue">
+        <div class="queue" id="generated-queue">
             <div class="queue-title">
                 <h3>Generated Queue</h3>
             </div>

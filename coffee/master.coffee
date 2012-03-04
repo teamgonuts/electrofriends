@@ -838,6 +838,12 @@ $ ->
         rankings.filters.set('genre', 'all')
         rankings.update()
 
+    #=============SHUFFLING THE QUEUE============
+    $('.shuffle').click ->
+        queue = $(this).closest('.queue').attr('id')
+        console.log queue
+        $('#' + queue + ' li').shuffle()
+
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->
         debug = false

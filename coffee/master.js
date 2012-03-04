@@ -904,6 +904,12 @@ if debug then console.log 'delete-song clicked'
       rankings.filters.set('genre', 'all');
       return rankings.update();
     });
+    $('.shuffle').click(function() {
+      var queue;
+      queue = $(this).closest('.queue').attr('id');
+      console.log(queue);
+      return $('#' + queue + ' li').shuffle();
+    });
     $(document).on('click', '.song', function() {
       var debug, i, state, temp;
       debug = false;
