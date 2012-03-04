@@ -267,6 +267,7 @@ window.Queue = class Queue
             #marking all songs in userQ played so next song is the song 
             #directly below this song in the generated queue
             @userQ.markAllPlayed() 
+            $('#min_' + index).click() #open the song that is being played
         else #queue = 'userQ' 
             i = index-1# i-1 because userQ array is 0 based
             ytcode = @userQ.songs[i].ytcode #-1 because the userQ's array is 0 based
@@ -674,6 +675,7 @@ window.Rankings = class Rankings
                 $('#max_' + i).find('.comment-display').html('<p class="no-comment">No Comments. </p>')
 
 
+
     ###searches database for songs with 'searchterm' in either the title or artist 
     and displays results in rankings###
     search: (searchterm) ->
@@ -738,22 +740,6 @@ $ ->
         update: (event, ui) ->
             queue.userQ.updateSongCookies()
             queue.updateMinQueue()
-        receive: (event,ui) ->
-            console.log '1st list received:' + ui.item.attr('id')
-            rindex = ui.item.attr('id').split('_') #index of song in rankings
-            ui.item.attr('id', 'userQ_' + queue.userQ.songs.length) #setting new id
-            queue.userQ.songs.push new Song( $('#ytcode_' + rindex).val()
-                            $('#title_' + rindex).val()
-                            $('#genre_' + rindex).val()
-                            $('#artist_' + rindex).val()
-                            $('#user_' + rindex).val()
-                            $('#userScore_' + rindex).val()
-                            $('#score_' + rindex).val()
-                            $('#ups_' + rindex).val()
-                            $('#downs_' + rindex).val())
-
-            window.queue.updateMinQueue()
-            queue.userQ.updateSongCookies()
     })
         
 
@@ -841,8 +827,9 @@ $ ->
     #=============SHUFFLING THE QUEUE============
     $('.shuffle').click ->
         queue = $(this).closest('.queue').attr('id')
-        console.log queue
         $('#' + queue + ' li').shuffle()
+        window.queue.updateMinQueue()
+        if queue is 'user-queue' then window.queue.userQ.updateSongCookies()
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->
@@ -1007,3 +994,5 @@ $ ->
                     else #upload failed
                         $('#upload-box-result').css('color', 'red')
                     
+    #finally, click the first song so the player embedding doesn't get messed up
+    $('#min_1').click()

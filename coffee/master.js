@@ -281,6 +281,7 @@ if debug then console.log 'delete-song clicked'
         }
         if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
         this.userQ.markAllPlayed();
+        $('#min_' + index).click();
       } else {
         i = index - 1;
         ytcode = this.userQ.songs[i].ytcode;
@@ -811,15 +812,6 @@ if debug then console.log 'delete-song clicked'
       update: function(event, ui) {
         queue.userQ.updateSongCookies();
         return queue.updateMinQueue();
-      },
-      receive: function(event, ui) {
-        var rindex;
-        console.log('1st list received:' + ui.item.attr('id'));
-        rindex = ui.item.attr('id').split('_');
-        ui.item.attr('id', 'userQ_' + queue.userQ.songs.length);
-        queue.userQ.songs.push(new Song($('#ytcode_' + rindex).val(), $('#title_' + rindex).val(), $('#genre_' + rindex).val(), $('#artist_' + rindex).val(), $('#user_' + rindex).val(), $('#userScore_' + rindex).val(), $('#score_' + rindex).val(), $('#ups_' + rindex).val(), $('#downs_' + rindex).val()));
-        window.queue.updateMinQueue();
-        return queue.userQ.updateSongCookies();
       }
     });
     $(document).on('click', '.song-button', function() {
@@ -907,8 +899,9 @@ if debug then console.log 'delete-song clicked'
     $('.shuffle').click(function() {
       var queue;
       queue = $(this).closest('.queue').attr('id');
-      console.log(queue);
-      return $('#' + queue + ' li').shuffle();
+      $('#' + queue + ' li').shuffle();
+      window.queue.updateMinQueue();
+      if (queue === 'user-queue') return window.queue.userQ.updateSongCookies();
     });
     $(document).on('click', '.song', function() {
       var debug, i, state, temp;
@@ -1046,7 +1039,7 @@ if debug then console.log 'delete-song clicked'
     $(document).on('click', '.search-filter', function() {
       return rankings.search($(this).html());
     });
-    return $('#upload_song').click(function() {
+    $('#upload_song').click(function() {
       var debug;
       debug = false;
       return $.post('ajax/uploadAjax.php', {
@@ -1075,6 +1068,7 @@ if debug then console.log 'delete-song clicked'
         }
       });
     });
+    return $('#min_1').click();
   });
 
 }).call(this);
