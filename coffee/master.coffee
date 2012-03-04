@@ -420,6 +420,15 @@ window.GeneratedQueue = class GeneratedQueue
         #generated queue to start playing again if the userQueue runs out of songs
         @curSong = 0
 
+    #sets the current song to the correct index after the genQ has been shuffled or drag+drop
+    setCurrentSong: ->
+        debug = false
+        if debug then console.log 'GeneratedQueue.setCurrentSong()'
+        if $('.selected-song') and this.curSong > 1
+            $('.selected-song').closest('queue').attr('id') is 'generated-queue'
+            this.curSong = $('.selected-song').index() + 1
+            if debug then console.log '  setting genQ\'s current song to ' + this.curSong
+
     #pulls the current songs from the rankings into the queue
     refresh: (reset = true) ->
         debug = false
@@ -736,6 +745,9 @@ $ ->
     #makings shit sortable
     $('#genQ').sortable({
         update: (event, ui) ->
+            debug = false
+            if debug then console.log 'genQ updated'
+            queue.genQ.setCurrentSong()
             queue.updateMinQueue()
             #connectWith: $('#userQ')
     })
@@ -831,8 +843,11 @@ $ ->
     $('.shuffle').click ->
         queue = $(this).closest('.queue').attr('id')
         $('#' + queue + ' li').shuffle()
+        if queue is 'user-queue' 
+            window.queue.userQ.updateSongCookies()
+        else #queue is 'generated-queue'
+            window.queue.genQ.setCurrentSong()
         window.queue.updateMinQueue()
-        if queue is 'user-queue' then window.queue.userQ.updateSongCookies()
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->

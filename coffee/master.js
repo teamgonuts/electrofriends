@@ -447,6 +447,19 @@ if debug then console.log 'delete-song clicked'
       this.curSong = 0;
     }
 
+    GeneratedQueue.prototype.setCurrentSong = function() {
+      var debug;
+      debug = false;
+      if (debug) console.log('GeneratedQueue.setCurrentSong()');
+      if ($('.selected-song') && this.curSong > 1) {
+        $('.selected-song').closest('queue').attr('id') === 'generated-queue';
+        this.curSong = $('.selected-song').index() + 1;
+        if (debug) {
+          return console.log('  setting genQ\'s current song to ' + this.curSong);
+        }
+      }
+    };
+
     GeneratedQueue.prototype.refresh = function(reset) {
       var debug, i, _ref, _results;
       if (reset == null) reset = true;
@@ -809,6 +822,10 @@ if debug then console.log 'delete-song clicked'
     });
     $('#genQ').sortable({
       update: function(event, ui) {
+        var debug;
+        debug = false;
+        if (debug) console.log('genQ updated');
+        queue.genQ.setCurrentSong();
         return queue.updateMinQueue();
       }
     });
@@ -904,8 +921,12 @@ if debug then console.log 'delete-song clicked'
       var queue;
       queue = $(this).closest('.queue').attr('id');
       $('#' + queue + ' li').shuffle();
-      window.queue.updateMinQueue();
-      if (queue === 'user-queue') return window.queue.userQ.updateSongCookies();
+      if (queue === 'user-queue') {
+        window.queue.userQ.updateSongCookies();
+      } else {
+        window.queue.genQ.setCurrentSong();
+      }
+      return window.queue.updateMinQueue();
     });
     $(document).on('click', '.song', function() {
       var debug, i, state, temp;
