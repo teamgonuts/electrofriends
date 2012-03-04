@@ -533,6 +533,8 @@ window.Rankings = class Rankings
     initialize: ->
         this.initializeSongs(1, @songsPerPage)
         this.loadUsernameCookie()
+        $('#min_1').click() #open the first song
+
 
 
     #if a cookie is set for a username, load it

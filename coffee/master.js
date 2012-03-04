@@ -581,7 +581,8 @@ if debug then console.log 'delete-song clicked'
 
     Rankings.prototype.initialize = function() {
       this.initializeSongs(1, this.songsPerPage);
-      return this.loadUsernameCookie();
+      this.loadUsernameCookie();
+      return $('#min_1').click();
     };
 
     Rankings.prototype.loadUsernameCookie = function() {
