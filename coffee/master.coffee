@@ -267,7 +267,7 @@ window.Queue = class Queue
             #marking all songs in userQ played so next song is the song 
             #directly below this song in the generated queue
             @userQ.markAllPlayed() 
-            $('#min_' + index).click() #open the song that is being played
+            if $('#max_' + index).css('display') is 'none' then $('#min_' + index).click() #open the song that is being played
         else #queue = 'userQ' 
             i = index-1# i-1 because userQ array is 0 based
             ytcode = @userQ.songs[i].ytcode #-1 because the userQ's array is 0 based

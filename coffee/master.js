@@ -281,7 +281,9 @@ if debug then console.log 'delete-song clicked'
         }
         if (debug) console.log('@genQ.curSong=' + this.genQ.curSong);
         this.userQ.markAllPlayed();
-        $('#min_' + index).click();
+        if ($('#max_' + index).css('display') === 'none') {
+          $('#min_' + index).click();
+        }
       } else {
         i = index - 1;
         ytcode = this.userQ.songs[i].ytcode;
