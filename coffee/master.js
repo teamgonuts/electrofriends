@@ -593,7 +593,8 @@ if debug then console.log 'delete-song clicked'
       if (debug) console.log('Rankings.loadUsernameCookie');
       return $.get('ajax/loadUsernameCookie.php', function(data) {
         if (debug) console.log('username cookie: ' + data);
-        return $('.song-max').find('.comment-user').val(data);
+        $('.song-max').find('.comment-user').val(data);
+        return $('#upload_user').val(data);
       });
     };
 

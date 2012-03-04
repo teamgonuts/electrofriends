@@ -544,6 +544,7 @@ window.Rankings = class Rankings
         $.get 'ajax/loadUsernameCookie.php', (data) ->
             if debug then console.log 'username cookie: ' + data
             $('.song-max').find('.comment-user').val(data)
+            $('#upload_user').val(data)
 
     #updates the rankings based off the current filters
     update: ->
