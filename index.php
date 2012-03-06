@@ -102,7 +102,9 @@ include ("classes/GenreFilter.php");
 					<div style="display: none;">
 						
 						<div id="about" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
-						
+							<h2>Meet Our Team</h2>
+							
+							<img src="" alt="Calvin Hawkes Picture" />
 							<p>Calvin Hawkes [@CalvinHawkes] is young entrepreneur from Los Gatos, CA. He 
 							   is currently senior at New York University double majoring Computer Science
 							   & Economics. As an avid listener of EDM, Calvin noticed the need for 
@@ -111,6 +113,14 @@ include ("classes/GenreFilter.php");
 							   he set out to improve upon its functionality while maintaining its community-driven 
 							   principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
 							   with the freshest tracks, creating a database of incredible music to listen to.</p>
+							
+							<img src="" alt="Joel Shaw Picture">
+							<p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA. He graduated 
+							from Cal Poly San Luis Obispo with a degree in Graphic Communications in March of 2011. 
+							Currently he is working as a graphic designer in the San Francisco Bay Area and San 
+							Luis Obispo, CA. 
+							</p>   
+							   
 						</div><!-- end of about -->
 						
 						<div id="contact" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
