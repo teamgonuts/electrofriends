@@ -100,6 +100,35 @@ include ("classes/GenreFilter.php");
 						<img src="images/header/upload.png"> Upload </a>
 				</p>
 					<div style="display: none;">
+						
+						<div id="about" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+						
+							<p>Calvin Hawkes [@CalvinHawkes] is young entrepreneur from Los Gatos, CA. He 
+							   is currently senior at New York University double majoring Computer Science
+							   & Economics. As an avid listener of EDM, Calvin noticed the need for 
+							   acentralized location to discover new, up-and-coming tracks. After 
+							   witnessing the success and strength of the Electro Friends facebook group, 
+							   he set out to improve upon its functionality while maintaining its community-driven 
+							   principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
+							   with the freshest tracks, creating a database of incredible music to listen to.</p>
+						</div><!-- end of about -->
+						
+						<div id="contact" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+							<form action="" method="post" id="contactForm">
+								
+								<label for="name">Name:</label>
+								<input type="text" name="name" id="name" placeholder="Your Full Name"/>
+								
+								<label for="email">Email:</label>
+								<input type="text" name="email" id="email" placeholder="Your Email Address" />
+								
+								<label for="comment">Comment:</label>
+								<textarea id="textArea" name="comments" placeholder="How can we help you?"></textarea>
+								
+							</form>
+							
+						</div><!-- end of about -->
+					
 						<div id="lightbox" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
 							<div class="" id="upload_box">
 							    
@@ -155,9 +184,9 @@ include ("classes/GenreFilter.php");
 			<br/>			
 			<nav id="headerNav">
 				<ul>
-					<li><a href="#">Contact</a></li><!-- end of contact button -->
+					<li><a href="#contact">Contact</a></li><!-- end of contact button -->
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="#about">About</a></li>
 					<li><a id="fresh-list" href="#">Fresh List</a></li>	
 				</ul>
 			</nav><!-- end of headerNav -->			
