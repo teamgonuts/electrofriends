@@ -258,7 +258,7 @@ if debug then console.log 'delete-song clicked'
     Queue.prototype.playSong = function(queue, index, rankings) {
       var debug, i, qindex, ytcode, ytplayer;
       if (rankings == null) rankings = false;
-      debug = false;
+      debug = true;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
       if (queue !== 'genQ' && queue !== 'userQ') {
         console.log('Queue.playSong ERROR: Invalid param queue: ' + queue);

@@ -240,7 +240,7 @@ window.Queue = class Queue
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
              #rankings will be true if the index of the songs should come from the rankings
     playSong: (queue, index, rankings=false) ->
-        debug = false
+        debug = true
         if debug then console.log 'Play Song ' + index + ' in ' + queue
 
 
