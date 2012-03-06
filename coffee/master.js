@@ -321,7 +321,7 @@ if debug then console.log 'delete-song clicked'
       debug = false;
       if (debug) console.log('appending to user queue');
       this.songs.push(new Song($('#ytcode_' + i).val(), $('#title_' + i).val(), $('#genre_' + i).val(), $('#artist_' + i).val(), $('#user_' + i).val(), $('#userScore_' + i).val(), $('#score_' + i).val(), $('#ups_' + i).val(), $('#downs_' + i).val()));
-      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</li><div class="delete-song">[x]</div>');
+      $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + this.songs.length + '"><div class="queue-song"><span class="title"> ' + $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + $('#artist_' + i).val() + '</div><div class="delete-song">[x]</div></li>');
       window.queue.updateMinQueue();
       return this.updateSongCookies();
     };
