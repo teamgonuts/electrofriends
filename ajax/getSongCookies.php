@@ -33,8 +33,8 @@ if(isset($_COOKIE['userQueue'])) {
 
         $i = $j + 1;
         echo' <li class="queue-item user-queue" id="userQ_' . ($i) . '">
-        <div class="queue-song"><span class="title">' .  $title . '</span><br /><span class="purple">//</span> 
-         ' . $artist . '</div><div class="hidden delete-song">[x]</div>';
+        <div class="hidden delete-song">[x]</div><div class="queue-song"><span class="title">' .  $title . '</span><br /><span class="purple">//</span> 
+         ' . $artist . '</div>';
         echo '<span class="delete-info"> 
             <input type="hidden" id="uq_ytcode_'. $i .'" value="'. $ytcode .'"/>
             <input type="hidden" id="uq_title_'. $i .'" value="'. $title .'"/>

@@ -312,9 +312,9 @@ window.UserQueue = class UserQueue
                         $('#ups_' + i).val()
                         $('#downs_' + i).val())
 
-        $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><div class="queue-song"><span class="title"> ' + 
+        $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><div class="hidden delete-song">[x]</div><div class="queue-song"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '</div><div class="delete-song">[x]</div></li>') 
+                  $('#artist_' + i).val() + '</div>') 
         window.queue.updateMinQueue()
         this.updateSongCookies()
 
