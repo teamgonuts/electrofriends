@@ -244,15 +244,20 @@ include ("classes/GenreFilter.php");
             </div><!-- end of queue-title -->
             <div class="shuffle">
             </div><!-- end of shuffle -->
+            
+            <div class="clear"></div><!-- end of clear -->
+            
             <ol class="max-queue" id="userQ">
             </ol>
         </div>
         <div class="queue" id="generated-queue">
             <div class="queue-title">
-                <h3>Generated Queue</h3>
+                <h3>Generated Queue                   	
+                </h3>
             </div>
-            <div class="shuffle">
-            </div><!-- end of shuffle -->            
+			<div class="shuffle">
+            </div><!-- end of shuffle --> 
+            <div class="clear"></div><!-- end of clear -->                     
             <ol class="max-queue" id="genQ">
             </ol>
         </div>

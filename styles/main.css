@@ -1,11 +1,11 @@
+/* Imports */
+@import url("reset.css");
+
+
 /*------------------------------------------------*/
 /*------------------Universals--------------------*/
 /*------------------------------------------------*/
 							
-
-article, aside, figure, footer, header, hgroup, nav, section {
-    display: block;
-}
 
 
 *{
@@ -432,7 +432,7 @@ li.queue-item span.purple {
 
 .queue-title h3 {
     text-align:left;
-    margin: 5px 0;
+    margin: 0px 0 0 10px;
     font-weight: normal;
     font-size: 26px;
     width: auto;
@@ -452,13 +452,12 @@ ol.max-queue li{
     height: 20px;
     background: url('../images/shuffleButton.png') no-repeat;
     cursor: pointer;
-    margin: 0 0 0 10px;
-    float: left;
+    margin: 3px 0 0 10px;
+    float: right;    
 }
 
 .shuffle:hover {
-    background-position-y: -21px;
-
+    background-position: 0 -21px;
 }
 
 .queue-min{
