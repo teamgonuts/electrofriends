@@ -119,7 +119,7 @@ include ("classes/GenreFilter.php");
                                                                 <h2>Meet Our Team</h2>
                                                                 
                                                                 <img src="" alt="Calvin Hawkes Picture" />
-                                                                <p>Calvin Hawkes [@CalvinHawkes] is young entrepreneur from Los Gatos, CA and lead developer of t3k.no. He 
+                                                                <p>Calvin Hawkes [@CalvinHawkes] is an entrepreneur from Los Gatos, CA and lead developer of t3k.no. He 
                                                                    is currently senior at New York University double majoring Computer Science
                                                                    & Economics. As a fan of EDM, Calvin noticed the need for 
                                                                    a centralized location to discover new, up-and-coming tracks. After 
