@@ -767,6 +767,18 @@ $ ->
     })
         
 
+    #=======lightbox logic========
+    $('#about-link').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#about').removeClass('hidden') #showing about
+    $('#contact-link').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#contact').removeClass('hidden') #showing contact
+    $('#upload').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#upload_box').removeClass('hidden') #showing contact
+
+
     #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player
     $(document).on 'click', '.song-button', ->

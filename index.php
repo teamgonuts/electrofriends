@@ -39,7 +39,7 @@ include ("classes/GenreFilter.php");
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			$("#upload").fancybox({
+			$(".lightbox-button").fancybox({
 				'titlePosition'		: 'inside',
 				'transitionIn'		: 'none',
 				'transitionOut'		: 'none'
@@ -96,51 +96,48 @@ include ("classes/GenreFilter.php");
 				</p>
 -->				
 				<p class="upload">
-					<a href="#lightbox" id="upload"> 
-						<img src="images/header/upload.png"> Upload </a>
+					<a href="#lightbox" class="lightbox-button" id="upload"> <img src="images/header/upload.png"> Upload </a>
 				</p>
 					<div style="display: none;">
-						
-						<div id="about" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
-							<h2>Meet Our Team</h2>
-							
-							<img src="" alt="Calvin Hawkes Picture" />
-							<p>Calvin Hawkes [@CalvinHawkes] is young entrepreneur from Los Gatos, CA and lead developer of t3k.no. He 
-							   is currently senior at New York University double majoring Computer Science
-							   & Economics. As a fan of EDM, Calvin noticed the need for 
-							   a centralized location to discover new, up-and-coming tracks. After 
-							   witnessing the success of the Electro Friends facebook group, 
-							   he set out to improve upon its functionality while maintaining its community-driven 
-							   principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
-							   with the freshest tracks, creating a database of incredible, free music.</p>
-							
-							<img src="" alt="Joel Shaw Picture">
-							<p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and head designer of t3k.no. He graduated 
-							from Cal Poly San Luis Obispo with a degree in Graphic Communications in March of 2011. 
-							Currently he is working as a graphic designer in the San Francisco Bay Area and San 
-							Luis Obispo, CA. 
-							</p>   
-							   
-						</div><!-- end of about -->
-						
-						<div id="contact" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
-							<form action="" method="post" id="contactForm">
-								
-								<label for="name">Name:</label>
-								<input type="text" name="name" id="name" placeholder="Your Full Name"/>
-								
-								<label for="email">Email:</label>
-								<input type="text" name="email" id="email" placeholder="Your Email Address" />
-								
-								<label for="comment">Comment:</label>
-								<textarea id="textArea" name="comments" placeholder="How can we help you?"></textarea>
-								
-							</form>
-							
-						</div><!-- end of about -->
-					
 						<div id="lightbox" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
-							<div class="" id="upload_box">
+                                                        <div class="hidden lightbox-div" id="contact" style="color:white;width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+                                                                <form action="" method="post" id="contactForm">
+                                                                        
+                                                                        <label for="name">Name:</label>
+                                                                        <input type="text" name="name" id="name" placeholder="Your Full Name"/>
+                                                                        
+                                                                        <label for="email">Email:</label>
+                                                                        <input type="text" name="email" id="email" placeholder="Your Email Address" />
+                                                                        
+                                                                        <label for="comment">Comment:</label>
+                                                                        <textarea id="textArea" name="comments" placeholder="How can we help you?"></textarea>
+                                                                        
+                                                                </form>
+                                                                
+                                                        </div><!-- end of contact -->
+                                                        <div class="hidden lightbox-div" id="about" style="color:white; width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+                                                                <h2>Meet Our Team</h2>
+                                                                
+                                                                <img src="" alt="Calvin Hawkes Picture" />
+                                                                <p>Calvin Hawkes [@CalvinHawkes] is young entrepreneur from Los Gatos, CA and lead developer of t3k.no. He 
+                                                                   is currently senior at New York University double majoring Computer Science
+                                                                   & Economics. As a fan of EDM, Calvin noticed the need for 
+                                                                   a centralized location to discover new, up-and-coming tracks. After 
+                                                                   witnessing the success of the Electro Friends facebook group, 
+                                                                   he set out to improve upon its functionality while maintaining its community-driven 
+                                                                   principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
+                                                                   with the freshest tracks, creating a database of incredible, free music.</p>
+                                                                
+                                                                <img src="" alt="Joel Shaw Picture">
+                                                                <p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and head designer of t3k.no. He graduated 
+                                                                from Cal Poly San Luis Obispo with a degree in Graphic Communications in March of 2011. 
+                                                                Currently he is working as a graphic designer in the San Francisco Bay Area and San 
+                                                                Luis Obispo, CA. 
+                                                                </p>   
+                                                                   
+                                                        </div><!-- end of about -->
+
+							<div class="hidden lightbox-div" id="upload_box">
 							    
 							    <div id="lightBoxLeft">
 							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
@@ -184,9 +181,8 @@ include ("classes/GenreFilter.php");
                                                                 <input type="text" id="upload_comment"></textarea><br>
 
                                                                 <input type="submit" name="submit" class="submit" value="Upload Song" id="upload_song">
-						        </div><!-- end of right -->
-						        
-							</div>
+                                                            </div><!-- end of right -->
+							</div> <!--end up upload_box-->
 						</div>
 					</div>
 			</div><!-- headerTop -->
@@ -194,9 +190,9 @@ include ("classes/GenreFilter.php");
 			<br/>			
 			<nav id="headerNav">
 				<ul>
-					<li><a href="#contact">Contact</a></li><!-- end of contact button -->
+					<li><a class="lightbox-button" id="contact-link" href="#lightbox">Contact</a></li><!-- end of contact button -->
 					<li><a href="http://t3kdev.tumblr.com/" target="_blank">Blog</a></li>
-					<li><a href="#about">About</a></li>
+					<li><a id="about-link" class="lightbox-button" href="#lightbox">About</a></li>
 					<li><a id="fresh-list" href="#">Fresh List</a></li>	
 				</ul>
 			</nav><!-- end of headerNav -->			

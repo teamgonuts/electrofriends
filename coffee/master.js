@@ -847,6 +847,18 @@ if debug then console.log 'delete-song clicked'
         return window.queue.updateMinQueue();
       }
     });
+    $('#about-link').click(function() {
+      $('.lightbox-div').addClass('hidden');
+      return $('#about').removeClass('hidden');
+    });
+    $('#contact-link').click(function() {
+      $('.lightbox-div').addClass('hidden');
+      return $('#contact').removeClass('hidden');
+    });
+    $('#upload').click(function() {
+      $('.lightbox-div').addClass('hidden');
+      return $('#upload_box').removeClass('hidden');
+    });
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
