@@ -240,7 +240,7 @@ window.Queue = class Queue
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
              #rankings will be true if the index of the songs should come from the rankings
     playSong: (queue, index, rankings=false) ->
-        debug = true
+        debug = false
         if debug then console.log 'Play Song ' + index + ' in ' + queue
 
 
@@ -392,7 +392,7 @@ window.UserQueue = class UserQueue
 
     #corrects any mistakes as the result of reordering of user queue
     refresh: ->
-        debug = true
+        debug = false
         if debug then console.log 'UserQueue.refresh()'
         if $('.selected-song') and $('.selected-song').closest('.queue').attr('id') is 'user-queue'
             index = $('.selected-song').index() + 1 #list number
@@ -404,7 +404,7 @@ window.UserQueue = class UserQueue
 
     #marks all the songs below 'index' not played
     markAllNotPlayed: (index) ->
-        debug = true
+        debug = false
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
         if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
             for i in [0..@songs.length-1]

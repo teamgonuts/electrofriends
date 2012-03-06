@@ -258,7 +258,7 @@ if debug then console.log 'delete-song clicked'
     Queue.prototype.playSong = function(queue, index, rankings) {
       var debug, i, qindex, ytcode, ytplayer;
       if (rankings == null) rankings = false;
-      debug = true;
+      debug = false;
       if (debug) console.log('Play Song ' + index + ' in ' + queue);
       if (queue !== 'genQ' && queue !== 'userQ') {
         console.log('Queue.playSong ERROR: Invalid param queue: ' + queue);
@@ -404,7 +404,7 @@ if debug then console.log 'delete-song clicked'
 
     UserQueue.prototype.refresh = function() {
       var debug, index;
-      debug = true;
+      debug = false;
       if (debug) console.log('UserQueue.refresh()');
       if ($('.selected-song') && $('.selected-song').closest('.queue').attr('id') === 'user-queue') {
         index = $('.selected-song').index() + 1;
@@ -415,7 +415,7 @@ if debug then console.log 'delete-song clicked'
 
     UserQueue.prototype.markAllNotPlayed = function(index) {
       var debug, i, qindex, _ref, _results;
-      debug = true;
+      debug = false;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
       if ($('#userQ').children().length > 1) {
         _results = [];
