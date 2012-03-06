@@ -359,10 +359,6 @@ window.UserQueue = class UserQueue
             window.queue.updateMinQueue()
     
 
-            
-
-        
-
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
     delete: (i) ->
@@ -394,9 +390,21 @@ window.UserQueue = class UserQueue
         for song in @songs
             song.played = true
 
+    #corrects any mistakes as the result of reordering of user queue
+    refresh: ->
+        debug = true
+        if debug then console.log 'UserQueue.refresh()'
+        if $('.selected-song') and $('.selected-song').closest('.queue').attr('id') is 'user-queue'
+            index = $('.selected-song').index() + 1 #list number
+            if debug then console.log 'selected song is at ' + index
+            this.markAllNotPlayed(index)
+
+
+            
+
     #marks all the songs below 'index' not played
     markAllNotPlayed: (index) ->
-        debug = false
+        debug = true
         if debug then console.log 'UserQueue.markAllNotPlayed(' + index + ') called!'
         if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
             for i in [0..@songs.length-1]
@@ -753,8 +761,9 @@ $ ->
     })
     $('#userQ').sortable({
         update: (event, ui) ->
-            queue.userQ.updateSongCookies()
-            queue.updateMinQueue()
+            window.queue.userQ.updateSongCookies()
+            window.queue.userQ.refresh()
+            window.queue.updateMinQueue()
     })
         
 
@@ -845,6 +854,7 @@ $ ->
         $('#' + queue + ' li').shuffle()
         if queue is 'user-queue' 
             window.queue.userQ.updateSongCookies()
+            window.queue.userQ.refresh()
         else #queue is 'generated-queue'
             window.queue.genQ.setCurrentSong()
         window.queue.updateMinQueue()

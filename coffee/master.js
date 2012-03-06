@@ -402,9 +402,20 @@ if debug then console.log 'delete-song clicked'
       return _results;
     };
 
+    UserQueue.prototype.refresh = function() {
+      var debug, index;
+      debug = true;
+      if (debug) console.log('UserQueue.refresh()');
+      if ($('.selected-song') && $('.selected-song').closest('.queue').attr('id') === 'user-queue') {
+        index = $('.selected-song').index() + 1;
+        if (debug) console.log('selected song is at ' + index);
+        return this.markAllNotPlayed(index);
+      }
+    };
+
     UserQueue.prototype.markAllNotPlayed = function(index) {
       var debug, i, qindex, _ref, _results;
-      debug = false;
+      debug = true;
       if (debug) console.log('UserQueue.markAllNotPlayed(' + index + ') called!');
       if ($('#userQ').children().length > 1) {
         _results = [];
@@ -831,8 +842,9 @@ if debug then console.log 'delete-song clicked'
     });
     $('#userQ').sortable({
       update: function(event, ui) {
-        queue.userQ.updateSongCookies();
-        return queue.updateMinQueue();
+        window.queue.userQ.updateSongCookies();
+        window.queue.userQ.refresh();
+        return window.queue.updateMinQueue();
       }
     });
     $(document).on('click', '.song-button', function() {
@@ -923,6 +935,7 @@ if debug then console.log 'delete-song clicked'
       $('#' + queue + ' li').shuffle();
       if (queue === 'user-queue') {
         window.queue.userQ.updateSongCookies();
+        window.queue.userQ.refresh();
       } else {
         window.queue.genQ.setCurrentSong();
       }
