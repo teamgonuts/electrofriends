@@ -112,6 +112,8 @@ include ("classes/GenreFilter.php");
                                                                         <label for="comment">Comment:</label>
                                                                         <textarea id="textArea" name="comments" placeholder="How can we help you?"></textarea>
                                                                         
+                                                                        <input type="submit" id="submit" value="submit" />
+                                                                        
                                                                 </form>
                                                                 
                                                         </div><!-- end of contact -->
