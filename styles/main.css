@@ -245,7 +245,7 @@ h1, h2, h3, h4, h5 {
 /*------------------------------------------------*/
 #queue-logo-container{
     background-color:#000;
-    width:315px;
+    width:100%;
     height: 140px;
     padding: 10px 0 0 0;
 }
