@@ -789,6 +789,10 @@ $ ->
                 (data) ->
                     if debug then console.log 'Data: ' + data
                     $('#contact-results').html(data)
+                    #erasing old results
+                    $('#contact-email').val('')
+                    $('#contact-name').val('')
+                    $('#contact-message').val('')
 
 
     #either add to queue or play song, whichever was pressed

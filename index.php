@@ -139,8 +139,8 @@ include ("classes/GenreFilter.php");
                                                                 
                                                                 <h3>Calvin Hawkes</h3>
                                                                 <img src="images/headshots/calvin.jpg" alt="Calvin Hawkes Picture" class="calvin" />
-                                                                <p>Calvin Hawkes [@CalvinHawkes] is an entrepreneur from Los Gatos, CA and developer of t3k.no. He 
-                                                                   is currently senior at New York University double majoring Computer Science
+                                                                <p>Calvin Hawkes [@CalvinHawkes] is an entrepreneur from Los Gatos, CA and the developer of t3k.no. He 
+                                                                   is currently a senior at New York University double majoring Computer Science
                                                                    & Economics. As a fan of EDM, Calvin noticed the need for 
                                                                    a centralized location to discover new, up-and-coming tracks. After 
                                                                    witnessing the success of the Electro Friends facebook group, 

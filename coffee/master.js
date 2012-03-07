@@ -869,7 +869,10 @@ if debug then console.log 'delete-song clicked'
         message: $('#contact-message').val()
       }, function(data) {
         if (debug) console.log('Data: ' + data);
-        return $('#contact-results').html(data);
+        $('#contact-results').html(data);
+        $('#contact-email').val('');
+        $('#contact-name').val('');
+        return $('#contact-message').val('');
       });
     });
     $(document).on('click', '.song-button', function() {
