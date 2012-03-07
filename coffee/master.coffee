@@ -788,6 +788,7 @@ $ ->
                 message: $('#contact-message').val()
                 (data) ->
                     if debug then console.log 'Data: ' + data
+                    $('#contact-results').html(data)
 
 
     #either add to queue or play song, whichever was pressed
