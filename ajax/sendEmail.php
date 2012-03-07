@@ -16,7 +16,7 @@ else
 
     /* PHP form validation: the script checks that the Email field contains a valid email address and the Subject field isn't empty. preg_match performs a regular expression match. It's a very powerful PHP function to validate form fields and other strings - see PHP manual for details. */
     if (!preg_match("/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/", $email)) {
-      echo "<h4>Invalid email address</h4>";
+      echo "<h4>Please enter a valid email</h4>";
     } elseif ($name == "") {
       echo "<h4>Please enter a name</h4>";
     }
@@ -28,7 +28,7 @@ else
         //setting cookie
         $inThirtySeconds = 30 + time(); 
         setcookie("contact", "wait", $inThirtySeconds);
-        echo "<h4>E-mail successfully sent</h4>";
+        echo "<h4>Thank you for the feedback.</h4>";
     } else {
         echo "<h4>Can't send email: Unknown Error</h4>";
     }
