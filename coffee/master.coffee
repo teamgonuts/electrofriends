@@ -778,6 +778,17 @@ $ ->
         $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
         $('#upload_box').removeClass('hidden') #showing contact
 
+    #=====contact =====
+    $('#contact-submit').click ->
+        debug = true
+        if debug then console.log 'contact-submit clicked'
+        $.post 'ajax/sendEmail.php',
+                email: $('#contact-email').val()
+                name: $('#contact-name').val()
+                message: $('#contact-message').val()
+                (data) ->
+                    if debug then console.log 'Data: ' + data
+
 
     #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player

@@ -104,16 +104,15 @@ include ("classes/GenreFilter.php");
                                                                 <form action="" method="post" id="contactForm">
                                                                         
                                                                         <label for="name">Name:</label>
-                                                                        <input type="text" name="name" id="name" placeholder="Your Full Name"/>
+                                                                        <input type="text" name="name" id="contact-name" placeholder="Your Full Name"/>
                                                                         
                                                                         <label for="email">Email:</label>
-                                                                        <input type="text" name="email" id="email" placeholder="Your Email Address" />
+                                                                        <input type="text" name="email" id="contact-email" placeholder="Your Email Address" />
                                                                         
                                                                         <label for="comment">Comment:</label>
-                                                                        <textarea id="textArea" name="comments" placeholder="How can we help you?"></textarea>
+                                                                        <textarea id="contact-message" name="comments" placeholder="How can we help you?"></textarea>
                                                                         
-                                                                        <input type="submit" id="submit" value="submit" />
-                                                                        
+                                                                        <h3 id="contact-submit">Submit</h3> 
                                                                 </form>
                                                                 
                                                         </div><!-- end of contact -->

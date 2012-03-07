@@ -859,6 +859,18 @@ if debug then console.log 'delete-song clicked'
       $('.lightbox-div').addClass('hidden');
       return $('#upload_box').removeClass('hidden');
     });
+    $('#contact-submit').click(function() {
+      var debug;
+      debug = true;
+      if (debug) console.log('contact-submit clicked');
+      return $.post('ajax/sendEmail.php', {
+        email: $('#contact-email').val(),
+        name: $('#contact-name').val(),
+        message: $('#contact-message').val()
+      }, function(data) {
+        if (debug) return console.log('Data: ' + data);
+      });
+    });
     $(document).on('click', '.song-button', function() {
       var i;
       i = $(this).closest('.song').attr('id').split('_')[1];
