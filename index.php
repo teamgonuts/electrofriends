@@ -102,10 +102,13 @@ include ("classes/GenreFilter.php");
 				</p>
 					<div style="display: none;">
 						<div id="lightbox" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
-                                                        <div class="hidden lightbox-div" id="contact" style="color:white;width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+                           <div class="hidden lightbox-div" id="contact" style="color:white;width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
 								
+							 <img src="images/lightbox/lightboxLogo-large.jpg" alt="T3K.no logo" />
+							 
+							 <div id="contact-results"></div>
+
 								<div class="lightBoxLeft">
-							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
 							        
                                     <h2>Need to get a hold of us?</h2>
                                     <p>Have a question, comment or concern? Fill out the form and will get back to you shortly.</p>
@@ -124,9 +127,9 @@ include ("classes/GenreFilter.php");
                                                                         <label for="comment">Comment:</label>
                                                                         <textarea id="contact-message" name="comments" placeholder="How can we help you?"></textarea>
                                                                         
-                                                                        <h3 id="contact-submit">Submit</h3> 
+                                                                        <h3 id="contact-submit">Submit</h3>
                                                                         <br>
-                                                                        <div id="contact-results"></div>
+                                                                        
                                                                 </form>
                                  </div><!-- end of lightbox right -->
                                                                 
