@@ -780,7 +780,7 @@ $ ->
 
     #=====contact =====
     $('#contact-submit').click ->
-        debug = true
+        debug = false
         if debug then console.log 'contact-submit clicked'
         $.post 'ajax/sendEmail.php',
                 email: $('#contact-email').val()

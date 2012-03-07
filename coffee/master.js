@@ -861,7 +861,7 @@ if debug then console.log 'delete-song clicked'
     });
     $('#contact-submit').click(function() {
       var debug;
-      debug = true;
+      debug = false;
       if (debug) console.log('contact-submit clicked');
       return $.post('ajax/sendEmail.php', {
         email: $('#contact-email').val(),
