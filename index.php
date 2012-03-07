@@ -28,7 +28,7 @@ include ("classes/GenreFilter.php");
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js">//for drag & drop</script>
         <script type="text/javascript" src="js/swfobject.js">//embedding youtube videos</script>
         <script type="text/javascript" src="js/jquery.shuffle.js">//embedding youtube videos</script>
-        <script type="text/javascript" src="coffee/master.js"></script>
+        <script type="text/javascript" src="coffee/master_mini.js"></script>
         
 	<script>
 		!window.jQuery && document.write('<script src="jquery-1.7.1min.js"><\/script>');
@@ -383,7 +383,7 @@ include ("classes/GenreFilter.php");
 		
                 <img src="images/footer/footerLogo.png" alt="T3K.no Logo" />
 		<p>&copy; 2011 t3k.no | All Rights Reserved.</p>
-		<a href="http://www.facebook.com/pages/t3kno/146156005506087" target="_blank"><img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/></a>
+		<a href="http://www.facebook.com/officialt3kno" target="_blank"><img src="images/footer/footerFacebook.png" alt="add us on facebook" class="socials"/></a>
 		<a href="https://twitter.com/#!/t3kdev" target="_blank"><img src="images/footer/footerTwitter.png" alt="follow us on Twitter!" class="socials"/></a> 
 	</div><!-- end of content -->
 <div class="clear"></div>

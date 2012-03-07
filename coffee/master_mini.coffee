@@ -1,3 +1,7 @@
+###=================================================
+if debug then console.log 'delete-song clicked'
+----------------Youtube Player----------------------
+=================================================###
 window.Player = class Player
     constructor: ->
         this.initializePlayer()
@@ -5,6 +9,9 @@ window.Player = class Player
         @songsToRemember = 10 #number of songs to keep in history
     
     initializePlayer: ->
+        #loads the first song in the rankings into the player
+
+        
         params = { allowScriptAccess: "always" };
         swfobject.embedSWF("http://www.youtube.com/v/" + $('#ytcode_1').val() +  "&enablejsapi=1&playerapiid=ytplayer" +
                        "&hd=1&iv_load_policy=3&rel=0&showinfo=0&autohide=1",
@@ -192,8 +199,6 @@ window.Queue = class Queue
     #params: queue should be 'gen' or 'user'; index should be valid song in queue
              #rankings will be true if the index of the songs should come from the rankings
     playSong: (queue, index, rankings=false) ->
-
-
         #checking for valid params
         if queue != 'genQ' and queue != 'userQ' 
             console.log 'Queue.playSong ERROR: Invalid param queue: ' + queue
@@ -255,9 +260,9 @@ window.UserQueue = class UserQueue
                         $('#ups_' + i).val()
                         $('#downs_' + i).val())
 
-        $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><span class="title"> ' + 
+        $('#userQ').append(' <li class="queue-item user-queue" id="userQ_' + @songs.length + '"><div class="hidden delete-song">[x]</div><div class="queue-song"><span class="title"> ' + 
                   $('#title_' + i).val() + '</span><br /><span class="purple"> //</span> ' + 
-                  $('#artist_' + i).val() + '<div class="delete-song">[x]</div></li>') 
+                  $('#artist_' + i).val() + '</div>') 
         window.queue.updateMinQueue()
         this.updateSongCookies()
 
@@ -275,6 +280,7 @@ window.UserQueue = class UserQueue
 
     #retrieves songs that were stored in cookies from last time
     getSongCookies: ->
+
         $.get 'ajax/getSongCookies.php' , (data) ->
             $('#userQ').html(data) 
             #creating songs and adding to userq
@@ -293,10 +299,6 @@ window.UserQueue = class UserQueue
                 $('.delete-info').html('')
             window.queue.updateMinQueue()
     
-
-            
-
-        
 
     #deletes the song i from the user queue
     # the i that is a param is the correct number for the queue but i-1 should be used for @songs
@@ -322,6 +324,15 @@ window.UserQueue = class UserQueue
         for song in @songs
             song.played = true
 
+    #corrects any mistakes as the result of reordering of user queue
+    refresh: ->
+        if $('.selected-song') and $('.selected-song').closest('.queue').attr('id') is 'user-queue'
+            index = $('.selected-song').index() + 1 #list number
+            this.markAllNotPlayed(index)
+
+
+            
+
     #marks all the songs below 'index' not played
     markAllNotPlayed: (index) ->
         if $('#userQ').children().length > 1 #if it is 1, then no need to mark anything unplayed
@@ -340,6 +351,12 @@ window.GeneratedQueue = class GeneratedQueue
         #CAN be different than the current song playing, used to determine where in the
         #generated queue to start playing again if the userQueue runs out of songs
         @curSong = 0
+
+    #sets the current song to the correct index after the genQ has been shuffled or drag+drop
+    setCurrentSong: ->
+        if $('.selected-song') and this.curSong > 1
+            $('.selected-song').closest('queue').attr('id') is 'generated-queue'
+            this.curSong = $('.selected-song').index() + 1
 
     #pulls the current songs from the rankings into the queue
     refresh: (reset = true) ->
@@ -521,7 +538,6 @@ window.Rankings = class Rankings
     #if it is in the rankings
     #params: comment - text of comment, index - song index to insert comment, -1 means its not in the rankings
     submitComment: (comment, user, index = -1) ->
-
         if comment is '' then alert 'Please enter a comment'
         else if user is '' then alert 'Please enter a username to comment'
         else #submit comment
@@ -626,15 +642,42 @@ $ ->
     #makings shit sortable
     $('#genQ').sortable({
         update: (event, ui) ->
+            queue.genQ.setCurrentSong()
             queue.updateMinQueue()
             #connectWith: $('#userQ')
     })
     $('#userQ').sortable({
         update: (event, ui) ->
-            queue.userQ.updateSongCookies()
-            queue.updateMinQueue()
+            window.queue.userQ.updateSongCookies()
+            window.queue.userQ.refresh()
+            window.queue.updateMinQueue()
     })
         
+
+    #=======lightbox logic========
+    $('#about-link').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#about').removeClass('hidden') #showing about
+    $('#contact-link').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#contact').removeClass('hidden') #showing contact
+    $('#upload').click ->
+        $('.lightbox-div').addClass('hidden') #hiding all other lightbox content
+        $('#upload_box').removeClass('hidden') #showing contact
+
+    #=====contact =====
+    $('#contact-submit').click ->
+        $.post 'ajax/sendEmail.php',
+                email: $('#contact-email').val()
+                name: $('#contact-name').val()
+                message: $('#contact-message').val()
+                (data) ->
+                    $('#contact-results').html(data)
+                    #erasing old results
+                    $('#contact-email').val('')
+                    $('#contact-name').val('')
+                    $('#contact-message').val('')
+
 
     #either add to queue or play song, whichever was pressed
     #when the play-button is clicked in a maxed song, loads the song in the player
@@ -711,8 +754,12 @@ $ ->
     $('.shuffle').click ->
         queue = $(this).closest('.queue').attr('id')
         $('#' + queue + ' li').shuffle()
+        if queue is 'user-queue' 
+            window.queue.userQ.updateSongCookies()
+            window.queue.userQ.refresh()
+        else #queue is 'generated-queue'
+            window.queue.genQ.setCurrentSong()
         window.queue.updateMinQueue()
-        if queue is 'user-queue' then window.queue.userQ.updateSongCookies()
 
     #=============to maximize and minimize songs in the rankings=============
     $(document).on 'click', '.song', ->
@@ -867,5 +914,4 @@ $ ->
                     
     #finally, click the first song so the player embedding doesn't get messed up
     $('#min_1').click()
-
 
