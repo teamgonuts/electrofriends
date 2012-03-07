@@ -153,7 +153,7 @@ include ("classes/GenreFilter.php");
                                                                 <h3>Joel Shaw</h3>
                                                                 
                                                                 <img src="images/headshots/joel.jpg" alt="Joel Shaw Picture" class="joel">
-                                                                <p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and designer of t3k.no. He graduated 
+                                                                <p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and the designer of t3k.no. He graduated 
                                                                 from Cal Poly San Luis Obispo with a degree in Graphic Communications in March of 2011. 
                                                                 Currently he is working as a graphic designer in the San Francisco Bay Area and San 
                                                                 Luis Obispo, CA. 
