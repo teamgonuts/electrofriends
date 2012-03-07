@@ -123,6 +123,7 @@ include ("classes/GenreFilter.php");
                                                         <div class="hidden lightbox-div" id="about" style="color:white; width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
                                                                 <h2>Meet Our Team</h2>
                                                                 
+                                                                <h3>Calvin Hawkes</h3>
                                                                 <img src="images/headshots/calvin.jpg" alt="Calvin Hawkes Picture" class="calvin" />
                                                                 <p>Calvin Hawkes [@CalvinHawkes] is an entrepreneur from Los Gatos, CA and developer of t3k.no. He 
                                                                    is currently senior at New York University double majoring Computer Science
@@ -132,6 +133,10 @@ include ("classes/GenreFilter.php");
                                                                    he set out to improve upon its functionality while maintaining its community-driven 
                                                                    principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
                                                                    with the freshest tracks, creating a database of incredible, free music.</p>
+                                                                   
+                                                                   <div class="clear"></div><!-- clear -->
+                                                                
+                                                                <h3>Joel Shaw</h3>
                                                                 
                                                                 <img src="images/headshots/joel.jpg" alt="Joel Shaw Picture" class="joel">
                                                                 <p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and designer of t3k.no. He graduated 
