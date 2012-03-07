@@ -123,7 +123,7 @@ include ("classes/GenreFilter.php");
                                                         <div class="hidden lightbox-div" id="about" style="color:white; width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
                                                                 <h2>Meet Our Team</h2>
                                                                 
-                                                                <img src="images/headshots/calvin.jpg" alt="Calvin Hawkes Picture" />
+                                                                <img src="images/headshots/calvin.jpg" alt="Calvin Hawkes Picture" class="calvin" />
                                                                 <p>Calvin Hawkes [@CalvinHawkes] is an entrepreneur from Los Gatos, CA and lead developer of t3k.no. He 
                                                                    is currently senior at New York University double majoring Computer Science
                                                                    & Economics. As a fan of EDM, Calvin noticed the need for 
@@ -133,7 +133,7 @@ include ("classes/GenreFilter.php");
                                                                    principles. He hopes that by allowing anyone to share songs, t3k.no will stay up to date 
                                                                    with the freshest tracks, creating a database of incredible, free music.</p>
                                                                 
-                                                                <img src="images/headshots/joel.jpg" alt="Joel Shaw Picture">
+                                                                <img src="images/headshots/joel.jpg" alt="Joel Shaw Picture" class="joel">
                                                                 <p>Joel Shaw [@joelshaw5] is also a Bay Area native, from Cupertino, CA and head designer of t3k.no. He graduated 
                                                                 from Cal Poly San Luis Obispo with a degree in Graphic Communications in March of 2011. 
                                                                 Currently he is working as a graphic designer in the San Francisco Bay Area and San 
