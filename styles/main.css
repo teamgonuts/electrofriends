@@ -244,13 +244,12 @@ h1, h2, h3, h4, h5 {
 /*------------------ADDED BY calvin---------------*/
 /*------------------------------------------------*/
 #queue-logo-container{
-    background:#000;
-    width: 300px;
+    background-color:#000;
+    width:315px;
     height: 140px;
-    text-align:center;
-    position: fixed;
     padding: 10px 0 0 0;
 }
+
 
 #min-queue li, .ellipsis{
     white-space: nowrap;
@@ -284,7 +283,6 @@ h1, h2, h3, h4, h5 {
     text-size: smaller;
     color: white;
     background-color: black;
-    margin-top: 150px;
 }
 
 .ads-button{
