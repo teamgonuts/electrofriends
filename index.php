@@ -103,6 +103,16 @@ include ("classes/GenreFilter.php");
 					<div style="display: none;">
 						<div id="lightbox" style="width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
                                                         <div class="hidden lightbox-div" id="contact" style="color:white;width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
+								
+								<div class="lightBoxLeft">
+							    	<img src="images/lightbox/uploadLogo.png" alt="T3K.no logo" />
+							        
+                                    <h2>Need to get a hold of us?</h2>
+                                    <p>Have a question, comment or concern? Fill out the form and will get back to you shortly.</p>
+                                    
+							    </div><!-- end of left -->
+							    <div class="lightBoxRight">
+                                                        
                                                                 <form action="" method="post" id="contactForm">
                                                                         
                                                                         <label for="name">Name:</label>
@@ -118,6 +128,7 @@ include ("classes/GenreFilter.php");
                                                                         <br>
                                                                         <div id="contact-results"></div>
                                                                 </form>
+                                 </div><!-- end of lightbox right -->
                                                                 
                                                         </div><!-- end of contact -->
                                                         <div class="hidden lightbox-div" id="about" style="color:white; width:650px;height:420px; background-color:#000; color #fff; overflow:auto;">
