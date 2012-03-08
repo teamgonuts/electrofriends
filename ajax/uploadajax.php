@@ -14,11 +14,16 @@ if(isset($_POST['title']) && validPost())
 
     if(isset($_COOKIE['recent_upload'])){//if the user recently uploaded a song
         if($_COOKIE['recent_upload'] == '1'){ //only submitted one song, let the user submit again
-            $inOneDay = 60 * 60 * 24 + time(); 
-            setcookie("recent_upload", "2" , $inOneDay); //now the user can't submit again for another day
+            $inTwelveHours = 60 * 60 * 12 + time(); 
+            setcookie("recent_upload", "2" , $inTwelveHours); //now the user can't submit again for another day
+        }
+        elseif ($_COOKIE['recent_upload'] == '2'){
+            $inTwelveHours = 60 * 60 * 12 + time(); 
+            setcookie("recent_upload", "3" , $inTwelveHours); //now the user can't submit again for another day
+
         }
         else {//user can't submit again
-            echo 'Please wait 24 hours to submit again <br />';
+            echo 'Please wait 12 hours to submit again <br />';
             $ok = false;
         }
     }

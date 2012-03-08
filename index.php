@@ -331,8 +331,8 @@ include ("classes/GenreFilter.php");
 
 <section id="adBlock">
 	<div class="content">
-		<p id="adsPlease">Ads help support t3k.no's development. If it <i>really</i> bothers you, <span class="ads-button" id="hide-ads">click here</span> to hide the ads.</p>
-                <div class="ads">
+		<p id="adsPlease">Ads help support t3k.no's developlement. Help t3k.no stay fast, <span class="ads-button" id="show-ads">click here</span> to enable ads.</p>
+                <div class="ads hidden">
                     <div class="adBlockLeft">
                         <script type="text/javascript"><!--
                         google_ad_client = "ca-pub-6274607241853425";
