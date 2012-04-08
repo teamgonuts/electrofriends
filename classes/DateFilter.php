@@ -35,10 +35,12 @@ class DateFilter extends Filter
                 case 'century':
                     return 36500;
                     break;
-                        case 'new':
-                                return 100000;
+                case 'new':
+                    return 100000;
+                    break;
                 case 'freshest':
-                                return 100000;
+                    return 100000;
+                    break;
             }
         }
 
