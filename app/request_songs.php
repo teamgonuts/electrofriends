@@ -71,7 +71,7 @@ if (isset($_GET['timefilter'])) {
   HttpResponse::setContentType('text/html');
   HttpResponse::setData("<html>hellow world...</html>");
   HttpResponse::send(); */
-//} end if
+} //end if
 ?>
   <p>test</p>
 </body>
