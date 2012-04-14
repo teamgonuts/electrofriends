@@ -14,21 +14,25 @@ class Song
   public $title;
   public $artist;
   public $ytcode;
+  public $score;
+  public $genre;
 
-  public function Song($title, $artist, $ytcode){
+  public function Song($title, $artist, $ytcode, $score, $genre){
     $this->title = $title;
     $this->artist = $artist;
     $this->ytcode = $ytcode;
+    $this->score = $score;
+    $this->genre = $genre;
   }
 }
 
-//if (isset($_POST['timefilter'])) {
+if (isset($_GET['timefilter'])) {
   $songsPerPage = 30;
 
-  //$topOf = $_POST['timefilter'];
-  $topOf = 'new';
-  //$genre = $_POST['genrefilter'];
-  $genre = 'all';
+  $topOf = $_GET['timefilter'];
+  //$topOf = 'new';
+  $genre = $_GET['genrefilter'];
+  //$genre = 'all';
 
   $timeFilter = new DateFilter($topOf);
   $genreFilter = new GenreFilter($genre);
@@ -37,14 +41,14 @@ class Song
 
 
   if($topOf == 'new'){ //newest was selected, order by upload date
-    $qry = mysql_query("SELECT title,artist,youtubecode FROM  `songs` 
+    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre FROM  `songs` 
                         WHERE $where
                         ORDER BY uploaded_on DESC
                         LIMIT 0 , $songsPerPage
                         ");
   }
   else {//order by score
-    $qry = mysql_query("SELECT title,artist,youtubecode FROM  `songs` 
+    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre FROM  `songs` 
                         WHERE $where
                         ORDER BY score DESC
                         LIMIT 0 , $songsPerPage
@@ -55,12 +59,13 @@ class Song
 
   $songs = array();
   while($row = mysql_fetch_array($qry)) {
-    $song = new Song($row['title'], $row['artist'], $row['youtubecode']);
+    $song = new Song($row['title'], $row['artist'], $row['youtubecode'], $row['score'], $row['genre']);
     array_push($songs, $song);
   }
 
+  echo json_encode($songs);
   //printing out each item
-  print_r($songs);
+  //print_r($songs);
 
 /*  HttpResponse::setCache(true);
   HttpResponse::setContentType('text/html');
