@@ -1,7 +1,3 @@
-<html>
-<head>
-</head>
-<body>
 <?php
 include ("../connection.php");
 include ("../classes/Filter.php");
@@ -73,6 +69,3 @@ if (isset($_GET['timefilter'])) {
   HttpResponse::send(); */
 } //end if
 ?>
-  <p>test</p>
-</body>
-</html>
