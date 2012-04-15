@@ -18,6 +18,7 @@ class DateFilter extends Filter
         //coverts dateFilter word into coresponding days
         function word2num($topof)
         {
+            $topof = strToLower($topof);
             switch($topof)
             {
                 case 'day':
