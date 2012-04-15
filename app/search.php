@@ -16,7 +16,6 @@ if (isset($_GET['searchTerm'])) {
 
     $levArr = array(); //array of levenshtein numbers
 
-    echo "sizeOf($qry) = " . sizeOf($qry);
     //determining closest matches
     while($row = mysql_fetch_array($qry)) {
         //if the search term is contained in the title or artist
