@@ -6,7 +6,7 @@ include ("AppSong.php");
 //need to know time filter so I can either sort by upload date or score
 if (isset($_GET['searchTerm'])) {
   
-    $searchTerm = $_POST['searchTerm'];
+    $searchTerm = $_GET['searchTerm'];
     $upperLimit = 30;
 
     $qry = mysql_query("SELECT title,artist,youtubecode,score,genre FROM  `songs`
@@ -16,6 +16,7 @@ if (isset($_GET['searchTerm'])) {
 
     $levArr = array(); //array of levenshtein numbers
 
+    echo "sizeOf($qry) = " . sizeOf($qry);
     //determining closest matches
     while($row = mysql_fetch_array($qry)) {
         //if the search term is contained in the title or artist
