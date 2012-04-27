@@ -1,64 +1,43 @@
 <?php
 include('../connection.php');
 
-if($_POST)
+if(isset($_GET['vote']))
 {
-        $result = $_POST['result'];
-	$ytcode = $_POST['ytcode'];
-	$score = $_POST['score']; //higher score
-	$uniqueID = $_POST['uid']; //unique id for iphone using mac address 
+  $vote = $_GET['vote']; //-1 or 1
+  $ytcode = $_GET['ytcode'];
+  $score = $_GET['score']; 
+  $uniqueID = $_GET['uid']; //unique id for iphone using mac address 
+  $user = $_GET['user'];
+  
+  $validVote = true; 
+    
+  //check if the user has voted on this song before
+  $qry = mysql_query("SELECT vote FROM  `app_votes` 
+                      WHERE unique_id = '$uniqueID', ytcode = '$ytcode'");
+  if (!$qry)
+      die("FAIL: " . mysql_error());
 
-    //first, let's make sure the user hasn't voted before
-    if(isset($_COOKIE[$ytcode])) { 
-        //user voted before, let's just return the same score
-        if($player == "true"){
-            echo '<span class="score" id="currentSongScore">'. $score .
-                 '</span> [<span id="currentSongUps">' . $ups .'</span>/<span id="currentSongDowns">' . $downs . '</span>] ';
-        }
-        else{
-            echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
-        }
-    } else {//user hasn't voted before
-
-        //let's set a cookie so the user can't vote again
-        $inTwoMonths = 60 * 60 * 24 * 60 + time(); 
-        setcookie($ytcode, $result, $inTwoMonths);
-
-        //calulating new score, ups, downs
-        $toAdd = -1; //what to add to the user's score. 
-        if($result == 'up')
-        {
-            $score ++;
-            $ups ++;
-            $toAdd = 1;
-        }
-        else //result == 'down'
-        {
-            $score --;
-            $downs ++;
-        }
-
-        //updating song's score in database
-        $qry = "UPDATE songs SET score='$score' , ups='$ups', downs='$downs' WHERE youtubecode='$ytcode'";
-        $qry = mysql_query($qry);
-        if (!$qry)
-            die("FAIL: " . mysql_error());
-            
-
-        //updating user's score in database
-        $qry = mysql_query('UPDATE users SET points=points + '. $toAdd . ' WHERE user="'. $user .'"');
-        if (!$qry)
-            die("FAIL: " . mysql_error());
-
-        if($player == "true"){
-            echo '<span class="score" id="currentSongScore">'. $score .
-                 '</span> [<span id="currentSongUps">' . $ups .'</span>/<span id="currentSongDowns">' . $downs . '</span>] ';
-        }
-        else{
-            echo '<span class="score">' . $score . '</span> [' . $ups . '/' . $downs . '] ';
-        }
+  if (mysql_num_rows($qry) > 0)//if user has voted
+  {
+    $row = mysql_fetch_array($qry);
+    if($row['vote'] == $vote)//vote is the same
+    {
+      //dont count the vote 
+      $validVote = false;
     }
-}
-else { die("FAIL: POST not set in voteUpAjax"); }
+    else //vote is different
+    {
+      //update users vote
+      $qry = mysql_query("UPDATE songs 
+                          SET vote='$vote'
+                          WHERE unique_id = '$uniqueID', ytcode = '$ytcode'");
+      if (!$qry)
+          die("FAIL: " . mysql_error());
+    }
+  }
+  else //user has not voted on this song before 
+  {
+    
+  }
 ?>
 
