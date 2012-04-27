@@ -1,4 +1,3 @@
-
 <?php
 include('../connection.php');
 
@@ -91,12 +90,15 @@ if(isset($_GET['vote']))
         die("FAIL: " . mysql_error());
   }
  
-  //returning the result
-  //true = should update the score in SongCell/ExpandedCell else don't update
+  //returning the correct amount to add to the score
+  //only if it was a valid vote
   if ($validVote)
-    echo "true";
-  else
-    echo "false";
+  {
+    if ($changedVote)
+      echo ($vote*2);
+    else
+      echo $vote;
+  }
 }
 
 
