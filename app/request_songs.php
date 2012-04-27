@@ -21,14 +21,14 @@ if (isset($_GET['timefilter'])) {
 
 
   if($topOf == 'new'){ //newest was selected, order by upload date
-    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre FROM  `songs` 
+    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre,user FROM  `songs` 
                         WHERE $where
                         ORDER BY uploaded_on DESC
                         LIMIT 0 , $songsPerPage
                         ");
   }
   else {//order by score
-    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre FROM  `songs` 
+    $qry = mysql_query("SELECT title,artist,youtubecode,score,genre,user FROM  `songs` 
                         WHERE $where
                         ORDER BY score DESC
                         LIMIT 0 , $songsPerPage
@@ -39,7 +39,8 @@ if (isset($_GET['timefilter'])) {
 
   $songs = array();
   while($row = mysql_fetch_array($qry)) {
-    $song = new Song($row['title'], $row['artist'], $row['youtubecode'], $row['score'], $row['genre']);
+    $song = new Song($row['title'], $row['artist'], $row['youtubecode'],
+             $row['score'], $row['genre'], $row['user']);
     array_push($songs, $song);
   }
 
